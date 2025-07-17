@@ -42,7 +42,7 @@
 - **npm** >= 9
 - Modern web browser (Chrome, Edge, Firefox, Safari)
 - Webcam access permission
-- Localhost or remote HTTPS
+- Localhost / remote HTTPS
 
 ## Installation
 
@@ -72,7 +72,7 @@
 - **Configure Detection**: Use the UI to set detection parameters for fire, motion, and other objects.
 - **View Results**: Detected objects will be highlighted in the video stream with bounding boxes and labels.
 
-**Supported source input:**
+**Supported input sources:**
 
 - **Webcam Input**: Use built-in webcam or external USB webcam.
 - **Video File Input**: Upload video files for analysis.
