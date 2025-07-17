@@ -16,12 +16,13 @@
 
 - **Real-Time Detection**: Detects objects in live video streams.
 - **Bounding Boxes and Labels**: Overlays bounding boxes and labels on the detected objects.
-- **Modular Backend**: Node.js backend for stream management and API integration.
 - **Customizable Detection**: Configure detection for fire, motion, and more.
+- **Modular Backend**: Node.js backend for stream management and API integration.
 - **Voice Command Control**: Users can use voice commands to control the system.
 - **Flexible Input**: Supports webcam, video files, IP cameras, and internet streams.
-- **Adaptability**: Adapts to user preferences and improves based on input command history and environments.
+- **Intuitive User Interface**: Easy-to-use interface with help and tutorial components.
 
+<!-- - **Adaptability**: Adapts to user preferences and improves based on input command history and environments. -->
 <!-- - **Intuitive UI**: Includes help, tutorial, and menu components. -->
 <!-- - **Source & Unit Selection**: Easily switch between video sources. -->
 <!-- - **Help and Tutorial**: Provides help and tutorial components for user guidance. -->
