@@ -15,11 +15,25 @@
 ## Features
 
 - **Real-Time Detection**: Detects objects in live video streams.
+- **Bounding Boxes and Labels**: Overlays bounding boxes and labels on the detected objects.
 - **Modular Backend**: Node.js backend for stream management and API integration.
 - **Customizable Detection**: Configure detection for fire, motion, and more.
-- **Intuitive UI**: Includes help, tutorial, and menu components.
+- **Voice Command Control**: Users can use voice commands to control the system.
 - **Flexible Input**: Supports webcam, video files, IP cameras, and internet streams.
-- **Source & Unit Selection**: Easily switch between video sources.
+- **Adaptability**: Adapts to user preferences and improves based on input command history and environments.
+
+<!-- - **Intuitive UI**: Includes help, tutorial, and menu components. -->
+<!-- - **Source & Unit Selection**: Easily switch between video sources. -->
+<!-- - **Help and Tutorial**: Provides help and tutorial components for user guidance. -->
+<!-- - **Keyboard Shortcuts**: Allow quick access to key functionalities.
+- **Object Selection**: Users can select target objects for detection.
+- **Snapshot Saving**: Users can save snapshots of detected objects.
+- **Sound Alerts**: The system generates sound alerts based on detection.
+- **SMS Alert**: Sends an SMS alert when certain objects are detected.
+- **Adaptability**: The system adapts to user preferences and improves based on input voice command history and environmental challenges. -->
+<!-- - Select target objects.
+- Save snapshots of detected objects.
+- Generate sound alerts based on detection. -->
 
 ## Requirements
 
@@ -84,6 +98,30 @@ The system's behavior can be customized by modifying the default settings in the
 - **Target Object Settings**: Define which objects you want to detect.
 - **Alert Settings**: Adjust sound alert thresholds and preferences.
 - **Voice Command History**: Configure how the system adapts to voice command history.
+
+
+<!-- Voice Commands: -->
+<!-- | Voice Command        | Description                         |
+| -------------------- | ----------------------------------- |
+| Detect [Object Name] | Detect specific objects             |
+| Stop [Object Name]   | Stop detecting specific objects     |
+| Save [Object Name]   | Save a snapshot of detected objects |
+| Help                 | List available commands             |
+| Exit                 | Exit the program                    | -->
+<!-- - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
+- "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop car").
+- "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save car").
+- "**Help**": List available commands.
+- "**Exit**": Exit the program. -->
+<!-- - "**Detect**": Detect all objects in the model.
+- "**Stop**": Stop detecting all objects.
+- "**Alert**": Generate an alert sound when all objects are detected.
+- "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
+- "**Save**": Save a snapshot of all detected objects. -->
+
+The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
+
+
 
 ## Contributing
 
