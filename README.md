@@ -9,7 +9,7 @@
 
 <br/>
 <p align="center">
-<img src="app/img/img1a.png" style="width:45%; height:auto;">&emsp;
+<img src="app/img/img1a.png" style="width:65%; height:auto;">&emsp;
 </p>
 
 ## Features
