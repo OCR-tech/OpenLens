@@ -1,0 +1,111 @@
+<div class="container-section" style="margin: 0; padding: 5px">
+  <div class="controls-section">
+    <div class="voice-columns">
+      <div class="voice-col">
+        <label for="voice-command-switch">Voice Command</label>
+        <label class="switch">
+          <input
+            type="checkbox"
+            id="voice-command-switch"
+            onclick="toggleVoiceCommand()"
+          />
+          <span class="slider"></span>
+        </label>
+        <div class="slider-group">
+          <label for="volume-slider-command">Vol:</label>
+          <input
+            type="range"
+            id="volume-slider-command"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+            style="width: 120px"
+            disabled="true"
+            oninput="updateValueCommand(this.value)"
+          />
+          <span id="volume-value-command">50</span>
+        </div>
+      </div>
+
+      <div class="voice-col">
+        <label for="voice-alert">Voice Alert</label>
+        <label class="switch">
+          <input
+            type="checkbox"
+            id="voice-alert-switch"
+            onclick="toggleVoiceAlert()"
+          />
+          <span class="slider"></span>
+        </label>
+        <div class="slider-group">
+          <label for="volume-slider-alert">Vol:</label>
+          <input
+            type="range"
+            id="volume-slider-alert"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+            style="width: 120px"
+            disabled="true"
+            oninput="updateValueAlert(this.value)"
+          />
+          <span id="volume-value-alert">50</span>
+        </div>
+      </div>
+
+      <div class="voice-col">
+        <label for="voice-status">Voice Status</label>
+        <label class="switch">
+          <input
+            type="checkbox"
+            id="voice-status-switch"
+            onclick="toggleVoiceStatus()"
+          />
+          <span class="slider"></span>
+        </label>
+        <div class="slider-group">
+          <label for="volume-slider-status">Vol:</label>
+          <input
+            type="range"
+            id="volume-slider-status"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+            style="width: 120px"
+            disabled="true"
+            oninput="updateValueStatus(this.value)"
+          />
+          <span id="volume-value-status">50</span>
+        </div>
+      </div>
+      <div class="voice-col">
+        <label for="voice-history">Voice History</label>
+        <label class="switch">
+          <input type="checkbox" id="voice-history" />
+          <span class="slider"></span>
+        </label>
+        <!-- Add more controls here if needed -->
+      </div>
+
+      <div class="voice-col">
+        <label for="voice-recognition">Voice Recognition</label>
+        <label class="switch">
+          <input type="checkbox" id="voice-recognition" />
+          <span class="slider"></span>
+        </label>
+        <!-- Add more controls here if needed -->
+      </div>
+      <div class="voice-col">
+        <label for="voice-navigation">Voice Navigation</label>
+        <label class="switch">
+          <input type="checkbox" id="voice-navigation" />
+          <span class="slider"></span>
+        </label>
+        <!-- Add more controls here if needed -->
+      </div>
+    </div>
+  </div>
+</div>

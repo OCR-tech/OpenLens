@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>OpenLens</title>
+    <!-- <meta name="viewport" content="width=1200, initial-scale=1.0" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Add favicon -->
+    <!-- <link rel="icon" type="image/x-icon" href="img/favicon.ico" /> -->
+    <link rel="icon" type="image/x-icon" href="app/img/icon.png" />
+    <!-- Add CSS styles -->
+    <link rel="stylesheet" href="app/css/styles_main.css" />
+    <!-- TensorFlow.js and COCO-SSD -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.18.0/dist/tf.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script> -->
+    <script src="app/js/tf.min.js"></script>
+    <script src="app/js/coco_ssd.js"></script>
+  </head>
+
+  <body>
+    <div class="container" id="container">
+      <!-- <h1>OpenLens</h1> -->
+
+      <!-- create a row with two columns on the same row -->
+      <div class="row" style="display: flex">
+        <div class="title-section" style="justify-content: flex-start">
+          <span class="source-mode-text" id="source-mode-text">Source</span>
+          <label class="switch" for="source-switch">
+            <input
+              type="checkbox"
+              id="source-switch"
+              disabled="true"
+              onclick="toggleSource()"
+            />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="title-section">
+          <span class="screen-mode-text" id="screen-mode-text">Screen</span>
+          <label class="switch" for="screen-switch">
+            <input type="checkbox" id="screen-switch" disabled="true" />
+            <span class="slider"></span>
+          </label>
+
+          <span class="theme-mode-text" id="theme-mode-text">Theme</span>
+          <label class="switch" for="theme-switch">
+            <input type="checkbox" id="theme-switch" disabled="true" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- include source.html  -->
+      <div
+        class="group-frame-source"
+        id="group-frame-source"
+        include-html="app/pages/source.html"
+        style="display: none; padding: 0"
+      ></div>
+
+      <div class="status" id="status">Initializing...</div>
+      <!-- <div class="status" id="status">Welcome</div> -->
+      <!-- <div class="status" id="status">Loading model...</div> -->
+      <div class="video-section">
+        <div class="video-feed" id="video-feed">
+          <!-- <div id="video-feed"> -->
+          <span id="video-placeholder">Video</span>
+        </div>
+      </div>
+
+      <!-- MJPEG/HTTPS stream -->
+      <!-- <img
+        id="ipcam-feed-img"
+        src="https://192.168.245.139:5500/video"
+        alt="IP Camera Feed"
+        style="width: 100%; max-width: 200px; height: auto; display: block; margin: 0 auto;"
+      /> -->
+
+      <!-- <video id="ipcam-feed-video" controls autoplay>
+        <source src="https://192.168.245.139:5500/" type="video/mp4" />
+        Your browser does not support MP4 video.
+      </video> -->
+
+      <div class="controls-section">
+        <button
+          onclick="startButton()"
+          id="btn-start"
+          style="width: 65%; display: inline-block"
+          disabled="true"
+        >
+          Start
+        </button>
+        <button
+          onclick="stopButton()"
+          id="btn-stop"
+          style="width: 65%; display: none"
+          disabled="true"
+        >
+          Stop
+        </button>
+        <br />
+        <button
+          class="button-command"
+          onclick="showCommand()"
+          id="btn-command"
+          style="max-width: 65%"
+          disabled="true"
+        >
+          Command
+        </button>
+        <button
+          class="button-voice"
+          onclick="showVoice()"
+          id="btn-voice"
+          style="max-width: 65%"
+          disabled="true"
+        >
+          Voice
+        </button>
+        <button
+          class="button-settings"
+          onclick="showSettings()"
+          id="btn-settings"
+          style="max-width: 65%"
+          disabled="true"
+        >
+          Settings
+        </button>
+      </div>
+
+      <!-- include command.html  -->
+      <div
+        class="group-frame-command"
+        id="group-frame-command"
+        include-html="app/pages/command.html"
+        style="display: none; padding: 0"
+      ></div>
+
+      <!-- include voice.html  -->
+      <div
+        class="group-frame-voice"
+        id="group-frame-voice"
+        include-html="app/pages/voice.html"
+        style="display: none; padding: 0"
+      ></div>
+
+      <!-- include settings.html  -->
+      <div
+        class="group-frame-settings"
+        id="group-frame-settings"
+        include-html="app/pages/settings.html"
+        style="display: none; padding: 0"
+      ></div>
+
+      <!-- Links for tutorial and help -->
+      <div class="links-section" id="links-section">
+        <p>
+          <a
+            class="btn-link fw-bold"
+            id="btn-tutorial"
+            style="text-decoration: none; cursor: pointer"
+            onclick="showTutorial()"
+            >Tutorial</a
+          >
+          |
+          <a
+            class="btn-link fw-bold"
+            id="btn-help"
+            style="text-decoration: none; cursor: pointer"
+            onclick="showHelp()"
+          >
+            Help
+          </a>
+          <!-- |
+          <a
+            class="btn-link fw-bold"
+            href="https://ocr-tech.github.io/OpenLens/"
+            target="_blank"
+            style="text-decoration: none"
+            >Web</a
+          > -->
+        </p>
+      </div>
+
+
+
+
+
+      <!-- Begin tutorial.html include -->
+      <div
+        class="group-frame-tutorial"
+        id="group-frame-tutorial"
+        include-html="app/pages/tutorial.html"
+        style="display: none"
+      ></div>
+
+      <!-- Begin help.html include -->
+      <div
+        class="group-frame-help"
+        id="group-frame-help"
+        include-html="app/pages/help.html"
+        style="display: none"
+      ></div>
+    </div>
+
+    <div class="footer">
+      <!-- &copy; 2025 OpenLens | Real-Time Object Detection with Voice Commands -->
+      <p>
+        &copy; 2025
+
+        <a
+          class="btn-link fw-bold"
+          href="https://ocr-tech.github.io/OpenLens/"
+          target="_blank"
+          style="text-decoration: none; color: inherit"
+          >OpenLens</a
+        >
+        | Real-Time Object Detection
+      </p>
+    </div>
+
+    <!-- Add JavaScript files -->
+    <!-- The script is moved to the end of the body to ensure DOM elements are loaded -->
+
+    <script src="app/js/init_system.js"></script>
+    <script src="app/js/source.js"></script>
+    <script src="app/js/screen.js"></script>
+    <script src="app/js/theme.js"></script>
+    <script src="app/js/main_menu.js"></script>
+    <script src="app/js/main_tutorial.js"></script>
+    <script src="app/js/main_help.js"></script>
+    <script src="app/js/settings.js"></script>
+    <script src="app/js/settings_alert_sms.js"></script>
+    <script src="app/js/settings_alert_email.js"></script>
+    <script src="app/js/settings_alert_line.js"></script>
+    <script src="app/js/settings_notification.js"></script>
+    <script src="app/js/setting_dis_datetime.js"></script>
+    <script src="app/js/setting_dis_location.js"></script>
+    <script src="app/js/setting_dis_vidsize.js"></script>
+    <script src="app/js/setting_dis_framerate.js"></script>
+    <script src="app/js/setting_det_motion.js"></script>
+    <script src="app/js/setting_det_sound.js"></script>
+    <script src="app/js/setting_det_fire.js"></script>
+    <script src="app/js/main_start.js"></script>
+    <script src="app/js/main_stop.js"></script>
+    <script src="app/js/main_start_cam.js"></script>
+    <script src="app/js/object_detect.js"></script>
+    <script src="app/js/database.js"></script>
+    <script src="app/js/selector_source.js"></script>
+    <script src="app/js/selector_unit.js"></script>
+    <script src="app/js/command.js"></script>
+    <script src="app/js/voice.js"></script>
+    <script src="app/js/voice_command.js"></script>
+    <script src="app/js/voice_alert.js"></script>
+    <script src="app/js/voice_status.js"></script>
+    <script src="app/js/include_html.js"></script>
+  </body>
+</html>

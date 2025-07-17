@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Object Detection Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/styles_viewer.css" />
+  </head>
+  <body>
+    <div class="main-layout">
+      <div class="viewer-panel">
+        <div
+          class="header"
+          style="
+            font-size: 2em;
+            font-weight: bold;
+            color: #4a90e2;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+          "
+        >
+          Object Detection Viewer
+        </div>
+
+        <div class="frame-navigation">
+          <button id="btn-prev" class="button-ok" type="button">Prev</button>
+          <button id="btn-next" class="button-ok" type="button">Next</button>
+        </div>
+
+        <div class="controls-section">
+          <button id="btn-detect" class="button-ok" type="button">
+            Detect Objects
+          </button>
+          <button id="btn-clear" class="button-ok" type="button">Clear</button>
+          <button id="btn-save" class="button-ok" type="button">
+            Save Changes
+          </button>
+          <button id="btn-export" class="button-ok" type="button">
+            Export Metadata
+          </button>
+          <button
+            id="btn-delete"
+            class="button-ok"
+            type="button"
+            style="background: #b33c3c"
+          >
+            Delete Item
+          </button>
+        </div>
+
+        <div class="status-bar" id="status-bar">Loading...</div>
+        <div class="video-canvas-wrapper">
+          <img id="object-image" src="" alt="Frame" />
+          <canvas id="object-canvas"></canvas>
+        </div>
+      </div>
+      <div class="meta-panel">
+        <h3>Metadata</h3>
+        <form id="meta-form" autocomplete="off">
+          <table class="meta-table">
+            <tr>
+              <td>Timestamp</td>
+              <td><input name="timestamp" id="timestamp" /></td>
+            </tr>
+            <tr>
+              <td>Object Number</td>
+              <td><input name="objectNumber" id="objectNumber" /></td>
+            </tr>
+            <tr>
+              <td>Object Name</td>
+              <td><input name="objectName" id="objectName" /></td>
+            </tr>
+            <tr>
+              <td>Number of object</td>
+              <td><input name="numberOfObject" id="numberOfObject" /></td>
+            </tr>
+            <tr>
+              <td>Frame Filename</td>
+              <td><input name="frameFilename" id="frameFilename" /></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    <script>
+      // --- Backend API base URL ---
+      const API = "http://localhost:3001/api/metadata";
+      let items = [];
+      let currentIndex = 0;
+
+      async function fetchItems() {
+        const res = await fetch(API);
+        items = await res.json();
+        if (items.length === 0) {
+          // Add a default item if DB is empty
+          await addItem({
+            timestamp: "",
+            objectNumber: "",
+            objectName: "",
+            numberOfObject: "",
+            frameFilename: "",
+          });
+          return fetchItems();
+        }
+        currentIndex = 0;
+        loadItem(currentIndex);
+      }
+
+      function loadItem(idx) {
+        if (!items[idx]) return;
+        const item = items[idx];
+        document.getElementById("timestamp").value = item.timestamp || "";
+        document.getElementById("objectNumber").value = item.objectNumber || "";
+        document.getElementById("objectName").value = item.objectName || "";
+        document.getElementById("numberOfObject").value =
+          item.numberOfObject || "";
+        document.getElementById("frameFilename").value =
+          item.frameFilename || "";
+        document.getElementById("object-image").src =
+          "../" + (item.frameFilename || "");
+        document.getElementById("status-bar").textContent =
+          "Frame: " + (item.frameFilename || "");
+        resizeCanvasToImage();
+        drawBoxes();
+      }
+
+      // --- Canvas Demo: Draw a random box (replace with detection logic) ---
+      const image = document.getElementById("object-image");
+      const canvas = document.getElementById("object-canvas");
+      function resizeCanvasToImage() {
+        canvas.width = image.naturalWidth || 640;
+        canvas.height = image.naturalHeight || 360;
+        canvas.style.width = image.width + "px";
+        canvas.style.height = image.height + "px";
+      }
+      function drawBoxes() {
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = "#00FF00";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(
+          Math.random() * (canvas.width - 120),
+          Math.random() * (canvas.height - 120),
+          120,
+          120
+        );
+      }
+      image.onload = () => {
+        resizeCanvasToImage();
+        drawBoxes();
+      };
+      window.addEventListener("resize", () => {
+        resizeCanvasToImage();
+        drawBoxes();
+      });
+
+      // --- Controls ---
+      document.getElementById("btn-prev").onclick = () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          loadItem(currentIndex);
+        }
+      };
+      document.getElementById("btn-next").onclick = () => {
+        if (currentIndex < items.length - 1) {
+          currentIndex++;
+          loadItem(currentIndex);
+        }
+      };
+      document.getElementById("btn-detect").onclick = () => {
+        drawBoxes();
+        document.getElementById("status-bar").textContent =
+          "Detection (demo): box drawn.";
+      };
+      document.getElementById("btn-clear").onclick = () => {
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById("status-bar").textContent = "Boxes cleared.";
+      };
+      document.getElementById("btn-save").onclick = async () => {
+        const form = document.getElementById("meta-form");
+        const data = new FormData(form);
+        const item = {
+          timestamp: data.get("timestamp"),
+          objectNumber: data.get("objectNumber"),
+          objectName: data.get("objectName"),
+          numberOfObject: data.get("numberOfObject"),
+          frameFilename: data.get("frameFilename"),
+        };
+        const id = items[currentIndex].id;
+        await fetch(`${API}/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(item),
+        });
+        await fetchItems();
+        document.getElementById("status-bar").textContent = "Changes saved.";
+      };
+      document.getElementById("btn-export").onclick = async () => {
+        const res = await fetch(API);
+        const all = await res.json();
+        const blob = new Blob([JSON.stringify(all, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "metadata.json";
+        a.click();
+        URL.revokeObjectURL(url);
+        document.getElementById("status-bar").textContent =
+          "Metadata exported.";
+      };
+      document.getElementById("btn-delete").onclick = async () => {
+        if (items.length > 1) {
+          const id = items[currentIndex].id;
+          await fetch(`${API}/${id}`, { method: "DELETE" });
+          await fetchItems();
+          if (currentIndex >= items.length) currentIndex = items.length - 1;
+          loadItem(currentIndex);
+          document.getElementById("status-bar").textContent = "Item deleted.";
+        } else {
+          document.getElementById("status-bar").textContent =
+            "Cannot delete last item.";
+        }
+      };
+
+      async function addItem(item) {
+        await fetch(API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(item),
+        });
+      }
+
+      // --- Initial load ---
+      fetchItems();
+    </script>
+  </body>
+</html>

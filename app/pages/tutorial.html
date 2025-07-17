@@ -1,0 +1,82 @@
+<div class="container-section">
+  <h2>Tutorial</h2>
+  <hr />
+
+  <h3>Getting Started</h3>
+
+  <ol>
+    <li>
+      <b>Start Web App:</b>
+      <ul>
+        <li>Navigate to the directory <code>app/web</code>.</li>
+        <li>
+          Run a local server:
+          <code>python -m http.server 8000</code>.
+        </li>
+        <li>
+          Open App in your browser:
+          <code>http://localhost:8000/</code> or
+          <code>http://&lt;ip-address&gt;:8000/</code> on your network.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <b>Select Video Source:</b>
+      <ul>
+        <li><b>Camera (default):</b> Uses your device's built-in webcam.</li>
+        <li><b>USB Camera:</b> Uses an external USB camera.</li>
+        <li>
+          <b>IP Camera:</b> Enter the URL of an IP camera (e.g., from an IP
+          camera app running on a mobile phone).
+        </li>
+        <li><b>Video File:</b> Upload a video file for detection.</li>
+      </ul>
+    </li>
+    <li>
+      <b>Grant Permissions:</b> Allow camera and microphone access when
+      prompted.
+    </li>
+    <li><b>Click "Start":</b> Start the app for real-time object detection.</li>
+  </ol>
+  <hr />
+
+  <h3>How to Use</h3>
+  <ol>
+    <li>
+      <strong>Object Detection:</strong>
+      <ul>
+        <li>
+          <b>"Objects"</b>: Show or hide labels and bounding boxes of detected
+          objects.
+        </li>
+        <li><b>"Labels"</b>: Show or hide labels of detected objects.</li>
+        <li>
+          <b>"Boxes"</b>: Show or hide bounding boxes of detected objects.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Voice Commands:</strong>
+      <ul>
+        <li>
+          <b>"Microphone"</b>: Activate voice commands (e.g., "capture image",
+          "pause video").
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Save or Capture:</strong>
+      <ul>
+        <li><b>"Capture"</b>: Take snapshots of the current video frame.</li>
+        <li>
+          <b>"Save"</b>: Save video segments after stopping the recording.
+        </li>
+      </ul>
+    </li>
+  </ol>
+  <!-- <hr /> -->
+
+  <div class="controls-section">
+    <button onclick="HideTutorial()" style="margin: 15px 0">Hide</button>
+  </div>
+</div>

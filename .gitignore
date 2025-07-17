@@ -1,0 +1,7 @@
+# .venv/
+# .vscode/
+README0.md
+README1.md
+node_modules/
+package-lock.json
+# package.json
