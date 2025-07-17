@@ -7,7 +7,8 @@ const PORT = 5500;
 
 // =========================================== //
 // Serve static files from the web directory
-app.use(express.static(__dirname + "/.."));
+// app.use(express.static(__dirname + "/.."));
+app.use(express.static(__dirname + "/../../"));
 
 // =========================================== //
 // Post endpoint to handle email sending
