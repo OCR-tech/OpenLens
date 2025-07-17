@@ -73,15 +73,6 @@
           </label>
         </div>
 
-        <!-- Mode Settings -->
-        <div class="settings-row">
-          <label for="mode-switch">Mode</label>
-          <label class="switch">
-            <input type="checkbox" id="mode-switch" />
-            <span class="slider"></span>
-          </label>
-        </div>
-
         <!-- Counting Objects Settings -->
         <div class="settings-row">
           <label for="counting-objects">Counting Objects</label>
@@ -203,6 +194,49 @@
             <input type="checkbox" id="history-switch" />
             <span class="slider"></span>
           </label>
+        </div>
+
+        <canvas
+          id="ocr-canvas"
+          style="position: absolute; left: 0; top: 0; z-index: 10"
+        ></canvas>
+
+        <!-- Text Detection Settings -->
+        <div class="settings-row">
+          <label for="text-detection" title="Detects text in video."
+            >Text Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="text-switch"
+              onclick="toggleTextDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="text-sensitivity-slider"
+            min="1"
+            max="10"
+            value="5"
+            disabled="true"
+            oninput="updateValueText(this.value)"
+          />
+          <ul
+            style="
+              display: flex;
+              gap: 8px;
+              align-items: center;
+              margin: 0;
+              padding: 0;
+              list-style: none;
+            "
+          >
+            <li class="status normal"></li>
+            <li class="status warn"></li>
+            <li class="status alert"></li>
+          </ul>
         </div>
 
         <!-- Motion Detection Settings -->

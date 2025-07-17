@@ -34,6 +34,10 @@ function detectFrame() {
     // alert("Predictions:" + predictions);
     drawPredictions(predictions);
 
+    //=========================================//
+    detectText(video);
+
+    //=========================================//
     if (window.runDetectionLoop) {
       // Request the next animation frame
       window.animationId = requestAnimationFrame(detectFrame);

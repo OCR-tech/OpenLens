@@ -27,6 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (typeof setSourceMode === "function") setSourceMode(sourceMode);
 
         //==========================================//
+        // mode
+        const modeMode = localStorage.getItem("mode") || "off";
+        if (typeof setMode === "function") setMode(modeMode);
+
+        //==========================================//
         // theme mode
         const savedTheme = localStorage.getItem("theme") || "light";
         if (typeof setTheme === "function") setTheme(savedTheme);

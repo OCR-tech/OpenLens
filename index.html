@@ -13,8 +13,10 @@
     <!-- TensorFlow.js and COCO-SSD -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.18.0/dist/tf.min.js"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script> -->
-    <script src="app/js/tf.min.js"></script>
-    <script src="app/js/coco_ssd.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.1/dist/tesseract.min.js"></script> -->
+    <script src="app/js/script_tf_min.js"></script>
+    <script src="app/js/script_coco_ssd.js"></script>
+    <script src="app/js/script_tesseract.js"></script>
   </head>
 
   <body>
@@ -24,6 +26,7 @@
       <!-- create a row with two columns on the same row -->
       <div class="row" style="display: flex">
         <div class="title-section" style="justify-content: flex-start">
+          <!-- Source selection -->
           <span class="source-mode-text" id="source-mode-text">Source</span>
           <label class="switch" for="source-switch">
             <input
@@ -34,15 +37,29 @@
             />
             <span class="slider"></span>
           </label>
+
+          <!-- Mode selection -->
+          <span class="mode-mode-text" id="mode-mode-text">Mode</span>
+          <label class="switch" for="mode-switch">
+            <input
+              type="checkbox"
+              id="mode-switch"
+              disabled="true"
+              onclick="toggleMode()"
+            />
+            <span class="slider"></span>
+          </label>
         </div>
 
         <div class="title-section">
+          <!-- Screen selection -->
           <span class="screen-mode-text" id="screen-mode-text">Screen</span>
           <label class="switch" for="screen-switch">
             <input type="checkbox" id="screen-switch" disabled="true" />
             <span class="slider"></span>
           </label>
 
+          <!-- Theme selection -->
           <span class="theme-mode-text" id="theme-mode-text">Theme</span>
           <label class="switch" for="theme-switch">
             <input type="checkbox" id="theme-switch" disabled="true" />
@@ -59,9 +76,8 @@
         style="display: none; padding: 0"
       ></div>
 
+      <!-- video feed -->
       <div class="status" id="status">Initializing...</div>
-      <!-- <div class="status" id="status">Welcome</div> -->
-      <!-- <div class="status" id="status">Loading model...</div> -->
       <div class="video-section">
         <div class="video-feed" id="video-feed">
           <!-- <div id="video-feed"> -->
@@ -183,10 +199,6 @@
         </p>
       </div>
 
-
-
-
-
       <!-- Begin tutorial.html include -->
       <div
         class="group-frame-tutorial"
@@ -207,8 +219,7 @@
     <div class="footer">
       <!-- &copy; 2025 OpenLens | Real-Time Object Detection with Voice Commands -->
       <p>
-        &copy; 2025 OpenLens
-        | All Rights Reserved
+        &copy; 2025 OpenLens | All Rights Reserved
         <!-- <a
           class="btn-link fw-bold"
           href="https://ocr-tech.github.io/OpenLens/"
@@ -218,7 +229,6 @@
         >
         | Real-Time Object Detection -->
       </p>
-
     </div>
 
     <!-- Add JavaScript files -->
@@ -226,16 +236,17 @@
 
     <script src="app/js/init_system.js"></script>
     <script src="app/js/source.js"></script>
+    <script src="app/js/mode.js"></script>
     <script src="app/js/screen.js"></script>
     <script src="app/js/theme.js"></script>
     <script src="app/js/main_menu.js"></script>
     <script src="app/js/main_tutorial.js"></script>
     <script src="app/js/main_help.js"></script>
-    <script src="app/js/settings.js"></script>
-    <script src="app/js/settings_alert_sms.js"></script>
-    <script src="app/js/settings_alert_email.js"></script>
-    <script src="app/js/settings_alert_line.js"></script>
-    <script src="app/js/settings_notification.js"></script>
+    <script src="app/js/setting.js"></script>
+    <script src="app/js/setting_alert_sms.js"></script>
+    <script src="app/js/setting_alert_email.js"></script>
+    <script src="app/js/setting_alert_line.js"></script>
+    <script src="app/js/setting_notification.js"></script>
     <script src="app/js/setting_dis_datetime.js"></script>
     <script src="app/js/setting_dis_location.js"></script>
     <script src="app/js/setting_dis_vidsize.js"></script>
@@ -243,10 +254,12 @@
     <script src="app/js/setting_det_motion.js"></script>
     <script src="app/js/setting_det_sound.js"></script>
     <script src="app/js/setting_det_fire.js"></script>
+    <script src="app/js/setting_ocr.js"></script>
     <script src="app/js/main_start.js"></script>
     <script src="app/js/main_stop.js"></script>
     <script src="app/js/main_start_cam.js"></script>
-    <script src="app/js/object_detect.js"></script>
+    <script src="app/js/detect_object.js"></script>
+    <script src="app/js/detect_text.js"></script>
     <script src="app/js/database.js"></script>
     <script src="app/js/selector_source.js"></script>
     <script src="app/js/selector_unit.js"></script>

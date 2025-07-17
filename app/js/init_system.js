@@ -15,6 +15,7 @@ const btnTutorial = document.getElementById("btn-tutorial");
 const btnStart = document.getElementById("btn-start");
 const btnStop = document.getElementById("btn-stop");
 const groupFrameSource = document.getElementById("group-frame-source");
+const groupFrameMode = document.getElementById("group-frame-mode");
 const groupFrameCommand = document.getElementById("group-frame-command");
 const groupFrameVoice = document.getElementById("group-frame-voice");
 const groupFrameSettings = document.getElementById("group-frame-settings");
@@ -93,6 +94,7 @@ function initUI() {
     "theme-switch",
     "screen-switch",
     "source-switch",
+    "mode-switch",
     "video-source",
     "video-unit",
     "btn-start",
