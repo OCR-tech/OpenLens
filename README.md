@@ -47,12 +47,14 @@
 ## Installation
 
 1. Clone the repository:
+
    ```sh
    git clone https://github.com/OCR-tech/OpenLens.git
    cd OpenLens
    ```
 
 2. Install dependencies:
+
    ```sh
    npm install
    ```
@@ -67,6 +69,7 @@
 ## Usage
 
 **Steps:**
+
 - **Start Detection**: Click the "Start" button to begin real-time object detection.
 - **Select Source**: Choose between webcam, video file, IP camera, or internet stream.
 - **Configure Detection**: Use the UI to set detection parameters for fire, motion, and other objects.
@@ -77,7 +80,7 @@
 - **Webcam Input**: Use built-in webcam or external USB webcam.
 - **IP Camera Input**: Connect to IP cameras or mobile devices.
 - **Internet Video Streams**: Stream video from compatible URLs.
-- **Video File Input**: Upload video files for analysis.
+- **Video File Input**: Upload video files for detection.
 
 **How to run:**
 
@@ -92,7 +95,6 @@
 - **Target Object Settings**: Define which objects you want to detect.
 - **Alert Settings**: Adjust sound alert thresholds and preferences.
 - **Voice Command History**: Configure how the system adapts to voice command history.
-
 
 <!-- Voice Commands:
 | Voice Command        | Description                         |
