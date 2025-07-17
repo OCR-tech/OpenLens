@@ -72,12 +72,12 @@
 - **Configure Detection**: Use the UI to set detection parameters for fire, motion, and other objects.
 - **View Results**: Detected objects will be highlighted in the video stream with bounding boxes and labels.
 
-**Supported input sources:**
+**Input sources:**
 
 - **Webcam Input**: Use built-in webcam or external USB webcam.
-- **Video File Input**: Upload video files for analysis.
 - **IP Camera Input**: Connect to IP cameras or mobile devices.
 - **Internet Video Streams**: Stream video from compatible URLs.
+- **Video File Input**: Upload video files for analysis.
 
 **How to run:**
 
@@ -85,44 +85,36 @@
 2. Run a local server: `node app/backend/server.js`.
 3. Open your browser: `http://localhost:5500` or `http://<ip-address>:5500/`.
 
-<!-- ![Demo Screenshot](docs/public/img/img1a.png) -->
-<!-- <br/>
-<p align="center">
-<img src="docs/public/img/img1b.png" style="width:35%; height:auto;">&emsp;
-</p> -->
-
 **Note**: For low-cost solutions, unused/broken screen mobile phones can be used as IP webcams.
 
 ## Customization
-<!-- You can customize the system's behavior by modifying the configuration settings in the config.yaml file:
-The system's behavior can be customized by modifying the default settings in the `config.py` file: -->
+
 - **Target Object Settings**: Define which objects you want to detect.
 - **Alert Settings**: Adjust sound alert thresholds and preferences.
 - **Voice Command History**: Configure how the system adapts to voice command history.
 
 
-<!-- Voice Commands: -->
-<!-- | Voice Command        | Description                         |
+<!-- Voice Commands:
+| Voice Command        | Description                         |
 | -------------------- | ----------------------------------- |
 | Detect [Object Name] | Detect specific objects             |
 | Stop [Object Name]   | Stop detecting specific objects     |
 | Save [Object Name]   | Save a snapshot of detected objects |
 | Help                 | List available commands             |
-| Exit                 | Exit the program                    | -->
-<!-- - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
+| Exit                 | Exit the program                    |
+
+- "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
 - "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop car").
 - "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save car").
 - "**Help**": List available commands.
-- "**Exit**": Exit the program. -->
-<!-- - "**Detect**": Detect all objects in the model.
+- "**Exit**": Exit the program.
+- "**Detect**": Detect all objects in the model.
 - "**Stop**": Stop detecting all objects.
 - "**Alert**": Generate an alert sound when all objects are detected.
 - "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
 - "**Save**": Save a snapshot of all detected objects. -->
 
-The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
-
-
+<!-- The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience. -->
 
 ## Contributing
 
