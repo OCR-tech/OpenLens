@@ -5,6 +5,9 @@ function toggleFireDetection() {
   const fireSensitivitySlider = document.getElementById(
     "fire-sensitivity-slider"
   );
+  const fireStatusNormal = document.getElementById("fire-status-normal");
+  const fireStatusWarn = document.getElementById("fire-status-warn");
+  const fireStatusAlert = document.getElementById("fire-status-alert");
 
   if (!fireSwitch || !fireSensitivitySlider) return;
 
@@ -14,6 +17,15 @@ function toggleFireDetection() {
 
   // Enable/disable fire sensitivity slider based on fire detection switch
   fireSensitivitySlider.disabled = !fireSwitch.checked;
+  if (fireSwitch.checked) {
+    fireStatusNormal.style.display = "inline-block";
+    fireStatusWarn.style.display = "inline-block";
+    fireStatusAlert.style.display = "inline-block";
+  } else {
+    fireStatusNormal.style.display = "none";
+    fireStatusWarn.style.display = "none";
+    fireStatusAlert.style.display = "none";
+  }
 
   // Save fire detection mode and sensitivity to localStorage
   localStorage.setItem("fireDetectionMode", fireSwitch.checked ? "on" : "off");
@@ -38,6 +50,9 @@ function setFireDetectionMode(mode) {
   const fireSensitivitySlider = document.getElementById(
     "fire-sensitivity-slider"
   );
+  const fireStatusNormal = document.getElementById("fire-status-normal");
+  const fireStatusWarn = document.getElementById("fire-status-warn");
+  const fireStatusAlert = document.getElementById("fire-status-alert");
 
   if (fireSwitch && fireSensitivitySlider) {
     // Set the switch state
@@ -48,6 +63,18 @@ function setFireDetectionMode(mode) {
     // Set the sensitivity value
     const sensitivityValue = localStorage.getItem("fireSensitivity") || 30;
     fireSensitivitySlider.value = sensitivityValue;
+  }
+
+  if (fireStatusNormal && fireStatusWarn && fireStatusAlert) {
+    if (mode === "on") {
+      fireStatusNormal.style.display = "inline-block";
+      fireStatusWarn.style.display = "inline-block";
+      fireStatusAlert.style.display = "inline-block";
+    } else {
+      fireStatusNormal.style.display = "none";
+      fireStatusWarn.style.display = "none";
+      fireStatusAlert.style.display = "none";
+    }
   }
 }
 
@@ -116,20 +143,16 @@ function updateFireDetection() {
   // set voicealert if fire is detected
   if (fireDetected) {
     // document.getElementById("status").innerText = " Fire";
-    document.getElementById("fire-status-normal").style.boxShadow =
-      "0 0 0 0 green";
-    document.getElementById("fire-status-warn").style.boxShadow =
-      "0 0 0 0 yellow";
+    document.getElementById("fire-status-normal").style.boxShadow = "none";
+    document.getElementById("fire-status-warn").style.boxShadow = "none";
     document.getElementById("fire-status-alert").style.boxShadow =
       "0 0 10px 10px red";
   } else {
     // document.getElementById("status").innerText = " No fire";
     document.getElementById("fire-status-normal").style.boxShadow =
       "0 0 10px 10px green";
-    document.getElementById("fire-status-warn").style.boxShadow =
-      "0 0 0 0 yellow";
-    document.getElementById("fire-status-alert").style.boxShadow =
-      "0 0 0 0 red";
+    document.getElementById("fire-status-warn").style.boxShadow = "none";
+    document.getElementById("fire-status-alert").style.boxShadow = "none";
   }
 }
 

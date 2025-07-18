@@ -455,5 +455,6 @@ function startVideo(filePath) {
     document.getElementById("status").innerText = "Video ended.";
     document.getElementById("btn-start").style.display = "inline-block";
     document.getElementById("btn-stop").style.display = "none";
+    ReInitUI();
   };
 }

@@ -20,27 +20,31 @@
           <input
             type="range"
             id="motion-sensitivity-slider"
-            min="1"
+            min="0"
             max="10"
             value="5"
             disabled="true"
             oninput="updateValueMotion(this.value)"
           />
+          <span id="motion-sensitivity-value">5</span>
 
           <div
             class="status-color normal"
             id="motion-status-normal"
             title="Normal"
+            style="display: none"
           ></div>
           <div
             class="status-color warn"
             id="motion-status-warn"
             title="Warning"
+            style="display: none"
           ></div>
           <div
             class="status-color alert"
             id="motion-status-alert"
             title="Alert"
+            style="display: none"
           ></div>
         </div>
 
@@ -60,7 +64,7 @@
           <input
             type="range"
             id="sound-sensitivity-slider"
-            min="1"
+            min="0"
             max="10"
             step="1"
             value="50"
@@ -104,12 +108,13 @@
           <input
             type="range"
             id="fire-sensitivity-slider"
-            min="1"
+            min="0"
             max="10"
             value="5"
             disabled="true"
             oninput="updateValueFire(this.value)"
           />
+          <span id="fire-sensitivity-value">5</span>
 
           <div
             class="status-color normal"
@@ -144,7 +149,7 @@
           <input
             type="range"
             id="flood-sensitivity-slider"
-            min="1"
+            min="0"
             max="10"
             value="5"
             disabled="true"
@@ -168,7 +173,7 @@
           <input
             type="range"
             id="light-sensitivity-slider"
-            min="1"
+            min="0"
             max="10"
             value="5"
             disabled="true"
@@ -192,7 +197,7 @@
           <input
             type="range"
             id="rain-sensitivity-slider"
-            min="1"
+            min="0"
             max="10"
             value="5"
             disabled="true"
@@ -212,7 +217,7 @@
           <input
             type="range"
             id="falling-sensitivity"
-            min="1"
+            min="0"
             max="10"
             value="5"
             disabled="true"
@@ -233,7 +238,7 @@
           <input
             type="range"
             id="break-sensitivity"
-            min="1"
+            min="0"
             max="10"
             value="5"
             disabled="true"
