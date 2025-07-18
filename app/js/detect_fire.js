@@ -108,10 +108,10 @@ function updateFireDetection() {
 
   // Check if video is loaded
   // Only run if fire detection is enabled
-  if (fireSwitch && !fireSwitch.checked) {
-    document.getElementById("status").innerText = "Fire detection off";
-    return;
-  }
+  // if (fireSwitch && !fireSwitch.checked) {
+  //   document.getElementById("status").innerText = "Fire detection off";
+  //   return;
+  // }
 
   if (video.videoWidth === 0 || video.videoHeight === 0) {
     document.getElementById("status").innerText = "Video not loaded.";

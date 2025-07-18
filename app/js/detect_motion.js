@@ -130,10 +130,10 @@ function updateMotionDetection() {
   // alert("updateMotionDetection: " + video.videoWidth + "x" + video.videoHeight);
 
   // Only run if motion detection is enabled
-  if (motionSwitch && !motionSwitch.checked) {
-    document.getElementById("status").innerText = "Motion detection off";
-    return;
-  }
+  // if (motionSwitch && !motionSwitch.checked) {
+  //   document.getElementById("status").innerText = "Motion detection off";
+  //   return;
+  // }
 
   if (video.videoWidth === 0 || video.videoHeight === 0) {
     document.getElementById("status").innerText = "Video not loaded.";
