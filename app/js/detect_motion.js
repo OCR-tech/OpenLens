@@ -20,15 +20,15 @@ function toggleMotionDetection() {
 
   // Enable/disable motion sensitivity slider based on motion detection switch
   motionSensitivitySlider.disabled = !motionSwitch.checked;
-  if (motionSwitch.checked) {
-    motionStatusNormal.style.display = "inline-block";
-    motionStatusWarn.style.display = "inline-block";
-    motionStatusAlert.style.display = "inline-block";
-  } else {
-    motionStatusNormal.style.display = "none";
-    motionStatusWarn.style.display = "none";
-    motionStatusAlert.style.display = "none";
-  }
+  motionStatusNormal.style.display = motionSwitch.checked
+    ? "inline-block"
+    : "none";
+  motionStatusWarn.style.display = motionSwitch.checked
+    ? "inline-block"
+    : "none";
+  motionStatusAlert.style.display = motionSwitch.checked
+    ? "inline-block"
+    : "none";
 
   // Save motion detection mode and sensitivity to localStorage
   localStorage.setItem(
@@ -41,15 +41,16 @@ function toggleMotionDetection() {
 // =========================================//
 function updateValueMotion(val) {
   const slider = document.getElementById("motion-sensitivity-slider");
+  const motionSensitivityValue = document.getElementById(
+    "motion-sensitivity-value"
+  );
   if (slider) {
     slider.value = val;
   }
-  document.getElementById("motion-sensitivity-value").textContent = val;
 
-  // Change the motion detection sensitivity based on the slider value
+  motionSensitivityValue.textContent = val;
   window.motionSensitivity = Math.max(0, Math.min(10, val));
   localStorage.setItem("motionSensitivity", window.motionSensitivity);
-  // alert("Motion sensitivity set to: " + window.motionSensitivity);
 }
 
 // =========================================//
@@ -81,15 +82,9 @@ function setMotionDetectionMode(mode) {
   }
 
   if (motionStatusNormal && motionStatusWarn && motionStatusAlert) {
-    if (mode === "on") {
-      motionStatusNormal.style.display = "inline-block";
-      motionStatusWarn.style.display = "inline-block";
-      motionStatusAlert.style.display = "inline-block";
-    } else {
-      motionStatusNormal.style.display = "none";
-      motionStatusWarn.style.display = "none";
-      motionStatusAlert.style.display = "none";
-    }
+    motionStatusNormal.style.display = mode === "on" ? "inline-block" : "none";
+    motionStatusWarn.style.display = mode === "on" ? "inline-block" : "none";
+    motionStatusAlert.style.display = mode === "on" ? "inline-block" : "none";
   }
 }
 
@@ -124,16 +119,10 @@ function updateMotionDetection() {
 
   const canvas = document.getElementById("overlay");
 
-  const motionSwitch = document.getElementById("motion-switch");
+  // const motionSwitch = document.getElementById("motion-switch");
   if (!video || !canvas) return;
 
   // alert("updateMotionDetection: " + video.videoWidth + "x" + video.videoHeight);
-
-  // Only run if motion detection is enabled
-  // if (motionSwitch && !motionSwitch.checked) {
-  //   document.getElementById("status").innerText = "Motion detection off";
-  //   return;
-  // }
 
   if (video.videoWidth === 0 || video.videoHeight === 0) {
     document.getElementById("status").innerText = "Video not loaded.";
@@ -180,20 +169,12 @@ function updateMotionDetection() {
 }
 
 // =========================================//
-function detectObjectMotion(
-  prevFrame,
-  currFrame,
-  width,
-  height,
-  threshold
-  // threshold = 50 // default threshold value
-) {
+function detectObjectMotion(prevFrame, currFrame, width, height, threshold) {
   // alert("detectObjectMotion");
   if (!prevFrame || !currFrame) return false;
 
   let motionPixels = 0;
   const totalPixels = width * height;
-  // const MOTION_RATIO_THRESHOLD = 0.05; // default motion ratio threshold
   // Map sensitivity slider (0 = most sensitive, 10 = least sensitive) to ratio threshold (0.2 = most sensitive, 0.001 = least sensitive)
   const MOST_SENSITIVE_RATIO = 0.02;
   const LEAST_SENSITIVE_RATIO = 0.001;
@@ -201,6 +182,8 @@ function detectObjectMotion(
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
   // alert(threshold + " " + MOTION_RATIO_THRESHOLD);
+  document.getElementById("status").innerText =
+    threshold + " " + MOTION_RATIO_THRESHOLD;
 
   for (let i = 0; i < totalPixels * 4; i += 4) {
     // for (let i = 0; i < totalPixels * 4; i += 8) {
@@ -219,5 +202,5 @@ function detectObjectMotion(
   }
 
   // higher value means less sensitive
-  return motionPixels / totalPixels > MOTION_RATIO_THRESHOLD;
+  return motionPixels / totalPixels > MOTION_RATIO_THRESHOLD; // 0.05
 }
