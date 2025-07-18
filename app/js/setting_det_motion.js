@@ -124,11 +124,22 @@ function updateMotionDetection() {
 
   // set voicealert if motion is detected
   if (motionDetected) {
-    // alert("Motion detected");
     // setVoiceAlert("Motion detected");
-    document.getElementById("status").innerText = " Motion detected!";
+    // document.getElementById("status").innerText = " Motion";
+    document.getElementById("motion-status-normal").style.boxShadow =
+      "0 0 0 0 green";
+    document.getElementById("motion-status-warn").style.boxShadow =
+      "0 0 0 0 yellow";
+    document.getElementById("motion-status-alert").style.boxShadow =
+      "0 0 10px 10px red";
   } else {
-    document.getElementById("status").innerText = " No motion detected.";
+    // document.getElementById("status").innerText = " No motion";
+    document.getElementById("motion-status-normal").style.boxShadow =
+      "0 0 10px 10px green";
+    document.getElementById("motion-status-warn").style.boxShadow =
+      "0 0 0 0 yellow";
+    document.getElementById("motion-status-alert").style.boxShadow =
+      "0 0 0 0 red";
   }
 }
 

@@ -115,9 +115,21 @@ function updateFireDetection() {
 
   // set voicealert if fire is detected
   if (fireDetected) {
-    document.getElementById("status").innerText = " Fire detected!";
+    // document.getElementById("status").innerText = " Fire";
+    document.getElementById("fire-status-normal").style.boxShadow =
+      "0 0 0 0 green";
+    document.getElementById("fire-status-warn").style.boxShadow =
+      "0 0 0 0 yellow";
+    document.getElementById("fire-status-alert").style.boxShadow =
+      "0 0 10px 10px red";
   } else {
-    document.getElementById("status").innerText = " No fire detected.";
+    // document.getElementById("status").innerText = " No fire";
+    document.getElementById("fire-status-normal").style.boxShadow =
+      "0 0 10px 10px green";
+    document.getElementById("fire-status-warn").style.boxShadow =
+      "0 0 0 0 yellow";
+    document.getElementById("fire-status-alert").style.boxShadow =
+      "0 0 0 0 red";
   }
 }
 

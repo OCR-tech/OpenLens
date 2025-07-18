@@ -27,11 +27,21 @@
             oninput="updateValueMotion(this.value)"
           />
 
-          <div class="status-indicators">
-            <li class="status-color normal" title="Normal"></li>
-            <li class="status-color warn" title="Warning"></li>
-            <li class="status-color alert" title="Alert"></li>
-          </div>
+          <div
+            class="status-color normal"
+            id="motion-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="motion-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="motion-status-alert"
+            title="Alert"
+          ></div>
         </div>
 
         <!-- Sound Detection Settings -->
@@ -100,6 +110,22 @@
             disabled="true"
             oninput="updateValueFire(this.value)"
           />
+
+          <div
+            class="status-color normal"
+            id="fire-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="fire-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="fire-status-alert"
+            title="Alert"
+          ></div>
         </div>
 
         <!-- Flood Detection Settings -->
