@@ -1,0 +1,221 @@
+<div class="container-section" style="margin: 0; padding: 5px">
+  <div class="controls-section">
+    <div class="video-source-section" id="video-source-section">
+      <div class="controls-section">
+        <!-- Detection Settings -->
+
+        <!-- Motion Detection Settings -->
+        <div class="settings-row">
+          <label for="motion-detection" title="Detects movement."
+            >Motion Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="motion-switch"
+              onclick="toggleMotionDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="motion-sensitivity-slider"
+            min="1"
+            max="10"
+            value="5"
+            disabled="true"
+            oninput="updateValueMotion(this.value)"
+          />
+
+          <div class="status-indicators">
+            <li class="status-color normal" title="Normal"></li>
+            <li class="status-color warn" title="Warning"></li>
+            <li class="status-color alert" title="Alert"></li>
+          </div>
+        </div>
+
+        <!-- Sound Detection Settings -->
+        <div class="settings-row">
+          <label for="sound-detection" title="Detects unusual sounds."
+            >Sound Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="sound-switch"
+              onclick="toggleSoundDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="sound-sensitivity-slider"
+            min="1"
+            max="10"
+            step="1"
+            value="50"
+            disabled="true"
+            oninput="updateValueSound(this.value)"
+          />
+        </div>
+
+        <!-- Smoke Detection Settings -->
+        <div class="settings-row">
+          <label for="smoke-detection" title="Detects visible smoke."
+            >Smoke Detection</label
+          >
+          <label class="switch">
+            <input type="checkbox" id="smoke-detection" />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="smoke-sensitivity"
+            min="1"
+            max="10"
+            value="5"
+            disabled="true"
+          />
+        </div>
+
+        <!-- Fire Detection Settings -->
+        <div class="settings-row">
+          <label for="fire-detection" title="Detects flames."
+            >Fire Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="fire-switch"
+              onclick="toggleFireDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="fire-sensitivity-slider"
+            min="1"
+            max="10"
+            value="5"
+            disabled="true"
+            oninput="updateValueFire(this.value)"
+          />
+        </div>
+
+        <!-- Flood Detection Settings -->
+        <div class="settings-row">
+          <label for="flood-detection" title="Detects flooding."
+            >Flood Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="flood-switch"
+              onclick="toggleFloodDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="flood-sensitivity-slider"
+            min="1"
+            max="10"
+            value="5"
+            disabled="true"
+            oninput="updateValueFlood(this.value)"
+          />
+        </div>
+
+        <!-- Light Detection Settings -->
+        <div class="settings-row">
+          <label for="light-detection" title="Detects light intensity."
+            >Light Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="light-switch"
+              onclick="toggleLightDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="light-sensitivity-slider"
+            min="1"
+            max="10"
+            value="5"
+            disabled="true"
+            oninput="updateValueLight(this.value)"
+          />
+        </div>
+
+        <!-- Rain Detection Settings -->
+        <div class="settings-row">
+          <label for="rain-detection" title="Detects rain."
+            >Rain Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="rain-switch"
+              onclick="toggleRainDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="rain-sensitivity-slider"
+            min="1"
+            max="10"
+            value="5"
+            disabled="true"
+            oninput="updateValueRain(this.value)"
+          />
+        </div>
+
+        <!-- Falling Detection Settings -->
+        <div class="settings-row">
+          <label for="falling-detection" title="Detects falls for elderly."
+            >Falling Detection</label
+          >
+          <label class="switch">
+            <input type="checkbox" id="falling-detection" />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="falling-sensitivity"
+            min="1"
+            max="10"
+            value="5"
+            disabled="true"
+          />
+        </div>
+
+        <!-- Breaking Detection Settings -->
+        <div class="settings-row">
+          <label
+            for="break-detection"
+            title="Detects glass breaking or intrusion."
+            >Breaking Detection</label
+          >
+          <label class="switch">
+            <input type="checkbox" id="break-detection" />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="break-sensitivity"
+            min="1"
+            max="10"
+            value="5"
+            disabled="true"
+          />
+        </div>
+
+        <!-- <Additional Settings> -->
+      </div>
+    </div>
+  </div>
+</div>

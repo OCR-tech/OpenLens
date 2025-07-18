@@ -240,6 +240,7 @@ input {
 .group-frame-source,
 .group-frame-command,
 .group-frame-voice,
+.group-frame-detect,
 .group-frame-settings,
 .group-frame-tutorial,
 .group-frame-help {
@@ -259,6 +260,7 @@ input {
 .group-frame-source label,
 .group-frame-command label,
 .group-frame-voice label,
+.group-frame-detect label,
 .group-frame-settings label,
 .group-frame-tutorial label,
 .group-frame-help label {
@@ -330,6 +332,7 @@ input {
 }
 .controls-section .button-command.active,
 .controls-section .button-voice.active,
+.controls-section .button-detect.active,
 .controls-section .button-settings.active {
   border-style: inset;
   background-color: #346297;
@@ -478,32 +481,60 @@ input {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.status {
-  &.normal:before {
-    background-color: #94e185;
-    border-color: #78d965;
-    box-shadow: 0px 0px 15px 10px #94e185;
-  }
+.status-indicators {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  background-color: #2980b9;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+}
 
-  &.warn:before {
-    background-color: #ffc182;
-    border-color: #ffb161;
-    box-shadow: 0px 0px 15px 15px #ffc182;
-  }
+.status-color {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #fff;
+  /* border: 2px solid rgb(202, 18, 18); */
+  height: 20px;
+  width: 20px;
+  margin: 0;
+  padding: 0;
+}
 
-  &.alert:before {
-    background-color: #c9404d;
-    border-color: #c42c3b;
-    box-shadow: 0px 0px 5px 10px #c9404d;
-  }
+.status-color::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0;
+  padding: 0;
+}
 
-  &:before {
-    content: "";
-    display: inline-block;
-    width: 3px;
-    height: 3px;
-    margin: 0px;
-  }
+.status-color.normal::before {
+  background-color: #94e185;
+  border-color: #78d965;
+  box-shadow: 0 0 3px 3px #94e185;
+  margin: 0;
+  padding: 0;
+}
+
+.status-color.warn::before {
+  background-color: #ffc182;
+  border-color: #ffb161;
+  box-shadow: 0 0 3px 3px #ffc182;
+  margin: 0;
+  padding: 0;
+}
+
+.status-color.alert::before {
+  background-color: #c9404d;
+  border-color: #c42c3b;
+  box-shadow: 0 0 3px 3px #c9404d;
+  margin: 0;
+  padding: 0;
 }
 
 /*==================*/
@@ -675,6 +706,7 @@ body.dark-mode .controls-section button:disabled {
   .group-frame-source,
   .group-frame-command,
   .group-frame-voice,
+  .group-frame-detect,
   .group-frame-settings {
     padding: 4px 1vw;
     margin: 3px 0;

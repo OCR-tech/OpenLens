@@ -9,6 +9,7 @@ let stream = null;
 // =========================================//
 const btnCommand = document.getElementById("btn-command");
 const btnVoice = document.getElementById("btn-voice");
+const btnDetect = document.getElementById("btn-detect");
 const btnSettings = document.getElementById("btn-settings");
 const btnHelp = document.getElementById("btn-help");
 const btnTutorial = document.getElementById("btn-tutorial");
@@ -18,6 +19,7 @@ const groupFrameSource = document.getElementById("group-frame-source");
 const groupFrameMode = document.getElementById("group-frame-mode");
 const groupFrameCommand = document.getElementById("group-frame-command");
 const groupFrameVoice = document.getElementById("group-frame-voice");
+const groupFrameDetect = document.getElementById("group-frame-detect");
 const groupFrameSettings = document.getElementById("group-frame-settings");
 const groupFrameTutorial = document.getElementById("group-frame-tutorial");
 const groupFrameHelp = document.getElementById("group-frame-help");
@@ -101,6 +103,7 @@ function initUI() {
     "btn-stop",
     "btn-command",
     "btn-voice",
+    "btn-detect",
     "btn-settings",
     "btn-pause",
     "btn-capture",

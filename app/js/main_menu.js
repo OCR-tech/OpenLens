@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const buttons = [
     { btn: btnCommand, group: groupFrameCommand },
     { btn: btnVoice, group: groupFrameVoice },
+    { btn: btnDetect, group: groupFrameDetect },
     { btn: btnSettings, group: groupFrameSettings },
     // Add more buttons/groups as needed
   ];
@@ -40,17 +41,20 @@ function showCommand() {
 btnCommand.addEventListener("click", () => {
   btnCommand.classList.toggle("active");
   btnVoice.classList.remove("active");
+  btnDetect.classList.remove("active");
   btnSettings.classList.remove("active");
 
   if (btnCommand.classList.contains("active")) {
     groupFrameCommand.style.display = "flex";
     groupFrameVoice.style.display = "none";
+    groupFrameDetect.style.display = "none";
     groupFrameSettings.style.display = "none";
     groupFrameTutorial.style.display = "none";
     groupFrameHelp.style.display = "none";
   } else {
     groupFrameCommand.style.display = "none";
     groupFrameVoice.style.display = "none";
+    groupFrameDetect.style.display = "none";
     groupFrameSettings.style.display = "none";
     groupFrameTutorial.style.display = "none";
     groupFrameHelp.style.display = "none";
@@ -59,6 +63,7 @@ btnCommand.addEventListener("click", () => {
   // Save status for all buttons
   saveButtonStatus(btnCommand.id, btnCommand.classList.contains("active"));
   saveButtonStatus(btnVoice.id, btnVoice.classList.contains("active"));
+  saveButtonStatus(btnDetect.id, btnDetect.classList.contains("active"));
   saveButtonStatus(btnSettings.id, btnSettings.classList.contains("active"));
 });
 
@@ -71,24 +76,62 @@ function showVoice() {
 btnVoice.addEventListener("click", () => {
   btnCommand.classList.remove("active");
   btnVoice.classList.toggle("active");
+  btnDetect.classList.remove("active");
   btnSettings.classList.remove("active");
 
   if (btnVoice.classList.contains("active")) {
     groupFrameCommand.style.display = "none";
     groupFrameVoice.style.display = "flex";
+    groupFrameDetect.style.display = "none";
     groupFrameSettings.style.display = "none";
     groupFrameTutorial.style.display = "none";
     groupFrameHelp.style.display = "none";
   } else {
     groupFrameCommand.style.display = "none";
     groupFrameVoice.style.display = "none";
+    groupFrameDetect.style.display = "none";
     groupFrameSettings.style.display = "none";
     groupFrameTutorial.style.display = "none";
     groupFrameHelp.style.display = "none";
   }
   saveButtonStatus(btnCommand.id, btnCommand.classList.contains("active"));
   saveButtonStatus(btnVoice.id, btnVoice.classList.contains("active"));
+  saveButtonStatus(btnDetect.id, btnDetect.classList.contains("active"));
   saveButtonStatus(btnSettings.id, btnSettings.classList.contains("active"));
+});
+
+// =========================================//
+// Show Detect function
+function showDetect() {
+  document.getElementById("status").innerText = "Detect";
+}
+
+btnDetect.addEventListener("click", () => {
+  btnCommand.classList.remove("active");
+  btnVoice.classList.remove("active");
+  btnDetect.classList.toggle("active");
+  btnSettings.classList.remove("active");
+
+  if (btnDetect.classList.contains("active")) {
+    groupFrameCommand.style.display = "none";
+    groupFrameVoice.style.display = "none";
+    groupFrameDetect.style.display = "flex";
+    groupFrameSettings.style.display = "none";
+    groupFrameTutorial.style.display = "none";
+    groupFrameHelp.style.display = "none";
+  } else {
+    groupFrameCommand.style.display = "none";
+    groupFrameVoice.style.display = "none";
+    groupFrameDetect.style.display = "none";
+    groupFrameSettings.style.display = "none";
+    groupFrameTutorial.style.display = "none";
+    groupFrameHelp.style.display = "none";
+  }
+  saveButtonStatus(btnCommand.id, btnCommand.classList.contains("active"));
+  saveButtonStatus(btnVoice.id, btnVoice.classList.contains("active"));
+  saveButtonStatus(btnDetect.id, btnDetect.classList.contains("active"));
+  saveButtonStatus(btnSettings.id, btnSettings.classList.contains("active"));
+  saveButtonStatus(btnDetect.id, btnDetect.classList.contains("active"));
 });
 
 // =========================================//
@@ -100,11 +143,13 @@ function showSettings() {
 btnSettings.addEventListener("click", () => {
   btnCommand.classList.remove("active");
   btnVoice.classList.remove("active");
+  btnDetect.classList.remove("active");
   btnSettings.classList.toggle("active");
 
   if (btnSettings.classList.contains("active")) {
     groupFrameCommand.style.display = "none";
     groupFrameVoice.style.display = "none";
+    groupFrameDetect.style.display = "none";
     groupFrameSettings.style.display = "flex";
     groupFrameTutorial.style.display = "none";
     groupFrameHelp.style.display = "none";
@@ -125,11 +170,13 @@ btnSettings.addEventListener("click", () => {
   } else {
     groupFrameCommand.style.display = "none";
     groupFrameVoice.style.display = "none";
+    groupFrameDetect.style.display = "none";
     groupFrameSettings.style.display = "none";
     groupFrameTutorial.style.display = "none";
     groupFrameHelp.style.display = "none";
   }
   saveButtonStatus(btnCommand.id, btnCommand.classList.contains("active"));
   saveButtonStatus(btnVoice.id, btnVoice.classList.contains("active"));
+  saveButtonStatus(btnDetect.id, btnDetect.classList.contains("active"));
   saveButtonStatus(btnSettings.id, btnSettings.classList.contains("active"));
 });

@@ -49,6 +49,18 @@
             />
             <span class="slider"></span>
           </label>
+
+          <!-- Status selection -->
+          <span class="status-mode-text" id="status-mode-text">Status</span>
+          <label class="switch" for="status-switch">
+            <input
+              type="checkbox"
+              id="status-switch"
+              disabled="true"
+              onclick="toggleStatus()"
+            />
+            <span class="slider"></span>
+          </label>
         </div>
 
         <div class="title-section">
@@ -135,6 +147,15 @@
           Voice
         </button>
         <button
+          class="button-detect"
+          onclick="showDetect()"
+          id="btn-detect"
+          style="max-width: 65%"
+          disabled="true"
+        >
+          Detect
+        </button>
+        <button
           class="button-settings"
           onclick="showSettings()"
           id="btn-settings"
@@ -158,6 +179,14 @@
         class="group-frame-voice"
         id="group-frame-voice"
         include-html="app/pages/voice.html"
+        style="display: none; padding: 0"
+      ></div>
+
+      <!-- include detect.html  -->
+      <div
+        class="group-frame-detect"
+        id="group-frame-detect"
+        include-html="app/pages/detect.html"
         style="display: none; padding: 0"
       ></div>
 
@@ -242,6 +271,7 @@
     <script src="app/js/main_menu.js"></script>
     <script src="app/js/main_tutorial.js"></script>
     <script src="app/js/main_help.js"></script>
+    <script src="app/js/detect.js"></script>
     <script src="app/js/setting.js"></script>
     <script src="app/js/setting_alert_sms.js"></script>
     <script src="app/js/setting_alert_email.js"></script>
@@ -259,7 +289,7 @@
     <script src="app/js/main_stop.js"></script>
     <script src="app/js/main_start_cam.js"></script>
     <script src="app/js/detect_object.js"></script>
-    <script src="app/js/detect_text.js"></script>
+    <!-- <script src="app/js/detect_text.js"></script> -->
     <script src="app/js/database.js"></script>
     <script src="app/js/selector_source.js"></script>
     <script src="app/js/selector_unit.js"></script>

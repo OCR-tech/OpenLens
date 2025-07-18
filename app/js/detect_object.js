@@ -35,7 +35,7 @@ function detectFrame() {
     drawPredictions(predictions);
 
     //=========================================//
-    detectText(video);
+    // detectText(video);
 
     //=========================================//
     if (window.runDetectionLoop) {
