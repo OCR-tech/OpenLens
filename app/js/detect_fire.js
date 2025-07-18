@@ -139,11 +139,17 @@ function detectFire(prevFrame, currFrame, width, height, threshold) {
 
   let firePixels = 0;
   const totalPixels = width * height;
-  const MOST_SENSITIVE_RATIO = 0.01;
-  const LEAST_SENSITIVE_RATIO = 0.001;
-  let FIRE_RATIO_THRESHOLD =
+  const MOST_SENSITIVE_RATIO = 0.003;
+  const LEAST_SENSITIVE_RATIO = 0.0015;
+  // 0 = least sensitive, 10 = most sensitive
+  // 0.01 = least sensitive, 0.001 = most sensitive
+
+  let fireRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
+
+  document.getElementById("status").innerText =
+    threshold + " " + fireRatioThreshold;
 
   for (let i = 0; i < totalPixels * 4; i += 4) {
     const r = currFrame[i];
@@ -163,5 +169,5 @@ function detectFire(prevFrame, currFrame, width, height, threshold) {
     }
   }
 
-  return firePixels / totalPixels > FIRE_RATIO_THRESHOLD; // 0.002
+  return firePixels / totalPixels > fireRatioThreshold; // 0.002
 }

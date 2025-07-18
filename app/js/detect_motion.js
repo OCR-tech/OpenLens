@@ -175,15 +175,19 @@ function detectObjectMotion(prevFrame, currFrame, width, height, threshold) {
 
   let motionPixels = 0;
   const totalPixels = width * height;
-  // Map sensitivity slider (0 = most sensitive, 10 = least sensitive) to ratio threshold (0.2 = most sensitive, 0.001 = least sensitive)
-  const MOST_SENSITIVE_RATIO = 0.02;
+
+  const MOST_SENSITIVE_RATIO = 0.03;
   const LEAST_SENSITIVE_RATIO = 0.001;
-  let MOTION_RATIO_THRESHOLD =
+  // 0 = least sensitive, 10 = most sensitive
+  // 0.02 = least sensitive, 0.001 = most sensitive
+
+  let motionRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
-  // alert(threshold + " " + MOTION_RATIO_THRESHOLD);
-  document.getElementById("status").innerText =
-    threshold + " " + MOTION_RATIO_THRESHOLD;
+
+  // alert(threshold + " " + motionRatioThreshold);
+  // document.getElementById("status").innerText =
+  //   threshold + " " + motionRatioThreshold;
 
   for (let i = 0; i < totalPixels * 4; i += 4) {
     // for (let i = 0; i < totalPixels * 4; i += 8) {
@@ -202,5 +206,5 @@ function detectObjectMotion(prevFrame, currFrame, width, height, threshold) {
   }
 
   // higher value means less sensitive
-  return motionPixels / totalPixels > MOTION_RATIO_THRESHOLD; // 0.05
+  return motionPixels / totalPixels > motionRatioThreshold; // 0.05
 }
