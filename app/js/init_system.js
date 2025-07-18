@@ -97,6 +97,7 @@ function initUI() {
     "screen-switch",
     "source-switch",
     "mode-switch",
+    "status-switch",
     "video-source",
     "video-unit",
     "btn-start",
