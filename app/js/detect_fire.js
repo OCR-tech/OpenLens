@@ -148,8 +148,8 @@ function detectFire(prevFrame, currFrame, width, height, threshold) {
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
 
-  document.getElementById("status").innerText =
-    threshold + " " + fireRatioThreshold;
+  // document.getElementById("status").innerText =
+  //   threshold + " " + fireRatioThreshold;
 
   for (let i = 0; i < totalPixels * 4; i += 4) {
     const r = currFrame[i];
