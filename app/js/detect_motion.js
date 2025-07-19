@@ -1,7 +1,6 @@
 // =========================================//
+// MOTION DETECTION FUNCTIONS
 function toggleMotionDetection() {
-  // alert("toggleMotionDetection");
-
   const motionSwitch = document.getElementById("motion-switch");
   const motionSensitivitySlider = document.getElementById(
     "motion-sensitivity-slider"
@@ -12,13 +11,14 @@ function toggleMotionDetection() {
 
   if (!motionSwitch || !motionSensitivitySlider) return;
 
+  window.motionDetectionEnabled = motionSwitch.checked;
+
   if (window.voiceStatusEnabled) {
     playVoiceStatus(
       "Motion Detection " + (motionSwitch.checked ? "On" : "Off")
     );
   }
 
-  // Enable/disable motion sensitivity slider based on motion detection switch
   motionSensitivitySlider.disabled = !motionSwitch.checked;
   motionStatusNormal.style.display = motionSwitch.checked
     ? "inline-block"
@@ -30,7 +30,6 @@ function toggleMotionDetection() {
     ? "inline-block"
     : "none";
 
-  // Save motion detection mode and sensitivity to localStorage
   localStorage.setItem(
     "motionDetectionMode",
     motionSwitch.checked ? "on" : "off"
@@ -55,8 +54,6 @@ function updateValueMotion(val) {
 
 // =========================================//
 function setMotionDetectionMode(mode) {
-  // alert("setMotionDetectionMode: " + mode);
-
   const motionSwitch = document.getElementById("motion-switch");
   const motionSensitivitySlider = document.getElementById(
     "motion-sensitivity-slider"
@@ -69,14 +66,10 @@ function setMotionDetectionMode(mode) {
   const motionStatusAlert = document.getElementById("motion-status-alert");
 
   if (motionSwitch && motionSensitivitySlider) {
-    // Set the switch state
     motionSwitch.checked = mode === "on";
     motionSwitch.dispatchEvent(new Event("change"));
-    // Set the sensitivity slider enabled/disabled based on motion detection state
     motionSensitivitySlider.disabled = mode !== "on";
-    // Set the sensitivity value
     const sensitivityValue = localStorage.getItem("motionSensitivity") || 0;
-    // alert("setMotionDetectionMode: " + sensitivityValue);
     motionSensitivitySlider.value = sensitivityValue;
     motionSensitivityValue.textContent = sensitivityValue;
   }
@@ -97,32 +90,21 @@ function setMotionSensitivity(value) {
     "motion-sensitivity-value"
   );
 
-  if (!motionSensitivitySlider || !motionSensitivityValue) return;
-
-  // Set the slider value
+  if (!motionSensitivitySlider) return;
   motionSensitivitySlider.value = value;
   motionSensitivityValue.textContent = value;
 
-  // Optionally trigger input event if needed
   motionSensitivitySlider.dispatchEvent(new Event("input"));
-
-  // Save to localStorage
   localStorage.setItem("motionSensitivity", value);
 }
 
 // =========================================//
 // Function to update motion detection status
 function updateMotionDetection() {
-  // alert("updateMotionDetection");
   const video = document.getElementById("video-file-player");
-  // const video = document.getElementById("usb-camera-stream");
-
   const canvas = document.getElementById("overlay");
-
-  // const motionSwitch = document.getElementById("motion-switch");
-  if (!video || !canvas) return;
-
-  // alert("updateMotionDetection: " + video.videoWidth + "x" + video.videoHeight);
+  const motionSwitch = document.getElementById("motion-switch");
+  if (!video || !canvas || !motionSwitch || !motionSwitch.checked) return;
 
   if (video.videoWidth === 0 || video.videoHeight === 0) {
     document.getElementById("status").innerText = "Video not loaded.";
@@ -136,31 +118,25 @@ function updateMotionDetection() {
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   const currFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
-  window.prevFrame = window.currFrame || currFrame;
-  window.currFrame = currFrame;
+  window.prevMotionFrame = window.currMotionFrame || currFrame;
+  window.currMotionFrame = currFrame;
 
-  // higher value means less sensitive
   const threshold = parseInt(localStorage.getItem("motionSensitivity")) || 0;
-  // alert("threshold: " + threshold);
 
-  const motionDetected = detectObjectMotion(
-    window.prevFrame,
-    window.currFrame,
+  const motionDetected = detectMotion(
+    window.prevMotionFrame,
+    window.currMotionFrame,
     canvas.width,
     canvas.height,
     threshold
   );
 
-  // set voicealert if motion is detected
   if (motionDetected) {
-    // setVoiceAlert("Motion detected");
-    // document.getElementById("status").innerText = " Motion";
     document.getElementById("motion-status-normal").style.boxShadow = "none";
     document.getElementById("motion-status-warn").style.boxShadow = "none";
     document.getElementById("motion-status-alert").style.boxShadow =
-      "0 0 10px 10px red";
+      "0 0 10px 10px orange";
   } else {
-    // document.getElementById("status").innerText = " No motion";
     document.getElementById("motion-status-normal").style.boxShadow =
       "0 0 10px 10px green";
     document.getElementById("motion-status-warn").style.boxShadow = "none";
@@ -169,42 +145,98 @@ function updateMotionDetection() {
 }
 
 // =========================================//
-function detectObjectMotion(prevFrame, currFrame, width, height, threshold) {
-  // alert("detectObjectMotion");
+// Simple motion detection based on pixel intensity changes
+function detectMotion(prevFrame, currFrame, width, height, threshold) {
   if (!prevFrame || !currFrame) return false;
 
   let motionPixels = 0;
   const totalPixels = width * height;
-
-  const MOST_SENSITIVE_RATIO = 0.03;
-  const LEAST_SENSITIVE_RATIO = 0.001;
-  // 0 = least sensitive, 10 = most sensitive
-  // 0.02 = least sensitive, 0.001 = most sensitive
+  const intensityThreshold = 30;
+  const MOST_SENSITIVE_RATIO = 0.05;
+  const LEAST_SENSITIVE_RATIO = 0.003;
 
   let motionRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
 
-  // alert(threshold + " " + motionRatioThreshold);
-  // document.getElementById("status").innerText =
-  //   threshold + " " + motionRatioThreshold;
-
   for (let i = 0; i < totalPixels * 4; i += 4) {
-    // for (let i = 0; i < totalPixels * 4; i += 8) {
-    const prevGray =
-      0.299 * prevFrame[i] +
-      0.587 * prevFrame[i + 1] +
-      0.114 * prevFrame[i + 2];
-    const currGray =
-      0.299 * currFrame[i] +
-      0.587 * currFrame[i + 1] +
-      0.114 * currFrame[i + 2];
-    // if (Math.abs(currGray - prevGray) > threshold) {
-    if (Math.abs(currGray - prevGray) > 50) {
+    const prevIntensity = prevFrame[i] + prevFrame[i + 1] + prevFrame[i + 2];
+    const currIntensity = currFrame[i] + currFrame[i + 1] + currFrame[i + 2];
+    const intensityChange = Math.abs(currIntensity - prevIntensity);
+
+    if (intensityChange > intensityThreshold) {
       motionPixels++;
     }
+    document.getElementById("status").innerText =
+      "Motion: " +
+      window.motionDetectionEnabled +
+      " " +
+      threshold +
+      " " +
+      motionRatioThreshold.toFixed(3) +
+      " " +
+      (motionPixels / totalPixels).toFixed(3) +
+      " " +
+      motionPixels +
+      " " +
+      intensityChange +
+      " " +
+      totalPixels;
   }
 
-  // higher value means less sensitive
-  return motionPixels / totalPixels > motionRatioThreshold; // 0.05
+  return motionPixels / totalPixels > motionRatioThreshold;
 }
+
+// =========================================//
+// function detectMotion(prevFrame, currFrame, width, height, threshold) {
+//   // alert("detectObjectMotion");
+
+//   if (!prevFrame || !currFrame) return false;
+
+//   let motionPixels = 0;
+//   const totalPixels = width * height;
+//   const grayThreshold = 50;
+//   const MOST_SENSITIVE_RATIO = 0.035; // least sensitive // 0  => 0.035
+//   const LEAST_SENSITIVE_RATIO = 0.003; // most sensitive  // 10 => 0.003
+
+//   let motionRatioThreshold =
+//     LEAST_SENSITIVE_RATIO +
+//     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
+
+//   for (let i = 0; i < totalPixels * 4; i += 4) {
+//     // for (let i = 0; i < totalPixels * 4; i += 8) {
+
+//     const prevGray =
+//       0.299 * prevFrame[i] +
+//       0.587 * prevFrame[i + 1] +
+//       0.114 * prevFrame[i + 2];
+//     const currGray =
+//       0.299 * currFrame[i] +
+//       0.587 * currFrame[i + 1] +
+//       0.114 * currFrame[i + 2];
+//     const grayChange = Math.abs(currGray - prevGray);
+
+//     if (grayChange > grayThreshold) {
+//       motionPixels++;
+
+//       document.getElementById("status").innerText =
+//         "Motion: " +
+//         window.motionDetectionEnabled +
+//         " " +
+//         threshold +
+//         " " +
+//         motionRatioThreshold.toFixed(3) +
+//         " " +
+//         (motionPixels / totalPixels).toFixed(3) +
+//         " " +
+//         motionPixels +
+//         " " +
+//         grayChange.toFixed(1) +
+//         " " +
+//         totalPixels;
+//     }
+//   }
+
+//   // higher value means less sensitive
+//   return motionPixels / totalPixels > motionRatioThreshold; // 0.05
+// }

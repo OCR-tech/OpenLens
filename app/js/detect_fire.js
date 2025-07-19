@@ -11,6 +11,8 @@ function toggleFireDetection() {
 
   if (!fireSwitch || !fireSensitivitySlider) return;
 
+  window.fireDetectionEnabled = fireSwitch.checked;
+
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Fire Detection " + (fireSwitch.checked ? "On" : "Off"));
   }
@@ -32,7 +34,6 @@ function updateValueFire(val) {
   );
   if (slider) {
     slider.value = val;
-    // slider.dispatchEvent(new Event("input"));
   }
 
   fireSensitivityValue.textContent = val;
@@ -74,13 +75,13 @@ function setFireSensitivity(value) {
   const fireSensitivitySlider = document.getElementById(
     "fire-sensitivity-slider"
   );
-  const motionSensitivityValue = document.getElementById(
-    "motion-sensitivity-value"
+  const fireSensitivityValue = document.getElementById(
+    "fire-sensitivity-value"
   );
 
   if (!fireSensitivitySlider) return;
   fireSensitivitySlider.value = value;
-  motionSensitivityValue.textContent = value;
+  fireSensitivityValue.textContent = value;
 
   fireSensitivitySlider.dispatchEvent(new Event("input"));
   localStorage.setItem("fireSensitivity", value);
@@ -123,7 +124,7 @@ function updateFireDetection() {
     document.getElementById("fire-status-normal").style.boxShadow = "none";
     document.getElementById("fire-status-warn").style.boxShadow = "none";
     document.getElementById("fire-status-alert").style.boxShadow =
-      "0 0 10px 10px red";
+      "0 0 10px 10px orange";
   } else {
     document.getElementById("fire-status-normal").style.boxShadow =
       "0 0 10px 10px green";
@@ -133,41 +134,105 @@ function updateFireDetection() {
 }
 
 // =========================================//
-// Simple fire detection based on color (red/yellow/orange) and intensity changes
+// Simple fire detection based on color (orange/yellow/red) and intensity changes
 function detectFire(prevFrame, currFrame, width, height, threshold) {
   if (!prevFrame || !currFrame) return false;
 
   let firePixels = 0;
   const totalPixels = width * height;
-  const MOST_SENSITIVE_RATIO = 0.003;
-  const LEAST_SENSITIVE_RATIO = 0.0015;
-  // 0 = least sensitive, 10 = most sensitive
-  // 0.01 = least sensitive, 0.001 = most sensitive
+  const intensityThreshold = 40;
+  const MOST_SENSITIVE_RATIO = 0.05;
+  const LEAST_SENSITIVE_RATIO = 0.003;
 
   let fireRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
-
-  // document.getElementById("status").innerText =
-  //   threshold + " " + fireRatioThreshold;
 
   for (let i = 0; i < totalPixels * 4; i += 4) {
     const r = currFrame[i];
     const g = currFrame[i + 1];
     const b = currFrame[i + 2];
 
+    // Fire is usually reddish/orange/yellow, so r is high, g moderate, b low
     const isFireColor =
-      r > 150 && g > 50 && g < 200 && b < 100 && r > g && g > b;
+      r > 150 && g > 80 && b < 80 && r > g && g > b && r - g > 40 && g - b > 20;
 
     const prevIntensity = prevFrame[i] + prevFrame[i + 1] + prevFrame[i + 2];
     const currIntensity = r + g + b;
     const intensityChange = Math.abs(currIntensity - prevIntensity);
 
-    // if (isFireColor && intensityChange > threshold) {
-    if (isFireColor && intensityChange > 50) {
+    if (isFireColor && intensityChange > intensityThreshold) {
       firePixels++;
     }
+    document.getElementById("status").innerText =
+      "Fire: " +
+      window.fireDetectionEnabled +
+      " " +
+      threshold +
+      " " +
+      fireRatioThreshold.toFixed(3) +
+      " " +
+      (firePixels / totalPixels).toFixed(3) +
+      " " +
+      firePixels +
+      " " +
+      intensityChange +
+      " " +
+      totalPixels;
   }
 
-  return firePixels / totalPixels > fireRatioThreshold; // 0.002
+  return firePixels / totalPixels > fireRatioThreshold;
 }
+
+// =========================================//
+// Simple fire detection based on color (red/yellow/orange) and intensity changes
+// function detectFire(prevFrame, currFrame, width, height, threshold) {
+//   if (!prevFrame || !currFrame) return false;
+
+//   let firePixels = 0;
+//   const totalPixels = width * height;
+//   const intensityThreshold = 50;
+//   const MOST_SENSITIVE_RATIO = 0.003; // least sensitive // 0  => 0.003
+//   const LEAST_SENSITIVE_RATIO = 0.0015; // most sensitive  // 10 => 0.0015
+
+//   let fireRatioThreshold =
+//     LEAST_SENSITIVE_RATIO +
+//     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
+
+//   // document.getElementById("status").innerText = "Fire";
+
+//   for (let i = 0; i < totalPixels * 4; i += 4) {
+//     const r = currFrame[i];
+//     const g = currFrame[i + 1];
+//     const b = currFrame[i + 2];
+
+//     const isFireColor =
+//       r > 150 && g > 50 && g < 200 && b < 100 && r > g && g > b;
+
+//     const prevIntensity = prevFrame[i] + prevFrame[i + 1] + prevFrame[i + 2];
+//     const currIntensity = r + g + b;
+//     const intensityChange = Math.abs(currIntensity - prevIntensity);
+
+//     if (isFireColor && intensityChange > intensityThreshold) {
+//       firePixels++;
+
+//       document.getElementById("status").innerText =
+//         "Fire: " +
+//         window.fireDetectionEnabled +
+//         " " +
+//         threshold +
+//         " " +
+//         fireRatioThreshold.toFixed(3) +
+//         " " +
+//         (firePixels / totalPixels).toFixed(3) +
+//         " " +
+//         firePixels +
+//         " " +
+//         intensityChange.toFixed(1) +
+//         " " +
+//         totalPixels;
+//     }
+//   }
+
+//   return firePixels / totalPixels > fireRatioThreshold; // 0.002
+// }

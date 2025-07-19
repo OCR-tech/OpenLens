@@ -1,3 +1,7 @@
+let motionIntervalId = null;
+let smokeIntervalId = null;
+let fireIntervalId = null;
+
 // =========================================//
 function detectFrame() {
   // alert("DetectFrame");
@@ -10,21 +14,45 @@ function detectFrame() {
 
     //=========================================//
     // Motion detection
-    if (window.motionDetectionEnabled) {
-      // alert("Motion detection enabled");
-      // setupMotionDetectionInterval();
-      // updateMotionDetection();
-      setInterval(updateMotionDetection, 200); // every 200ms
+    if (window.motionDetectionEnabled && !motionIntervalId) {
+      motionIntervalId = setInterval(updateMotionDetection, 200); // every 200ms
+    } else if (!window.motionDetectionEnabled && motionIntervalId) {
+      clearInterval(motionIntervalId);
+      motionIntervalId = null;
+      document.getElementById("status").innerText = "Not detecting motion.";
+    }
+
+    //=========================================//
+    // Smoke detection
+    if (window.smokeDetectionEnabled && !smokeIntervalId) {
+      smokeIntervalId = setInterval(updateSmokeDetection, 200); // every 200ms
+    } else if (!window.smokeDetectionEnabled && smokeIntervalId) {
+      clearInterval(smokeIntervalId);
+      smokeIntervalId = null;
+      document.getElementById("status").innerText = "Not detecting smoke.";
     }
 
     //=========================================//
     // Fire detection
-    if (window.fireDetectionEnabled) {
-      // alert("Fire detection enabled");
-      // setupFireDetectionInterval();
-      // updateFireDetection();
-      setInterval(updateFireDetection, 200); // every 200ms
+    if (window.fireDetectionEnabled && !fireIntervalId) {
+      fireIntervalId = setInterval(updateFireDetection, 200); // every 200ms
+    } else if (!window.fireDetectionEnabled && fireIntervalId) {
+      clearInterval(fireIntervalId);
+      fireIntervalId = null;
+      document.getElementById("status").innerText = "Not detecting fire.";
     }
+
+    //=========================================//
+    // Check if predictions are detected persons in frame
+    // const detectedPersons = predictions.filter((p) => p.class === "person");
+    // if (detectedPersons.length > 0) {
+    //   // alert("Detected persons: " + detectedPersons.map((p) => p.id).join(", "));
+    //   console.log(
+    //     "Detected persons: " + detectedPersons.map((p) => p.id).join(", ")
+    //   );
+    // } else {
+    //   // alert("No persons detected");
+    // }
 
     //=========================================//
     // Draw predictions on the canvas
@@ -48,105 +76,105 @@ function detectFrame() {
 }
 
 // =========================================//
-function detectFastFrame() {
-  // alert("DetectFastFrame");
+// function detectFastFrame() {
+//   // alert("DetectFastFrame");
 
-  if (!model || !video || video.paused || video.ended) {
-    return;
-  }
-  model.detect(video).then(function (predictions) {
-    // Object detection
-    const objectNames = predictions.map((p) => p.class).join(", ");
+//   if (!model || !video || video.paused || video.ended) {
+//     return;
+//   }
+//   model.detect(video).then(function (predictions) {
+//     // Object detection
+//     const objectNames = predictions.map((p) => p.class).join(", ");
 
-    //==========================================//
-    // Record to JSON at every 1 second
-    // if (!window.lastRecordTime || Date.now() - window.lastRecordTime > 1000) {
-    //   recordToJSON(predictions);
-    //   window.lastRecordTime = Date.now();
-    // }
+//     //==========================================//
+//     // Record to JSON at every 1 second
+//     // if (!window.lastRecordTime || Date.now() - window.lastRecordTime > 1000) {
+//     //   recordToJSON(predictions);
+//     //   window.lastRecordTime = Date.now();
+//     // }
 
-    //=========================================//
-    // if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
-    //   setVoiceAlert("Object detected");
-    // } else {
-    //   if (window.voiceAlertEnabled) {
-    //     stopVoiceAlert();
-    //   }
-    // }
+//     //=========================================//
+//     // if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
+//     //   setVoiceAlert("Object detected");
+//     // } else {
+//     //   if (window.voiceAlertEnabled) {
+//     //     stopVoiceAlert();
+//     //   }
+//     // }
 
-    //=========================================//
-    // Email alert
-    if (predictions && predictions.length > 0 && window.emailAlertEnabled) {
-      // alert("sendEmailAlert: " + objectNames);
-      console.log("sendEmailAlert: " + objectNames);
-      // okEmailAlert();
-      // sendEmailAlert(objectNames);
-    }
+//     //=========================================//
+//     // Email alert
+//     if (predictions && predictions.length > 0 && window.emailAlertEnabled) {
+//       // alert("sendEmailAlert: " + objectNames);
+//       console.log("sendEmailAlert: " + objectNames);
+//       // okEmailAlert();
+//       // sendEmailAlert(objectNames);
+//     }
 
-    //=========================================//
-    // Notification
-    if (predictions && predictions.length > 0 && window.notificationEnabled) {
-      // alert("Object detected: " + objectNames);
-      notifyDetection(objectNames);
-    }
+//     //=========================================//
+//     // Notification
+//     if (predictions && predictions.length > 0 && window.notificationEnabled) {
+//       // alert("Object detected: " + objectNames);
+//       notifyDetection(objectNames);
+//     }
 
-    //=========================================//
-    // Motion detection
-    if (window.motionDetectionEnabled) {
-      // alert("Motion detection enabled");
-      // setupMotionDetectionInterval();
-      // updateMotionDetection();
-      setInterval(updateMotionDetection, 200); // every 200ms
-    }
+//     //=========================================//
+//     // Motion detection
+//     if (window.motionDetectionEnabled) {
+//       // alert("Motion detection enabled");
+//       // setupMotionDetectionInterval();
+//       // updateMotionDetection();
+//       setInterval(updateMotionDetection, 200); // every 200ms
+//     }
 
-    //=========================================//
-    // Sound detection
-    // if (window.soundDetectionEnabled) {
-    //   // alert("Sound detection enabled");
-    //   // Call the sound detection function
-    //   const soundSensitivity =
-    //     parseInt(localStorage.getItem("soundSensitivity")) || 30;
-    //   prevSamples = prevSamples || new Float32Array(0);
-    //   currSamples = currSamples || new Float32Array(0);
-    //   const soundLevel = detectSoundLevel(
-    //     prevSamples,
-    //     currSamples,
-    //     soundSensitivity
-    //   );
+//     //=========================================//
+//     // Sound detection
+//     // if (window.soundDetectionEnabled) {
+//     //   // alert("Sound detection enabled");
+//     //   // Call the sound detection function
+//     //   const soundSensitivity =
+//     //     parseInt(localStorage.getItem("soundSensitivity")) || 30;
+//     //   prevSamples = prevSamples || new Float32Array(0);
+//     //   currSamples = currSamples || new Float32Array(0);
+//     //   const soundLevel = detectSoundLevel(
+//     //     prevSamples,
+//     //     currSamples,
+//     //     soundSensitivity
+//     //   );
 
-    //   if (soundLevel) {
-    //     alert("Sound detected");
-    //     playVoiceAlert("Sound detected");
-    //   }
-    // }
+//     //   if (soundLevel) {
+//     //     alert("Sound detected");
+//     //     playVoiceAlert("Sound detected");
+//     //   }
+//     // }
 
-    //=========================================//
-    // Fire detection
-    // if (window.fireDetectionEnabled) {
-    //   // alert("Fire detection enabled");
-    //   // setupFireDetectionInterval();
-    //   // updateFireDetection();
-    //   setInterval(updateFireDetection, 200); // every 200ms
-    // }
+//     //=========================================//
+//     // Fire detection
+//     // if (window.fireDetectionEnabled) {
+//     //   // alert("Fire detection enabled");
+//     //   // setupFireDetectionInterval();
+//     //   // updateFireDetection();
+//     //   setInterval(updateFireDetection, 200); // every 200ms
+//     // }
 
-    //=========================================//
+//     //=========================================//
 
-    //=========================================//
-    // Draw predictions on the canvas
-    // alert("Model loaded:", model);
-    // alert("Video playing:", !video.paused && !video.ended);
-    // alert("Video size:", video.videoWidth, video.videoHeight);
-    // alert("Predictions:", predictions);
-    drawPredictions(predictions);
+//     //=========================================//
+//     // Draw predictions on the canvas
+//     // alert("Model loaded:", model);
+//     // alert("Video playing:", !video.paused && !video.ended);
+//     // alert("Video size:", video.videoWidth, video.videoHeight);
+//     // alert("Predictions:", predictions);
+//     drawPredictions(predictions);
 
-    if (window.runDetectionLoop) {
-      // Request the next animation frame
-      window.animationId = requestAnimationFrame(detectFrame);
-    }
+//     if (window.runDetectionLoop) {
+//       // Request the next animation frame
+//       window.animationId = requestAnimationFrame(detectFrame);
+//     }
 
-    //=========================================//
-  });
-}
+//     //=========================================//
+//   });
+// }
 
 // =========================================//
 function drawPredictions(predictions) {

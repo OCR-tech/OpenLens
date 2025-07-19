@@ -14,8 +14,9 @@ function startButton() {
   window.runDetectionLoop = true; // Start the detection loop
   window.voiceAlertEnabled = true;
   window.notificationEnabled = true;
-  window.motionDetectionEnabled = true;
-  window.fireDetectionEnabled = true;
+  // window.motionDetectionEnabled = true;
+  // window.smokeDetectionEnabled = true;
+  // window.fireDetectionEnabled = true;
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Start");

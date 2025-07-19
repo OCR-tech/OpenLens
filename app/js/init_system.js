@@ -58,6 +58,16 @@ window.addEventListener("DOMContentLoaded", function () {
       initUI();
 
       document.getElementById("status").innerText = "Ready!";
+
+      // document.getElementById("status").innerText =
+      //   " window.motionDetectionEnabled: " +
+      //   window.motionDetectionEnabled +
+      //   " window.soundDetectionEnabled: " +
+      //   window.soundDetectionEnabled +
+      //   " window.smokeDetectionEnabled: " +
+      //   window.smokeDetectionEnabled +
+      //   " window.fireDetectionEnabled: " +
+      //   window.fireDetectionEnabled;
     })
     .catch(function (err) {
       document.getElementById("status").innerText = "Model load error: " + err;
@@ -80,8 +90,10 @@ function initSystem() {
   window.showGPSLocationOverlay = true;
   window.showVideoSizeOverlay = true;
   window.showFramerateOverlay = true;
+  //------------//
   window.motionDetectionEnabled = true;
   window.soundDetectionEnabled = true;
+  window.smokeDetectionEnabled = true;
   window.fireDetectionEnabled = true;
 
   // console.log("Initializing system");

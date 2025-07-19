@@ -23,8 +23,11 @@ function stopButton() {
 
   btnOk.disabled = false; // Disable the OK button after setting the URL
 
-  window.motionDetectionEnabled = false;
-  window.fireDetectionEnabled = false;
+  //=========================================//
+  // window.motionDetectionEnabled = false;
+  // window.smokeDetectionEnabled = false;
+  // window.fireDetectionEnabled = false;
+
   //=========================================//
   window.runDetectionLoop = false; // Stop the detection loop
   stopCamera();
@@ -114,6 +117,9 @@ function ReInitUI() {
   const motionStatusNormal = document.getElementById("motion-status-normal");
   const motionStatusWarn = document.getElementById("motion-status-warn");
   const motionStatusAlert = document.getElementById("motion-status-alert");
+  const smokeStatusNormal = document.getElementById("smoke-status-normal");
+  const smokeStatusWarn = document.getElementById("smoke-status-warn");
+  const smokeStatusAlert = document.getElementById("smoke-status-alert");
   const fireStatusNormal = document.getElementById("fire-status-normal");
   const fireStatusWarn = document.getElementById("fire-status-warn");
   const fireStatusAlert = document.getElementById("fire-status-alert");
@@ -127,6 +133,10 @@ function ReInitUI() {
   if (motionStatusNormal) motionStatusNormal.style.boxShadow = "none";
   if (motionStatusWarn) motionStatusWarn.style.boxShadow = "none";
   if (motionStatusAlert) motionStatusAlert.style.boxShadow = "none";
+
+  if (smokeStatusNormal) smokeStatusNormal.style.boxShadow = "none";
+  if (smokeStatusWarn) smokeStatusWarn.style.boxShadow = "none";
+  if (smokeStatusAlert) smokeStatusAlert.style.boxShadow = "none";
 
   if (fireStatusNormal) fireStatusNormal.style.boxShadow = "none";
   if (fireStatusWarn) fireStatusWarn.style.boxShadow = "none";

@@ -130,6 +130,18 @@ document.addEventListener("DOMContentLoaded", function () {
           setSoundSensitivityValue(soundSensitivityValue);
 
         //==========================================//
+        // Smoke Detection mode
+        const smokeDetectionMode =
+          localStorage.getItem("smokeDetectionMode") || "off";
+        if (typeof setSmokeDetectionMode === "function")
+          setSmokeDetectionMode(smokeDetectionMode);
+
+        const smokeSensitivityValue =
+          localStorage.getItem("smokeSensitivityValue") || 50;
+        if (typeof setSmokeSensitivityValue === "function")
+          setSmokeSensitivityValue(smokeSensitivityValue);
+
+        //==========================================//
         // Fire Detection mode
         const fireDetectionMode =
           localStorage.getItem("fireDetectionMode") || "off";

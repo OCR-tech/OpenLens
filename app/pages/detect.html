@@ -32,19 +32,16 @@
             class="status-color normal"
             id="motion-status-normal"
             title="Normal"
-            style="display: none"
           ></div>
           <div
             class="status-color warn"
             id="motion-status-warn"
             title="Warning"
-            style="display: none"
           ></div>
           <div
             class="status-color alert"
             id="motion-status-alert"
             title="Alert"
-            style="display: none"
           ></div>
         </div>
 
@@ -75,21 +72,43 @@
 
         <!-- Smoke Detection Settings -->
         <div class="settings-row">
-          <label for="smoke-detection" title="Detects visible smoke."
+          <label for="smoke-detection" title="Detects smoke."
             >Smoke Detection</label
           >
           <label class="switch">
-            <input type="checkbox" id="smoke-detection" />
+            <input
+              type="checkbox"
+              id="smoke-switch"
+              onclick="toggleSmokeDetection()"
+            />
             <span class="slider"></span>
           </label>
           <input
             type="range"
-            id="smoke-sensitivity"
-            min="1"
+            id="smoke-sensitivity-slider"
+            min="0"
             max="10"
             value="5"
             disabled="true"
+            oninput="updateValueSmoke(this.value)"
           />
+          <span id="smoke-sensitivity-value">5</span>
+
+          <div
+            class="status-color normal"
+            id="smoke-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="smoke-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="smoke-status-alert"
+            title="Alert"
+          ></div>
         </div>
 
         <!-- Fire Detection Settings -->

@@ -98,7 +98,7 @@
       </div>
 
       <!-- MJPEG/HTTPS stream -->
-      <img
+      <!-- <img
         id="ipcam-feed-img"
         src="https://192.168.245.139:5500/video"
         alt="IP Camera Feed"
@@ -109,12 +109,12 @@
           display: block;
           margin: 0 auto;
         "
-      />
+      /> -->
 
-      <video id="ipcam-feed-video" controls autoplay>
+      <!-- <video id="ipcam-feed-video" controls autoplay>
         <source src="https://192.168.245.139:5500/" type="video/mp4" />
         Your browser does not support MP4 video.
-      </video>
+      </video> -->
 
       <div class="controls-section">
         <button
@@ -281,6 +281,7 @@
     <script src="app/js/setting.js"></script>
     <script src="app/js/detect_motion.js"></script>
     <script src="app/js/detect_sound.js"></script>
+    <script src="app/js/detect_smoke.js"></script>
     <script src="app/js/detect_fire.js"></script>
     <script src="app/js/setting_alert_sms.js"></script>
     <script src="app/js/setting_alert_email.js"></script>
