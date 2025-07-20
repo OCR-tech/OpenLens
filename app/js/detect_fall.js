@@ -157,7 +157,7 @@ function detectFalling(prevFrame, currFrame, width, height, threshold) {
   const intensityThreshold = 80; // Sudden movement is often brighter/darker
   const movementThreshold = 60; // Large pixel change for movement
   const MOST_SENSITIVE_RATIO = 0.03;
-  const LEAST_SENSITIVE_RATIO = 0.001;
+  const LEAST_SENSITIVE_RATIO = 0.005;
   let fallingRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;

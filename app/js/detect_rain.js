@@ -148,7 +148,7 @@ function detectRain(prevFrame, currFrame, width, height, threshold) {
   const streakLength = 3; // Minimum streak length for rain
 
   const MOST_SENSITIVE_RATIO = 0.03;
-  const LEAST_SENSITIVE_RATIO = 0.001;
+  const LEAST_SENSITIVE_RATIO = 0.008;
   let rainRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;

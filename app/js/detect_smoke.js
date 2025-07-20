@@ -149,7 +149,7 @@ function detectSmoke(prevFrame, currFrame, width, height, threshold) {
   const totalPixels = width * height;
   const intensityThreshold = 30;
   const MOST_SENSITIVE_RATIO = 0.05; // 0.015
-  const LEAST_SENSITIVE_RATIO = 0.003;
+  const LEAST_SENSITIVE_RATIO = 0.008;
 
   let smokeRatioThreshold =
     LEAST_SENSITIVE_RATIO +
