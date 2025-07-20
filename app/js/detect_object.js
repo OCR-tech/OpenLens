@@ -1,6 +1,7 @@
 let motionIntervalId = null;
 let smokeIntervalId = null;
 let fireIntervalId = null;
+let floodIntervalId = null;
 
 // =========================================//
 function detectFrame() {
@@ -40,6 +41,16 @@ function detectFrame() {
       clearInterval(fireIntervalId);
       fireIntervalId = null;
       document.getElementById("status").innerText = "Not detecting fire.";
+    }
+
+    //=========================================//
+    // Flood detection
+    if (window.floodDetectionEnabled && !floodIntervalId) {
+      floodIntervalId = setInterval(updateFloodDetection, 200); // every 200ms
+    } else if (!window.floodDetectionEnabled && floodIntervalId) {
+      clearInterval(floodIntervalId);
+      floodIntervalId = null;
+      document.getElementById("status").innerText = "Not detecting flood.";
     }
 
     //=========================================//

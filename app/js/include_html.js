@@ -154,6 +154,16 @@ document.addEventListener("DOMContentLoaded", function () {
           setFireSensitivityValue(fireSensitivityValue);
 
         //==========================================//
+        // Flood Detection mode
+        const floodDetectionMode =
+          localStorage.getItem("floodDetectionMode") || "off";
+        if (typeof setFloodDetectionMode === "function")
+          setFloodDetectionMode(floodDetectionMode);
+
+        const floodSensitivityValue =
+          localStorage.getItem("floodSensitivityValue") || 50;
+        if (typeof setFloodSensitivityValue === "function")
+          setFloodSensitivityValue(floodSensitivityValue);
 
         //==========================================//
 
