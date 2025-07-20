@@ -1,99 +1,205 @@
 // =========================================//
+// SOUND DETECTION FUNCTIONS
 function toggleSoundDetection() {
-  // alert("toggleSoundDetection");
-
-  // Toggle sound detection mode
-  const soundDetectionSwitch = document.getElementById("sound-switch");
+  const soundSwitch = document.getElementById("sound-switch");
   const soundSensitivitySlider = document.getElementById(
     "sound-sensitivity-slider"
   );
+  const soundStatusNormal = document.getElementById("sound-status-normal");
+  const soundStatusWarn = document.getElementById("sound-status-warn");
+  const soundStatusAlert = document.getElementById("sound-status-alert");
 
-  if (window.soundDetectionEnabled) {
-    playVoiceStatus(
-      "Sound Detection " + (soundDetectionSwitch.checked ? "On" : "Off")
-    );
+  if (!soundSwitch || !soundSensitivitySlider) return;
+
+  window.soundDetectionEnabled = soundSwitch.checked;
+
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Sound Detection " + (soundSwitch.checked ? "On" : "Off"));
   }
 
-  if (soundDetectionSwitch && soundSensitivitySlider) {
-    soundSensitivitySlider.disabled = !soundDetectionSwitch.checked;
+  soundSensitivitySlider.disabled = !soundSwitch.checked;
+  soundStatusNormal.style.display = soundSwitch.checked
+    ? "inline-block"
+    : "none";
+  soundStatusWarn.style.display = soundSwitch.checked ? "inline-block" : "none";
+  soundStatusAlert.style.display = soundSwitch.checked
+    ? "inline-block"
+    : "none";
 
-    localStorage.setItem(
-      "soundDetectionMode",
-      soundDetectionSwitch.checked ? "on" : "off"
-    );
-    localStorage.setItem("soundSensitivityValue", soundSensitivitySlider.value);
-  }
-}
-
-// =========================================//
-function updateSoundSensitivity(val) {
-  document.getElementById("sound-sensitivity-slider").textContent = val;
-
-  // Change the sound detection sensitivity based on the slider value
-  window.soundSensitivity = Math.max(1, Math.min(100, val));
-}
-
-// =========================================//
-function setSoundDetectionMode(mode) {
-  // alert("setSoundDetectionMode: " + mode);
-
-  // Set the sound detection mode based on the provided mode
-  const soundDetectionSwitch = document.getElementById("sound-switch");
-
-  if (soundDetectionSwitch) {
-    soundDetectionSwitch.checked = mode === "on";
-    soundDetectionSwitch.dispatchEvent(new Event("change"));
-  }
+  localStorage.setItem(
+    "soundDetectionMode",
+    soundSwitch.checked ? "on" : "off"
+  );
+  localStorage.setItem("soundSensitivity", soundSensitivitySlider.value);
 }
 
 // =========================================//
 function updateValueSound(val) {
-  document.getElementById("sound-sensitivity-slider").textContent = val;
+  const slider = document.getElementById("sound-sensitivity-slider");
+  const soundSensitivityValue = document.getElementById(
+    "sound-sensitivity-value"
+  );
+  if (slider) {
+    slider.value = val;
+  }
 
-  // change the volume of the user microphone input based on the slider value
-  // if (typeof window.soundSensitivitySlider !== "undefined") {
-  //   window.soundSensitivitySlider.value = Math.max(0, Math.min(100, val));
-  // }
+  soundSensitivityValue.textContent = val;
+  window.soundSensitivity = Math.max(0, Math.min(10, val));
+  localStorage.setItem("soundSensitivity", window.soundSensitivity);
 }
 
 // =========================================//
-function setSoundSensitivityValue(value) {
-  // alert("setSoundSensitivityValue: " + value);
-
-  const soundDetectionSwitch = document.getElementById("sound-switch");
+function setSoundDetectionMode(mode) {
+  const soundSwitch = document.getElementById("sound-switch");
   const soundSensitivitySlider = document.getElementById(
     "sound-sensitivity-slider"
   );
-  if (!soundSensitivitySlider) return;
-
-  // Enable or disable the slider based on the switch state
-  soundSensitivitySlider.disabled = !(
-    soundDetectionSwitch && soundDetectionSwitch.checked
+  const soundSensitivityValue = document.getElementById(
+    "sound-sensitivity-value"
   );
+  const soundStatusNormal = document.getElementById("sound-status-normal");
+  const soundStatusWarn = document.getElementById("sound-status-warn");
+  const soundStatusAlert = document.getElementById("sound-status-alert");
 
-  // Set the slider value
-  soundSensitivitySlider.value = value;
+  if (soundSwitch && soundSensitivitySlider) {
+    soundSwitch.checked = mode === "on";
+    soundSwitch.dispatchEvent(new Event("change"));
+    soundSensitivitySlider.disabled = mode !== "on";
+    const sensitivityValue = localStorage.getItem("soundSensitivity") || 0;
+    soundSensitivitySlider.value = sensitivityValue;
+    soundSensitivityValue.textContent = sensitivityValue;
+  }
 
-  // Optionally trigger input event if needed
-  soundSensitivitySlider.dispatchEvent(new Event("input"));
+  if (soundStatusNormal && soundStatusWarn && soundStatusAlert) {
+    soundStatusNormal.style.display = mode === "on" ? "inline-block" : "none";
+    soundStatusWarn.style.display = mode === "on" ? "inline-block" : "none";
+    soundStatusAlert.style.display = mode === "on" ? "inline-block" : "none";
+  }
 }
 
 // =========================================//
-// Basic sound detection function
-function detectSoundLevel(prevSamples, currSamples, threshold = 30) {
-  alert("detectSoundLevel");
-  // prevSamples and currSamples are Float32Array (audio PCM samples)
-  // Returns true if sound is detected, false otherwise
+function setSoundSensitivity(value) {
+  const soundSensitivitySlider = document.getElementById(
+    "sound-sensitivity-slider"
+  );
+  const soundSensitivityValue = document.getElementById(
+    "sound-sensitivity-value"
+  );
 
-  let soundChanges = 0;
-  const totalSamples = Math.min(prevSamples.length, currSamples.length);
+  if (!soundSensitivitySlider) return;
+  soundSensitivitySlider.value = value;
+  soundSensitivityValue.textContent = value;
 
-  for (let i = 0; i < totalSamples; i++) {
-    if (Math.abs(currSamples[i] - prevSamples[i]) > threshold / 100) {
-      soundChanges++;
-    }
+  soundSensitivitySlider.dispatchEvent(new Event("input"));
+  localStorage.setItem("soundSensitivity", value);
+}
+
+// =========================================//
+// Function to update sound detection status
+function updateSoundDetection() {
+  const soundSwitch = document.getElementById("sound-switch");
+  if (!soundSwitch || !soundSwitch.checked) return;
+
+  // Setup microphone input and analyser if not already done
+  if (!window.audioContext) {
+    window.audioContext = new (window.AudioContext ||
+      window.webkitAudioContext)();
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then((stream) => {
+        window.micSource = window.audioContext.createMediaStreamSource(stream);
+        window.analyser = window.audioContext.createAnalyser();
+        window.micSource.connect(window.analyser);
+        window.soundDataArray = new Uint8Array(
+          window.analyser.frequencyBinCount
+        );
+      })
+      .catch((err) => {
+        document.getElementById("status").innerText =
+          "Microphone access denied.";
+        return;
+      });
   }
 
-  // If more than 2% of samples have changed, consider it sound
-  return soundChanges / totalSamples > 0.02;
+  // Get frequency data from microphone
+  window.analyser.getByteFrequencyData(window.soundDataArray);
+
+  const threshold = parseInt(localStorage.getItem("soundSensitivity")) || 0;
+  const soundDetected = detectSound(window.soundDataArray, threshold);
+
+  if (soundDetected) {
+    document.getElementById("sound-status-normal").style.boxShadow = "none";
+    document.getElementById("sound-status-warn").style.boxShadow = "none";
+    document.getElementById("sound-status-alert").style.boxShadow =
+      "0 0 10px 10px orange";
+  } else {
+    document.getElementById("sound-status-normal").style.boxShadow =
+      "0 0 10px 10px green";
+    document.getElementById("sound-status-warn").style.boxShadow = "none";
+    document.getElementById("sound-status-alert").style.boxShadow = "none";
+  }
+}
+
+// =========================================//
+function detectSound(soundDataArray, threshold) {
+  // alert("DetectSound");
+
+  if (!soundDataArray) return false;
+
+  // Average volume
+  let sum = 0;
+  for (let i = 0; i < soundDataArray.length; i++) {
+    sum += soundDataArray[i];
+  }
+  const avg = sum / soundDataArray.length;
+
+  // Frequency band analysis (e.g., 1000Hz-4000Hz)
+  const sampleRate = window.audioContext.sampleRate;
+  const minFreq = 1000;
+  const maxFreq = 4000;
+
+  const minIndex = Math.floor(
+    minFreq / (sampleRate / window.analyser.frequencyBinCount)
+  );
+  const maxIndex = Math.ceil(
+    maxFreq / (sampleRate / window.analyser.frequencyBinCount)
+  );
+
+  let bandSum = 0;
+  for (let i = minIndex; i <= maxIndex; i++) {
+    bandSum += soundDataArray[i];
+  }
+
+  const bandAvg = bandSum / (maxIndex - minIndex + 1);
+
+  // Sensitivity: 0 (most sensitive) to 10 (least sensitive)
+  const MOST_SENSITIVE_LEVEL = 10;
+  const LEAST_SENSITIVE_LEVEL = 100;
+  let soundLevelThreshold =
+    MOST_SENSITIVE_LEVEL +
+    ((LEAST_SENSITIVE_LEVEL - MOST_SENSITIVE_LEVEL) * (10 - threshold)) / 10;
+
+  // Peak detection
+  let peak = Math.max(...soundDataArray);
+
+  document.getElementById("status").innerText =
+    "Sound: " +
+    window.soundDetectionEnabled +
+    " " +
+    threshold +
+    " " +
+    soundLevelThreshold.toFixed(2) +
+    " avg: " +
+    avg.toFixed(1) +
+    " BandAvg: " +
+    bandAvg.toFixed(1) +
+    " Peak: " +
+    peak.toFixed(1);
+
+  // Advanced: trigger if average, band average, or peak exceeds threshold
+  return (
+    avg > soundLevelThreshold ||
+    bandAvg > soundLevelThreshold ||
+    peak > soundLevelThreshold + 200
+  );
 }

@@ -124,10 +124,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (typeof setSoundDetectionMode === "function")
           setSoundDetectionMode(soundDetectionMode);
 
-        const soundSensitivityValue =
-          localStorage.getItem("soundSensitivityValue") || 50;
-        if (typeof setSoundSensitivityValue === "function")
-          setSoundSensitivityValue(soundSensitivityValue);
+        const volumeSliderSoundDetectionValue =
+          localStorage.getItem("volumeSliderSoundDetectionValue") || 50;
+        if (typeof setVolumeSliderSoundDetectionValue === "function")
+          setVolumeSliderSoundDetectionValue(volumeSliderSoundDetectionValue);
 
         //==========================================//
         // Smoke Detection mode
@@ -164,6 +164,22 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.getItem("floodSensitivityValue") || 50;
         if (typeof setFloodSensitivityValue === "function")
           setFloodSensitivityValue(floodSensitivityValue);
+
+        //==========================================//
+        // Light Detection mode
+        const lightDetectionMode =
+          localStorage.getItem("lightDetectionMode") || "off";
+        if (typeof setLightDetectionMode === "function")
+          setLightDetectionMode(lightDetectionMode);
+
+        const lightSensitivityValue =
+          localStorage.getItem("lightSensitivityValue") || 50;
+        if (typeof setLightSensitivityValue === "function")
+          setLightSensitivityValue(lightSensitivityValue);
+
+        //==========================================//
+
+        //==========================================//
 
         //==========================================//
 

@@ -96,6 +96,9 @@ function initSystem() {
   window.smokeDetectionEnabled = true;
   window.fireDetectionEnabled = true;
   window.floodDetectionEnabled = true;
+  window.lightDetectionEnabled = true;
+
+  window.audioContext = false;
 
   // console.log("Initializing system");
 }

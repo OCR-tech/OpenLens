@@ -1,7 +1,9 @@
 let motionIntervalId = null;
+let soundIntervalId = null;
 let smokeIntervalId = null;
 let fireIntervalId = null;
 let floodIntervalId = null;
+let lightIntervalId = null;
 
 // =========================================//
 function detectFrame() {
@@ -21,6 +23,16 @@ function detectFrame() {
       clearInterval(motionIntervalId);
       motionIntervalId = null;
       document.getElementById("status").innerText = "Not detecting motion.";
+    }
+
+    //=========================================//
+    // Sound detection
+    if (window.soundDetectionEnabled && !soundIntervalId) {
+      soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
+    } else if (!window.soundDetectionEnabled && soundIntervalId) {
+      clearInterval(soundIntervalId);
+      soundIntervalId = null;
+      document.getElementById("status").innerText = "Not detecting sound.";
     }
 
     //=========================================//
@@ -51,6 +63,16 @@ function detectFrame() {
       clearInterval(floodIntervalId);
       floodIntervalId = null;
       document.getElementById("status").innerText = "Not detecting flood.";
+    }
+
+    //=========================================//
+    // Light detection
+    if (window.lightDetectionEnabled && !lightIntervalId) {
+      lightIntervalId = setInterval(updateLightDetection, 200); // every 200ms
+    } else if (!window.lightDetectionEnabled && lightIntervalId) {
+      clearInterval(lightIntervalId);
+      lightIntervalId = null;
+      document.getElementById("status").innerText = "Not detecting light.";
     }
 
     //=========================================//

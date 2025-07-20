@@ -47,7 +47,7 @@
 
         <!-- Sound Detection Settings -->
         <div class="settings-row">
-          <label for="sound-detection" title="Detects unusual sounds."
+          <label for="sound-detection" title="Detects sound."
             >Sound Detection</label
           >
           <label class="switch">
@@ -63,11 +63,27 @@
             id="sound-sensitivity-slider"
             min="0"
             max="10"
-            step="1"
-            value="50"
+            value="5"
             disabled="true"
             oninput="updateValueSound(this.value)"
           />
+          <span id="sound-sensitivity-value">5</span>
+
+          <div
+            class="status-color normal"
+            id="sound-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="sound-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="sound-status-alert"
+            title="Alert"
+          ></div>
         </div>
 
         <!-- Smoke Detection Settings -->
@@ -152,7 +168,7 @@
           ></div>
         </div>
 
-        <!-- Motion Detection Settings -->
+        <!-- Flood Detection Settings -->
         <div class="settings-row">
           <label for="flood-detection" title="Detects flooding."
             >Flood Detection</label
@@ -195,7 +211,7 @@
 
         <!-- Light Detection Settings -->
         <div class="settings-row">
-          <label for="light-detection" title="Detects light intensity."
+          <label for="light-detection" title="Detects changes in lighting."
             >Light Detection</label
           >
           <label class="switch">
@@ -215,6 +231,23 @@
             disabled="true"
             oninput="updateValueLight(this.value)"
           />
+          <span id="light-sensitivity-value">5</span>
+
+          <div
+            class="status-color normal"
+            id="light-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="light-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="light-status-alert"
+            title="Alert"
+          ></div>
         </div>
 
         <!-- Rain Detection Settings -->
