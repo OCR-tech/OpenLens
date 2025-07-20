@@ -97,6 +97,9 @@ function initSystem() {
   window.fireDetectionEnabled = true;
   window.floodDetectionEnabled = true;
   window.lightDetectionEnabled = true;
+  window.rainDetectionEnabled = true;
+  window.fallingDetectionEnabled = true;
+  window.breakingDetectionEnabled = true;
 
   window.audioContext = true;
 

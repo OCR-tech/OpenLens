@@ -17,7 +17,7 @@ function startButton() {
   // window.motionDetectionEnabled = true;
   // window.smokeDetectionEnabled = true;
   // window.fireDetectionEnabled = true;
-  // window.audioContext = true;
+  window.audioContext = true;
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Start");

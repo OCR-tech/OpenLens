@@ -178,6 +178,40 @@ document.addEventListener("DOMContentLoaded", function () {
           setLightSensitivityValue(lightSensitivityValue);
 
         //==========================================//
+        // Rain Detection mode
+        const rainDetectionMode =
+          localStorage.getItem("rainDetectionMode") || "off";
+        if (typeof setRainDetectionMode === "function")
+          setRainDetectionMode(rainDetectionMode);
+
+        const rainSensitivityValue =
+          localStorage.getItem("rainSensitivityValue") || 50;
+        if (typeof setRainSensitivityValue === "function")
+          setRainSensitivityValue(rainSensitivityValue);
+
+        //==========================================//
+        // Falling Detection mode
+        const fallingDetectionMode =
+          localStorage.getItem("fallingDetectionMode") || "off";
+        if (typeof setFallingDetectionMode === "function")
+          setFallingDetectionMode(fallingDetectionMode);
+
+        const fallingSensitivityValue =
+          localStorage.getItem("fallingSensitivityValue") || 50;
+        if (typeof setFallingSensitivityValue === "function")
+          setFallingSensitivityValue(fallingSensitivityValue);
+
+        //==========================================//
+        // Breaking Detection mode
+        const breakingDetectionMode =
+          localStorage.getItem("breakingDetectionMode") || "off";
+        if (typeof setBreakingDetectionMode === "function")
+          setBreakingDetectionMode(breakingDetectionMode);
+
+        const breakingSensitivityValue =
+          localStorage.getItem("breakingSensitivityValue") || 50;
+        if (typeof setBreakingSensitivityValue === "function")
+          setBreakingSensitivityValue(breakingSensitivityValue);
 
         //==========================================//
 

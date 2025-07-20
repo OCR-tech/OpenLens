@@ -133,6 +133,17 @@ function ReInitUI() {
   const lightStatusNormal = document.getElementById("light-status-normal");
   const lightStatusWarn = document.getElementById("light-status-warn");
   const lightStatusAlert = document.getElementById("light-status-alert");
+  const rainStatusNormal = document.getElementById("rain-status-normal");
+  const rainStatusWarn = document.getElementById("rain-status-warn");
+  const rainStatusAlert = document.getElementById("rain-status-alert");
+  const fallingStatusNormal = document.getElementById("falling-status-normal");
+  const fallingStatusWarn = document.getElementById("falling-status-warn");
+  const fallingStatusAlert = document.getElementById("falling-status-alert");
+  const breakingStatusNormal = document.getElementById(
+    "breaking-status-normal"
+  );
+  const breakingStatusWarn = document.getElementById("breaking-status-warn");
+  const breakingStatusAlert = document.getElementById("breaking-status-alert");
 
   // Set initial states
   if (btnStart) btnStart.style.display = "inline-block";
@@ -163,4 +174,16 @@ function ReInitUI() {
   if (lightStatusNormal) lightStatusNormal.style.boxShadow = "none";
   if (lightStatusWarn) lightStatusWarn.style.boxShadow = "none";
   if (lightStatusAlert) lightStatusAlert.style.boxShadow = "none";
+
+  if (rainStatusNormal) rainStatusNormal.style.boxShadow = "none";
+  if (rainStatusWarn) rainStatusWarn.style.boxShadow = "none";
+  if (rainStatusAlert) rainStatusAlert.style.boxShadow = "none";
+
+  if (fallingStatusNormal) fallingStatusNormal.style.boxShadow = "none";
+  if (fallingStatusWarn) fallingStatusWarn.style.boxShadow = "none";
+  if (fallingStatusAlert) fallingStatusAlert.style.boxShadow = "none";
+
+  if (breakingStatusNormal) breakingStatusNormal.style.boxShadow = "none";
+  if (breakingStatusWarn) breakingStatusWarn.style.boxShadow = "none";
+  if (breakingStatusAlert) breakingStatusAlert.style.boxShadow = "none";
 }

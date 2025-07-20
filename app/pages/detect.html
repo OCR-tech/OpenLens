@@ -272,46 +272,109 @@
             disabled="true"
             oninput="updateValueRain(this.value)"
           />
+          <span id="rain-sensitivity-value">5</span>
+
+          <div
+            class="status-color normal"
+            id="rain-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="rain-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="rain-status-alert"
+            title="Alert"
+          ></div>
         </div>
 
         <!-- Falling Detection Settings -->
         <div class="settings-row">
-          <label for="falling-detection" title="Detects falls for elderly."
+          <label
+            for="falling-detection"
+            title="Detects falling objects or people."
             >Falling Detection</label
           >
           <label class="switch">
-            <input type="checkbox" id="falling-detection" />
+            <input
+              type="checkbox"
+              id="falling-switch"
+              onclick="toggleFallingDetection()"
+            />
             <span class="slider"></span>
           </label>
           <input
             type="range"
-            id="falling-sensitivity"
+            id="falling-sensitivity-slider"
             min="0"
             max="10"
             value="5"
             disabled="true"
+            oninput="updateValueFalling(this.value)"
           />
+          <span id="falling-sensitivity-value">5</span>
+
+          <div
+            class="status-color normal"
+            id="falling-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="falling-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="falling-status-alert"
+            title="Alert"
+          ></div>
         </div>
 
         <!-- Breaking Detection Settings -->
         <div class="settings-row">
           <label
-            for="break-detection"
+            for="breaking-detection"
             title="Detects glass breaking or intrusion."
             >Breaking Detection</label
           >
           <label class="switch">
-            <input type="checkbox" id="break-detection" />
+            <input
+              type="checkbox"
+              id="breaking-switch"
+              onclick="toggleBreakingDetection()"
+            />
             <span class="slider"></span>
           </label>
           <input
             type="range"
-            id="break-sensitivity"
+            id="breaking-sensitivity-slider"
             min="0"
             max="10"
             value="5"
             disabled="true"
+            oninput="updateValueBreaking(this.value)"
           />
+          <span id="breaking-sensitivity-value">5</span>
+
+          <div
+            class="status-color normal"
+            id="breaking-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="breaking-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="breaking-status-alert"
+            title="Alert"
+          ></div>
         </div>
 
         <!-- <Additional Settings> -->

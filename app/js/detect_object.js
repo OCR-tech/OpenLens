@@ -4,6 +4,9 @@ let smokeIntervalId = null;
 let fireIntervalId = null;
 let floodIntervalId = null;
 let lightIntervalId = null;
+let rainIntervalId = null;
+let fallingIntervalId = null;
+let breakingIntervalId = null;
 
 // =========================================//
 function detectFrame() {
@@ -73,6 +76,36 @@ function detectFrame() {
       clearInterval(lightIntervalId);
       lightIntervalId = null;
       document.getElementById("status").innerText = "Not detecting light.";
+    }
+
+    //=========================================//
+    // Rain detection
+    if (window.rainDetectionEnabled && !rainIntervalId) {
+      rainIntervalId = setInterval(updateRainDetection, 200); // every 200ms
+    } else if (!window.rainDetectionEnabled && rainIntervalId) {
+      clearInterval(rainIntervalId);
+      rainIntervalId = null;
+      document.getElementById("status").innerText = "Not detecting rain.";
+    }
+
+    //=========================================//
+    // Falling detection
+    if (window.fallingDetectionEnabled && !fallingIntervalId) {
+      fallingIntervalId = setInterval(updateFallingDetection, 200); // every 200ms
+    } else if (!window.fallingDetectionEnabled && fallingIntervalId) {
+      clearInterval(fallingIntervalId);
+      fallingIntervalId = null;
+      document.getElementById("status").innerText = "Not detecting falling.";
+    }
+
+    //=========================================//
+    // Breaking detection
+    if (window.breakingDetectionEnabled && !breakingIntervalId) {
+      breakingIntervalId = setInterval(updateBreakingDetection, 200); // every 200ms
+    } else if (!window.breakingDetectionEnabled && breakingIntervalId) {
+      clearInterval(breakingIntervalId);
+      breakingIntervalId = null;
+      document.getElementById("status").innerText = "Not detecting breaking.";
     }
 
     //=========================================//
