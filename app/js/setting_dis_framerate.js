@@ -90,12 +90,12 @@ function displayFramerate() {
   let fps = "-";
   if (video) {
     // Try to get framerate from video track if available
-    if (video.srcObject && video.srcObject.getVideoTracks) {
-      const tracks = video.srcObject.getVideoTracks();
-      if (tracks.length > 0 && tracks[0].getSettings) {
-        fps = tracks[0].getSettings().frameRate || "-";
-      }
-    }
+    // if (video.srcObject && video.srcObject.getVideoTracks) {
+    //   const tracks = video.srcObject.getVideoTracks();
+    //   if (tracks.length > 0 && tracks[0].getSettings) {
+    //     fps = tracks[0].getSettings().frameRate || "-";
+    //   }
+    // }
     // Estimate FPS for video files or streams
     if (fps === "-") {
       const now = performance.now();

@@ -275,6 +275,8 @@ function startIPCamera(ipCameraUrl) {
   // const shotUrl = baseUrl + "/video";
   const shotUrl = "http://" + ipCameraUrl + "/shot.jpg";
 
+  alert(video.id); // This will output "camera-stream"
+
   if (video) {
     video.pause();
     if (video.srcObject) {

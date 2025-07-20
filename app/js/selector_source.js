@@ -77,7 +77,8 @@ function updateVideoSource() {
         if (subnet) {
           // ipCameraUrlInput.placeholder = subnet + "XXX:8080";
           // ipCameraUrlInput.value = subnet + "XXX:5500";
-          ipCameraUrlInput.value = subnet + "139:5500";
+          // ipCameraUrlInput.value = subnet + "139:5500";
+          ipCameraUrlInput.value = subnet + "61:5500";
           ipCameraUrlInput.focus();
         }
       });
@@ -98,7 +99,7 @@ function updateVideoSource() {
     btnOk.style.display = "inline-block"; // Show the button initially
     ipCameraUrlInput.disabled = false; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "inline-block"; // Show the input initially
-    ipCameraUrlInput.value = "192.168.233.61:5500";
+    ipCameraUrlInput.value = "192.168.245.61:5500";
     ipCameraUrlInput.focus();
 
     //------------------------------//
