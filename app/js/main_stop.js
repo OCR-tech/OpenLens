@@ -27,6 +27,7 @@ function stopButton() {
   // window.motionDetectionEnabled = false;
   // window.smokeDetectionEnabled = false;
   // window.fireDetectionEnabled = false;
+  window.audioContext = false;
 
   //=========================================//
   window.runDetectionLoop = false; // Stop the detection loop
@@ -117,12 +118,21 @@ function ReInitUI() {
   const motionStatusNormal = document.getElementById("motion-status-normal");
   const motionStatusWarn = document.getElementById("motion-status-warn");
   const motionStatusAlert = document.getElementById("motion-status-alert");
+  const soundStatusNormal = document.getElementById("sound-status-normal");
+  const soundStatusWarn = document.getElementById("sound-status-warn");
+  const soundStatusAlert = document.getElementById("sound-status-alert");
   const smokeStatusNormal = document.getElementById("smoke-status-normal");
   const smokeStatusWarn = document.getElementById("smoke-status-warn");
   const smokeStatusAlert = document.getElementById("smoke-status-alert");
   const fireStatusNormal = document.getElementById("fire-status-normal");
   const fireStatusWarn = document.getElementById("fire-status-warn");
   const fireStatusAlert = document.getElementById("fire-status-alert");
+  const floodStatusNormal = document.getElementById("flood-status-normal");
+  const floodStatusWarn = document.getElementById("flood-status-warn");
+  const floodStatusAlert = document.getElementById("flood-status-alert");
+  const lightStatusNormal = document.getElementById("light-status-normal");
+  const lightStatusWarn = document.getElementById("light-status-warn");
+  const lightStatusAlert = document.getElementById("light-status-alert");
 
   // Set initial states
   if (btnStart) btnStart.style.display = "inline-block";
@@ -134,6 +144,10 @@ function ReInitUI() {
   if (motionStatusWarn) motionStatusWarn.style.boxShadow = "none";
   if (motionStatusAlert) motionStatusAlert.style.boxShadow = "none";
 
+  if (soundStatusNormal) soundStatusNormal.style.boxShadow = "none";
+  if (soundStatusWarn) soundStatusWarn.style.boxShadow = "none";
+  if (soundStatusAlert) soundStatusAlert.style.boxShadow = "none";
+
   if (smokeStatusNormal) smokeStatusNormal.style.boxShadow = "none";
   if (smokeStatusWarn) smokeStatusWarn.style.boxShadow = "none";
   if (smokeStatusAlert) smokeStatusAlert.style.boxShadow = "none";
@@ -141,4 +155,12 @@ function ReInitUI() {
   if (fireStatusNormal) fireStatusNormal.style.boxShadow = "none";
   if (fireStatusWarn) fireStatusWarn.style.boxShadow = "none";
   if (fireStatusAlert) fireStatusAlert.style.boxShadow = "none";
+
+  if (floodStatusNormal) floodStatusNormal.style.boxShadow = "none";
+  if (floodStatusWarn) floodStatusWarn.style.boxShadow = "none";
+  if (floodStatusAlert) floodStatusAlert.style.boxShadow = "none";
+
+  if (lightStatusNormal) lightStatusNormal.style.boxShadow = "none";
+  if (lightStatusWarn) lightStatusWarn.style.boxShadow = "none";
+  if (lightStatusAlert) lightStatusAlert.style.boxShadow = "none";
 }

@@ -98,7 +98,7 @@ function initSystem() {
   window.floodDetectionEnabled = true;
   window.lightDetectionEnabled = true;
 
-  window.audioContext = false;
+  window.audioContext = true;
 
   // console.log("Initializing system");
 }

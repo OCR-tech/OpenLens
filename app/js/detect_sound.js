@@ -98,10 +98,11 @@ function setSoundSensitivity(value) {
 // Function to update sound detection status
 function updateSoundDetection() {
   const soundSwitch = document.getElementById("sound-switch");
+
   if (!soundSwitch || !soundSwitch.checked) return;
 
   // Setup microphone input and analyser if not already done
-  if (!window.audioContext) {
+  if (window.audioContext) {
     window.audioContext = new (window.AudioContext ||
       window.webkitAudioContext)();
     navigator.mediaDevices
@@ -120,6 +121,8 @@ function updateSoundDetection() {
         return;
       });
   }
+
+  if (!window.audioContext) return;
 
   // Get frequency data from microphone
   window.analyser.getByteFrequencyData(window.soundDataArray);
