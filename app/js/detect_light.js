@@ -97,7 +97,17 @@ function setLightSensitivity(value) {
 // =========================================//
 // Function to update light detection status
 function updateLightDetection() {
-  const video = document.getElementById("video-file-player");
+  const videoIds = [
+    "camera-stream",
+    "usb-camera-stream",
+    "stream-player",
+    "video-file-player",
+  ];
+  let video = null;
+  for (const id of videoIds) {
+    video = document.getElementById(id);
+    if (video) break;
+  }
   const canvas = document.getElementById("overlay");
   const lightSwitch = document.getElementById("light-switch");
   if (!video || !canvas || !lightSwitch || !lightSwitch.checked) return;

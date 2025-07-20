@@ -101,7 +101,19 @@ function setMotionSensitivity(value) {
 // =========================================//
 // Function to update motion detection status
 function updateMotionDetection() {
-  const video = document.getElementById("video-file-player");
+  // const video = document.getElementById("camera-stream");
+  // const video = document.getElementById("video-file-player");
+  const videoIds = [
+    "camera-stream",
+    "usb-camera-stream",
+    "stream-player",
+    "video-file-player",
+  ];
+  let video = null;
+  for (const id of videoIds) {
+    video = document.getElementById(id);
+    if (video) break;
+  }
   const canvas = document.getElementById("overlay");
   const motionSwitch = document.getElementById("motion-switch");
   if (!video || !canvas || !motionSwitch || !motionSwitch.checked) return;

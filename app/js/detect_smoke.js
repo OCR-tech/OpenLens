@@ -97,7 +97,18 @@ function setSmokeSensitivity(value) {
 // =========================================//
 // Function to update smoke detection status
 function updateSmokeDetection() {
-  const video = document.getElementById("video-file-player");
+  const videoIds = [
+    "camera-stream",
+    "usb-camera-stream",
+    "stream-player",
+    "video-file-player",
+  ];
+  let video = null;
+  for (const id of videoIds) {
+    video = document.getElementById(id);
+    if (video) break;
+  }
+
   const canvas = document.getElementById("overlay");
   const smokeSwitch = document.getElementById("smoke-switch");
   if (!video || !canvas || !smokeSwitch || !smokeSwitch.checked) return;

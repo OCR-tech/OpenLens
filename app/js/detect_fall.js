@@ -103,7 +103,17 @@ function setFallingSensitivity(value) {
 function updateFallingDetection() {
   // alert("Falling detection");
 
-  const video = document.getElementById("video-file-player");
+  const videoIds = [
+    "camera-stream",
+    "usb-camera-stream",
+    "stream-player",
+    "video-file-player",
+  ];
+  let video = null;
+  for (const id of videoIds) {
+    video = document.getElementById(id);
+    if (video) break;
+  }
   const canvas = document.getElementById("overlay");
   const fallingSwitch = document.getElementById("falling-switch");
   if (!video || !canvas || !fallingSwitch || !fallingSwitch.checked) return;
