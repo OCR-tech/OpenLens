@@ -142,10 +142,10 @@ function updateSmokeDetection() {
     document.getElementById("smoke-status-normal").style.boxShadow = "none";
     document.getElementById("smoke-status-warn").style.boxShadow = "none";
     document.getElementById("smoke-status-alert").style.boxShadow =
-      "0 0 10px 10px gray";
+      "0 0 5px 5px gray";
   } else {
     document.getElementById("smoke-status-normal").style.boxShadow =
-      "0 0 10px 10px green";
+      "0 0 5px 5px green";
     document.getElementById("smoke-status-warn").style.boxShadow = "none";
     document.getElementById("smoke-status-alert").style.boxShadow = "none";
   }

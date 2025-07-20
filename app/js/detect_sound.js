@@ -134,10 +134,10 @@ function updateSoundDetection() {
     document.getElementById("sound-status-normal").style.boxShadow = "none";
     document.getElementById("sound-status-warn").style.boxShadow = "none";
     document.getElementById("sound-status-alert").style.boxShadow =
-      "0 0 10px 10px orange";
+      "0 0 5px 5px yellow";
   } else {
     document.getElementById("sound-status-normal").style.boxShadow =
-      "0 0 10px 10px green";
+      "0 0 5px 5px green";
     document.getElementById("sound-status-warn").style.boxShadow = "none";
     document.getElementById("sound-status-alert").style.boxShadow = "none";
   }

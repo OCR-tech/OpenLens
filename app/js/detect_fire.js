@@ -134,10 +134,10 @@ function updateFireDetection() {
     document.getElementById("fire-status-normal").style.boxShadow = "none";
     document.getElementById("fire-status-warn").style.boxShadow = "none";
     document.getElementById("fire-status-alert").style.boxShadow =
-      "0 0 10px 10px orange";
+      "0 0 5px 5px red";
   } else {
     document.getElementById("fire-status-normal").style.boxShadow =
-      "0 0 10px 10px green";
+      "0 0 5px 5px green";
     document.getElementById("fire-status-warn").style.boxShadow = "none";
     document.getElementById("fire-status-alert").style.boxShadow = "none";
   }

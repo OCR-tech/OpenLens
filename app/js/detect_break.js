@@ -152,10 +152,10 @@ function updateBreakingDetection() {
     document.getElementById("breaking-status-normal").style.boxShadow = "none";
     document.getElementById("breaking-status-warn").style.boxShadow = "none";
     document.getElementById("breaking-status-alert").style.boxShadow =
-      "0 0 10px 10px red";
+      "0 0 5px 5px indigo";
   } else {
     document.getElementById("breaking-status-normal").style.boxShadow =
-      "0 0 10px 10px green";
+      "0 0 5px 5px green";
     document.getElementById("breaking-status-warn").style.boxShadow = "none";
     document.getElementById("breaking-status-alert").style.boxShadow = "none";
   }
