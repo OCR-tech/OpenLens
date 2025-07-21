@@ -67,46 +67,34 @@ function updateFramerateLabel() {
       framerateLabel.textContent = "FPS: N/A";
       return;
     } else {
-      // Try to get framerate from video track if available
-      let fps = "N/A";
-      if (video.srcObject && video.srcObject.getVideoTracks) {
-        const tracks = video.srcObject.getVideoTracks();
-        if (tracks.length > 0 && tracks[0].getSettings) {
-          fps = tracks[0].getSettings().frameRate || "N/A";
-        }
-      }
+      // fps = calcFPS();
       framerateLabel.textContent = "FPS: " + fps;
       return;
     }
   }
 }
 
+// =========================================//
+function calcFPS() {
+  const now = performance.now();
+  if (lastFrameTime) {
+    const delta = now - lastFrameTime;
+    estimatedFPS = (1000 / delta).toFixed(1);
+  }
+  lastFrameTime = now;
+  return estimatedFPS;
+}
+
+// =========================================//
 let lastFrameTime = null;
 let estimatedFPS = "-";
+let fps = "-";
 // =========================================//
 // Display current framerate on canvas
 function displayFramerate() {
   if (!ctx || !canvas) return;
-  let fps = "-";
-  if (video) {
-    // Try to get framerate from video track if available
-    // if (video.srcObject && video.srcObject.getVideoTracks) {
-    //   const tracks = video.srcObject.getVideoTracks();
-    //   if (tracks.length > 0 && tracks[0].getSettings) {
-    //     fps = tracks[0].getSettings().frameRate || "-";
-    //   }
-    // }
-    // Estimate FPS for video files or streams
-    if (fps === "-") {
-      const now = performance.now();
-      if (lastFrameTime) {
-        const delta = now - lastFrameTime;
-        estimatedFPS = (1000 / delta).toFixed(1);
-      }
-      lastFrameTime = now;
-      fps = estimatedFPS;
-    }
-  }
+  fps = calcFPS();
+
   const sizeText = fps;
   if (!sizeText) return;
   ctx.save();
