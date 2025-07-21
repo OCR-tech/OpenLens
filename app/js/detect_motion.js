@@ -183,7 +183,7 @@ function detectMotion(prevFrame, currFrame, width, height, threshold) {
   const totalPixels = width * height;
   const intensityThreshold = 30;
   const MOST_SENSITIVE_RATIO = 1.0;
-  const LEAST_SENSITIVE_RATIO = 0.75;
+  const LEAST_SENSITIVE_RATIO = 0.85;
 
   let motionRatioThreshold =
     LEAST_SENSITIVE_RATIO +
