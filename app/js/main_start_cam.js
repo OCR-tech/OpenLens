@@ -260,65 +260,108 @@ function startUSBCamera() {
 // }
 
 // =========================================//
+// function startIPCamera(ipCameraUrl) {
+//   // alert("StartingIPCamera");
+
+//   // function startIPCamera(ipCameraUrl) {
+//   document.getElementById("status").innerText = "Starting IP Camera...";
+
+//   // Get the base URL from the input field
+//   // const ipCameraUrl = document.getElementById("ip-camera-url").value;
+
+//   // let baseUrl = "192.168.233.61:8080";
+//   // let baseUrl = "http://192.168.233.61:8080";
+//   // const shotUrl = baseUrl;
+//   // const shotUrl = baseUrl + "/video";
+//   const shotUrl = "http://" + ipCameraUrl + "/shot.jpg";
+
+//   canvas = document.createElement("canvas");
+//   canvas.id = "overlay";
+//   canvas.style.position = "absolute";
+//   canvas.style.top = "0";
+//   canvas.style.left = "0";
+//   canvas.style.width = "100%";
+//   canvas.style.height = "100%";
+//   canvas.style.pointerEvents = "none";
+//   const videoFeed = document.getElementById("video-feed");
+//   videoFeed.innerHTML = "";
+//   videoFeed.appendChild(canvas);
+//   ctx = canvas.getContext("2d");
+
+//   const placeholder = document.getElementById("video-placeholder");
+//   if (placeholder) placeholder.style.display = "none";
+
+//   function fetchAndDetect() {
+//     const img = new window.Image();
+//     img.crossOrigin = "Anonymous";
+//     img.onload = function () {
+//       if (canvas.width !== img.width || canvas.height !== img.height) {
+//         canvas.width = img.width;
+//         canvas.height = img.height;
+//       }
+//       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+//       if (model) {
+//         model.detect(canvas).then(function (predictions) {
+//           drawPredictions(predictions);
+//           document.getElementById("status").innerText = "Detecting...";
+//           animationId = requestAnimationFrame(fetchAndDetect);
+//         });
+//       } else {
+//         animationId = requestAnimationFrame(fetchAndDetect);
+//       }
+//     };
+//     img.onerror = function () {
+//       document.getElementById("status").innerText =
+//         "Error loading IP camera frame. Check the URL and network.";
+//       setTimeout(fetchAndDetect, 1000);
+//     };
+//     img.src = shotUrl + "?t=" + Date.now();
+//   }
+
+//   fetchAndDetect();
+//   document.getElementById("btn-start").style.display = "none";
+//   document.getElementById("btn-stop").style.display = "inline-block";
+// }
+
+// =========================================//
 function startIPCamera(ipCameraUrl) {
-  // alert("StartingIPCamera");
-
-  // function startIPCamera(ipCameraUrl) {
-  document.getElementById("status").innerText = "Starting IP Camera...";
-
-  // Get the base URL from the input field
-  // const ipCameraUrl = document.getElementById("ip-camera-url").value;
-
-  // let baseUrl = "192.168.233.61:8080";
-  // let baseUrl = "http://192.168.233.61:8080";
-  // const shotUrl = baseUrl;
-  // const shotUrl = baseUrl + "/video";
-  const shotUrl = "http://" + ipCameraUrl + "/shot.jpg";
-
-  canvas = document.createElement("canvas");
-  canvas.id = "overlay";
-  canvas.style.position = "absolute";
-  canvas.style.top = "0";
-  canvas.style.left = "0";
-  canvas.style.width = "100%";
-  canvas.style.height = "100%";
-  canvas.style.pointerEvents = "none";
   const videoFeed = document.getElementById("video-feed");
-  videoFeed.innerHTML = "";
-  videoFeed.appendChild(canvas);
-  ctx = canvas.getContext("2d");
-
   const placeholder = document.getElementById("video-placeholder");
-  if (placeholder) placeholder.style.display = "none";
+  // const statusElement = document.getElementById("status");
+  // const btnStart = document.getElementById("btn-start");
+  // const btnStop = document.getElementById("btn-stop");
 
-  function fetchAndDetect() {
-    const img = new window.Image();
-    img.crossOrigin = "Anonymous";
-    img.onload = function () {
-      if (canvas.width !== img.width || canvas.height !== img.height) {
-        canvas.width = img.width;
-        canvas.height = img.height;
-      }
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      if (model) {
-        model.detect(canvas).then(function (predictions) {
-          drawPredictions(predictions);
-          document.getElementById("status").innerText = "Detecting...";
-          animationId = requestAnimationFrame(fetchAndDetect);
-        });
-      } else {
-        animationId = requestAnimationFrame(fetchAndDetect);
-      }
-    };
-    img.onerror = function () {
-      document.getElementById("status").innerText =
-        "Error loading IP camera frame. Check the URL and network.";
-      setTimeout(fetchAndDetect, 1000);
-    };
-    img.src = shotUrl + "?t=" + Date.now();
+  // document.getElementById("status").innerText = "Starting IP Camera...";
+  document.getElementById("status").innerText =
+    "Starting IP Camera... " + ipCameraUrl;
+
+  // Remove previous video/canvas if any
+  if (video) {
+    video.remove();
+    video = null;
+  }
+  if (canvas) {
+    canvas.remove();
+    canvas = null;
   }
 
-  fetchAndDetect();
+  // Get the video feed container
+  // const videoFeed = document.getElementById("video-feed");
+  videoFeed.innerHTML = "";
+
+  // Create img for MJPEG stream
+  video = document.createElement("img");
+  video.id = "camera-stream";
+  video.src = "http://" + ipCameraUrl + "/video"; // e.g. "http://192.168.245.139:8080/video"
+  video.style.width = "100%";
+  video.style.objectFit = "contain";
+
+  videoFeed.appendChild(video);
+
+  // const placeholder = document.getElementById("video-placeholder");
+  if (placeholder) placeholder.style.display = "none";
+
+  document.getElementById("status").innerText = "Detecting...";
   document.getElementById("btn-start").style.display = "none";
   document.getElementById("btn-stop").style.display = "inline-block";
 }

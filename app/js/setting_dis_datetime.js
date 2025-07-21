@@ -46,7 +46,10 @@ function toggleDateTime() {
 function updateDateTime() {
   const now = new Date();
   const formatted = now.toLocaleString();
-  document.getElementById("datetime-label").textContent = formatted;
+  const dateTimeLabel = document.getElementById("datetime-label");
+  if (dateTimeLabel) {
+    dateTimeLabel.textContent = formatted;
+  }
 }
 // Update every second
 setInterval(updateDateTime, 1000);
