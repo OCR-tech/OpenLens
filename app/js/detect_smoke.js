@@ -159,8 +159,8 @@ function detectSmoke(prevFrame, currFrame, width, height, threshold) {
   let smokePixels = 0;
   const totalPixels = width * height;
   const intensityThreshold = 30;
-  const MOST_SENSITIVE_RATIO = 0.05; // 0.015
-  const LEAST_SENSITIVE_RATIO = 0.008;
+  const MOST_SENSITIVE_RATIO = 0.3; // 0.015
+  const LEAST_SENSITIVE_RATIO = 0.25;
 
   let smokeRatioThreshold =
     LEAST_SENSITIVE_RATIO +
@@ -187,21 +187,21 @@ function detectSmoke(prevFrame, currFrame, width, height, threshold) {
     if (isSmokeColor && intensityChange > intensityThreshold) {
       smokePixels++;
     }
-    document.getElementById("status").innerText =
-      "Smoke: " +
-      window.smokeDetectionEnabled +
-      " " +
-      threshold +
-      " " +
-      smokeRatioThreshold.toFixed(3) +
-      " " +
-      (smokePixels / totalPixels).toFixed(3) +
-      " " +
-      smokePixels +
-      " " +
-      intensityChange +
-      " " +
-      totalPixels;
+    // document.getElementById("status").innerText =
+    //   "Smoke: " +
+    //   window.smokeDetectionEnabled +
+    //   " " +
+    //   threshold +
+    //   " " +
+    //   smokeRatioThreshold.toFixed(3) +
+    //   " " +
+    //   (smokePixels / totalPixels).toFixed(3) +
+    //   " " +
+    //   smokePixels +
+    //   " " +
+    //   intensityChange +
+    //   " " +
+    //   totalPixels;
   }
 
   return smokePixels / totalPixels > smokeRatioThreshold;

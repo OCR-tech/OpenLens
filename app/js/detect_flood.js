@@ -162,8 +162,8 @@ function detectFlood(prevFrame, currFrame, width, height, threshold) {
   let floodPixels = 0;
   const totalPixels = width * height;
   const intensityThreshold = 30;
-  const MOST_SENSITIVE_RATIO = 0.05;
-  const LEAST_SENSITIVE_RATIO = 0.005;
+  const MOST_SENSITIVE_RATIO = 0.3;
+  const LEAST_SENSITIVE_RATIO = 0.2;
 
   let floodRatioThreshold =
     LEAST_SENSITIVE_RATIO +
@@ -186,21 +186,21 @@ function detectFlood(prevFrame, currFrame, width, height, threshold) {
     if (isWaterColor && intensityChange > intensityThreshold) {
       floodPixels++;
     }
-    document.getElementById("status").innerText =
-      "Flood: " +
-      window.floodDetectionEnabled +
-      " " +
-      threshold +
-      " " +
-      floodRatioThreshold.toFixed(3) +
-      " " +
-      (floodPixels / totalPixels).toFixed(3) +
-      " " +
-      floodPixels +
-      " " +
-      intensityChange +
-      " " +
-      totalPixels;
+    // document.getElementById("status").innerText =
+    //   "Flood: " +
+    //   window.floodDetectionEnabled +
+    //   " " +
+    //   threshold +
+    //   " " +
+    //   floodRatioThreshold.toFixed(3) +
+    //   " " +
+    //   (floodPixels / totalPixels).toFixed(3) +
+    //   " " +
+    //   floodPixels +
+    //   " " +
+    //   intensityChange +
+    //   " " +
+    //   totalPixels;
   }
 
   return floodPixels / totalPixels > floodRatioThreshold;

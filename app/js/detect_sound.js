@@ -185,19 +185,19 @@ function detectSound(soundDataArray, threshold) {
   // Peak detection
   let peak = Math.max(...soundDataArray);
 
-  document.getElementById("status").innerText =
-    "Sound: " +
-    window.soundDetectionEnabled +
-    " " +
-    threshold +
-    " " +
-    soundLevelThreshold.toFixed(2) +
-    " avg: " +
-    avg.toFixed(1) +
-    " BandAvg: " +
-    bandAvg.toFixed(1) +
-    " Peak: " +
-    peak.toFixed(1);
+  // document.getElementById("status").innerText =
+  //   "Sound: " +
+  //   window.soundDetectionEnabled +
+  //   " " +
+  //   threshold +
+  //   " " +
+  //   soundLevelThreshold.toFixed(2) +
+  //   " avg: " +
+  //   avg.toFixed(1) +
+  //   " BandAvg: " +
+  //   bandAvg.toFixed(1) +
+  //   " Peak: " +
+  //   peak.toFixed(1);
 
   // Advanced: trigger if average, band average, or peak exceeds threshold
   return (

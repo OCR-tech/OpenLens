@@ -172,8 +172,8 @@ function detectBreaking(prevFrame, currFrame, width, height, threshold) {
   const intensityThreshold = 80; // Sudden movement is often brighter/darker
   const movementThreshold = 60; // Large pixel change for movement
   const glassColorThreshold = 180; // Glass fragments are often bright/white
-  const MOST_SENSITIVE_RATIO = 0.03;
-  const LEAST_SENSITIVE_RATIO = 0.001;
+  const MOST_SENSITIVE_RATIO = 0.3;
+  const LEAST_SENSITIVE_RATIO = 0.25;
   let breakingRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
@@ -216,21 +216,21 @@ function detectBreaking(prevFrame, currFrame, width, height, threshold) {
     breakingPixels / totalPixels > breakingRatioThreshold ||
     suddenChangePixels / totalPixels > breakingRatioThreshold / 2;
 
-  document.getElementById("status").innerText =
-    "Breaking: " +
-    window.breakingDetectionEnabled +
-    " " +
-    threshold +
-    " " +
-    breakingRatioThreshold.toFixed(3) +
-    " " +
-    (breakingPixels / totalPixels).toFixed(3) +
-    " " +
-    breakingPixels +
-    " Sudden: " +
-    suddenChangePixels +
-    " " +
-    totalPixels;
+  // document.getElementById("status").innerText =
+  //   "Breaking: " +
+  //   window.breakingDetectionEnabled +
+  //   " " +
+  //   threshold +
+  //   " " +
+  //   breakingRatioThreshold.toFixed(3) +
+  //   " " +
+  //   (breakingPixels / totalPixels).toFixed(3) +
+  //   " " +
+  //   breakingPixels +
+  //   " Sudden: " +
+  //   suddenChangePixels +
+  //   " " +
+  //   totalPixels;
 
   return breakingDetected;
 }

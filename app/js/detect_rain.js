@@ -157,8 +157,8 @@ function detectRain(prevFrame, currFrame, width, height, threshold) {
   const blueThreshold = 100; // Rain can reflect blue/gray sky
   const streakLength = 3; // Minimum streak length for rain
 
-  const MOST_SENSITIVE_RATIO = 0.03;
-  const LEAST_SENSITIVE_RATIO = 0.008;
+  const MOST_SENSITIVE_RATIO = 0.8;
+  const LEAST_SENSITIVE_RATIO = 0.6;
   let rainRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
@@ -201,21 +201,21 @@ function detectRain(prevFrame, currFrame, width, height, threshold) {
     rainPixels / totalPixels > rainRatioThreshold ||
     streakPixels / totalPixels > rainRatioThreshold / 2;
 
-  document.getElementById("status").innerText =
-    "Rain: " +
-    window.rainDetectionEnabled +
-    " " +
-    threshold +
-    " " +
-    rainRatioThreshold.toFixed(3) +
-    " " +
-    (rainPixels / totalPixels).toFixed(3) +
-    " " +
-    rainPixels +
-    " Streaks: " +
-    streakPixels +
-    " " +
-    totalPixels;
+  // document.getElementById("status").innerText =
+  //   "Rain: " +
+  //   window.rainDetectionEnabled +
+  //   " " +
+  //   threshold +
+  //   " " +
+  //   rainRatioThreshold.toFixed(3) +
+  //   " " +
+  //   (rainPixels / totalPixels).toFixed(3) +
+  //   " " +
+  //   rainPixels +
+  //   " Streaks: " +
+  //   streakPixels +
+  //   " " +
+  //   totalPixels;
 
   return rainDetected;
 }

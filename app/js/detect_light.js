@@ -180,32 +180,32 @@ function detectLight(prevFrame, currFrame, width, height, threshold) {
   const peakIndex = histogram.indexOf(peak);
 
   // Adaptive threshold
-  const minChange = 5;
-  const maxChange = 50;
+  const minChange = 80;
+  const maxChange = 100;
   const intensityThreshold =
     minChange + ((maxChange - minChange) * (10 - threshold)) / 10;
 
   // Advanced: trigger if intensity change OR histogram peak shifts significantly
   const histogramChange =
-    Math.abs(peakIndex - Math.round(prevAvgIntensity)) > 30;
+    Math.abs(peakIndex - Math.round(prevAvgIntensity)) > 100;
 
-  document.getElementById("status").innerText =
-    "Light: " +
-    window.lightDetectionEnabled +
-    " " +
-    threshold +
-    " " +
-    intensityThreshold.toFixed(1) +
-    " " +
-    intensityChange.toFixed(1) +
-    " " +
-    peakIndex +
-    " " +
-    prevAvgIntensity.toFixed(1) +
-    " " +
-    Math.abs(peakIndex - Math.round(prevAvgIntensity)) +
-    " " +
-    histogramChange;
+  // document.getElementById("status").innerText =
+  //   "Light: " +
+  //   window.lightDetectionEnabled +
+  //   " " +
+  //   threshold +
+  //   " " +
+  //   intensityThreshold.toFixed(1) +
+  //   " " +
+  //   intensityChange.toFixed(1) +
+  //   " " +
+  //   peakIndex +
+  //   " " +
+  //   prevAvgIntensity.toFixed(1) +
+  //   " " +
+  //   Math.abs(peakIndex - Math.round(prevAvgIntensity)) +
+  //   " " +
+  //   histogramChange;
 
   return intensityChange > intensityThreshold || histogramChange;
 }

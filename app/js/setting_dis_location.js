@@ -74,8 +74,8 @@ function updateGPSlocation() {
     typeof cachedGPS.longitude === "number"
   ) {
     gpsLabel.textContent = `Lat: ${cachedGPS.latitude.toFixed(
-      4
-    )}, Lon: ${cachedGPS.longitude.toFixed(4)}`;
+      2
+    )}, Lon: ${cachedGPS.longitude.toFixed(2)}`;
   } else {
     gpsLabel.textContent = "GPS unavailable";
   }
@@ -88,7 +88,7 @@ updateGPSlocation();
 // Display current GPS location on canvas
 function displayGPSlocation(latitude, longitude) {
   if (!ctx || !canvas) return;
-  const gpsString = `Lat: ${latitude.toFixed(4)}, Lon: ${longitude.toFixed(4)}`;
+  const gpsString = `Lat: ${latitude.toFixed(2)}, Lon: ${longitude.toFixed(2)}`;
   ctx.save();
   ctx.font = "20px Arial";
   ctx.fillStyle = "rgba(0,0,0,0.5)";

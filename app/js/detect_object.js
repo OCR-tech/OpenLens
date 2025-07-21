@@ -25,7 +25,7 @@ function detectFrame() {
     } else if (!window.motionDetectionEnabled && motionIntervalId) {
       clearInterval(motionIntervalId);
       motionIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting motion.";
+      // document.getElementById("status").innerText = "Not detecting motion.";
     }
 
     //=========================================//
@@ -35,7 +35,7 @@ function detectFrame() {
     } else if (!window.soundDetectionEnabled && soundIntervalId) {
       clearInterval(soundIntervalId);
       soundIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting sound.";
+      // document.getElementById("status").innerText = "Not detecting sound.";
     }
 
     //=========================================//
@@ -45,7 +45,7 @@ function detectFrame() {
     } else if (!window.smokeDetectionEnabled && smokeIntervalId) {
       clearInterval(smokeIntervalId);
       smokeIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting smoke.";
+      // document.getElementById("status").innerText = "Not detecting smoke.";
     }
 
     //=========================================//

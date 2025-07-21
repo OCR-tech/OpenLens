@@ -166,8 +166,8 @@ function detectFalling(prevFrame, currFrame, width, height, threshold) {
   const totalPixels = width * height;
   const intensityThreshold = 80; // Sudden movement is often brighter/darker
   const movementThreshold = 60; // Large pixel change for movement
-  const MOST_SENSITIVE_RATIO = 0.03;
-  const LEAST_SENSITIVE_RATIO = 0.005;
+  const MOST_SENSITIVE_RATIO = 0.5;
+  const LEAST_SENSITIVE_RATIO = 0.45;
   let fallingRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
@@ -200,21 +200,21 @@ function detectFalling(prevFrame, currFrame, width, height, threshold) {
     fallingPixels / totalPixels > fallingRatioThreshold ||
     suddenChangePixels / totalPixels > fallingRatioThreshold / 2;
 
-  document.getElementById("status").innerText =
-    "Falling: " +
-    window.fallingDetectionEnabled +
-    " " +
-    threshold +
-    " " +
-    fallingRatioThreshold.toFixed(3) +
-    " " +
-    (fallingPixels / totalPixels).toFixed(3) +
-    " " +
-    fallingPixels +
-    " Sudden: " +
-    suddenChangePixels +
-    " " +
-    totalPixels;
+  // document.getElementById("status").innerText =
+  //   "Falling: " +
+  //   window.fallingDetectionEnabled +
+  //   " " +
+  //   threshold +
+  //   " " +
+  //   fallingRatioThreshold.toFixed(3) +
+  //   " " +
+  //   (fallingPixels / totalPixels).toFixed(3) +
+  //   " " +
+  //   fallingPixels +
+  //   " Sudden: " +
+  //   suddenChangePixels +
+  //   " " +
+  //   totalPixels;
 
   return fallingDetected;
 }

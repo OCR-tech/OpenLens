@@ -92,9 +92,11 @@ let fps = "-";
 // =========================================//
 // Display current framerate on canvas
 function displayFramerate() {
+  const canvas = document.getElementById("overlay"); // or your canvas ID
+  const ctx = canvas.getContext("2d");
+
   if (!ctx || !canvas) return;
   fps = calcFPS();
-
   const sizeText = fps;
   if (!sizeText) return;
   ctx.save();
@@ -112,6 +114,13 @@ function displayFramerate() {
   ctx.fillText("FPS: " + sizeText, x + 4, y + textHeight - 6);
   ctx.restore();
 }
+
+// =========================================//
+// function fpsLoop() {
+//   fps = calcFPS();
+//   displayFramerate();
+//   requestAnimationFrame(fpsLoop);
+// }
 
 // =========================================//
 function setFramerateMode(mode) {

@@ -152,7 +152,7 @@ function detectFire(prevFrame, currFrame, width, height, threshold) {
   const totalPixels = width * height;
   const intensityThreshold = 40;
   const MOST_SENSITIVE_RATIO = 0.05;
-  const LEAST_SENSITIVE_RATIO = 0.003;
+  const LEAST_SENSITIVE_RATIO = 0.04;
 
   let fireRatioThreshold =
     LEAST_SENSITIVE_RATIO +
@@ -174,21 +174,21 @@ function detectFire(prevFrame, currFrame, width, height, threshold) {
     if (isFireColor && intensityChange > intensityThreshold) {
       firePixels++;
     }
-    document.getElementById("status").innerText =
-      "Fire: " +
-      window.fireDetectionEnabled +
-      " " +
-      threshold +
-      " " +
-      fireRatioThreshold.toFixed(3) +
-      " " +
-      (firePixels / totalPixels).toFixed(3) +
-      " " +
-      firePixels +
-      " " +
-      intensityChange +
-      " " +
-      totalPixels;
+    // document.getElementById("status").innerText =
+    //   "Fire: " +
+    //   window.fireDetectionEnabled +
+    //   " " +
+    //   threshold +
+    //   " " +
+    //   fireRatioThreshold.toFixed(3) +
+    //   " " +
+    //   (firePixels / totalPixels).toFixed(3) +
+    //   " " +
+    //   firePixels +
+    //   " " +
+    //   intensityChange +
+    //   " " +
+    //   totalPixels;
   }
 
   return firePixels / totalPixels > fireRatioThreshold;
