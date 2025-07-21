@@ -195,7 +195,7 @@ function startUSBCamera() {
 // Using /shot.jpg Fallback
 // function startIPCamera() {
 //   document.getElementById("status").innerText = "Starting IP Camera...";
-//   let baseUrl = "http://192.168.233.61:8080";
+//   let baseUrl = "http://192.168.245.139:5500";
 //   const shotUrl = baseUrl + "/shot.jpg";
 
 //   if (video) {
@@ -261,7 +261,7 @@ function startUSBCamera() {
 
 // =========================================//
 function startIPCamera(ipCameraUrl) {
-  alert("StartingIPCamera");
+  // alert("StartingIPCamera");
 
   // function startIPCamera(ipCameraUrl) {
   document.getElementById("status").innerText = "Starting IP Camera...";
@@ -274,8 +274,6 @@ function startIPCamera(ipCameraUrl) {
   // const shotUrl = baseUrl;
   // const shotUrl = baseUrl + "/video";
   const shotUrl = "http://" + ipCameraUrl + "/shot.jpg";
-
-  alert(video.id); // This will output "camera-stream"
 
   if (video) {
     video.pause();
@@ -327,11 +325,10 @@ function startIPCamera(ipCameraUrl) {
     };
     img.onerror = function () {
       document.getElementById("status").innerText =
-        "Error loading IP camera. Check the URL and network.";
+        "Error loading IP camera frame. Check the URL and network.";
       setTimeout(fetchAndDetect, 1000);
     };
     img.src = shotUrl + "?t=" + Date.now();
-    // img.src = shotUrl;
   }
 
   fetchAndDetect();

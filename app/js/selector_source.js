@@ -78,7 +78,8 @@ function updateVideoSource() {
           // ipCameraUrlInput.placeholder = subnet + "XXX:8080";
           // ipCameraUrlInput.value = subnet + "XXX:5500";
           // ipCameraUrlInput.value = subnet + "139:5500";
-          ipCameraUrlInput.value = subnet + "61:5500";
+          ipCameraUrlInput.value = subnet + "139:5500";
+          // ipCameraUrlInput.value = subnet + "61:5500";
           ipCameraUrlInput.focus();
         }
       });
@@ -99,7 +100,8 @@ function updateVideoSource() {
     btnOk.style.display = "inline-block"; // Show the button initially
     ipCameraUrlInput.disabled = false; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "inline-block"; // Show the input initially
-    ipCameraUrlInput.value = "192.168.245.61:5500";
+    ipCameraUrlInput.value = "192.168.245.139:5500";
+    // ipCameraUrlInput.value = "192.168.245.61:5500";
     ipCameraUrlInput.focus();
 
     //------------------------------//
@@ -171,7 +173,7 @@ function CheckUSBCamera() {
 
 // ==========================================//
 function CheckIPCamera() {
-  alert("CheckIPCamera");
+  // alert("CheckIPCamera");
 
   const ipCameraUrl = document.getElementById("ip-camera-url");
   const ipCameraUrlValue = ipCameraUrl.value.trim();
@@ -187,11 +189,11 @@ function CheckIPCamera() {
   // Check if the URL matches exactly the expected format "xxx.xxx.xx.xxx:xxxx" with total 15 digits
   // if (ipCameraUrlValue.match(/^(http:\/\/)?(\d{1,3}\.){3}\d{1,3}:\d{1,5}$/i)) {
   if (ipCameraUrlValue.match(/^(http:\/\/)?(\d{1,3}\.){3}\d{1,3}:\d{1,5}$/i)) {
-    alert("URL format OK");
+    // alert("URL format OK");
     document.getElementById("status").innerText = "Valid IP camera URL.";
     btnOk.disabled = false; // enable the OK button if the URL is valid
   } else {
-    alert("URL format NOT OK");
+    // alert("URL format NOT OK");
     document.getElementById("status").innerText = "Invalid IP camera URL.";
     btnOk.disabled = true; // disable the OK button if the URL is invalid
   }
@@ -239,7 +241,7 @@ function prefillLastUsedIP() {
 }
 
 function okSourceCamera() {
-  alert("okSourceCamera");
+  // alert("okSourceCamera");
 
   // Get the IP camera URL from the input field
   const videoSource = document.getElementById("video-source").value;
