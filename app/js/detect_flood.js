@@ -162,8 +162,8 @@ function detectFlood(prevFrame, currFrame, width, height, threshold) {
   let floodPixels = 0;
   const totalPixels = width * height;
   const intensityThreshold = 30;
-  const MOST_SENSITIVE_RATIO = 0.3;
-  const LEAST_SENSITIVE_RATIO = 0.2;
+  const MOST_SENSITIVE_RATIO = 0.5;
+  const LEAST_SENSITIVE_RATIO = 0.3;
 
   let floodRatioThreshold =
     LEAST_SENSITIVE_RATIO +

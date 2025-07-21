@@ -505,7 +505,7 @@ function startStream(ipCameraUrl) {
   video = document.createElement("video");
   video.id = "stream-player";
   // video.id = "video-file-player";
-  video.src = ipCameraUrl;
+  video.src = "http://" + ipCameraUrl + "/video";
   video.autoplay = true;
   video.controls = true;
   video.playsInline = true;
