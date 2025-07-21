@@ -155,15 +155,54 @@ function updateFireDetection() {
 }
 
 // =========================================//
+function rgbToHsv(r, g, b) {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  let max = Math.max(r, g, b),
+    min = Math.min(r, g, b);
+  let h,
+    s,
+    v = max;
+  let d = max - min;
+  s = max === 0 ? 0 : d / max;
+  if (max === min) {
+    h = 0;
+  } else {
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
+    }
+    h /= 6;
+  }
+  return [h * 360, s, v];
+}
+
+// In your loop:
+const [h, s, v] = rgbToHsv(r, g, b);
+const isFireColor =
+  h >= 10 &&
+  h <= 60 && // Hue between red and yellow
+  s > 0.4 && // Saturation
+  v > 0.5; // Brightness
+
+// =========================================//
 // Simple fire detection based on color (orange/yellow/red) and intensity changes
 function detectFire(prevFrame, currFrame, width, height, threshold) {
   if (!prevFrame || !currFrame) return false;
 
   let firePixels = 0;
   const totalPixels = width * height;
-  const intensityThreshold = 40;
-  const MOST_SENSITIVE_RATIO = 0.05;
-  const LEAST_SENSITIVE_RATIO = 0.04;
+  const intensityThreshold = 15;
+  const MOST_SENSITIVE_RATIO = 0.005;
+  const LEAST_SENSITIVE_RATIO = 0.002;
 
   let fireRatioThreshold =
     LEAST_SENSITIVE_RATIO +
@@ -175,8 +214,17 @@ function detectFire(prevFrame, currFrame, width, height, threshold) {
     const b = currFrame[i + 2];
 
     // Fire is usually reddish/orange/yellow, so r is high, g moderate, b low
-    const isFireColor =
-      r > 150 && g > 80 && b < 80 && r > g && g > b && r - g > 40 && g - b > 20;
+    // const isFireColor =
+    //   r > 150 &&
+    //   g > 100 &&
+    //   b < 100 &&
+    //   r > g &&
+    //   g > b &&
+    //   r - g > 40 &&
+    //   g - b > 20;
+
+    const [h, s, v] = rgbToHsv(r, g, b);
+    const isFireColor = h >= 10 && h <= 60 && s > 0.4 && v > 0.5;
 
     const prevIntensity = prevFrame[i] + prevFrame[i + 1] + prevFrame[i + 2];
     const currIntensity = r + g + b;
@@ -185,21 +233,27 @@ function detectFire(prevFrame, currFrame, width, height, threshold) {
     if (isFireColor && intensityChange > intensityThreshold) {
       firePixels++;
     }
-    // document.getElementById("status").innerText =
-    //   "Fire: " +
-    //   window.fireDetectionEnabled +
-    //   " " +
-    //   threshold +
-    //   " " +
-    //   fireRatioThreshold.toFixed(3) +
-    //   " " +
-    //   (firePixels / totalPixels).toFixed(3) +
-    //   " " +
-    //   firePixels +
-    //   " " +
-    //   intensityChange +
-    //   " " +
-    //   totalPixels;
+    document.getElementById("status").innerText =
+      "Fire: " +
+      window.fireDetectionEnabled +
+      " " +
+      threshold +
+      " " +
+      fireRatioThreshold.toFixed(3) +
+      " " +
+      (firePixels / totalPixels).toFixed(3) +
+      " " +
+      firePixels +
+      " " +
+      intensityChange +
+      " " +
+      totalPixels +
+      " " +
+      isFireColor +
+      " " +
+      intensityChange +
+      " " +
+      (isFireColor && intensityChange);
   }
 
   return firePixels / totalPixels > fireRatioThreshold;
