@@ -133,11 +133,15 @@ function updateRainDetection() {
   );
 
   if (rainDetected) {
+    document.getElementById("rain-status").innerHTML =
+      'Rain: <b style="color:red">X</b>';
     document.getElementById("rain-status-normal").style.boxShadow = "none";
     document.getElementById("rain-status-warn").style.boxShadow = "none";
     document.getElementById("rain-status-alert").style.boxShadow =
       "0 0 5px 5px blue"; // Use a more vivid blue for alert
   } else {
+    document.getElementById("rain-status").innerHTML =
+      'Rain: <b style="color:green">--</b>';
     document.getElementById("rain-status-normal").style.boxShadow =
       "0 0 5px 5px green";
     document.getElementById("rain-status-warn").style.boxShadow = "none";

@@ -131,11 +131,15 @@ function updateSoundDetection() {
   const soundDetected = detectSound(window.soundDataArray, threshold);
 
   if (soundDetected) {
+    document.getElementById("sound-status").innerHTML =
+      'Sound: <b style="color:red">X</b>';
     document.getElementById("sound-status-normal").style.boxShadow = "none";
     document.getElementById("sound-status-warn").style.boxShadow = "none";
     document.getElementById("sound-status-alert").style.boxShadow =
       "0 0 5px 5px yellow";
   } else {
+    document.getElementById("sound-status").innerHTML =
+      'Sound: <b style="color:green">--</b>';
     document.getElementById("sound-status-normal").style.boxShadow =
       "0 0 5px 5px green";
     document.getElementById("sound-status-warn").style.boxShadow = "none";

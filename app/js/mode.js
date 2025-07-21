@@ -3,15 +3,17 @@
 document.addEventListener("DOMContentLoaded", function () {
   const modeSwitch = document.getElementById("mode-switch");
   const groupFrameMode = document.getElementById("group-frame-mode");
-  if (!modeSwitch) return;
+  if (!modeSwitch || !groupFrameMode) return;
 
   // Set the switch state from localStorage
   modeSwitch.checked = localStorage.getItem("mode") === "on";
-  if (groupFrameMode)
-    groupFrameMode.style.display = modeSwitch.checked ? "flex" : "none";
+  groupFrameMode.style.display = modeSwitch.checked ? "flex" : "none";
 
   // Add event listener
-  modeSwitch.addEventListener("change", toggleMode);
+  modeSwitch.addEventListener("change", function () {
+    localStorage.setItem("mode", modeSwitch.checked ? "on" : "off");
+    groupFrameMode.style.display = modeSwitch.checked ? "flex" : "none";
+  });
 });
 
 // =========================================//

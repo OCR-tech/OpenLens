@@ -238,6 +238,8 @@ input {
   z-index: 1;
 }
 .group-frame-source,
+.group-frame-mode,
+.group-frame-status,
 .group-frame-command,
 .group-frame-voice,
 .group-frame-detect,
@@ -258,6 +260,8 @@ input {
   transition: background 0.3s, color 0.3s;
 }
 .group-frame-source label,
+.group-frame-mode label,
+.group-frame-status label,
 .group-frame-command label,
 .group-frame-voice label,
 .group-frame-detect label,
@@ -274,7 +278,9 @@ input {
   display: flex;
   align-items: center;
 }
-.source-section {
+.source-section,
+.mode-section,
+.status-section {
   font-size: 1em;
   gap: 0px;
   margin: 0;
@@ -300,7 +306,9 @@ input {
   justify-content: center;
   align-items: center; */
 }
-.source-section input {
+.source-section input,
+.mode-section input,
+.status-section input {
   /* width: 100%; */
   /* max-width: 200px; */
   padding: 8px;
@@ -312,7 +320,9 @@ input {
 }
 
 .controls-section button,
-.source-section button {
+.source-section button,
+.mode-section button,
+.status-section button {
   width: auto;
   min-width: 120px;
   margin: 5px;
@@ -338,7 +348,11 @@ input {
   background-color: #346297;
 }
 .source-section .button-ok,
-.source-section .button-browse {
+.source-section .button-browse,
+.mode-section .button-ok,
+.mode-section .button-browse,
+.status-section .button-ok,
+.status-section .button-browse {
   display: none;
   flex: none;
   font-size: 1em;
@@ -421,7 +435,9 @@ input {
   cursor: not-allowed;
 }
 
-.source-section {
+.source-section,
+.mode-section,
+.status-section {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -688,6 +704,8 @@ body.dark-mode .controls-section button:disabled {
     width: 75%;
   }
   .group-frame-source,
+  .group-frame-mode,
+  .group-frame-status,
   .group-frame-command,
   .group-frame-voice,
   .group-frame-detect,
@@ -717,7 +735,9 @@ body.dark-mode .controls-section button:disabled {
   .video-source-section {
     font-size: 0.8em;
   }
-  .source-section {
+  .source-section,
+  .mode-section,
+  .status-section {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;

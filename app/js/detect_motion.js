@@ -144,11 +144,15 @@ function updateMotionDetection() {
   );
 
   if (motionDetected) {
+    document.getElementById("motion-status").innerHTML =
+      'Motion: <b style="color:red">X</b>';
     document.getElementById("motion-status-normal").style.boxShadow = "none";
     document.getElementById("motion-status-warn").style.boxShadow = "none";
     document.getElementById("motion-status-alert").style.boxShadow =
       "0 0 5px 5px brown";
   } else {
+    document.getElementById("motion-status").innerHTML =
+      'Motion: <b style="color:green">--</b>';
     document.getElementById("motion-status-normal").style.boxShadow =
       "0 0 5px 5px green";
     document.getElementById("motion-status-warn").style.boxShadow = "none";

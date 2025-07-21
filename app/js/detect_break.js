@@ -149,11 +149,15 @@ function updateBreakingDetection() {
   );
 
   if (breakingDetected) {
+    document.getElementById("breaking-status").innerHTML =
+      'Sound: <b style="color:red">X</b>';
     document.getElementById("breaking-status-normal").style.boxShadow = "none";
     document.getElementById("breaking-status-warn").style.boxShadow = "none";
     document.getElementById("breaking-status-alert").style.boxShadow =
       "0 0 5px 5px indigo";
   } else {
+    document.getElementById("breaking-status").innerHTML =
+      'Sound: <b style="color:green">--</b>';
     document.getElementById("breaking-status-normal").style.boxShadow =
       "0 0 5px 5px green";
     document.getElementById("breaking-status-warn").style.boxShadow = "none";

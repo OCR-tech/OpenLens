@@ -139,11 +139,15 @@ function updateSmokeDetection() {
   );
 
   if (smokeDetected) {
+    document.getElementById("smoke-status").innerHTML =
+      'Smoke: <b style="color:red">X</b>';
     document.getElementById("smoke-status-normal").style.boxShadow = "none";
     document.getElementById("smoke-status-warn").style.boxShadow = "none";
     document.getElementById("smoke-status-alert").style.boxShadow =
       "0 0 5px 5px gray";
   } else {
+    document.getElementById("smoke-status").innerHTML =
+      'Smoke: <b style="color:green">--</b>';
     document.getElementById("smoke-status-normal").style.boxShadow =
       "0 0 5px 5px green";
     document.getElementById("smoke-status-warn").style.boxShadow = "none";

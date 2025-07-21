@@ -138,11 +138,15 @@ function updateLightDetection() {
   );
 
   if (lightDetected) {
+    document.getElementById("light-status").innerHTML =
+      'Light: <b style="color:red">X</b>';
     document.getElementById("light-status-normal").style.boxShadow = "none";
     document.getElementById("light-status-warn").style.boxShadow = "none";
     document.getElementById("light-status-alert").style.boxShadow =
       "0 0 5px 5px orange";
   } else {
+    document.getElementById("light-status").innerHTML =
+      'Light: <b style="color:green">--</b>';
     document.getElementById("light-status-normal").style.boxShadow =
       "0 0 5px 5px green";
     document.getElementById("light-status-warn").style.boxShadow = "none";

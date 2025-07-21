@@ -144,11 +144,15 @@ function updateFallingDetection() {
   );
 
   if (fallingDetected) {
+    document.getElementById("falling-status").innerHTML =
+      'Falling: <b style="color:red">X</b>';
     document.getElementById("falling-status-normal").style.boxShadow = "none";
     document.getElementById("falling-status-warn").style.boxShadow = "none";
     document.getElementById("falling-status-alert").style.boxShadow =
       "0 0 5px 5px pink";
   } else {
+    document.getElementById("falling-status").innerHTML =
+      'Falling: <b style="color:green">--</b>';
     document.getElementById("falling-status-normal").style.boxShadow =
       "0 0 5px 5px green";
     document.getElementById("falling-status-warn").style.boxShadow = "none";
