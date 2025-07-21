@@ -233,27 +233,27 @@ function detectFire(prevFrame, currFrame, width, height, threshold) {
     if (isFireColor && intensityChange > intensityThreshold) {
       firePixels++;
     }
-    document.getElementById("status").innerText =
-      "Fire: " +
-      window.fireDetectionEnabled +
-      " " +
-      threshold +
-      " " +
-      fireRatioThreshold.toFixed(3) +
-      " " +
-      (firePixels / totalPixels).toFixed(3) +
-      " " +
-      firePixels +
-      " " +
-      intensityChange +
-      " " +
-      totalPixels +
-      " " +
-      isFireColor +
-      " " +
-      intensityChange +
-      " " +
-      (isFireColor && intensityChange);
+    // document.getElementById("status").innerText =
+    //   "Fire: " +
+    //   window.fireDetectionEnabled +
+    //   " " +
+    //   threshold +
+    //   " " +
+    //   fireRatioThreshold.toFixed(3) +
+    //   " " +
+    //   (firePixels / totalPixels).toFixed(3) +
+    //   " " +
+    //   firePixels +
+    //   " " +
+    //   intensityChange +
+    //   " " +
+    //   totalPixels +
+    //   " " +
+    //   isFireColor +
+    //   " " +
+    //   intensityChange +
+    //   " " +
+    //   (isFireColor && intensityChange);
   }
 
   return firePixels / totalPixels > fireRatioThreshold;
