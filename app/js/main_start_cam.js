@@ -275,19 +275,6 @@ function startIPCamera(ipCameraUrl) {
   // const shotUrl = baseUrl + "/video";
   const shotUrl = "http://" + ipCameraUrl + "/shot.jpg";
 
-  if (video) {
-    video.pause();
-    if (video.srcObject) {
-      video.srcObject.getTracks().forEach((track) => track.stop());
-    }
-    video.remove();
-    video = null;
-  }
-  if (canvas) {
-    canvas.remove();
-    canvas = null;
-  }
-
   canvas = document.createElement("canvas");
   canvas.id = "overlay";
   canvas.style.position = "absolute";
