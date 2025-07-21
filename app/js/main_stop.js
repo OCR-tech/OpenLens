@@ -33,6 +33,9 @@ function stopButton() {
   window.runDetectionLoop = false; // Stop the detection loop
   stopCamera();
   cancelAnimationFrame(window.animationId);
+  cancelAnimationFrame(window.detectionLoopId);
+  window.animationId = null;
+  window.detectionLoopId = null;
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Stopped");

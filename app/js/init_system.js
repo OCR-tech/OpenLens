@@ -102,6 +102,7 @@ function initSystem() {
   window.breakingDetectionEnabled = true;
 
   window.audioContext = true;
+  window.detectionLoopId = null;
 
   // console.log("Initializing system");
 }

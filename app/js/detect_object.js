@@ -9,14 +9,35 @@ let fallingIntervalId = null;
 let breakingIntervalId = null;
 
 // =========================================//
-function detectFrame() {
+function detectFrame(source) {
   // alert("DetectFrame");
 
-  if (!model || !video || video.paused || video.ended) {
-    return;
-  }
-  model.detect(video).then(function (predictions) {
+  if (!model || !source) return;
+
+  // alert(
+  //   model +
+  //     " " +
+  //     source +
+  //     " " +
+  //     source.width +
+  //     "x" +
+  //     source.height +
+  //     " " +
+  //     (source instanceof HTMLCanvasElement)
+  // );
+
+  model.detect(source).then(function (predictions) {
+    //=========================================//
     // Object detection
+    // alert("Object detection");
+
+    //=========================================//
+    // Draw predictions on the canvas
+    // alert("Model loaded:" + model);
+    // alert("Video playing:" + (!video.paused && !video.ended));
+    // alert("Video size:" + video.videoWidth + "x" + video.videoHeight);
+    // alert("Predictions:" + predictions);
+    drawPredictions(predictions);
 
     //=========================================//
     // Motion detection
@@ -121,20 +142,12 @@ function detectFrame() {
     // }
 
     //=========================================//
-    // Draw predictions on the canvas
-    // alert("Model loaded:" + model);
-    // alert("Video playing:" + (!video.paused && !video.ended));
-    // alert("Video size:" + video.videoWidth + "x" + video.videoHeight);
-    // alert("Predictions:" + predictions);
-    drawPredictions(predictions);
-
-    //=========================================//
     // detectText(video);
 
     //=========================================//
     if (window.runDetectionLoop) {
       // Request the next animation frame
-      window.animationId = requestAnimationFrame(detectFrame);
+      window.animationId = requestAnimationFrame(() => detectFrame(source));
     }
 
     //=========================================//
@@ -244,15 +257,11 @@ function detectFrame() {
 
 // =========================================//
 function drawPredictions(predictions) {
-  if (!ctx || !canvas || !video) return;
+  // alert("DrawPredictions");
+
+  if (!ctx || !canvas) return;
   // Resize canvas if needed
-  if (
-    canvas.width !== video.videoWidth ||
-    canvas.height !== video.videoHeight
-  ) {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-  }
+  // (canvas size should already match the drawn image)
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (window.showBoundingBox) {
