@@ -8,7 +8,15 @@ function toggleSoundDetection() {
   const soundStatusNormal = document.getElementById("sound-status-normal");
   const soundStatusWarn = document.getElementById("sound-status-warn");
   const soundStatusAlert = document.getElementById("sound-status-alert");
+  const soundStatus = document.getElementById("sound-status");
 
+  if (
+    !soundStatusNormal ||
+    !soundStatusWarn ||
+    !soundStatusAlert ||
+    !soundStatus
+  )
+    return;
   if (!soundSwitch || !soundSensitivitySlider) return;
 
   window.soundDetectionEnabled = soundSwitch.checked;
@@ -25,6 +33,10 @@ function toggleSoundDetection() {
   soundStatusAlert.style.display = soundSwitch.checked
     ? "inline-block"
     : "none";
+
+  soundStatus.innerHTML = soundSwitch.checked
+    ? 'Sound: <b style="color:green">o</b>'
+    : 'Sound: <b style="color:blue">-</b>';
 
   localStorage.setItem(
     "soundDetectionMode",
@@ -99,6 +111,11 @@ function setSoundSensitivity(value) {
 function updateSoundDetection() {
   const soundSwitch = document.getElementById("sound-switch");
 
+  const soundStatusNormal = document.getElementById("sound-status-normal");
+  const soundStatusWarn = document.getElementById("sound-status-warn");
+  const soundStatusAlert = document.getElementById("sound-status-alert");
+  const soundStatus = document.getElementById("sound-status");
+
   if (!soundSwitch || !soundSwitch.checked) return;
 
   // Setup microphone input and analyser if not already done
@@ -131,19 +148,15 @@ function updateSoundDetection() {
   const soundDetected = detectSound(window.soundDataArray, threshold);
 
   if (soundDetected) {
-    document.getElementById("sound-status").innerHTML =
-      'Sound: <b style="color:red">X</b>';
-    document.getElementById("sound-status-normal").style.boxShadow = "none";
-    document.getElementById("sound-status-warn").style.boxShadow = "none";
-    document.getElementById("sound-status-alert").style.boxShadow =
-      "0 0 5px 5px yellow";
+    soundStatus.innerHTML = 'Sound: <b style="color:red">X</b>';
+    soundStatusNormal.style.boxShadow = "none";
+    soundStatusWarn.style.boxShadow = "none";
+    soundStatusAlert.style.boxShadow = "0 0 5px 5px yellow";
   } else {
-    document.getElementById("sound-status").innerHTML =
-      'Sound: <b style="color:green">--</b>';
-    document.getElementById("sound-status-normal").style.boxShadow =
-      "0 0 5px 5px green";
-    document.getElementById("sound-status-warn").style.boxShadow = "none";
-    document.getElementById("sound-status-alert").style.boxShadow = "none";
+    soundStatus.innerHTML = 'Sound: <b style="color:green">o</b>';
+    soundStatusNormal.style.boxShadow = "0 0 5px 5px green";
+    soundStatusWarn.style.boxShadow = "none";
+    soundStatusAlert.style.boxShadow = "none";
   }
 }
 

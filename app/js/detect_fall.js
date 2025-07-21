@@ -8,7 +8,15 @@ function toggleFallingDetection() {
   const fallingStatusNormal = document.getElementById("falling-status-normal");
   const fallingStatusWarn = document.getElementById("falling-status-warn");
   const fallingStatusAlert = document.getElementById("falling-status-alert");
+  const fallingStatus = document.getElementById("falling-status");
 
+  if (
+    !fallingStatusNormal ||
+    !fallingStatusWarn ||
+    !fallingStatusAlert ||
+    !fallingStatus
+  )
+    return;
   if (!fallingSwitch || !fallingSensitivitySlider) return;
 
   window.fallingDetectionEnabled = fallingSwitch.checked;
@@ -29,6 +37,9 @@ function toggleFallingDetection() {
   fallingStatusAlert.style.display = fallingSwitch.checked
     ? "inline-block"
     : "none";
+  fallingStatus.innerHTML = fallingSwitch.checked
+    ? 'Falling: <b style="color:green">o</b>'
+    : 'Falling: <b style="color:blue">-</b>';
 
   localStorage.setItem(
     "fallingDetectionMode",
@@ -103,6 +114,11 @@ function setFallingSensitivity(value) {
 function updateFallingDetection() {
   // alert("Falling detection");
 
+  const fallingStatusNormal = document.getElementById("falling-status-normal");
+  const fallingStatusWarn = document.getElementById("falling-status-warn");
+  const fallingStatusAlert = document.getElementById("falling-status-alert");
+  const fallingStatus = document.getElementById("falling-status");
+
   const videoIds = [
     "camera-stream",
     "usb-camera-stream",
@@ -144,19 +160,15 @@ function updateFallingDetection() {
   );
 
   if (fallingDetected) {
-    document.getElementById("falling-status").innerHTML =
-      'Falling: <b style="color:red">X</b>';
-    document.getElementById("falling-status-normal").style.boxShadow = "none";
-    document.getElementById("falling-status-warn").style.boxShadow = "none";
-    document.getElementById("falling-status-alert").style.boxShadow =
-      "0 0 5px 5px pink";
+    fallingStatus.innerHTML = 'Falling: <b style="color:red">X</b>';
+    fallingStatusNormal.style.boxShadow = "none";
+    fallingStatusWarn.style.boxShadow = "none";
+    fallingStatusAlert.style.boxShadow = "0 0 5px 5px pink";
   } else {
-    document.getElementById("falling-status").innerHTML =
-      'Falling: <b style="color:green">--</b>';
-    document.getElementById("falling-status-normal").style.boxShadow =
-      "0 0 5px 5px green";
-    document.getElementById("falling-status-warn").style.boxShadow = "none";
-    document.getElementById("falling-status-alert").style.boxShadow = "none";
+    fallingStatus.innerHTML = 'Falling: <b style="color:green">o</b>';
+    fallingStatusNormal.style.boxShadow = "0 0 5px 5px green";
+    fallingStatusWarn.style.boxShadow = "none";
+    fallingStatusAlert.style.boxShadow = "none";
   }
 }
 

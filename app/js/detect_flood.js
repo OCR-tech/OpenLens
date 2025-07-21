@@ -8,6 +8,15 @@ function toggleFloodDetection() {
   const floodStatusNormal = document.getElementById("flood-status-normal");
   const floodStatusWarn = document.getElementById("flood-status-warn");
   const floodStatusAlert = document.getElementById("flood-status-alert");
+  const floodStatus = document.getElementById("flood-status");
+
+  if (
+    !floodStatusNormal ||
+    !floodStatusWarn ||
+    !floodStatusAlert ||
+    !floodStatus
+  )
+    return;
 
   if (!floodSwitch || !floodSensitivitySlider) return;
 
@@ -25,6 +34,9 @@ function toggleFloodDetection() {
   floodStatusAlert.style.display = floodSwitch.checked
     ? "inline-block"
     : "none";
+  floodStatus.innerHTML = floodSwitch.checked
+    ? 'Flood: <b style="color:green">o</b>'
+    : 'Flood: <b style="color:blue">-</b>';
 
   localStorage.setItem(
     "floodDetectionMode",
@@ -99,6 +111,11 @@ function setFloodSensitivity(value) {
 function updateFloodDetection() {
   // alert("UpdateFloodDetection");
 
+  const floodStatusNormal = document.getElementById("flood-status-normal");
+  const floodStatusWarn = document.getElementById("flood-status-warn");
+  const floodStatusAlert = document.getElementById("flood-status-alert");
+  const floodStatus = document.getElementById("flood-status");
+
   const videoIds = [
     "camera-stream",
     "usb-camera-stream",
@@ -140,19 +157,15 @@ function updateFloodDetection() {
   );
 
   if (floodDetected) {
-    document.getElementById("flood-status").innerHTML =
-      'Flood: <b style="color:red">X</b>';
-    document.getElementById("flood-status-normal").style.boxShadow = "none";
-    document.getElementById("flood-status-warn").style.boxShadow = "none";
-    document.getElementById("flood-status-alert").style.boxShadow =
-      "0 0 5px 5px purple";
+    floodStatus.innerHTML = 'Flood: <b style="color:red">X</b>';
+    floodStatusNormal.style.boxShadow = "none";
+    floodStatusWarn.style.boxShadow = "none";
+    floodStatusAlert.style.boxShadow = "0 0 5px 5px purple";
   } else {
-    document.getElementById("flood-status").innerHTML =
-      'Flood: <b style="color:green">--</b>';
-    document.getElementById("flood-status-normal").style.boxShadow =
-      "0 0 5px 5px green";
-    document.getElementById("flood-status-warn").style.boxShadow = "none";
-    document.getElementById("flood-status-alert").style.boxShadow = "none";
+    floodStatus.innerHTML = 'Flood: <b style="color:green">o</b>';
+    floodStatusNormal.style.boxShadow = "0 0 5px 5px green";
+    floodStatusWarn.style.boxShadow = "none";
+    floodStatusAlert.style.boxShadow = "none";
   }
 }
 

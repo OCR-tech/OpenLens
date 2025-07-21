@@ -10,6 +10,15 @@ function toggleBreakingDetection() {
   );
   const breakingStatusWarn = document.getElementById("breaking-status-warn");
   const breakingStatusAlert = document.getElementById("breaking-status-alert");
+  const breakingStatus = document.getElementById("breaking-status");
+
+  if (
+    !breakingStatusNormal ||
+    !breakingStatusWarn ||
+    !breakingStatusAlert ||
+    !breakingStatus
+  )
+    return;
 
   if (!breakingSwitch || !breakingSensitivitySlider) return;
 
@@ -31,6 +40,9 @@ function toggleBreakingDetection() {
   breakingStatusAlert.style.display = breakingSwitch.checked
     ? "inline-block"
     : "none";
+  breakingStatus.innerHTML = breakingSwitch.checked
+    ? 'Breaking: <b style="color:green">o</b>'
+    : 'Breaking: <b style="color:blue">-</b>';
 
   localStorage.setItem(
     "breakingDetectionMode",
@@ -108,6 +120,13 @@ function setBreakingSensitivity(value) {
 function updateBreakingDetection() {
   // alert("Breaking detection");
 
+  const breakingStatusNormal = document.getElementById(
+    "breaking-status-normal"
+  );
+  const breakingStatusWarn = document.getElementById("breaking-status-warn");
+  const breakingStatusAlert = document.getElementById("breaking-status-alert");
+  const breakingStatus = document.getElementById("breaking-status");
+
   const videoIds = [
     "camera-stream",
     "usb-camera-stream",
@@ -149,19 +168,15 @@ function updateBreakingDetection() {
   );
 
   if (breakingDetected) {
-    document.getElementById("breaking-status").innerHTML =
-      'Sound: <b style="color:red">X</b>';
-    document.getElementById("breaking-status-normal").style.boxShadow = "none";
-    document.getElementById("breaking-status-warn").style.boxShadow = "none";
-    document.getElementById("breaking-status-alert").style.boxShadow =
-      "0 0 5px 5px indigo";
+    breakingStatus.innerHTML = 'Sound: <b style="color:red">X</b>';
+    breakingStatusNormal.style.boxShadow = "none";
+    breakingStatusWarn.style.boxShadow = "none";
+    breakingStatusAlert.style.boxShadow = "0 0 5px 5px indigo";
   } else {
-    document.getElementById("breaking-status").innerHTML =
-      'Sound: <b style="color:green">--</b>';
-    document.getElementById("breaking-status-normal").style.boxShadow =
-      "0 0 5px 5px green";
-    document.getElementById("breaking-status-warn").style.boxShadow = "none";
-    document.getElementById("breaking-status-alert").style.boxShadow = "none";
+    breakingStatus.innerHTML = 'Sound: <b style="color:green">o</b>';
+    breakingStatusNormal.style.boxShadow = "0 0 5px 5px green";
+    breakingStatusWarn.style.boxShadow = "none";
+    breakingStatusAlert.style.boxShadow = "none";
   }
 }
 

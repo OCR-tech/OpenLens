@@ -8,7 +8,10 @@ function toggleFireDetection() {
   const fireStatusNormal = document.getElementById("fire-status-normal");
   const fireStatusWarn = document.getElementById("fire-status-warn");
   const fireStatusAlert = document.getElementById("fire-status-alert");
+  const fireStatus = document.getElementById("fire-status");
 
+  if (!fireStatusNormal || !fireStatusWarn || !fireStatusAlert || !fireStatus)
+    return;
   if (!fireSwitch || !fireSensitivitySlider) return;
 
   window.fireDetectionEnabled = fireSwitch.checked;
@@ -21,6 +24,9 @@ function toggleFireDetection() {
   fireStatusNormal.style.display = fireSwitch.checked ? "inline-block" : "none";
   fireStatusWarn.style.display = fireSwitch.checked ? "inline-block" : "none";
   fireStatusAlert.style.display = fireSwitch.checked ? "inline-block" : "none";
+  fireStatus.innerHTML = fireSwitch.checked
+    ? 'Fire: <b style="color:green">o</b>'
+    : 'Fire: <b style="color:blue">-</b>';
 
   localStorage.setItem("fireDetectionMode", fireSwitch.checked ? "on" : "off");
   localStorage.setItem("fireSensitivity", fireSensitivitySlider.value);
@@ -90,6 +96,11 @@ function setFireSensitivity(value) {
 // =========================================//
 // Function to update fire detection status
 function updateFireDetection() {
+  const fireStatusNormal = document.getElementById("fire-status-normal");
+  const fireStatusWarn = document.getElementById("fire-status-warn");
+  const fireStatusAlert = document.getElementById("fire-status-alert");
+  const fireStatus = document.getElementById("fire-status");
+
   const videoIds = [
     "camera-stream",
     "usb-camera-stream",
@@ -131,19 +142,15 @@ function updateFireDetection() {
   );
 
   if (fireDetected) {
-    document.getElementById("fire-status").innerHTML =
-      'Fire: <b style="color:red">X</b>';
-    document.getElementById("fire-status-normal").style.boxShadow = "none";
-    document.getElementById("fire-status-warn").style.boxShadow = "none";
-    document.getElementById("fire-status-alert").style.boxShadow =
-      "0 0 5px 5px red";
+    fireStatus.innerHTML = 'Fire: <b style="color:red">X</b>';
+    fireStatusNormal.style.boxShadow = "none";
+    fireStatusWarn.style.boxShadow = "none";
+    fireStatusAlert.style.boxShadow = "0 0 5px 5px red";
   } else {
-    document.getElementById("fire-status").innerHTML =
-      'Fire: <b style="color:green">--</b>';
-    document.getElementById("fire-status-normal").style.boxShadow =
-      "0 0 5px 5px green";
-    document.getElementById("fire-status-warn").style.boxShadow = "none";
-    document.getElementById("fire-status-alert").style.boxShadow = "none";
+    fireStatus.innerHTML = 'Fire: <b style="color:green">o</b>';
+    fireStatusNormal.style.boxShadow = "0 0 5px 5px green";
+    fireStatusWarn.style.boxShadow = "none";
+    fireStatusAlert.style.boxShadow = "none";
   }
 }
 

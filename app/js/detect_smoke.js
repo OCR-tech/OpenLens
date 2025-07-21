@@ -8,7 +8,15 @@ function toggleSmokeDetection() {
   const smokeStatusNormal = document.getElementById("smoke-status-normal");
   const smokeStatusWarn = document.getElementById("smoke-status-warn");
   const smokeStatusAlert = document.getElementById("smoke-status-alert");
+  const smokeStatus = document.getElementById("smoke-status");
 
+  if (
+    !smokeStatusNormal ||
+    !smokeStatusWarn ||
+    !smokeStatusAlert ||
+    !smokeStatus
+  )
+    return;
   if (!smokeSwitch || !smokeSensitivitySlider) return;
 
   window.smokeDetectionEnabled = smokeSwitch.checked;
@@ -25,6 +33,10 @@ function toggleSmokeDetection() {
   smokeStatusAlert.style.display = smokeSwitch.checked
     ? "inline-block"
     : "none";
+
+  smokeStatus.innerHTML = smokeSwitch.checked
+    ? 'Smoke: <b style="color:green">o</b>'
+    : 'Smoke: <b style="color:blue">-</b>';
 
   localStorage.setItem(
     "smokeDetectionMode",
@@ -97,6 +109,11 @@ function setSmokeSensitivity(value) {
 // =========================================//
 // Function to update smoke detection status
 function updateSmokeDetection() {
+  const smokeStatusNormal = document.getElementById("smoke-status-normal");
+  const smokeStatusWarn = document.getElementById("smoke-status-warn");
+  const smokeStatusAlert = document.getElementById("smoke-status-alert");
+  const smokeStatus = document.getElementById("smoke-status");
+
   const videoIds = [
     "camera-stream",
     "usb-camera-stream",
@@ -139,19 +156,15 @@ function updateSmokeDetection() {
   );
 
   if (smokeDetected) {
-    document.getElementById("smoke-status").innerHTML =
-      'Smoke: <b style="color:red">X</b>';
-    document.getElementById("smoke-status-normal").style.boxShadow = "none";
-    document.getElementById("smoke-status-warn").style.boxShadow = "none";
-    document.getElementById("smoke-status-alert").style.boxShadow =
-      "0 0 5px 5px gray";
+    smokeStatus.innerHTML = 'Smoke: <b style="color:red">X</b>';
+    smokeStatusNormal.style.boxShadow = "none";
+    smokeStatusWarn.style.boxShadow = "none";
+    smokeStatusAlert.style.boxShadow = "0 0 5px 5px gray";
   } else {
-    document.getElementById("smoke-status").innerHTML =
-      'Smoke: <b style="color:green">--</b>';
-    document.getElementById("smoke-status-normal").style.boxShadow =
-      "0 0 5px 5px green";
-    document.getElementById("smoke-status-warn").style.boxShadow = "none";
-    document.getElementById("smoke-status-alert").style.boxShadow = "none";
+    smokeStatus.innerHTML = 'Smoke: <b style="color:green">o</b>';
+    smokeStatusNormal.style.boxShadow = "0 0 5px 5px green";
+    smokeStatusWarn.style.boxShadow = "none";
+    smokeStatusAlert.style.boxShadow = "none";
   }
 }
 

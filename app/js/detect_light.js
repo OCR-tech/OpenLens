@@ -8,7 +8,15 @@ function toggleLightDetection() {
   const lightStatusNormal = document.getElementById("light-status-normal");
   const lightStatusWarn = document.getElementById("light-status-warn");
   const lightStatusAlert = document.getElementById("light-status-alert");
+  const lightStatus = document.getElementById("light-status");
 
+  if (
+    !lightStatusNormal ||
+    !lightStatusWarn ||
+    !lightStatusAlert ||
+    !lightStatus
+  )
+    return;
   if (!lightSwitch || !lightSensitivitySlider) return;
 
   window.lightDetectionEnabled = lightSwitch.checked;
@@ -25,6 +33,9 @@ function toggleLightDetection() {
   lightStatusAlert.style.display = lightSwitch.checked
     ? "inline-block"
     : "none";
+  lightStatus.innerHTML = lightSwitch.checked
+    ? 'Light: <b style="color:green">o</b>'
+    : 'Light: <b style="color:blue">-</b>';
 
   localStorage.setItem(
     "lightDetectionMode",
@@ -97,6 +108,11 @@ function setLightSensitivity(value) {
 // =========================================//
 // Function to update light detection status
 function updateLightDetection() {
+  const lightStatusNormal = document.getElementById("light-status-normal");
+  const lightStatusWarn = document.getElementById("light-status-warn");
+  const lightStatusAlert = document.getElementById("light-status-alert");
+  const lightStatus = document.getElementById("light-status");
+
   const videoIds = [
     "camera-stream",
     "usb-camera-stream",
@@ -138,19 +154,15 @@ function updateLightDetection() {
   );
 
   if (lightDetected) {
-    document.getElementById("light-status").innerHTML =
-      'Light: <b style="color:red">X</b>';
-    document.getElementById("light-status-normal").style.boxShadow = "none";
-    document.getElementById("light-status-warn").style.boxShadow = "none";
-    document.getElementById("light-status-alert").style.boxShadow =
-      "0 0 5px 5px orange";
+    lightStatus.innerHTML = 'Light: <b style="color:red">X</b>';
+    lightStatusNormal.style.boxShadow = "none";
+    lightStatusWarn.style.boxShadow = "none";
+    lightStatusAlert.style.boxShadow = "0 0 5px 5px orange";
   } else {
-    document.getElementById("light-status").innerHTML =
-      'Light: <b style="color:green">--</b>';
-    document.getElementById("light-status-normal").style.boxShadow =
-      "0 0 5px 5px green";
-    document.getElementById("light-status-warn").style.boxShadow = "none";
-    document.getElementById("light-status-alert").style.boxShadow = "none";
+    lightStatus.innerHTML = 'Light: <b style="color:green">o</b>';
+    lightStatusNormal.style.boxShadow = "0 0 5px 5px green";
+    lightStatusWarn.style.boxShadow = "none";
+    lightStatusAlert.style.boxShadow = "none";
   }
 }
 

@@ -8,6 +8,15 @@ function toggleMotionDetection() {
   const motionStatusNormal = document.getElementById("motion-status-normal");
   const motionStatusWarn = document.getElementById("motion-status-warn");
   const motionStatusAlert = document.getElementById("motion-status-alert");
+  const motionStatus = document.getElementById("motion-status");
+
+  if (
+    !motionStatusNormal ||
+    !motionStatusWarn ||
+    !motionStatusAlert ||
+    !motionStatus
+  )
+    return;
 
   if (!motionSwitch || !motionSensitivitySlider) return;
 
@@ -29,6 +38,10 @@ function toggleMotionDetection() {
   motionStatusAlert.style.display = motionSwitch.checked
     ? "inline-block"
     : "none";
+
+  motionStatus.innerHTML = motionSwitch.checked
+    ? 'Motion: <b style="color:green">o</b>'
+    : 'Motion: <b style="color:blue">-</b>';
 
   localStorage.setItem(
     "motionDetectionMode",
@@ -101,6 +114,11 @@ function setMotionSensitivity(value) {
 // =========================================//
 // Function to update motion detection status
 function updateMotionDetection() {
+  const motionStatusNormal = document.getElementById("motion-status-normal");
+  const motionStatusWarn = document.getElementById("motion-status-warn");
+  const motionStatusAlert = document.getElementById("motion-status-alert");
+  const motionStatus = document.getElementById("motion-status");
+
   // const video = document.getElementById("camera-stream");
   // const video = document.getElementById("video-file-player");
   const videoIds = [
@@ -144,19 +162,15 @@ function updateMotionDetection() {
   );
 
   if (motionDetected) {
-    document.getElementById("motion-status").innerHTML =
-      'Motion: <b style="color:red">X</b>';
-    document.getElementById("motion-status-normal").style.boxShadow = "none";
-    document.getElementById("motion-status-warn").style.boxShadow = "none";
-    document.getElementById("motion-status-alert").style.boxShadow =
-      "0 0 5px 5px brown";
+    motionStatus.innerHTML = 'Motion: <b style="color:red">X</b>';
+    motionStatusNormal.style.boxShadow = "none";
+    motionStatusWarn.style.boxShadow = "none";
+    motionStatusAlert.style.boxShadow = "0 0 5px 5px brown";
   } else {
-    document.getElementById("motion-status").innerHTML =
-      'Motion: <b style="color:green">--</b>';
-    document.getElementById("motion-status-normal").style.boxShadow =
-      "0 0 5px 5px green";
-    document.getElementById("motion-status-warn").style.boxShadow = "none";
-    document.getElementById("motion-status-alert").style.boxShadow = "none";
+    motionStatus.innerHTML = 'Motion: <b style="color:green">o</b>';
+    motionStatusNormal.style.boxShadow = "0 0 5px 5px green";
+    motionStatusWarn.style.boxShadow = "none";
+    motionStatusAlert.style.boxShadow = "none";
   }
 }
 

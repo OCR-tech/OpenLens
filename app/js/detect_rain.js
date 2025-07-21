@@ -8,7 +8,10 @@ function toggleRainDetection() {
   const rainStatusNormal = document.getElementById("rain-status-normal");
   const rainStatusWarn = document.getElementById("rain-status-warn");
   const rainStatusAlert = document.getElementById("rain-status-alert");
+  const rainStatus = document.getElementById("rain-status");
 
+  if (!rainStatusNormal || !rainStatusWarn || !rainStatusAlert || !rainStatus)
+    return;
   if (!rainSwitch || !rainSensitivitySlider) return;
 
   window.rainDetectionEnabled = rainSwitch.checked;
@@ -21,6 +24,9 @@ function toggleRainDetection() {
   rainStatusNormal.style.display = rainSwitch.checked ? "inline-block" : "none";
   rainStatusWarn.style.display = rainSwitch.checked ? "inline-block" : "none";
   rainStatusAlert.style.display = rainSwitch.checked ? "inline-block" : "none";
+  rainStatus.innerHTML = rainSwitch.checked
+    ? 'Rain: <b style="color:green">o</b>'
+    : 'Rain: <b style="color:blue">-</b>';
 
   localStorage.setItem("rainDetectionMode", rainSwitch.checked ? "on" : "off");
   localStorage.setItem("rainSensitivity", rainSensitivitySlider.value);
@@ -92,6 +98,11 @@ function setRainSensitivity(value) {
 function updateRainDetection() {
   // alert("Rain detection");
 
+  const rainStatusNormal = document.getElementById("rain-status-normal");
+  const rainStatusWarn = document.getElementById("rain-status-warn");
+  const rainStatusAlert = document.getElementById("rain-status-alert");
+  const rainStatus = document.getElementById("rain-status");
+
   const videoIds = [
     "camera-stream",
     "usb-camera-stream",
@@ -133,19 +144,15 @@ function updateRainDetection() {
   );
 
   if (rainDetected) {
-    document.getElementById("rain-status").innerHTML =
-      'Rain: <b style="color:red">X</b>';
-    document.getElementById("rain-status-normal").style.boxShadow = "none";
-    document.getElementById("rain-status-warn").style.boxShadow = "none";
-    document.getElementById("rain-status-alert").style.boxShadow =
-      "0 0 5px 5px blue"; // Use a more vivid blue for alert
+    rainStatus.innerHTML = 'Rain: <b style="color:red">X</b>';
+    rainStatusNormal.style.boxShadow = "none";
+    rainStatusWarn.style.boxShadow = "none";
+    rainStatusAlert.style.boxShadow = "0 0 5px 5px blue"; // Use a more vivid blue for alert
   } else {
-    document.getElementById("rain-status").innerHTML =
-      'Rain: <b style="color:green">--</b>';
-    document.getElementById("rain-status-normal").style.boxShadow =
-      "0 0 5px 5px green";
-    document.getElementById("rain-status-warn").style.boxShadow = "none";
-    document.getElementById("rain-status-alert").style.boxShadow = "none";
+    rainStatus.innerHTML = 'Rain: <b style="color:green">o</b>';
+    rainStatusNormal.style.boxShadow = "0 0 5px 5px green";
+    rainStatusWarn.style.boxShadow = "none";
+    rainStatusAlert.style.boxShadow = "none";
   }
 }
 
