@@ -168,8 +168,8 @@ function detectRain(prevFrame, currFrame, width, height, threshold) {
   const blueThreshold = 100; // Rain can reflect blue/gray sky
   const streakLength = 3; // Minimum streak length for rain
 
-  const MOST_SENSITIVE_RATIO = 0.8;
-  const LEAST_SENSITIVE_RATIO = 0.6;
+  const MOST_SENSITIVE_RATIO = 0.9;
+  const LEAST_SENSITIVE_RATIO = 0.7;
   let rainRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
