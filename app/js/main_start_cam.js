@@ -405,7 +405,7 @@ function startUSBCamera() {
 
 // =========================================//
 function startIPCamera(ipCameraUrl) {
-  alert("Starting IP Camera... " + ipCameraUrl);
+  // alert("Starting IP Camera... " + ipCameraUrl);
 
   document.getElementById("status").innerText = "Starting IP Camera...";
 
@@ -424,7 +424,8 @@ function startIPCamera(ipCameraUrl) {
   // MJPEG stream as <img>
   video = document.createElement("img");
   video.id = "camera-stream";
-  video.src = "https://" + ipCameraUrl + "/video";
+  video.src = "http://" + ipCameraUrl + "/video";
+  // video.src = "https://" + ipCameraUrl + "/video";
   video.style.width = "100%";
   video.style.objectFit = "contain";
   videoFeed.appendChild(video);

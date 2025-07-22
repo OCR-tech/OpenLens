@@ -185,14 +185,6 @@ function rgbToHsv(r, g, b) {
   return [h * 360, s, v];
 }
 
-// In your loop:
-const [h, s, v] = rgbToHsv(r, g, b);
-const isFireColor =
-  h >= 10 &&
-  h <= 60 && // Hue between red and yellow
-  s > 0.4 && // Saturation
-  v > 0.5; // Brightness
-
 // =========================================//
 // Simple fire detection based on color (orange/yellow/red) and intensity changes
 function detectFire(prevFrame, currFrame, width, height, threshold) {
