@@ -1,6 +1,7 @@
 <div class="container-section" style="margin: 0; padding: 5px">
   <div class="controls-section">
     <div class="voice-columns">
+      <!-- Voice Command Settings -->
       <div class="voice-col">
         <label for="voice-command-switch">Voice Command</label>
         <label class="switch">
@@ -30,8 +31,9 @@
         </div>
       </div>
 
+      <!-- Voice Alert Settings -->
       <div class="voice-col">
-        <label for="voice-alert">Voice Alert</label>
+        <label for="voice-alert-switch">Voice Alert</label>
         <label class="switch">
           <input
             type="checkbox"
@@ -59,8 +61,9 @@
         </div>
       </div>
 
+      <!-- Voice Status Settings -->
       <div class="voice-col">
-        <label for="voice-status">Voice Status</label>
+        <label for="voice-status-switch">Voice Status</label>
         <label class="switch">
           <input
             type="checkbox"
@@ -87,30 +90,42 @@
           <span id="volume-value-status">50</span>
         </div>
       </div>
+
+      <!-- Voice History Settings -->
       <div class="voice-col">
-        <label for="voice-history">Voice History</label>
+        <label for="voice-history-switch">Voice History</label>
         <label class="switch">
           <input type="checkbox" id="voice-history" />
           <span class="slider"></span>
         </label>
-        <!-- Add more controls here if needed -->
       </div>
 
+      <!-- Voice Recognition Settings -->
       <div class="voice-col">
-        <label for="voice-recognition">Voice Recognition</label>
+        <label for="voice-recognition-switch">Voice Recognition</label>
         <label class="switch">
-          <input type="checkbox" id="voice-recognition" />
+          <input
+            type="checkbox"
+            id="voice-recognition-switch"
+            title="Toggle voice recognition"
+            placeholder="Toggle voice recognition"
+          />
           <span class="slider"></span>
         </label>
-        <!-- Add more controls here if needed -->
       </div>
+
+      <!-- Voice Navigation Settings -->
       <div class="voice-col">
-        <label for="voice-navigation">Voice Navigation</label>
+        <label for="voice-navigation-switch">Voice Navigation</label>
         <label class="switch">
-          <input type="checkbox" id="voice-navigation" />
+          <input
+            type="checkbox"
+            id="voice-navigation-switch"
+            title="Toggle voice navigation"
+            placeholder="Toggle voice navigation"
+          />
           <span class="slider"></span>
         </label>
-        <!-- Add more controls here if needed -->
       </div>
     </div>
   </div>
