@@ -95,9 +95,30 @@
       <div class="voice-col">
         <label for="voice-history-switch">Voice History</label>
         <label class="switch">
-          <input type="checkbox" id="voice-history" />
+          <input
+            type="checkbox"
+            id="voice-history-switch"
+            title="Select voice history"
+            placeholder="Select voice history"
+            onclick="toggleVoiceStatus()"
+          />
           <span class="slider"></span>
         </label>
+        <div class="slider-group">
+          <label for="volume-slider-history">Vol:</label>
+          <input
+            type="range"
+            id="volume-slider-history"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+            style="width: 120px"
+            disabled="true"
+            oninput="updateValueStatus(this.value)"
+          />
+          <span id="volume-value-history">50</span>
+        </div>
       </div>
 
       <!-- Voice Recognition Settings -->
@@ -109,9 +130,25 @@
             id="voice-recognition-switch"
             title="Toggle voice recognition"
             placeholder="Toggle voice recognition"
+            onclick="toggleVoiceStatus()"
           />
           <span class="slider"></span>
         </label>
+        <div class="slider-group">
+          <label for="volume-slider-recognition">Vol:</label>
+          <input
+            type="range"
+            id="volume-slider-recognition"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+            style="width: 120px"
+            disabled="true"
+            oninput="updateValueStatus(this.value)"
+          />
+          <span id="volume-value-recognition">50</span>
+        </div>
       </div>
 
       <!-- Voice Navigation Settings -->
@@ -123,9 +160,25 @@
             id="voice-navigation-switch"
             title="Toggle voice navigation"
             placeholder="Toggle voice navigation"
+            onclick="toggleVoiceStatus()"
           />
           <span class="slider"></span>
         </label>
+        <div class="slider-group">
+          <label for="volume-slider-navigation">Vol:</label>
+          <input
+            type="range"
+            id="volume-slider-navigation"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+            style="width: 120px"
+            disabled="true"
+            oninput="updateValueStatus(this.value)"
+          />
+          <span id="volume-value-navigation">50</span>
+        </div>
       </div>
     </div>
   </div>
