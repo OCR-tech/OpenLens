@@ -405,7 +405,7 @@ function startUSBCamera() {
 
 // =========================================//
 function startIPCamera(ipCameraUrl) {
-  // alert("Starting IP Camera... " + ipCameraUrl);
+  alert("Starting IP Camera... " + ipCameraUrl);
 
   document.getElementById("status").innerText = "Starting IP Camera...";
 
@@ -428,6 +428,7 @@ function startIPCamera(ipCameraUrl) {
   video.src = "https://" + ipCameraUrl + "/video";
   video.style.width = "100%";
   video.style.objectFit = "contain";
+  video.title = "IP Camera Stream";
   videoFeed.appendChild(video);
 
   // Overlay canvas
