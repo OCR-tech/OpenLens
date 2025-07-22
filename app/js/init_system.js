@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", function () {
       model = loadedModel;
 
       initSystem();
-      requestCameraPermission(); // Request camera permission
+      // requestCameraPermission(); // Request camera permission
       // requestMicrophonePermission(); // Request microphone permission
       // requestLocationPermission(); // Request location permission
       // requestNotificationPermission(); // Request notification permission
