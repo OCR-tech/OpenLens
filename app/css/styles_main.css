@@ -389,7 +389,8 @@ input {
   margin-bottom: 10px;
   flex-wrap: wrap;
 }
-#video-source {
+#video-source,
+#mode-select {
   width: 100%;
   min-width: 215px;
   max-width: 215px;

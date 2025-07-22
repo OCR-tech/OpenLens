@@ -45,47 +45,6 @@
           ></div>
         </div>
 
-        <!-- Sound Detection Settings -->
-        <div class="settings-row">
-          <label for="sound-detection" title="Detects sound."
-            >Sound Detection</label
-          >
-          <label class="switch">
-            <input
-              type="checkbox"
-              id="sound-switch"
-              onclick="toggleSoundDetection()"
-            />
-            <span class="slider"></span>
-          </label>
-          <input
-            type="range"
-            id="sound-sensitivity-slider"
-            min="0"
-            max="10"
-            value="5"
-            disabled="true"
-            oninput="updateValueSound(this.value)"
-          />
-          <span id="sound-sensitivity-value">5</span>
-
-          <div
-            class="status-color normal"
-            id="sound-status-normal"
-            title="Normal"
-          ></div>
-          <div
-            class="status-color warn"
-            id="sound-status-warn"
-            title="Warning"
-          ></div>
-          <div
-            class="status-color alert"
-            id="sound-status-alert"
-            title="Alert"
-          ></div>
-        </div>
-
         <!-- Smoke Detection Settings -->
         <div class="settings-row">
           <label for="smoke-detection" title="Detects smoke."
@@ -373,6 +332,47 @@
           <div
             class="status-color alert"
             id="breaking-status-alert"
+            title="Alert"
+          ></div>
+        </div>
+
+        <!-- Sound Detection Settings -->
+        <div class="settings-row">
+          <label for="sound-detection" title="Detects sound."
+            >Sound Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="sound-switch"
+              onclick="toggleSoundDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="sound-sensitivity-slider"
+            min="0"
+            max="10"
+            value="5"
+            disabled="true"
+            oninput="updateValueSound(this.value)"
+          />
+          <span id="sound-sensitivity-value">5</span>
+
+          <div
+            class="status-color normal"
+            id="sound-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="sound-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="sound-status-alert"
             title="Alert"
           ></div>
         </div>
