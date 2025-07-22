@@ -1,35 +1,4 @@
 // =========================================//
-// Check if any integrated (built-in) camera is found
-async function isIntegratedCameraAvailable() {
-  // Common built-in camera labels contain "integrated" or "built-in"
-  return (
-    (await checkCameraAvailability("videoinput", "integrated")) ||
-    (await checkCameraAvailability("videoinput", "built-in"))
-  );
-}
-
-// Check if any USB (external) camera is found
-async function isUSBCameraAvailable() {
-  // Common USB camera labels contain "usb"
-  return await checkCameraAvailability("videoinput", "usb");
-}
-
-// General camera availability checker
-async function checkCameraAvailability(kind = "videoinput", labelMatch = "") {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices)
-    return false;
-  const devices = await navigator.mediaDevices.enumerateDevices();
-  if (labelMatch) {
-    return devices.some(
-      (device) =>
-        device.kind === kind &&
-        device.label.toLowerCase().includes(labelMatch.toLowerCase())
-    );
-  }
-  return devices.some((device) => device.kind === kind);
-}
-
-// =========================================//
 // Video source selection
 function updateVideoSource() {
   // alert("updateVideoSource");
@@ -45,6 +14,8 @@ function updateVideoSource() {
   const ipCameraUrlInput = document.getElementById("ip-camera-url");
 
   listAllCameras(); // Call the function to list all available cameras
+  // alert("flag_videoSource0 : " + flag_videoSource0);
+  // alert("flag_videoSource1 : " + flag_videoSource1);
 
   //------------------------------//
   if (videoSource === "camera") {
@@ -154,9 +125,6 @@ function updateVideoSource() {
 // Select default camera source
 function CheckIntegratedCamera() {
   // alert("CheckIntegratedCamera");
-  const available = checkCameraAvailability("integrated");
-  // alert(available);
-
   // Check if video feed is from a built-in camera
   const btnStart = document.getElementById("btn-start");
   const btnStop = document.getElementById("btn-stop");
@@ -164,7 +132,7 @@ function CheckIntegratedCamera() {
   const btnVoice = document.getElementById("btn-voice");
 
   // if the built-in camera is available, use the built-in camera in the video feed
-  if (available) {
+  if (flag_videoSource0 === true) {
     // alert("Built-in camera is available");
     btnStart.disabled = true; // disable the start button
     btnStop.disabled = false; // enable the stop button
@@ -184,9 +152,6 @@ function CheckIntegratedCamera() {
 // Select USB camera video source
 function CheckUSBCamera() {
   // alert("CheckUSBCamera");
-  const available = checkCameraAvailability("usb");
-  // alert(available);
-
   // Check if video feed is from an external webcam
   const btnStart = document.getElementById("btn-start");
   const btnStop = document.getElementById("btn-stop");
@@ -194,7 +159,7 @@ function CheckUSBCamera() {
   const btnVoice = document.getElementById("btn-voice");
 
   // if the built-in camera is available, use the built-in camera in the video feed
-  if (available) {
+  if (flag_videoSource1 === true) {
     // alert("USB camera is available");
     btnStart.disabled = true; // disable the start button
     btnStop.disabled = false; // enable the stop button
