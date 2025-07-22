@@ -405,6 +405,8 @@ function startUSBCamera() {
 
 // =========================================//
 function startIPCamera(ipCameraUrl) {
+  alert("Starting IP Camera... " + ipCameraUrl);
+
   document.getElementById("status").innerText = "Starting IP Camera...";
 
   if (video) {
