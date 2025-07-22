@@ -142,8 +142,8 @@ function initUI() {
 
   // document.getElementById("video-size-label").style.display = "inline-block";
   // document.getElementById("frame-rate-label").style.display = "inline-block";
-  document.getElementById("video-size-label").textContent = "WxH: N/A";
-  document.getElementById("frame-rate-label").textContent = "FPS: N/A";
+  // document.getElementById("video-size-label").textContent = "WxH: N/A";
+  // document.getElementById("frame-rate-label").textContent = "FPS: N/A";
 
   updateVideoSource();
 }
