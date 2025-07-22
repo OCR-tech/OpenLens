@@ -424,7 +424,7 @@ function startIPCamera(ipCameraUrl) {
   // MJPEG stream as <img>
   video = document.createElement("img");
   video.id = "camera-stream";
-  video.src = "http://" + ipCameraUrl + "/video";
+  video.src = "https://" + ipCameraUrl + "/video";
   video.style.width = "100%";
   video.style.objectFit = "contain";
   videoFeed.appendChild(video);
