@@ -171,7 +171,7 @@ function CheckIntegratedCamera() {
     btnCommand.disabled = false; // enable the command button
     btnVoice.disabled = false; // enable the voice button
     // startIntegratedCamera();
-    startButton();
+    // startButton();
   } else {
     // console.error("Built-in camera not available.");
     document.getElementById("status").innerText =
@@ -201,7 +201,7 @@ function CheckUSBCamera() {
     btnCommand.disabled = false; // enable the command button
     btnVoice.disabled = false; // enable the voice button
     // startUSBCamera();
-    startButton();
+    // startButton();
   } else {
     console.error("USB camera not available.");
     return;
