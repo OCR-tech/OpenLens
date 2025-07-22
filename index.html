@@ -33,6 +33,8 @@
               type="checkbox"
               id="source-switch"
               disabled="true"
+              title="Select video source"
+              placeholder="Select video source"
               onclick="toggleSource()"
             />
             <span class="slider"></span>
@@ -44,6 +46,8 @@
             <input
               type="checkbox"
               id="mode-switch"
+              title="Select mode"
+              placeholder="Select mode"
               disabled="true"
               onclick="toggleMode()"
             />
@@ -56,6 +60,8 @@
             <input
               type="checkbox"
               id="status-switch"
+              title="Select status"
+              placeholder="Select status"
               disabled="true"
               onclick="toggleStatus()"
             />
@@ -67,14 +73,26 @@
           <!-- Screen selection -->
           <span class="screen-mode-text" id="screen-mode-text">Screen</span>
           <label class="switch" for="screen-switch">
-            <input type="checkbox" id="screen-switch" disabled="true" />
+            <input
+              type="checkbox"
+              id="screen-switch"
+              title="Select screen"
+              placeholder="Select screen"
+              disabled="true"
+            />
             <span class="slider"></span>
           </label>
 
           <!-- Theme selection -->
           <span class="theme-mode-text" id="theme-mode-text">Theme</span>
           <label class="switch" for="theme-switch">
-            <input type="checkbox" id="theme-switch" disabled="true" />
+            <input
+              type="checkbox"
+              id="theme-switch"
+              title="Select theme"
+              placeholder="Select theme"
+              disabled="true"
+            />
             <span class="slider"></span>
           </label>
         </div>
