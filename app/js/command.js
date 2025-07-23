@@ -101,6 +101,14 @@ function captureImage() {
 
   // Use the overlay canvas for capture
   const canvas = document.getElementById("overlay");
+  const videoElement =
+    document.getElementById("camera-stream") ||
+    document.getElementById("usb-camera-stream") ||
+    document.getElementById("camera-stream") ||
+    document.getElementById("stream-player") ||
+    document.getElementById("video-file-player") ||
+    document.getElementById("image");
+
   if (!canvas) {
     document.getElementById("status").innerText = "No video found";
     if (window.voiceStatusEnabled) {
@@ -111,38 +119,25 @@ function captureImage() {
     if (window.voiceStatusEnabled) {
       playVoiceStatus("Capture Image");
     }
-    const videoElement =
-      document.getElementById("camera-stream") ||
-      document.getElementById("usb-camera-stream") ||
-      document.getElementById("video-file-player");
-    const ctx = canvas.getContext("2d");
-    if (videoElement) {
+    if (videoElement instanceof HTMLVideoElement) {
+      const ctx = canvas.getContext("2d");
       canvas.width = videoElement.videoWidth;
       canvas.height = videoElement.videoHeight;
       ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
       saveCanvasAsImage(canvas); // Save the canvas as an image
+    } else if (videoElement instanceof HTMLImageElement) {
+      const ctx = canvas.getContext("2d");
+      canvas.width = videoElement.naturalWidth;
+      canvas.height = videoElement.naturalHeight;
+      // Set Cross-Origin Attribute
+      videoElement.crossOrigin = "anonymous"; // Ensure cross-origin is set
+      ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+      saveCanvasAsImage(canvas);
     } else {
       document.getElementById("status").innerText = "No video found";
       return;
     }
   }
-}
-
-// =========================================//
-function saveCanvasAsImage1(canvas) {
-  // save Canvas As Image with current overlays displaying on the screen
-  document.getElementById("status").innerText = "Save Image";
-  const ctx = canvas.getContext("2d");
-  ctx.font = "15px Arial";
-  ctx.fillStyle = "Blue";
-
-  ctx.fillText("Date: " + new Date().toLocaleString(), 10, 25);
-  // ctx.fillText("Date: " + new Date().toLocaleString(), 10, 25);
-
-  // Add GPS location if available
-  // if (window.gpsLocation) {
-  //   ctx.fillText(gpsString, x + 4, y + textHeight - 6);
-  // }
 }
 
 // =========================================//
