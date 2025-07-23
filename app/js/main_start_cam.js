@@ -677,7 +677,7 @@ function startImage(filePath) {
   if (placeholder) placeholder.style.display = "none";
 
   // Get image info
-  getImageInfo(video);
+  // getImageInfo(video);
 
   video.onload = function () {
     canvas.width = video.naturalWidth;

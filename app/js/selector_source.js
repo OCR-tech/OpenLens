@@ -328,6 +328,7 @@ function okSourceCamera() {
     ipCameraUrl === "192.168.210.139:8080" ||
     ipCameraUrl === "192.168.233.61:8080" ||
     ipCameraUrl === "192.168.245.61:5500" ||
+    ipCameraUrl === "192.168.245.160:5500" ||
     ipCameraUrl === "192.168.245.139:5500"
   ) {
     document.getElementById("status").innerText =
