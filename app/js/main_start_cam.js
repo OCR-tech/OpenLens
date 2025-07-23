@@ -419,13 +419,12 @@ function startIPCamera(ipCameraUrl) {
   }
 
   const videoFeed = document.getElementById("video-feed");
-  videoFeed.innerHTML = "";
 
   // MJPEG stream as <img>
   video = document.createElement("img");
   video.id = "camera-stream";
-  // video.src = "http://" + ipCameraUrl + "/video";
-  video.src = "https://" + ipCameraUrl + "/video";
+  video.src = "http://" + ipCameraUrl + "/video";
+  // video.src = "https://" + ipCameraUrl + "/video";
   video.style.width = "100%";
   video.style.objectFit = "contain";
   video.title = "IP Camera Stream";
@@ -440,53 +439,30 @@ function startIPCamera(ipCameraUrl) {
   canvas.style.width = "100%";
   canvas.style.height = "100%";
   canvas.style.pointerEvents = "none";
-  videoFeed.appendChild(canvas);
 
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
 
-  ctx = canvas.getContext("2d");
+  // const videoFeed = document.getElementById("video-feed");
+  videoFeed.innerHTML = "";
+  videoFeed.appendChild(video);
+  videoFeed.appendChild(canvas);
 
-  document.getElementById("status").innerText = "Detecting...";
-  document.getElementById("btn-start").style.display = "none";
-  document.getElementById("btn-stop").style.display = "inline-block";
+  video.onload = function () {
+    canvas.width = video.naturalWidth;
+    canvas.height = video.naturalHeight;
+    ctx = canvas.getContext("2d");
+    document.getElementById("status").innerText = "Detecting...";
+    document.getElementById("btn-start").style.display = "none";
+    document.getElementById("btn-stop").style.display = "inline-block";
+    detectFrame(canvas);
+  };
 
-  // // --- Detection Loop ---
-  // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  // function detectionLoop() {
-  //   detectFrame(canvas);
-  //   requestAnimationFrame(detectionLoop);
-  // }
-  // detectionLoop();
-
-  // // --- Detection Loop ---
-  const DETECTION_WIDTH = 640;
-  const DETECTION_HEIGHT = 480;
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  function detectionLoop() {
-    if (video.naturalWidth && video.naturalHeight) {
-      canvas.width = DETECTION_WIDTH;
-      canvas.height = DETECTION_HEIGHT;
-      // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      // alert(
-      //   canvas +
-      //     " " +
-      //     video +
-      //     " " +
-      //     video.naturalWidth +
-      //     " " +
-      //     video.naturalHeight
-      // );
-      detectFrame(canvas);
-    }
-    // if (window.runDetectionLoop) {
-    window.detectionLoopId = requestAnimationFrame(detectionLoop);
-    // }
-  }
-
-  // if (window.runDetectionLoop) {
-  detectionLoop();
-  // }
+  video.onerror = function () {
+    document.getElementById("status").innerText = "Failed to load image.";
+    document.getElementById("btn-start").style.display = "inline-block";
+    document.getElementById("btn-stop").style.display = "none";
+  };
 }
 
 // =========================================//

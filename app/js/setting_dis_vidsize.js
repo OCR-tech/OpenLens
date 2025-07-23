@@ -93,7 +93,7 @@ function displayVideoSize() {
     if (video) break;
   }
 
-  if (videoSource.value === "image") {
+  if (videoSource.value === "image" || videoSource.value === "camera_ip") {
     widthVideo = video.naturalWidth;
     heightVideo = video.naturalHeight;
   } else {

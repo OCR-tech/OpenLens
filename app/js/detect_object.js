@@ -10,7 +10,7 @@ let breakingIntervalId = null;
 
 // =========================================//
 function detectFrame(source) {
-  // alert("DetectFrame");
+  alert("DetectFrame");
 
   if (!model || !source) return;
 
@@ -39,95 +39,95 @@ function detectFrame(source) {
     // alert("Predictions:" + predictions);
     drawPredictions(predictions);
 
-    //=========================================//
-    // Motion detection
-    if (window.motionDetectionEnabled && !motionIntervalId) {
-      motionIntervalId = setInterval(updateMotionDetection, 200); // every 200ms
-    } else if (!window.motionDetectionEnabled && motionIntervalId) {
-      clearInterval(motionIntervalId);
-      motionIntervalId = null;
-      // document.getElementById("status").innerText = "Not detecting motion.";
-    }
+    // //=========================================//
+    // // Motion detection
+    // if (window.motionDetectionEnabled && !motionIntervalId) {
+    //   motionIntervalId = setInterval(updateMotionDetection, 200); // every 200ms
+    // } else if (!window.motionDetectionEnabled && motionIntervalId) {
+    //   clearInterval(motionIntervalId);
+    //   motionIntervalId = null;
+    //   // document.getElementById("status").innerText = "Not detecting motion.";
+    // }
 
-    //=========================================//
-    // Smoke detection
-    if (window.smokeDetectionEnabled && !smokeIntervalId) {
-      smokeIntervalId = setInterval(updateSmokeDetection, 200); // every 200ms
-    } else if (!window.smokeDetectionEnabled && smokeIntervalId) {
-      clearInterval(smokeIntervalId);
-      smokeIntervalId = null;
-      // document.getElementById("status").innerText = "Not detecting smoke.";
-    }
+    // //=========================================//
+    // // Smoke detection
+    // if (window.smokeDetectionEnabled && !smokeIntervalId) {
+    //   smokeIntervalId = setInterval(updateSmokeDetection, 200); // every 200ms
+    // } else if (!window.smokeDetectionEnabled && smokeIntervalId) {
+    //   clearInterval(smokeIntervalId);
+    //   smokeIntervalId = null;
+    //   // document.getElementById("status").innerText = "Not detecting smoke.";
+    // }
 
-    //=========================================//
-    // Fire detection
-    if (window.fireDetectionEnabled && !fireIntervalId) {
-      fireIntervalId = setInterval(updateFireDetection, 200); // every 200ms
-    } else if (!window.fireDetectionEnabled && fireIntervalId) {
-      clearInterval(fireIntervalId);
-      fireIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting fire.";
-    }
+    // //=========================================//
+    // // Fire detection
+    // if (window.fireDetectionEnabled && !fireIntervalId) {
+    //   fireIntervalId = setInterval(updateFireDetection, 200); // every 200ms
+    // } else if (!window.fireDetectionEnabled && fireIntervalId) {
+    //   clearInterval(fireIntervalId);
+    //   fireIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting fire.";
+    // }
 
-    //=========================================//
-    // Flood detection
-    if (window.floodDetectionEnabled && !floodIntervalId) {
-      floodIntervalId = setInterval(updateFloodDetection, 200); // every 200ms
-    } else if (!window.floodDetectionEnabled && floodIntervalId) {
-      clearInterval(floodIntervalId);
-      floodIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting flood.";
-    }
+    // //=========================================//
+    // // Flood detection
+    // if (window.floodDetectionEnabled && !floodIntervalId) {
+    //   floodIntervalId = setInterval(updateFloodDetection, 200); // every 200ms
+    // } else if (!window.floodDetectionEnabled && floodIntervalId) {
+    //   clearInterval(floodIntervalId);
+    //   floodIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting flood.";
+    // }
 
-    //=========================================//
-    // Light detection
-    if (window.lightDetectionEnabled && !lightIntervalId) {
-      lightIntervalId = setInterval(updateLightDetection, 200); // every 200ms
-    } else if (!window.lightDetectionEnabled && lightIntervalId) {
-      clearInterval(lightIntervalId);
-      lightIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting light.";
-    }
+    // //=========================================//
+    // // Light detection
+    // if (window.lightDetectionEnabled && !lightIntervalId) {
+    //   lightIntervalId = setInterval(updateLightDetection, 200); // every 200ms
+    // } else if (!window.lightDetectionEnabled && lightIntervalId) {
+    //   clearInterval(lightIntervalId);
+    //   lightIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting light.";
+    // }
 
-    //=========================================//
-    // Rain detection
-    if (window.rainDetectionEnabled && !rainIntervalId) {
-      rainIntervalId = setInterval(updateRainDetection, 200); // every 200ms
-    } else if (!window.rainDetectionEnabled && rainIntervalId) {
-      clearInterval(rainIntervalId);
-      rainIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting rain.";
-    }
+    // //=========================================//
+    // // Rain detection
+    // if (window.rainDetectionEnabled && !rainIntervalId) {
+    //   rainIntervalId = setInterval(updateRainDetection, 200); // every 200ms
+    // } else if (!window.rainDetectionEnabled && rainIntervalId) {
+    //   clearInterval(rainIntervalId);
+    //   rainIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting rain.";
+    // }
 
-    //=========================================//
-    // Falling detection
-    if (window.fallingDetectionEnabled && !fallingIntervalId) {
-      fallingIntervalId = setInterval(updateFallingDetection, 200); // every 200ms
-    } else if (!window.fallingDetectionEnabled && fallingIntervalId) {
-      clearInterval(fallingIntervalId);
-      fallingIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting falling.";
-    }
+    // //=========================================//
+    // // Falling detection
+    // if (window.fallingDetectionEnabled && !fallingIntervalId) {
+    //   fallingIntervalId = setInterval(updateFallingDetection, 200); // every 200ms
+    // } else if (!window.fallingDetectionEnabled && fallingIntervalId) {
+    //   clearInterval(fallingIntervalId);
+    //   fallingIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting falling.";
+    // }
 
-    //=========================================//
-    // Breaking detection
-    if (window.breakingDetectionEnabled && !breakingIntervalId) {
-      breakingIntervalId = setInterval(updateBreakingDetection, 200); // every 200ms
-    } else if (!window.breakingDetectionEnabled && breakingIntervalId) {
-      clearInterval(breakingIntervalId);
-      breakingIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting breaking.";
-    }
+    // //=========================================//
+    // // Breaking detection
+    // if (window.breakingDetectionEnabled && !breakingIntervalId) {
+    //   breakingIntervalId = setInterval(updateBreakingDetection, 200); // every 200ms
+    // } else if (!window.breakingDetectionEnabled && breakingIntervalId) {
+    //   clearInterval(breakingIntervalId);
+    //   breakingIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting breaking.";
+    // }
 
-    //=========================================//
-    // Sound detection
-    if (window.soundDetectionEnabled && !soundIntervalId) {
-      soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
-    } else if (!window.soundDetectionEnabled && soundIntervalId) {
-      clearInterval(soundIntervalId);
-      soundIntervalId = null;
-      // document.getElementById("status").innerText = "Not detecting sound.";
-    }
+    // //=========================================//
+    // // Sound detection
+    // if (window.soundDetectionEnabled && !soundIntervalId) {
+    //   soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
+    // } else if (!window.soundDetectionEnabled && soundIntervalId) {
+    //   clearInterval(soundIntervalId);
+    //   soundIntervalId = null;
+    //   // document.getElementById("status").innerText = "Not detecting sound.";
+    // }
 
     //=========================================//
     // Check if predictions are detected persons in frame

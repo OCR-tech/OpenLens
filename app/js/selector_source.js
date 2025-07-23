@@ -251,6 +251,48 @@ function CheckIPCamera() {
   }
 }
 
+// ==========================================//
+// function CheckIPCamera() {
+//   alert("CheckIPCamera");
+
+//   const ipCameraUrlInput = document.getElementById("ip-camera-url");
+//   const ipCameraUrlValue = ipCameraUrlInput.value.trim();
+//   const btnOk = document.getElementById("btn-ok");
+
+//   // Validate format
+//   if (ipCameraUrlValue.match(/^(http:\/\/)?(\d{1,3}\.){3}\d{1,3}:\d{1,5}$/i)) {
+//     document.getElementById("status").innerText =
+//       "Valid IP camera URL. Checking connection...";
+//     btnOk.disabled = true;
+
+//     // Try to fetch a test image (e.g., /shot.jpg)
+//     let testUrl = ipCameraUrlValue;
+//     if (!/^http:\/\//i.test(testUrl)) testUrl = "http://" + testUrl;
+//     testUrl += "/shot.jpg?t=" + Date.now();
+
+//     fetch(testUrl, { method: "GET" })
+//       .then((response) => {
+//         if (response.ok) {
+//           document.getElementById("status").innerText = "Camera reachable!";
+//           btnOk.disabled = false;
+//         } else {
+//           document.getElementById("status").innerText =
+//             "Camera URL valid, but not reachable.";
+//           btnOk.disabled = true;
+//         }
+//       })
+//       .catch(() => {
+//         document.getElementById("status").innerText =
+//           "Camera URL valid, but not reachable.";
+//         btnOk.disabled = true;
+//       });
+//   } else {
+//     document.getElementById("status").innerText = "Invalid IP camera URL.";
+//     btnOk.disabled = true;
+//   }
+// }
+
+// ==========================================//
 // Get user's local IP subnet (works only if WebRTC is allowed)
 function getLocalIPSubnet(callback) {
   const RTCPeerConnection =
@@ -300,7 +342,7 @@ function okSourceCamera() {
   // alert("okSourceCamera");
 
   // Get the IP camera URL from the input field
-  const videoSource = document.getElementById("video-source").value;
+  const videoSource = document.getElementById("video-source");
   const ipCameraUrl = document.getElementById("ip-camera-url").value;
   const btnOk = document.getElementById("btn-ok");
   const btnStart = document.getElementById("btn-start");
