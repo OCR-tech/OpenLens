@@ -136,9 +136,6 @@ function updateMotionDetection() {
   window.prevMotionFrame = window.currMotionFrame || currFrame;
   window.currMotionFrame = currFrame;
 
-  // alert("window.prevMotionFrame: " + window.prevMotionFrame);
-  // alert("window.currMotionFrame: " + window.currMotionFrame);
-
   const threshold = parseInt(localStorage.getItem("motionSensitivity")) || 0;
 
   const motionDetected = detectMotion(
@@ -216,11 +213,11 @@ function detectMotion(prevFrame, currFrame, width, height, threshold) {
 
   let motionPixels = 0;
   const totalPixels = width * height;
-  const intensityThreshold = 25; // Lower for more sensitivity
-  const colorThreshold = 30; // Color difference threshold
+  const intensityThreshold = 50; // Lower for more sensitivity
+  const colorThreshold = 50; // Color difference threshold
   const blurRadius = 1; // Simple noise reduction (box blur)
-  const MOST_SENSITIVE_RATIO = 0.3;
-  const LEAST_SENSITIVE_RATIO = 0.1;
+  const MOST_SENSITIVE_RATIO = 0.8;
+  const LEAST_SENSITIVE_RATIO = 0.4;
 
   let motionRatioThreshold =
     LEAST_SENSITIVE_RATIO +
@@ -277,6 +274,8 @@ function detectMotion(prevFrame, currFrame, width, height, threshold) {
 
     // Advanced motion pixel detection
     if (intensityChange > intensityThreshold || colorDiff > colorThreshold) {
+      // if (colorDiff > colorThreshold) {
+      // if (intensityChange > intensityThreshold) {
       motionPixels++;
     }
 

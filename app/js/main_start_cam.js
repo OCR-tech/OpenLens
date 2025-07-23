@@ -614,6 +614,30 @@ function startVideo(filePath) {
 }
 
 // =========================================//
+function getImageInfo(video) {
+  // alert("getImageInfo");
+  let info = {};
+
+  // Get current image information, e.g., pixel data, scale, mode, dpi
+  info.width = video.naturalWidth;
+  info.height = video.naturalHeight;
+  info.mode = "RGBA"; // Assuming RGBA for images
+  info.dpi = 96;
+
+  alert(
+    video +
+      " Width: " +
+      info.width +
+      " Height: " +
+      info.height +
+      " Mode: " +
+      info.mode +
+      " DPI: " +
+      info.dpi
+  );
+}
+
+// =========================================//
 function startImage(filePath) {
   document.getElementById("status").innerText = "Loading Image...";
 
@@ -651,6 +675,9 @@ function startImage(filePath) {
 
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
+
+  // Get image info
+  getImageInfo(video);
 
   video.onload = function () {
     canvas.width = video.naturalWidth;
