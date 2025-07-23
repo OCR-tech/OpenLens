@@ -42,7 +42,7 @@ function startIntegratedCamera() {
           video = document.createElement("video");
           video.id = "camera-stream";
           video.autoplay = true;
-          video.playsInline = true;
+          // video.playsInline = true;
           video.muted = true;
           video.style.width = "100%";
           video.style.height = "100%";
@@ -143,7 +143,7 @@ function startUSBCamera() {
           video = document.createElement("video");
           video.id = "usb-camera-stream";
           video.autoplay = true;
-          video.playsInline = true;
+          // video.playsInline = true;
           video.muted = true;
           video.style.width = "100%";
           video.style.height = "100%";
@@ -512,7 +512,7 @@ function startStream(ipCameraUrl) {
   video.src = "http://" + ipCameraUrl + "/video";
   video.autoplay = true;
   video.controls = true;
-  video.playsInline = true;
+  // video.playsInline = true;
   video.style.width = "100%";
   video.style.height = "100%";
   video.style.objectFit = "contain";
@@ -570,7 +570,7 @@ function startVideo(filePath) {
   video.src = filePath;
   video.autoplay = true;
   video.controls = true;
-  video.playsInline = true;
+  // video.playsInline = true;
   video.muted = true;
   video.style.width = "100%";
   video.style.height = "100%";

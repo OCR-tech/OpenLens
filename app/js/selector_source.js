@@ -36,7 +36,7 @@ function updateVideoSource() {
   stopCamera();
   // stopButton();
 
-  const videoSource = document.getElementById("video-source").value;
+  const videoSource = document.getElementById("video-source");
   const btnStart = document.getElementById("btn-start");
   const btnCommand = document.getElementById("btn-command");
   const btnVoice = document.getElementById("btn-voice");
@@ -47,7 +47,7 @@ function updateVideoSource() {
   listAllCameras(); // Call the function to list all available cameras
 
   //------------------------------//
-  if (videoSource === "camera") {
+  if (videoSource.value === "camera") {
     CheckIntegratedCamera(); // Call the function to start the camera
     document.getElementById("status").innerText = "Integrated Camera (default)";
     btnStart.disabled = false; // Disable the start button
@@ -62,7 +62,7 @@ function updateVideoSource() {
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
 
     //------------------------------//
-  } else if (videoSource === "camera_usb") {
+  } else if (videoSource.value === "camera_usb") {
     // alert("CheckUSBCamera");
     CheckUSBCamera(); // Call the function to start the webcam
     document.getElementById("status").innerText = "USB Camera (external)";
@@ -78,7 +78,7 @@ function updateVideoSource() {
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
 
     //------------------------------//
-  } else if (videoSource === "camera_ip") {
+  } else if (videoSource.value === "camera_ip") {
     // CheckIPCamera(); // Call the function to start the IP camera
     document.getElementById("status").innerText = "IP Camera (wifi)";
     btnStart.disabled = true; // Disable the start button
@@ -115,7 +115,7 @@ function updateVideoSource() {
     }
 
     //------------------------------//
-  } else if (videoSource === "stream") {
+  } else if (videoSource.value === "stream") {
     // CheckStream(); // Call the function to start the stream
     document.getElementById("status").innerText = "Stream (internet)";
     btnStart.disabled = true; // Disable the start button
@@ -134,7 +134,7 @@ function updateVideoSource() {
     ipCameraUrlInput.focus();
 
     //------------------------------//
-  } else if (videoSource === "video") {
+  } else if (videoSource.value === "video") {
     // CheckVideo(); // Call the function to start the video file selection
     document.getElementById("status").innerText = "Video (file)";
     btnStart.disabled = true; // Disable the start button
@@ -292,16 +292,16 @@ function okSourceCamera() {
   const btnCommand = document.getElementById("btn-command");
   const btnVoice = document.getElementById("btn-voice");
 
-  if (videoSource === "camera_ip") {
+  if (videoSource.value === "camera_ip") {
     CheckIPCamera(); // Validate the IP camera URL format
-  } else if (videoSource === "stream") {
+  } else if (videoSource.value === "stream") {
     CheckStream(); // Validate the stream URL format
   }
 
-  // if (videoSource === "camera_ip" && isValidIPCameraUrl(ipCameraUrl)) {
+  // if (videoSource.value === "camera_ip" && isValidIPCameraUrl(ipCameraUrl)) {
   //   saveLastUsedIP(ipCameraUrl);
   //   startIPCamera(ipCameraUrl.replace(/^https?:\/\//, "")); // Remove protocol if needed
-  // } else if (videoSource === "stream" && isValidIPCameraUrl(ipCameraUrl)) {
+  // } else if (videoSource.value === "stream" && isValidIPCameraUrl(ipCameraUrl)) {
   //   startStream(ipCameraUrl);
   // } else {
   //   document.getElementById("status").innerText = "Please enter a valid IP camera or stream URL.";
@@ -324,10 +324,10 @@ function okSourceCamera() {
     btnCommand.disabled = false; // Enable the command button
     btnVoice.disabled = false; // Enable the voice button
 
-    if (videoSource === "camera_ip") {
+    if (videoSource.value === "camera_ip") {
       saveLastUsedIP(ipCameraUrl);
       startIPCamera(ipCameraUrl); // Start the IP camera with the provided URL
-    } else if (videoSource === "stream") {
+    } else if (videoSource.value === "stream") {
       startStream(ipCameraUrl); // Start the stream with the provided URL
       // startStream(ipCameraUrl); // Start the stream with the provided URL
     }

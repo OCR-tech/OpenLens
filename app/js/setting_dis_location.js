@@ -6,11 +6,13 @@ if (navigator.geolocation) {
     function (position) {
       cachedGPS.latitude = position.coords.latitude;
       cachedGPS.longitude = position.coords.longitude;
-    },
-    function (err) {
-      // alert("Geolocation error:", err);
-      console.log("Geolocation error:", err);
     }
+    // ,
+    // function (err) {
+    //   alert("Geolocation error:", err);
+    //   console.log("Geolocation error:", err);
+    //   document.getElementById("status").innerText = "Geolocation: disabled";
+    // }
   );
 } else {
   alert("Geolocation not supported by this browser.");
