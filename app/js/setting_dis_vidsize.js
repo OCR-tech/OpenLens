@@ -52,7 +52,6 @@ function updateVideoSizeLabel() {
 
   const videoSizeSwitch = document.getElementById("video-size-switch");
   const videoSizeLabel = document.getElementById("video-size-label");
-  const video = document.querySelector("video");
 
   if (!videoSizeSwitch || !videoSizeLabel) return;
 
@@ -67,20 +66,45 @@ function updateVideoSizeLabel() {
       videoSizeLabel.textContent = "WxH: N/A";
       // return;
     } else {
-      videoSizeLabel.textContent =
-        "WxH: " + video.videoWidth + "x" + video.videoHeight;
-      // return;
+      videoSizeLabel.textContent = "WxH: " + widthVideo + "x" + heightVideo;
     }
   }
 }
 
+widthVideo = 0;
+heightVideo = 0;
 // =========================================//
 // Display current video size on canvas
 function displayVideoSize() {
   // alert("displayVideoSize");
 
+  const videoSource = document.getElementById("video-source");
+
+  const videoIds = [
+    "camera-stream",
+    "usb-camera-stream",
+    "stream-player",
+    "video-file-player",
+    "image-file-viewer",
+  ];
+  let video = null;
+  for (const id of videoIds) {
+    video = document.getElementById(id);
+    if (video) break;
+  }
+
+  if (videoSource.value === "image") {
+    widthVideo = video.naturalWidth;
+    heightVideo = video.naturalHeight;
+  } else {
+    widthVideo = video.videoWidth;
+    heightVideo = video.videoHeight;
+  }
+
   if (!ctx || !canvas) return;
-  const sizeText = video ? video.videoWidth + "x" + video.videoHeight : "off";
+
+  const sizeText = video ? widthVideo + "x" + heightVideo : "off";
+
   if (!sizeText) return;
   ctx.save();
   ctx.font = "20px Arial";

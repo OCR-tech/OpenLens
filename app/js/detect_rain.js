@@ -103,28 +103,12 @@ function updateRainDetection() {
   const rainStatusAlert = document.getElementById("rain-status-alert");
   const rainStatus = document.getElementById("rain-status");
 
-  const videoIds = [
-    "camera-stream",
-    "usb-camera-stream",
-    "stream-player",
-    "video-file-player",
-  ];
-  let video = null;
-  for (const id of videoIds) {
-    video = document.getElementById(id);
-    if (video) break;
-  }
   const canvas = document.getElementById("overlay");
   const rainSwitch = document.getElementById("rain-switch");
-  if (!video || !canvas || !rainSwitch || !rainSwitch.checked) return;
+  if (!canvas || !rainSwitch || !rainSwitch.checked) return;
 
-  if (video.videoWidth === 0 || video.videoHeight === 0) {
-    document.getElementById("status").innerText = "Video not loaded.";
-    return;
-  }
-
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+  canvas.width = widthVideo;
+  canvas.height = heightVideo;
 
   const ctx = canvas.getContext("2d");
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);

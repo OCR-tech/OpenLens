@@ -114,36 +114,20 @@ function setMotionSensitivity(value) {
 // =========================================//
 // Function to update motion detection status
 function updateMotionDetection() {
+  // alert("updateMotionDetection");
+
   const motionStatusNormal = document.getElementById("motion-status-normal");
   const motionStatusWarn = document.getElementById("motion-status-warn");
   const motionStatusAlert = document.getElementById("motion-status-alert");
   const motionStatus = document.getElementById("motion-status");
 
-  // const video = document.getElementById("camera-stream");
-  // const video = document.getElementById("video-file-player");
-  const videoIds = [
-    "camera-stream",
-    "usb-camera-stream",
-    "stream-player",
-    "video-file-player",
-  ];
-  let video = null;
-  for (const id of videoIds) {
-    video = document.getElementById(id);
-    if (video) break;
-  }
   const canvas = document.getElementById("overlay");
   const motionSwitch = document.getElementById("motion-switch");
 
-  if (!video || !canvas || !motionSwitch || !motionSwitch.checked) return;
+  if (!canvas || !motionSwitch || !motionSwitch.checked) return;
 
-  if (video.videoWidth === 0 || video.videoHeight === 0) {
-    document.getElementById("status").innerText = "Video not loaded.";
-    return;
-  }
-
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+  canvas.width = widthVideo;
+  canvas.height = heightVideo;
 
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -151,6 +135,9 @@ function updateMotionDetection() {
 
   window.prevMotionFrame = window.currMotionFrame || currFrame;
   window.currMotionFrame = currFrame;
+
+  // alert("window.prevMotionFrame: " + window.prevMotionFrame);
+  // alert("window.currMotionFrame: " + window.currMotionFrame);
 
   const threshold = parseInt(localStorage.getItem("motionSensitivity")) || 0;
 
@@ -177,26 +164,119 @@ function updateMotionDetection() {
 
 // =========================================//
 // Simple motion detection based on pixel intensity changes
+// function detectMotion0(prevFrame, currFrame, width, height, threshold) {
+//   if (!prevFrame || !currFrame) return false;
+
+//   let motionPixels = 0;
+//   const totalPixels = width * height;
+//   const intensityThreshold = 30;
+//   const MOST_SENSITIVE_RATIO = 1.0;
+//   const LEAST_SENSITIVE_RATIO = 0.85;
+
+//   let motionRatioThreshold =
+//     LEAST_SENSITIVE_RATIO +
+//     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
+
+//   for (let i = 0; i < totalPixels * 4; i += 4) {
+//     // for (let i = 0; i < totalPixels * 2; i += 2) {
+//     const prevIntensity = prevFrame[i] + prevFrame[i + 1] + prevFrame[i + 2];
+//     const currIntensity = currFrame[i] + currFrame[i + 1] + currFrame[i + 2];
+//     const intensityChange = Math.abs(currIntensity - prevIntensity);
+
+//     if (intensityChange > intensityThreshold) {
+//       motionPixels++;
+//     }
+
+//     // document.getElementById("status").innerText =
+//     //   "Motion: " +
+//     //   window.motionDetectionEnabled +
+//     //   " " +
+//     //   threshold +
+//     //   " " +
+//     //   motionRatioThreshold.toFixed(3) +
+//     //   " " +
+//     //   (motionPixels / totalPixels).toFixed(3) +
+//     //   " " +
+//     //   motionPixels +
+//     //   " " +
+//     //   intensityChange +
+//     //   " " +
+//     //   totalPixels;
+//   }
+
+//   return motionPixels / totalPixels > motionRatioThreshold;
+// }
+
+// =========================================//
+// Advanced motion detection using pixel intensity, color difference, and noise reduction
 function detectMotion(prevFrame, currFrame, width, height, threshold) {
+  // alert("detectMotion");
+
   if (!prevFrame || !currFrame) return false;
 
   let motionPixels = 0;
   const totalPixels = width * height;
-  const intensityThreshold = 30;
-  const MOST_SENSITIVE_RATIO = 1.0;
-  const LEAST_SENSITIVE_RATIO = 0.85;
+  const intensityThreshold = 25; // Lower for more sensitivity
+  const colorThreshold = 30; // Color difference threshold
+  const blurRadius = 1; // Simple noise reduction (box blur)
+  const MOST_SENSITIVE_RATIO = 0.3;
+  const LEAST_SENSITIVE_RATIO = 0.1;
 
   let motionRatioThreshold =
     LEAST_SENSITIVE_RATIO +
     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
 
+  // Optional: Simple box blur for noise reduction (on currFrame only)
+  // This is a fast approximation, not a true blur
+  function blurFrame(frame, w, h) {
+    const blurred = new Uint8ClampedArray(frame.length);
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        let r = 0,
+          g = 0,
+          b = 0,
+          count = 0;
+        for (let dy = -blurRadius; dy <= blurRadius; dy++) {
+          for (let dx = -blurRadius; dx <= blurRadius; dx++) {
+            const nx = x + dx,
+              ny = y + dy;
+            if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+              const idx = (ny * w + nx) * 4;
+              r += frame[idx];
+              g += frame[idx + 1];
+              b += frame[idx + 2];
+              count++;
+            }
+          }
+        }
+        const i = (y * w + x) * 4;
+        blurred[i] = r / count;
+        blurred[i + 1] = g / count;
+        blurred[i + 2] = b / count;
+        blurred[i + 3] = frame[i + 3];
+      }
+    }
+    return blurred;
+  }
+
+  // Apply blur to current frame for noise reduction
+  const blurredCurrFrame = blurFrame(currFrame, width, height);
+
   for (let i = 0; i < totalPixels * 4; i += 4) {
-    // for (let i = 0; i < totalPixels * 2; i += 2) {
+    // Intensity difference
     const prevIntensity = prevFrame[i] + prevFrame[i + 1] + prevFrame[i + 2];
-    const currIntensity = currFrame[i] + currFrame[i + 1] + currFrame[i + 2];
+    const currIntensity =
+      blurredCurrFrame[i] + blurredCurrFrame[i + 1] + blurredCurrFrame[i + 2];
     const intensityChange = Math.abs(currIntensity - prevIntensity);
 
-    if (intensityChange > intensityThreshold) {
+    // Color difference (Euclidean distance)
+    const dr = Math.abs(blurredCurrFrame[i] - prevFrame[i]);
+    const dg = Math.abs(blurredCurrFrame[i + 1] - prevFrame[i + 1]);
+    const db = Math.abs(blurredCurrFrame[i + 2] - prevFrame[i + 2]);
+    const colorDiff = Math.sqrt(dr * dr + dg * dg + db * db);
+
+    // Advanced motion pixel detection
+    if (intensityChange > intensityThreshold || colorDiff > colorThreshold) {
       motionPixels++;
     }
 
@@ -217,5 +297,6 @@ function detectMotion(prevFrame, currFrame, width, height, threshold) {
     //   totalPixels;
   }
 
+  // Optionally: require a minimum number of contiguous motion pixels (not implemented here)
   return motionPixels / totalPixels > motionRatioThreshold;
 }

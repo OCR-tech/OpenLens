@@ -114,29 +114,12 @@ function updateSmokeDetection() {
   const smokeStatusAlert = document.getElementById("smoke-status-alert");
   const smokeStatus = document.getElementById("smoke-status");
 
-  const videoIds = [
-    "camera-stream",
-    "usb-camera-stream",
-    "stream-player",
-    "video-file-player",
-  ];
-  let video = null;
-  for (const id of videoIds) {
-    video = document.getElementById(id);
-    if (video) break;
-  }
-
   const canvas = document.getElementById("overlay");
   const smokeSwitch = document.getElementById("smoke-switch");
-  if (!video || !canvas || !smokeSwitch || !smokeSwitch.checked) return;
+  if (!canvas || !smokeSwitch || !smokeSwitch.checked) return;
 
-  if (video.videoWidth === 0 || video.videoHeight === 0) {
-    document.getElementById("status").innerText = "Video not loaded.";
-    return;
-  }
-
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+  canvas.width = widthVideo;
+  canvas.height = heightVideo;
 
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);

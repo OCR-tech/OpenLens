@@ -50,16 +50,6 @@ function detectFrame(source) {
     }
 
     //=========================================//
-    // Sound detection
-    if (window.soundDetectionEnabled && !soundIntervalId) {
-      soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
-    } else if (!window.soundDetectionEnabled && soundIntervalId) {
-      clearInterval(soundIntervalId);
-      soundIntervalId = null;
-      // document.getElementById("status").innerText = "Not detecting sound.";
-    }
-
-    //=========================================//
     // Smoke detection
     if (window.smokeDetectionEnabled && !smokeIntervalId) {
       smokeIntervalId = setInterval(updateSmokeDetection, 200); // every 200ms
@@ -127,6 +117,16 @@ function detectFrame(source) {
       clearInterval(breakingIntervalId);
       breakingIntervalId = null;
       document.getElementById("status").innerText = "Not detecting breaking.";
+    }
+
+    //=========================================//
+    // Sound detection
+    if (window.soundDetectionEnabled && !soundIntervalId) {
+      soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
+    } else if (!window.soundDetectionEnabled && soundIntervalId) {
+      clearInterval(soundIntervalId);
+      soundIntervalId = null;
+      // document.getElementById("status").innerText = "Not detecting sound.";
     }
 
     //=========================================//

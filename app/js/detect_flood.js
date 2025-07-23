@@ -116,28 +116,12 @@ function updateFloodDetection() {
   const floodStatusAlert = document.getElementById("flood-status-alert");
   const floodStatus = document.getElementById("flood-status");
 
-  const videoIds = [
-    "camera-stream",
-    "usb-camera-stream",
-    "stream-player",
-    "video-file-player",
-  ];
-  let video = null;
-  for (const id of videoIds) {
-    video = document.getElementById(id);
-    if (video) break;
-  }
   const canvas = document.getElementById("overlay");
   const floodSwitch = document.getElementById("flood-switch");
-  if (!video || !canvas || !floodSwitch || !floodSwitch.checked) return;
+  if (!canvas || !floodSwitch || !floodSwitch.checked) return;
 
-  if (video.videoWidth === 0 || video.videoHeight === 0) {
-    document.getElementById("status").innerText = "Video not loaded.";
-    return;
-  }
-
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+  canvas.width = widthVideo;
+  canvas.height = heightVideo;
 
   const ctx = canvas.getContext("2d");
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);

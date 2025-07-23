@@ -113,28 +113,12 @@ function updateLightDetection() {
   const lightStatusAlert = document.getElementById("light-status-alert");
   const lightStatus = document.getElementById("light-status");
 
-  const videoIds = [
-    "camera-stream",
-    "usb-camera-stream",
-    "stream-player",
-    "video-file-player",
-  ];
-  let video = null;
-  for (const id of videoIds) {
-    video = document.getElementById(id);
-    if (video) break;
-  }
   const canvas = document.getElementById("overlay");
   const lightSwitch = document.getElementById("light-switch");
-  if (!video || !canvas || !lightSwitch || !lightSwitch.checked) return;
+  if (!canvas || !lightSwitch || !lightSwitch.checked) return;
 
-  if (video.videoWidth === 0 || video.videoHeight === 0) {
-    document.getElementById("status").innerText = "Video not loaded.";
-    return;
-  }
-
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+  canvas.width = widthVideo;
+  canvas.height = heightVideo;
 
   const ctx = canvas.getContext("2d");
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);

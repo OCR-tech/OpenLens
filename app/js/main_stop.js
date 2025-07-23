@@ -82,6 +82,7 @@ function stopCamera() {
     "usb-camera-stream",
     "stream-player",
     "video-file-player",
+    "image",
   ];
 
   videoIds.forEach((id) => {

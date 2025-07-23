@@ -612,3 +612,59 @@ function startVideo(filePath) {
     stopButton();
   };
 }
+
+// =========================================//
+function startImage(filePath) {
+  document.getElementById("status").innerText = "Loading Image...";
+
+  // Clean up previous video/canvas if any
+  if (video) {
+    video.remove();
+    video = null;
+  }
+  if (canvas) {
+    canvas.remove();
+    canvas = null;
+  }
+
+  // Create image and canvas elements
+  video = document.createElement("img");
+  video.id = "image-file-viewer";
+  video.src = filePath;
+  video.style.width = "100%";
+  video.style.height = "100%";
+  video.style.objectFit = "contain";
+
+  canvas = document.createElement("canvas");
+  canvas.id = "overlay";
+  canvas.style.position = "absolute";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.pointerEvents = "none";
+
+  const videoFeed = document.getElementById("video-feed");
+  videoFeed.innerHTML = "";
+  videoFeed.appendChild(video);
+  videoFeed.appendChild(canvas);
+
+  const placeholder = document.getElementById("video-placeholder");
+  if (placeholder) placeholder.style.display = "none";
+
+  video.onload = function () {
+    canvas.width = video.naturalWidth;
+    canvas.height = video.naturalHeight;
+    ctx = canvas.getContext("2d");
+    document.getElementById("status").innerText = "Detecting...";
+    document.getElementById("btn-start").style.display = "none";
+    document.getElementById("btn-stop").style.display = "inline-block";
+    detectFrame(canvas);
+  };
+
+  video.onerror = function () {
+    document.getElementById("status").innerText = "Failed to load image.";
+    document.getElementById("btn-start").style.display = "inline-block";
+    document.getElementById("btn-stop").style.display = "none";
+  };
+}

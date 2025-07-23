@@ -36,6 +36,8 @@ function startButton() {
     startStream();
   } else if (videoSource === "video") {
     startVideo(window.selectedVideoFilePath);
+  } else if (videoSource === "image") {
+    startImage(window.selectedImageFilePath);
   }
 
   if (window.timerDelay3000ms) {

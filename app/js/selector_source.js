@@ -146,7 +146,22 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Show the button initially
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
-    browseVideoFile(); // Call the function to browse video files
+    browseFile(); // Call the function to browse video files
+
+    //------------------------------//
+  } else if (videoSource.value === "image") {
+    // CheckImage(); // Call the function to start the image file selection
+    document.getElementById("status").innerText = "Image (file)";
+    btnStart.disabled = true; // Disable the start button
+    btnCommand.disabled = false; // Disable the command button
+    btnVoice.disabled = false; // Disable the voice button
+    btnBrowse.style.display = "inline-block"; // Enable the browse button
+    btnBrowse.disabled = false; // Enable the browse button
+    btnOk.disabled = true; // Disable the OK button
+    btnOk.style.display = "none"; // Show the button initially
+    ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
+    ipCameraUrlInput.style.display = "none"; // Hide the input initially
+    browseFile(); // Call the function to browse image files
   }
 }
 
@@ -385,39 +400,72 @@ function CheckVideo(file) {
 }
 
 window.selectedVideoFilePath = null;
+window.selectedImageFilePath = null;
 // =========================================//
 // Browse video cam function
-function browseVideoFile() {
-  // alert("browseVideoFile");
-  // Open file dialog to select a video file
-  const fileInput = document.createElement("input");
-  const btnStart = document.getElementById("btn-start");
-  const btnCommand = document.getElementById("btn-command");
-  const btnVoice = document.getElementById("btn-voice");
-  const btnOk = document.getElementById("btn-ok");
+function browseFile() {
+  // alert("browseFile");
+  const videoSource = document.getElementById("video-source");
 
-  fileInput.type = "file";
-  fileInput.accept = "video/*"; // Accept video files only
-  fileInput.onchange = function (event) {
-    const file = event.target.files[0];
-    if (file) {
-      window.selectedVideoFilePath = URL.createObjectURL(file);
-      document.getElementById("status").innerText =
-        "Selected video file: " + file.name;
-      btnStart.disabled = false; // Enable the start button
-      btnCommand.disabled = false; // Enable the command button
-      btnVoice.disabled = false; // Enable the voice button
-      btnOk.disabled = true; // Disable the OK button
-      CheckVideo(file); // Call the function to check the video file format
-      startButton();
+  if (videoSource.value === "video") {
+    // Open file dialog to select a video file
+    const fileInput = document.createElement("input");
+    const btnStart = document.getElementById("btn-start");
+    const btnCommand = document.getElementById("btn-command");
+    const btnVoice = document.getElementById("btn-voice");
+    const btnOk = document.getElementById("btn-ok");
 
-      // startVideo(window.selectedVideoFilePath); // Play the selected video file
-    } else {
-      document.getElementById("status").innerText = "No file selected.";
-      window.selectedVideoFilePath = null;
-    }
-  };
+    fileInput.type = "file";
+    fileInput.accept = "video/*"; // Accept video files only
+    fileInput.onchange = function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        window.selectedVideoFilePath = URL.createObjectURL(file);
+        document.getElementById("status").innerText =
+          "Selected video file: " + file.name;
+        btnStart.disabled = false; // Enable the start button
+        btnCommand.disabled = false; // Enable the command button
+        btnVoice.disabled = false; // Enable the voice button
+        btnOk.disabled = true; // Disable the OK button
+        CheckVideo(file); // Call the function to check the video file format
+        startButton();
 
-  // Open the file dialog
-  fileInput.click();
+        // startVideo(window.selectedVideoFilePath); // Play the selected video file
+      } else {
+        document.getElementById("status").innerText = "No file selected.";
+        window.selectedVideoFilePath = null;
+      }
+    };
+    // Open the file dialog
+    fileInput.click();
+  } else if (videoSource.value === "image") {
+    // Open file dialog to select an image file
+    const fileInput = document.createElement("input");
+    const btnStart = document.getElementById("btn-start");
+    const btnCommand = document.getElementById("btn-command");
+    const btnVoice = document.getElementById("btn-voice");
+    const btnOk = document.getElementById("btn-ok");
+
+    fileInput.type = "file";
+    fileInput.accept = "image/*"; // Accept image files only
+    fileInput.onchange = function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        window.selectedImageFilePath = URL.createObjectURL(file);
+        document.getElementById("status").innerText =
+          "Selected image file: " + file.name;
+        btnStart.disabled = false; // Enable the start button
+        btnCommand.disabled = false; // Enable the command button
+        btnVoice.disabled = false; // Enable the voice button
+        btnOk.disabled = true; // Disable the OK button
+        startButton();
+      } else {
+        document.getElementById("status").innerText = "No file selected.";
+        window.selectedImageFilePath = null;
+      }
+    };
+
+    // Open the file dialog
+    fileInput.click();
+  }
 }
