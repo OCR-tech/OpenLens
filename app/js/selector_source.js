@@ -1,35 +1,4 @@
 // =========================================//
-// Check if any integrated (built-in) camera is found
-async function isIntegratedCameraAvailable() {
-  // Common built-in camera labels contain "integrated" or "built-in"
-  return (
-    (await checkCameraAvailability("videoinput", "integrated")) ||
-    (await checkCameraAvailability("videoinput", "built-in"))
-  );
-}
-
-// Check if any USB (external) camera is found
-async function isUSBCameraAvailable() {
-  // Common USB camera labels contain "usb"
-  return await checkCameraAvailability("videoinput", "usb");
-}
-
-// General camera availability checker
-async function checkCameraAvailability(kind = "videoinput", labelMatch = "") {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices)
-    return false;
-  const devices = await navigator.mediaDevices.enumerateDevices();
-  if (labelMatch) {
-    return devices.some(
-      (device) =>
-        device.kind === kind &&
-        device.label.toLowerCase().includes(labelMatch.toLowerCase())
-    );
-  }
-  return devices.some((device) => device.kind === kind);
-}
-
-// =========================================//
 // Video source selection
 function updateVideoSource() {
   // alert("updateVideoSource");
@@ -81,13 +50,12 @@ function updateVideoSource() {
   } else if (videoSource.value === "camera_ip") {
     // CheckIPCamera(); // Call the function to start the IP camera
     document.getElementById("status").innerText = "IP Camera (wifi)";
-    btnStart.disabled = true; // Disable the start button
+    btnStart.disabled = false; // Disable the start button
     btnCommand.disabled = false; // Disable the command button
     btnVoice.disabled = false; // Disable the voice button
 
     btnBrowse.style.display = "none"; // Hide the browse button
     btnBrowse.disabled = true; // Disable the browse button
-    // btnOk.disabled = true; // Disable the OK button
     btnOk.disabled = false; // Disable the OK button
     btnOk.style.display = "inline-block"; // Show the button initially
     ipCameraUrlInput.disabled = false; // Disable the IP camera URL input
@@ -163,6 +131,37 @@ function updateVideoSource() {
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
     browseFile(); // Call the function to browse image files
   }
+}
+
+// =========================================//
+// Check if any integrated (built-in) camera is found
+async function isIntegratedCameraAvailable() {
+  // Common built-in camera labels contain "integrated" or "built-in"
+  return (
+    (await checkCameraAvailability("videoinput", "integrated")) ||
+    (await checkCameraAvailability("videoinput", "built-in"))
+  );
+}
+
+// Check if any USB (external) camera is found
+async function isUSBCameraAvailable() {
+  // Common USB camera labels contain "usb"
+  return await checkCameraAvailability("videoinput", "usb");
+}
+
+// General camera availability checker
+async function checkCameraAvailability(kind = "videoinput", labelMatch = "") {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices)
+    return false;
+  const devices = await navigator.mediaDevices.enumerateDevices();
+  if (labelMatch) {
+    return devices.some(
+      (device) =>
+        device.kind === kind &&
+        device.label.toLowerCase().includes(labelMatch.toLowerCase())
+    );
+  }
+  return devices.some((device) => device.kind === kind);
 }
 
 // ==========================================//
