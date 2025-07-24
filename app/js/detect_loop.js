@@ -67,23 +67,23 @@ function detectFrame(source) {
 
     //=========================================//
     // Smoke detection
-    if (window.smokeDetectionEnabled && !smokeIntervalId) {
-      smokeIntervalId = setInterval(updateSmokeDetection, 200); // every 200ms
-    } else if (!window.smokeDetectionEnabled && smokeIntervalId) {
-      clearInterval(smokeIntervalId);
-      smokeIntervalId = null;
-      // document.getElementById("status").innerText = "Not detecting smoke.";
-    }
+    // if (window.smokeDetectionEnabled && !smokeIntervalId) {
+    //   smokeIntervalId = setInterval(updateSmokeDetection, 200); // every 200ms
+    // } else if (!window.smokeDetectionEnabled && smokeIntervalId) {
+    //   clearInterval(smokeIntervalId);
+    //   smokeIntervalId = null;
+    //   // document.getElementById("status").innerText = "Not detecting smoke.";
+    // }
 
-    //=========================================//
-    // Fire detection
-    if (window.fireDetectionEnabled && !fireIntervalId) {
-      fireIntervalId = setInterval(updateFireDetection, 200); // every 200ms
-    } else if (!window.fireDetectionEnabled && fireIntervalId) {
-      clearInterval(fireIntervalId);
-      fireIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting fire.";
-    }
+    // //=========================================//
+    // // Fire detection
+    // if (window.fireDetectionEnabled && !fireIntervalId) {
+    //   fireIntervalId = setInterval(updateFireDetection, 200); // every 200ms
+    // } else if (!window.fireDetectionEnabled && fireIntervalId) {
+    //   clearInterval(fireIntervalId);
+    //   fireIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting fire.";
+    // }
 
     // //=========================================//
     // // Flood detection
