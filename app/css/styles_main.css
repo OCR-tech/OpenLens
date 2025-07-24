@@ -189,7 +189,7 @@ input {
 .voice-columns {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 5px;
   justify-content: space-between;
 }
 .voice-col {
