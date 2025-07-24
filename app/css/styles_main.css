@@ -84,6 +84,22 @@ ul {
   margin: 3px 0;
   padding-left: 15px;
 }
+.row-tile {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.title-section {
+  flex: 1 1 320px;
+  min-width: 220px;
+  max-width: 480px;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
 .intro {
   text-align: left;
   font-size: 1em;
@@ -679,6 +695,15 @@ body.dark-mode .controls-section button:disabled {
     margin-bottom: 0;
     padding: 12px 8px;
   }
+  .row-tile {
+    gap: 18px;
+  }
+  .title-section {
+    min-width: 180px;
+    max-width: 100%;
+    padding: 12px 8px;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -742,9 +767,11 @@ body.dark-mode .controls-section button:disabled {
     padding-left: 5px;
     font-size: 0.9em;
   }
+  .source-mode-text,
+  .mode-mode-text,
+  .status-mode-text,
   .screen-mode-text,
-  .theme-mode-text,
-  .source-mode-text {
+  .theme-mode-text {
     font-size: 0.8em;
     margin: 0px;
     padding: 0px;
@@ -768,7 +795,6 @@ body.dark-mode .controls-section button:disabled {
   .button-ok,
   .button-browse {
     width: 100%;
-    /* max-width: 215px; */
   }
   .settings-row {
     flex-direction: row;
@@ -784,5 +810,31 @@ body.dark-mode .controls-section button:disabled {
     min-width: 0;
     margin-bottom: 0;
     padding: 10px 4px;
+  }
+  .row-tile {
+    gap: 12px;
+  }
+  .title-section {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 4px;
+    gap: 8px;
+    align-items: flex-end;
+  }
+  .switch {
+    width: 44px;
+    height: 22px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .slider {
+    border-radius: 22px;
+  }
+  .slider:before {
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
   }
 }
