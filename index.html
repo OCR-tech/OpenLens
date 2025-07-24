@@ -271,6 +271,15 @@
             style="text-decoration: none"
             >Web</a
           > -->
+          |
+          <a
+            class="btn-link fw-bold"
+            id="btn-visitor"
+            style="text-decoration: none; cursor: pointer"
+            onclick="showVisitor()"
+          >
+            Visitor
+          </a>
         </p>
       </div>
 
@@ -287,6 +296,14 @@
         class="group-frame-help"
         id="group-frame-help"
         include-html="app/pages/help.html"
+        style="display: none"
+      ></div>
+
+      <!-- Begin visitor.html include -->
+      <div
+        class="group-frame-visitor"
+        id="group-frame-visitor"
+        include-html="app/pages/visitor.html"
         style="display: none"
       ></div>
     </div>
@@ -318,6 +335,7 @@
     <script src="app/js/main_menu.js"></script>
     <script src="app/js/main_tutorial.js"></script>
     <script src="app/js/main_help.js"></script>
+    <script src="app/js/main_visitor.js"></script>
     <script src="app/js/detect.js"></script>
     <script src="app/js/setting.js"></script>
     <script src="app/js/detect_motion.js"></script>

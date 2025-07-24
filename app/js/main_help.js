@@ -11,6 +11,7 @@ function showHelp() {
   groupFrameSettings.style.display = "none";
   groupFrameTutorial.style.display = "none";
   groupFrameHelp.style.display = "flex";
+  groupFrameVisitor.style.display = "none";
 
   // move the cursor to the help section
   document
@@ -19,11 +20,12 @@ function showHelp() {
 }
 
 // =========================================//
-function HideHelp() {
+function hideHelp() {
   document.getElementById("status").innerText = "Ready!";
   groupFrameCommand.style.display = "none";
   groupFrameVoice.style.display = "none";
   groupFrameSettings.style.display = "none";
   groupFrameTutorial.style.display = "none";
   groupFrameHelp.style.display = "none";
+  groupFrameVisitor.style.display = "none";
 }

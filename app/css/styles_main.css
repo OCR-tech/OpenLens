@@ -246,7 +246,8 @@ input {
 .group-frame-detect,
 .group-frame-settings,
 .group-frame-tutorial,
-.group-frame-help {
+.group-frame-help,
+.group-frame-visitor {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -268,7 +269,8 @@ input {
 .group-frame-detect label,
 .group-frame-settings label,
 .group-frame-tutorial label,
-.group-frame-help label {
+.group-frame-help label,
+.group-frame-visitor label {
   font-weight: bold;
   margin-right: 10px;
 }

@@ -23,6 +23,7 @@ const groupFrameDetect = document.getElementById("group-frame-detect");
 const groupFrameSettings = document.getElementById("group-frame-settings");
 const groupFrameTutorial = document.getElementById("group-frame-tutorial");
 const groupFrameHelp = document.getElementById("group-frame-help");
+const groupFrameVisitor = document.getElementById("group-frame-visitor");
 
 // document.getElementById("btn-command").disabled = true;
 // document.getElementById("btn-voice").disabled = true;

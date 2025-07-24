@@ -12,6 +12,7 @@ function showTutorial() {
   groupFrameSettings.style.display = "none";
   groupFrameTutorial.style.display = "flex";
   groupFrameHelp.style.display = "none";
+  groupFrameVisitor.style.display = "none";
 
   // move the cursor to the tutorial section
   document
@@ -20,11 +21,12 @@ function showTutorial() {
 }
 
 // =========================================//
-function HideTutorial() {
+function hideTutorial() {
   document.getElementById("status").innerText = "Ready!";
   groupFrameCommand.style.display = "none";
   groupFrameVoice.style.display = "none";
   groupFrameSettings.style.display = "none";
   groupFrameTutorial.style.display = "none";
   groupFrameHelp.style.display = "none";
+  groupFrameVisitor.style.display = "none";
 }
