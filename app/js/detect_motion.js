@@ -126,6 +126,8 @@ function updateMotionDetection() {
 
   if (!canvas || !motionSwitch || !motionSwitch.checked) return;
 
+  // alert(widthVideo + " " + heightVideo);
+
   canvas.width = widthVideo;
   canvas.height = heightVideo;
 
@@ -158,51 +160,6 @@ function updateMotionDetection() {
     motionStatusAlert.style.boxShadow = "none";
   }
 }
-
-// =========================================//
-// Simple motion detection based on pixel intensity changes
-// function detectMotion0(prevFrame, currFrame, width, height, threshold) {
-//   if (!prevFrame || !currFrame) return false;
-
-//   let motionPixels = 0;
-//   const totalPixels = width * height;
-//   const intensityThreshold = 30;
-//   const MOST_SENSITIVE_RATIO = 1.0;
-//   const LEAST_SENSITIVE_RATIO = 0.85;
-
-//   let motionRatioThreshold =
-//     LEAST_SENSITIVE_RATIO +
-//     ((MOST_SENSITIVE_RATIO - LEAST_SENSITIVE_RATIO) * (10 - threshold)) / 10;
-
-//   for (let i = 0; i < totalPixels * 4; i += 4) {
-//     // for (let i = 0; i < totalPixels * 2; i += 2) {
-//     const prevIntensity = prevFrame[i] + prevFrame[i + 1] + prevFrame[i + 2];
-//     const currIntensity = currFrame[i] + currFrame[i + 1] + currFrame[i + 2];
-//     const intensityChange = Math.abs(currIntensity - prevIntensity);
-
-//     if (intensityChange > intensityThreshold) {
-//       motionPixels++;
-//     }
-
-//     // document.getElementById("status").innerText =
-//     //   "Motion: " +
-//     //   window.motionDetectionEnabled +
-//     //   " " +
-//     //   threshold +
-//     //   " " +
-//     //   motionRatioThreshold.toFixed(3) +
-//     //   " " +
-//     //   (motionPixels / totalPixels).toFixed(3) +
-//     //   " " +
-//     //   motionPixels +
-//     //   " " +
-//     //   intensityChange +
-//     //   " " +
-//     //   totalPixels;
-//   }
-
-//   return motionPixels / totalPixels > motionRatioThreshold;
-// }
 
 // =========================================//
 // Advanced motion detection using pixel intensity, color difference, and noise reduction

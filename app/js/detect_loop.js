@@ -28,20 +28,36 @@ function detectFrame(source) {
 
   model.detect(source).then(function (predictions) {
     //=========================================//
-    // Object detection
-    // alert("Object detection");
-
-    //=========================================//
     // Draw predictions on the canvas
     // alert("Model loaded:" + model);
-    // alert("Video playing:" + (!video.paused && !video.ended));
     // alert("Video size:" + video.videoWidth + "x" + video.videoHeight);
     // alert("Predictions:" + predictions);
     drawPredictions(predictions);
 
     //=========================================//
+    // Object detection
+    // alert("Object detection");
+    //  if (window.objectDetectionEnabled && !objectIntervalId) {
+    //    objectIntervalId = setInterval(updateObjectDetection, 200); // every 200ms
+    //  } else if (!window.objectDetectionEnabled && objectIntervalId) {
+    //    clearInterval(objectIntervalId);
+    //    objectIntervalId = null;
+    //  }
+
+    //=========================================//
+    // Text detection
+    // alert("Text detection");
+    //  if (window.textDetectionEnabled && !textIntervalId) {
+    //    textIntervalId = setInterval(updateTextDetection, 200); // every 200ms
+    //  } else if (!window.textDetectionEnabled && textIntervalId) {
+    //    clearInterval(textIntervalId);
+    //    textIntervalId = null;
+    //  }
+
+    //=========================================//
     // Motion detection
     if (window.motionDetectionEnabled && !motionIntervalId) {
+      // alert("Motion detection enabled");
       motionIntervalId = setInterval(updateMotionDetection, 200); // every 200ms
     } else if (!window.motionDetectionEnabled && motionIntervalId) {
       clearInterval(motionIntervalId);
@@ -69,65 +85,65 @@ function detectFrame(source) {
       document.getElementById("status").innerText = "Not detecting fire.";
     }
 
-    //=========================================//
-    // Flood detection
-    if (window.floodDetectionEnabled && !floodIntervalId) {
-      floodIntervalId = setInterval(updateFloodDetection, 200); // every 200ms
-    } else if (!window.floodDetectionEnabled && floodIntervalId) {
-      clearInterval(floodIntervalId);
-      floodIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting flood.";
-    }
+    // //=========================================//
+    // // Flood detection
+    // if (window.floodDetectionEnabled && !floodIntervalId) {
+    //   floodIntervalId = setInterval(updateFloodDetection, 200); // every 200ms
+    // } else if (!window.floodDetectionEnabled && floodIntervalId) {
+    //   clearInterval(floodIntervalId);
+    //   floodIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting flood.";
+    // }
 
-    //=========================================//
-    // Light detection
-    if (window.lightDetectionEnabled && !lightIntervalId) {
-      lightIntervalId = setInterval(updateLightDetection, 200); // every 200ms
-    } else if (!window.lightDetectionEnabled && lightIntervalId) {
-      clearInterval(lightIntervalId);
-      lightIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting light.";
-    }
+    // //=========================================//
+    // // Light detection
+    // if (window.lightDetectionEnabled && !lightIntervalId) {
+    //   lightIntervalId = setInterval(updateLightDetection, 200); // every 200ms
+    // } else if (!window.lightDetectionEnabled && lightIntervalId) {
+    //   clearInterval(lightIntervalId);
+    //   lightIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting light.";
+    // }
 
-    //=========================================//
-    // Rain detection
-    if (window.rainDetectionEnabled && !rainIntervalId) {
-      rainIntervalId = setInterval(updateRainDetection, 200); // every 200ms
-    } else if (!window.rainDetectionEnabled && rainIntervalId) {
-      clearInterval(rainIntervalId);
-      rainIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting rain.";
-    }
+    // //=========================================//
+    // // Rain detection
+    // if (window.rainDetectionEnabled && !rainIntervalId) {
+    //   rainIntervalId = setInterval(updateRainDetection, 200); // every 200ms
+    // } else if (!window.rainDetectionEnabled && rainIntervalId) {
+    //   clearInterval(rainIntervalId);
+    //   rainIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting rain.";
+    // }
 
-    //=========================================//
-    // Falling detection
-    if (window.fallingDetectionEnabled && !fallingIntervalId) {
-      fallingIntervalId = setInterval(updateFallingDetection, 200); // every 200ms
-    } else if (!window.fallingDetectionEnabled && fallingIntervalId) {
-      clearInterval(fallingIntervalId);
-      fallingIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting falling.";
-    }
+    // //=========================================//
+    // // Falling detection
+    // if (window.fallingDetectionEnabled && !fallingIntervalId) {
+    //   fallingIntervalId = setInterval(updateFallingDetection, 200); // every 200ms
+    // } else if (!window.fallingDetectionEnabled && fallingIntervalId) {
+    //   clearInterval(fallingIntervalId);
+    //   fallingIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting falling.";
+    // }
 
-    //=========================================//
-    // Breaking detection
-    if (window.breakingDetectionEnabled && !breakingIntervalId) {
-      breakingIntervalId = setInterval(updateBreakingDetection, 200); // every 200ms
-    } else if (!window.breakingDetectionEnabled && breakingIntervalId) {
-      clearInterval(breakingIntervalId);
-      breakingIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting breaking.";
-    }
+    // //=========================================//
+    // // Breaking detection
+    // if (window.breakingDetectionEnabled && !breakingIntervalId) {
+    //   breakingIntervalId = setInterval(updateBreakingDetection, 200); // every 200ms
+    // } else if (!window.breakingDetectionEnabled && breakingIntervalId) {
+    //   clearInterval(breakingIntervalId);
+    //   breakingIntervalId = null;
+    //   document.getElementById("status").innerText = "Not detecting breaking.";
+    // }
 
-    //=========================================//
-    // Sound detection
-    if (window.soundDetectionEnabled && !soundIntervalId) {
-      soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
-    } else if (!window.soundDetectionEnabled && soundIntervalId) {
-      clearInterval(soundIntervalId);
-      soundIntervalId = null;
-      // document.getElementById("status").innerText = "Not detecting sound.";
-    }
+    // //=========================================//
+    // // Sound detection
+    // if (window.soundDetectionEnabled && !soundIntervalId) {
+    //   soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
+    // } else if (!window.soundDetectionEnabled && soundIntervalId) {
+    //   clearInterval(soundIntervalId);
+    //   soundIntervalId = null;
+    //   // document.getElementById("status").innerText = "Not detecting sound.";
+    // }
 
     // =========================================//
     // Check if predictions are detected persons in frame
@@ -140,9 +156,6 @@ function detectFrame(source) {
     // } else {
     //   // alert("No persons detected");
     // }
-
-    //=========================================//
-    // detectText(video);
 
     //=========================================//
     if (window.runDetectionLoop) {
@@ -260,8 +273,6 @@ function drawPredictions(predictions) {
   // alert("DrawPredictions");
 
   if (!ctx || !canvas) return;
-  // Resize canvas if needed
-  // (canvas size should already match the drawn image)
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (window.showBoundingBox) {

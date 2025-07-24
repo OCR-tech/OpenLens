@@ -58,6 +58,7 @@ updateDateTime();
 // =========================================//
 // Display current date and time in on canvas
 function displayDateTime() {
+  // alert("DisplayDateTime");
   if (!ctx || !canvas) return;
   const now = new Date();
   const dateTimeString = now.toLocaleString();

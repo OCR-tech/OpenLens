@@ -54,6 +54,7 @@ function enableTimerDelay3000ms() {
 // ==============================//
 function updateLabelSettings() {
   // alert("UpdateLabelSettings");
+
   updateVideoSizeLabel();
   updateFramerateLabel();
   window.timerDelay3000ms = false;

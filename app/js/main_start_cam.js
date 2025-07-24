@@ -418,8 +418,6 @@ function startIPCamera(ipCameraUrl) {
     canvas = null;
   }
 
-  const videoFeed = document.getElementById("video-feed");
-
   // MJPEG stream as <img>
   video = document.createElement("img");
   video.id = "camera-stream";
@@ -428,7 +426,6 @@ function startIPCamera(ipCameraUrl) {
   video.style.width = "100%";
   video.style.objectFit = "contain";
   video.title = "IP Camera Stream";
-  videoFeed.appendChild(video);
 
   // Overlay canvas
   canvas = document.createElement("canvas");
@@ -440,12 +437,13 @@ function startIPCamera(ipCameraUrl) {
   canvas.style.height = "100%";
   canvas.style.pointerEvents = "none";
 
-  const placeholder = document.getElementById("video-placeholder");
-  if (placeholder) placeholder.style.display = "none";
-
+  const videoFeed = document.getElementById("video-feed");
   videoFeed.innerHTML = "";
   videoFeed.appendChild(video);
   videoFeed.appendChild(canvas);
+
+  const placeholder = document.getElementById("video-placeholder");
+  if (placeholder) placeholder.style.display = "none";
 
   video.onload = function () {
     canvas.width = video.naturalWidth;
@@ -633,6 +631,7 @@ function startImage(filePath) {
   video.style.width = "100%";
   video.style.height = "100%";
   video.style.objectFit = "contain";
+  video.title = "Image Viewer";
 
   canvas = document.createElement("canvas");
   canvas.id = "overlay";
