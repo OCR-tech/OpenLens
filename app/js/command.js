@@ -204,8 +204,10 @@ function recordVideo() {
   const videoElement =
     document.getElementById("camera-stream") ||
     document.getElementById("usb-camera-stream") ||
+    document.getElementById("camera-stream") ||
+    document.getElementById("stream-player") ||
     document.getElementById("video-file-player") ||
-    document.getElementById("stream-player");
+    document.getElementById("image");
 
   if (!videoElement) {
     document.getElementById("status").innerText = "No video found";
