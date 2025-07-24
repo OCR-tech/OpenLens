@@ -209,8 +209,8 @@ function startIPCamera(ipCameraUrl) {
   // MJPEG stream as <img>
   video = document.createElement("img");
   video.id = "camera-stream";
-  video.src = "http://" + ipCameraUrl + "/video"; // e.g. "http://
-  // video.src = "https://" + ipCameraUrl + "/video"; // e.g. "https://
+  // video.src = "http://" + ipCameraUrl + "/video"; // e.g. "http://
+  video.src = "https://" + ipCameraUrl + "/video"; // e.g. "https://
   video.style.width = "100%";
   video.style.objectFit = "contain";
   video.title = "IP Camera Stream";
