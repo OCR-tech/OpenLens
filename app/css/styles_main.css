@@ -410,10 +410,13 @@ input {
   flex-wrap: wrap;
 }
 #video-source,
+#ip-camera-url,
 #mode-select {
-  width: 100%;
-  /* min-width: 215px; */
-  /* max-width: 215px; */
+  /* width: 100%; */
+  width: 200px;
+  /* width: 100%; */
+  /* min-width: 200px; */
+  /* max-width: 200px; */
   box-sizing: border-box;
 }
 .video-source-section {
@@ -439,13 +442,9 @@ input {
 }
 .video-source-section select:focus {
   outline: none;
-  /* border-color: #2980b9; */
-  /* background-color: #fff; */
 }
 .video-source-section select option {
   padding: 10px;
-  /* background-color: #fff; */
-  /* color: #333; */
 }
 .video-source-section select option:hover {
   background-color: #f0f0f0;
@@ -789,6 +788,7 @@ body.dark-mode .controls-section button:disabled {
     gap: 12px;
   }
   #video-source,
+  #ip-camera-url,
   #mode-select,
   #video-unit,
   .video-url-input,
