@@ -383,9 +383,9 @@ function okSourceCamera() {
     btnVoice.disabled = false; // Enable the voice button
 
     if (videoSource.value === "camera_ip") {
-      window.runDetectionLoop = true;
+      // window.runDetectionLoop = true;
       saveLastUsedIP(ipCameraUrl);
-      startIPCamera(ipCameraUrl); // Start the IP camera with the provided URL
+      startButton();
     } else if (videoSource.value === "stream") {
       startStream(ipCameraUrl); // Start the stream with the provided URL
       // startStream(ipCameraUrl); // Start the stream with the provided URL

@@ -8,6 +8,7 @@ function startButton() {
   document.getElementById("btn-stop").style.display = "inline-block";
 
   const videoSource = document.getElementById("video-source").value;
+  const ipCameraUrl = document.getElementById("ip-camera-url").value;
 
   // ==============================//
   window.timerDelay3000ms = true; // Reset the timer
@@ -30,8 +31,7 @@ function startButton() {
   } else if (videoSource === "camera_usb") {
     startUSBCamera();
   } else if (videoSource === "camera_ip") {
-    okSourceCamera();
-    // startIPCamera();
+    startIPCamera(ipCameraUrl);
   } else if (videoSource === "stream") {
     startStream();
   } else if (videoSource === "video") {

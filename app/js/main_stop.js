@@ -32,6 +32,7 @@ function stopButton() {
   //=========================================//
   window.runDetectionLoop = false; // Stop the detection loop
   stopCamera();
+
   cancelAnimationFrame(window.animationId);
   cancelAnimationFrame(window.detectionLoopId);
   window.animationId = null;
@@ -49,45 +50,33 @@ function stopButton() {
   window.voiceAlertEnabled = false;
   window.notificationEnabled = false;
 
-  //=========================================//
-  if (video) {
-    video.pause();
-    if (video.srcObject) {
-      video.srcObject.getTracks().forEach((track) => track.stop());
-    }
-    video.remove();
-    video = null;
-  }
-  if (canvas) {
-    canvas.remove();
-    canvas = null;
-  }
-
   if (placeholder) placeholder.style.display = "block";
 }
 
 // =========================================//
 function stopCamera() {
-  // Stop the camera stream
-  if (window.cameraStream) {
-    window.cameraStream.getTracks().forEach((track) => track.stop());
-    window.cameraStream = null;
-  }
+  // alert("StopCamera");
 
   // Reset all possible video elements
   // const videoIds = ["camera", "camera_usb", "camera_ip", "stream", "video"];
   const videoIds = [
-    "video",
     "camera-stream",
     "usb-camera-stream",
     "stream-player",
     "video-file-player",
+    "video",
     "image",
   ];
 
   videoIds.forEach((id) => {
     const video = document.getElementById(id);
+
     if (video) {
+      if (video.id === "camera-stream" || video.id === "image") {
+        video.src = "";
+        video.remove();
+      }
+
       // If the video element has a srcObject, stop its tracks
       if (video.srcObject && typeof video.srcObject.getTracks === "function") {
         video.srcObject.getTracks().forEach((track) => track.stop());
