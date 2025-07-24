@@ -131,6 +131,7 @@ function updateMotionDetection() {
   canvas.width = widthVideo;
   canvas.height = heightVideo;
 
+  // const ctx = canvas.getContext("2d");
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   const currFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
