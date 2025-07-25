@@ -16,18 +16,6 @@ function detectFrame(source) {
 
   if (!model || !source) return;
 
-  // alert(
-  //   model +
-  //     " " +
-  //     source +
-  //     " " +
-  //     source.width +
-  //     "x" +
-  //     source.height +
-  //     " " +
-  //     (source instanceof HTMLCanvasElement)
-  // );
-
   model.detect(source).then(function (predictions) {
     //=========================================//
     // Draw predictions on the canvas
@@ -38,13 +26,12 @@ function detectFrame(source) {
 
     //=========================================//
     // Object detection
-    // alert("Object detection");
-    //  if (window.objectDetectionEnabled && !objectIntervalId) {
-    //    objectIntervalId = setInterval(updateObjectDetection, 200); // every 200ms
-    //  } else if (!window.objectDetectionEnabled && objectIntervalId) {
-    //    clearInterval(objectIntervalId);
-    //    objectIntervalId = null;
-    //  }
+    if (window.objectDetectionEnabled && !objectIntervalId) {
+      objectIntervalId = setInterval(updateObjectDetection, 200); // every 200ms
+    } else if (!window.objectDetectionEnabled && objectIntervalId) {
+      clearInterval(objectIntervalId);
+      objectIntervalId = null;
+    }
 
     //=========================================//
     // Text detection

@@ -1,6 +1,8 @@
 // =========================================//
 // OBJECT DETECTION FUNCTIONS
 function toggleObjectDetection() {
+  // alert("toggleObjectDetection");
+
   const objectSwitch = document.getElementById("object-switch");
   const objectStatus = document.getElementById("object-status");
 
@@ -26,6 +28,8 @@ function toggleObjectDetection() {
 
 // =========================================//
 function setObjectDetectionMode(mode) {
+  // alert("setObjectDetectionMode: " + mode);
+
   const objectSwitch = document.getElementById("object-switch");
   const objectStatus = document.getElementById("object-status");
 
@@ -45,7 +49,9 @@ function setObjectDetectionMode(mode) {
 }
 
 // =========================================//
-async function updateObjectDetection() {
+function updateObjectDetection() {
+  // alert("updateObjectDetection");
+
   const source =
     document.getElementById("camera-stream") ||
     document.getElementById("usb-camera-stream") ||
@@ -72,10 +78,10 @@ async function updateObjectDetection() {
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // Use TensorFlow.js COCO-SSD model for object detection
-  if (!window.cocoSsdModel) {
-    window.cocoSsdModel = await cocoSsd.load();
-  }
-  const predictions = await window.cocoSsdModel.detect(canvas);
+  // if (!window.cocoSsdModel) {
+  //   window.cocoSsdModel = await cocoSsd.load();
+  // }
+  // const predictions = await window.cocoSsdModel.detect(canvas);
 
   drawObjects(predictions);
 }

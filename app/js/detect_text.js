@@ -2,13 +2,14 @@
 // TEXT DETECTION FUNCTIONS
 function toggleTextDetection() {
   // alert("toggleTextDetection");
-
+  const groupFrameText = document.getElementById("group-frame-text");
   const textSwitch = document.getElementById("text-switch");
   const textStatus = document.getElementById("text-status");
 
   if (!textSwitch) return;
 
   window.textDetectionEnabled = textSwitch.checked;
+  groupFrameText.style.display = textSwitch.checked ? "flex" : "none";
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Text Detection " + (textSwitch.checked ? "On" : "Off"));
@@ -25,6 +26,7 @@ function toggleTextDetection() {
 function setTextDetectionMode(mode) {
   // alert("setTextDetectionMode: " + mode);
 
+  const groupFrameText = document.getElementById("group-frame-text");
   const textSwitch = document.getElementById("text-switch");
   const textStatus = document.getElementById("text-status");
 
@@ -38,6 +40,11 @@ function setTextDetectionMode(mode) {
       mode === "on"
         ? 'Text: <b style="color:green">o</b>'
         : 'Text: <b style="color:blue">-</b>';
+  }
+
+  if (groupFrameText) {
+    groupFrameText.style.display =
+      textSwitch && textSwitch.checked ? "flex" : "none";
   }
 
   localStorage.setItem("textDetectionMode", mode);
@@ -55,6 +62,7 @@ function updateTextDetection() {
     document.getElementById("video") ||
     document.getElementById("image") ||
     document.getElementById("image-file-viewer");
+  const canvas = document.getElementById("overlay");
 
   if (!canvas || !motionSwitch || !motionSwitch.checked || !source) return;
 
@@ -67,7 +75,7 @@ function updateTextDetection() {
     canvas.height = source.naturalHeight;
     source.crossOrigin = "anonymous"; // Set Cross-Origin Attribute
   } else {
-    document.getElementById("status").innerText = "No video found";
+    document.getElementById("status").innerText = "No video/image found";
     return;
   }
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
@@ -75,10 +83,10 @@ function updateTextDetection() {
   // Use Tesseract.js to recognize text from the canvas image
   Tesseract.recognize(canvas.toDataURL("image/png"), "eng")
     .then(({ data: { text } }) => {
-      // console.log("Detected text:", text);
       // alert("Detected text: " + text);
       drawText(text);
-      // Optionally, you can display the text on the page or process it further
+      const textsInput = document.getElementById("texts-input");
+      if (textsInput) textsInput.value = text;
     })
     .catch((error) => {
       console.error("Error during OCR:", error);

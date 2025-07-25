@@ -258,6 +258,7 @@ input {
 .group-frame-source,
 .group-frame-mode,
 .group-frame-status,
+.group-frame-text,
 .group-frame-command,
 .group-frame-voice,
 .group-frame-detect,
@@ -281,6 +282,7 @@ input {
 .group-frame-source label,
 .group-frame-mode label,
 .group-frame-status label,
+.group-frame-text label,
 .group-frame-command label,
 .group-frame-voice label,
 .group-frame-detect label,
@@ -300,7 +302,8 @@ input {
 }
 .source-section,
 .mode-section,
-.status-section {
+.status-section,
+.text-section {
   font-size: 1em;
   gap: 0px;
   margin: 0;
@@ -328,7 +331,8 @@ input {
 }
 .source-section input,
 .mode-section input,
-.status-section input {
+.status-section input,
+.text-section input {
   /* width: 100%; */
   /* max-width: 200px; */
   padding: 8px;
@@ -342,7 +346,8 @@ input {
 .controls-section button,
 .source-section button,
 .mode-section button,
-.status-section button {
+.status-section button,
+.text-section button {
   width: auto;
   min-width: 120px;
   margin: 5px;
@@ -372,7 +377,9 @@ input {
 .mode-section .button-ok,
 .mode-section .button-browse,
 .status-section .button-ok,
-.status-section .button-browse {
+.status-section .button-browse,
+.text-section .button-ok,
+.text-section .button-browse {
   display: none;
   flex: none;
   font-size: 1em;
@@ -454,10 +461,10 @@ input {
   color: #aaa;
   cursor: not-allowed;
 }
-
 .source-section,
 .mode-section,
-.status-section {
+.status-section,
+.text-section {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -555,6 +562,24 @@ input {
   border-color: red;
   margin: 0;
   padding: 0;
+}
+.texts-input {
+  width: 100%;
+  max-width: 100%;
+  min-width: 200px;
+  padding: 8px;
+  font-size: 1em;
+  border: 2px solid #2980b9;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  box-sizing: border-box;
+}
+.row-text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /*==================*/
@@ -737,7 +762,8 @@ body.dark-mode .controls-section button:disabled {
   .video-feed span {
     font-size: 0.8em;
   }
-  .controls-section {
+  .controls-section,
+  .text-section {
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
@@ -748,6 +774,7 @@ body.dark-mode .controls-section button:disabled {
   }
   .group-frame-source,
   .group-frame-mode,
+  .group-frame-text,
   .group-frame-status,
   .group-frame-command,
   .group-frame-voice,
@@ -782,7 +809,8 @@ body.dark-mode .controls-section button:disabled {
   }
   .source-section,
   .mode-section,
-  .status-section {
+  .status-section,
+  .text-section {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
@@ -826,5 +854,21 @@ body.dark-mode .controls-section button:disabled {
     width: 18px;
     left: 2px;
     bottom: 2px;
+  }
+  .row-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .row-text select {
+    font-size: 0.8em;
+    width: 100%;
+  }
+  .text-section button {
+    font-size: 0.8em;
+    width: 100%;
   }
 }

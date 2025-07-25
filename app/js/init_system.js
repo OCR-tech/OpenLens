@@ -17,6 +17,7 @@ const btnStart = document.getElementById("btn-start");
 const btnStop = document.getElementById("btn-stop");
 const groupFrameSource = document.getElementById("group-frame-source");
 const groupFrameMode = document.getElementById("group-frame-mode");
+const groupFrameText = document.getElementById("group-frame-text");
 const groupFrameCommand = document.getElementById("group-frame-command");
 const groupFrameVoice = document.getElementById("group-frame-voice");
 const groupFrameDetect = document.getElementById("group-frame-detect");
