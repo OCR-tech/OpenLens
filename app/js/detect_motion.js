@@ -124,16 +124,32 @@ function updateMotionDetection() {
   const canvas = document.getElementById("overlay");
   const motionSwitch = document.getElementById("motion-switch");
 
-  if (!canvas || !motionSwitch || !motionSwitch.checked) return;
+  const source =
+    document.getElementById("camera-stream") ||
+    document.getElementById("usb-camera-stream") ||
+    document.getElementById("stream-player") ||
+    document.getElementById("video-file-player") ||
+    document.getElementById("video") ||
+    document.getElementById("image") ||
+    document.getElementById("image-file-viewer");
 
-  // alert(widthVideo + " " + heightVideo);
+  if (!canvas || !motionSwitch || !motionSwitch.checked || !source) return;
 
-  canvas.width = widthVideo;
-  canvas.height = heightVideo;
-
-  // const ctx = canvas.getContext("2d");
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  if (source instanceof HTMLVideoElement) {
+    canvas.width = source.videoWidth;
+    canvas.height = source.videoHeight;
+  } else if (source instanceof HTMLImageElement) {
+    canvas.width = source.naturalWidth;
+    canvas.height = source.naturalHeight;
+    source.crossOrigin = "anonymous"; // Set Cross-Origin Attribute
+  } else {
+    document.getElementById("status").innerText = "No video found";
+    return;
+  }
+
+  ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
   const currFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
   window.prevMotionFrame = window.currMotionFrame || currFrame;
