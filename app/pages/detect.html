@@ -4,6 +4,70 @@
       <div class="controls-section">
         <!-- Detection Settings -->
 
+        <!-- Object Detection Settings -->
+        <div class="settings-row">
+          <label for="object-switch" title="Detects objects."
+            >Object Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="object-switch"
+              title="Toggle object detection"
+              placeholder="Toggle object detection"
+              onclick="toggleObjectDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+
+          <!-- <div
+            class="status-color normal"
+            id="object-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="object-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="object-status-alert"
+            title="Alert"
+          ></div> -->
+        </div>
+
+        <!-- Text Detection Settings -->
+        <div class="settings-row">
+          <label for="text-switch" title="Detects text.">Text Detection</label>
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="text-switch"
+              title="Toggle text detection"
+              placeholder="Toggle text detection"
+              onclick="toggleTextDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+
+          <!-- <div
+            class="status-color normal"
+            id="text-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="text-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="text-status-alert"
+            title="Alert"
+          ></div> -->
+        </div>
+
         <!-- Motion Detection Settings -->
         <div class="settings-row">
           <label for="motion-switch" title="Detects movement."
