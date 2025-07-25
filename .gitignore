@@ -5,3 +5,7 @@ README1.md
 node_modules/
 package-lock.json
 # package.json
+app/js/gemini.js
+app/pages/gemini.html
+
+
