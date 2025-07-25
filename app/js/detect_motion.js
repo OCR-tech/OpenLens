@@ -136,7 +136,6 @@ function updateMotionDetection() {
   if (!canvas || !motionSwitch || !motionSwitch.checked || !source) return;
 
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
   if (source instanceof HTMLVideoElement) {
     canvas.width = source.videoWidth;
     canvas.height = source.videoHeight;
@@ -148,7 +147,6 @@ function updateMotionDetection() {
     document.getElementById("status").innerText = "No video found";
     return;
   }
-
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
   const currFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 

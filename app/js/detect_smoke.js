@@ -116,13 +116,31 @@ function updateSmokeDetection() {
 
   const canvas = document.getElementById("overlay");
   const smokeSwitch = document.getElementById("smoke-switch");
-  if (!canvas || !smokeSwitch || !smokeSwitch.checked) return;
 
-  canvas.width = widthVideo;
-  canvas.height = heightVideo;
+  const source =
+    document.getElementById("camera-stream") ||
+    document.getElementById("usb-camera-stream") ||
+    document.getElementById("stream-player") ||
+    document.getElementById("video-file-player") ||
+    document.getElementById("video") ||
+    document.getElementById("image") ||
+    document.getElementById("image-file-viewer");
+
+  if (!canvas || !smokeSwitch || !smokeSwitch.checked || !source) return;
 
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  if (source instanceof HTMLVideoElement) {
+    canvas.width = source.videoWidth;
+    canvas.height = source.videoHeight;
+  } else if (source instanceof HTMLImageElement) {
+    canvas.width = source.naturalWidth;
+    canvas.height = source.naturalHeight;
+    source.crossOrigin = "anonymous"; // Set Cross-Origin Attribute
+  } else {
+    document.getElementById("status").innerText = "No video found";
+    return;
+  }
+  ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
   const currFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
   window.prevSmokeFrame = window.currSmokeFrame || currFrame;
