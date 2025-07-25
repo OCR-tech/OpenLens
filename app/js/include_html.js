@@ -106,6 +106,20 @@ document.addEventListener("DOMContentLoaded", function () {
           setNotificationMode(notificationMode);
 
         //==========================================//
+        // Object Detection mode
+        const objectDetectionMode =
+          localStorage.getItem("objectDetectionMode") || "off";
+        if (typeof setObjectDetectionMode === "function")
+          setObjectDetectionMode(objectDetectionMode);
+
+        //==========================================//
+        // Text Detection mode
+        const textDetectionMode =
+          localStorage.getItem("textDetectionMode") || "off";
+        if (typeof setTextDetectionMode === "function")
+          setTextDetectionMode(textDetectionMode);
+
+        //==========================================//
         // Motion Detection mode
         const motionDetectionMode =
           localStorage.getItem("motionDetectionMode") || "off";
@@ -116,18 +130,6 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.getItem("volumeSliderMotionDetectionValue") || 50;
         if (typeof setVolumeSliderMotionDetectionValue === "function")
           setVolumeSliderMotionDetectionValue(volumeSliderMotionDetectionValue);
-
-        //==========================================//
-        // Sound Detection mode
-        const soundDetectionMode =
-          localStorage.getItem("soundDetectionMode") || "off";
-        if (typeof setSoundDetectionMode === "function")
-          setSoundDetectionMode(soundDetectionMode);
-
-        const volumeSliderSoundDetectionValue =
-          localStorage.getItem("volumeSliderSoundDetectionValue") || 50;
-        if (typeof setVolumeSliderSoundDetectionValue === "function")
-          setVolumeSliderSoundDetectionValue(volumeSliderSoundDetectionValue);
 
         //==========================================//
         // Smoke Detection mode
@@ -212,6 +214,18 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.getItem("breakingSensitivityValue") || 50;
         if (typeof setBreakingSensitivityValue === "function")
           setBreakingSensitivityValue(breakingSensitivityValue);
+
+        //==========================================//
+        // Sound Detection mode
+        const soundDetectionMode =
+          localStorage.getItem("soundDetectionMode") || "off";
+        if (typeof setSoundDetectionMode === "function")
+          setSoundDetectionMode(soundDetectionMode);
+
+        const volumeSliderSoundDetectionValue =
+          localStorage.getItem("volumeSliderSoundDetectionValue") || 50;
+        if (typeof setVolumeSliderSoundDetectionValue === "function")
+          setVolumeSliderSoundDetectionValue(volumeSliderSoundDetectionValue);
 
         //==========================================//
 

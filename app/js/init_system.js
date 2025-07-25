@@ -92,6 +92,8 @@ function initSystem() {
   window.showVideoSizeOverlay = true;
   window.showFramerateOverlay = true;
   //------------//
+  window.objectDetectionEnabled = true;
+  window.textDetectionEnabled = true;
   window.motionDetectionEnabled = true;
   window.soundDetectionEnabled = true;
   window.smokeDetectionEnabled = true;
@@ -101,7 +103,7 @@ function initSystem() {
   window.rainDetectionEnabled = true;
   window.fallingDetectionEnabled = true;
   window.breakingDetectionEnabled = true;
-
+  //------------//
   window.audioContext = true;
   window.detectionLoopId = null;
 
@@ -132,8 +134,6 @@ function initUI() {
     "btn-overlay1",
     "btn-overlay2",
     "btn-record",
-    "btn-frame1",
-    "btn-frame2",
     "btn-reset",
     "datetime-switch",
   ].forEach((id) => {

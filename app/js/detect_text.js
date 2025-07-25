@@ -1,28 +1,76 @@
-function detectText(videoElement) {
-  // alert("detectText");
+// =========================================//
+// TEXT DETECTION FUNCTIONS
+function toggleTextDetection() {
+  // alert("toggleTextDetection");
 
-  // Ensure Tesseract.js is loaded
-  if (typeof Tesseract === "undefined") {
-    console.error(
-      "Tesseract.js is not loaded. Please include the Tesseract.js library."
-    );
-    return;
+  const textSwitch = document.getElementById("text-switch");
+  const textStatus = document.getElementById("text-status");
+
+  if (!textSwitch) return;
+
+  window.textDetectionEnabled = textSwitch.checked;
+
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Text Detection " + (textSwitch.checked ? "On" : "Off"));
   }
 
-  // Check if the video element is valid
-  if (!(videoElement instanceof HTMLVideoElement)) {
-    console.error("Provided element is not a valid video element.");
-    return;
+  textStatus.innerHTML = textSwitch.checked
+    ? 'Text: <b style="color:green">o</b>'
+    : 'Text: <b style="color:blue">-</b>';
+
+  localStorage.setItem("textDetectionMode", textSwitch.checked ? "on" : "off");
+}
+
+// =========================================//
+function setTextDetectionMode(mode) {
+  // alert("setTextDetectionMode: " + mode);
+
+  const textSwitch = document.getElementById("text-switch");
+  const textStatus = document.getElementById("text-status");
+
+  if (textSwitch) {
+    textSwitch.checked = mode === "on";
+    textSwitch.dispatchEvent(new Event("change"));
   }
 
-  // Create a canvas to draw the video frame
-  const canvas = document.getElementById("canvas");
-  canvas.width = videoElement.videoWidth;
-  canvas.height = videoElement.videoHeight;
-  const ctx = canvas.getContext("2d");
+  if (textStatus) {
+    textStatus.innerHTML =
+      mode === "on"
+        ? 'Text: <b style="color:green">o</b>'
+        : 'Text: <b style="color:blue">-</b>';
+  }
 
-  // Draw the current frame of the video onto the canvas
-  ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+  localStorage.setItem("textDetectionMode", mode);
+}
+
+// =========================================//
+function updateTextDetection() {
+  // alert("updateTextDetection");
+
+  const source =
+    document.getElementById("camera-stream") ||
+    document.getElementById("usb-camera-stream") ||
+    document.getElementById("stream-player") ||
+    document.getElementById("video-file-player") ||
+    document.getElementById("video") ||
+    document.getElementById("image") ||
+    document.getElementById("image-file-viewer");
+
+  if (!canvas || !motionSwitch || !motionSwitch.checked || !source) return;
+
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  if (source instanceof HTMLVideoElement) {
+    canvas.width = source.videoWidth;
+    canvas.height = source.videoHeight;
+  } else if (source instanceof HTMLImageElement) {
+    canvas.width = source.naturalWidth;
+    canvas.height = source.naturalHeight;
+    source.crossOrigin = "anonymous"; // Set Cross-Origin Attribute
+  } else {
+    document.getElementById("status").innerText = "No video found";
+    return;
+  }
+  ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // Use Tesseract.js to recognize text from the canvas image
   Tesseract.recognize(canvas.toDataURL("image/png"), "eng")
