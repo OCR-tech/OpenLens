@@ -384,7 +384,6 @@ input {
   flex: none;
   font-size: 1em;
   margin: 0;
-  /* max-width: 215px; */
 }
 .controls-section button:disabled {
   background: #bdbdbd;
@@ -417,8 +416,7 @@ input {
   flex-wrap: wrap;
 }
 #video-source,
-#ip-camera-url,
-#mode-select {
+#ip-camera-url {
   /* width: 100%; */
   width: 200px;
   /* width: 100%; */
@@ -763,6 +761,9 @@ body.dark-mode .controls-section button:disabled {
     font-size: 0.8em;
   }
   .controls-section,
+  .source-section,
+  .mode-section,
+  .status-section,
   .text-section {
     flex-direction: column;
     align-items: stretch;
@@ -817,7 +818,6 @@ body.dark-mode .controls-section button:disabled {
   }
   #video-source,
   #ip-camera-url,
-  #mode-select,
   #video-unit,
   .video-url-input,
   .button-ok,
@@ -863,12 +863,17 @@ body.dark-mode .controls-section button:disabled {
     align-items: center;
     justify-content: center;
   }
-  .row-text select {
-    font-size: 0.8em;
-    width: 100%;
-  }
   .text-section button {
     font-size: 0.8em;
     width: 100%;
+  }
+  .mode-section select {
+    width: 100%;
+    max-width: 100%;
+  }
+  .text-section .row-text select {
+    font-size: 1.2em;
+    width: 100%;
+    max-width: 100%;
   }
 }
