@@ -35,6 +35,7 @@ function stopButton() {
 
   cancelAnimationFrame(window.animationId);
   cancelAnimationFrame(window.detectionLoopId);
+
   window.animationId = null;
   window.detectionLoopId = null;
 

@@ -54,6 +54,8 @@ function setTextDetectionMode(mode) {
 function updateTextDetection() {
   // alert("updateTextDetection");
 
+  const textSwitch = document.getElementById("text-switch");
+  const canvas = document.getElementById("overlay");
   const source =
     document.getElementById("camera-stream") ||
     document.getElementById("usb-camera-stream") ||
@@ -62,9 +64,8 @@ function updateTextDetection() {
     document.getElementById("video") ||
     document.getElementById("image") ||
     document.getElementById("image-file-viewer");
-  const canvas = document.getElementById("overlay");
 
-  if (!canvas || !motionSwitch || !motionSwitch.checked || !source) return;
+  if (!canvas || !textSwitch || !textSwitch.checked || !source) return;
 
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   if (source instanceof HTMLVideoElement) {
@@ -78,43 +79,52 @@ function updateTextDetection() {
     document.getElementById("status").innerText = "No video/image found";
     return;
   }
+
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
+  updateTesseract(canvas);
   // Use Tesseract.js to recognize text from the canvas image
+  // Tesseract.recognize(canvas.toDataURL("image/png"), "eng")
+  //   .then(({ data: { text } }) => {
+  //     // alert("Detected text: " + text);
+  //     // drawText(text);
+  //     if (status) status.innerText = "Detected text";
+  //     if (textsInput) textsInput.value = text;
+  //     window.textDetectionEnabled = false;
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error during OCR:", error);
+  //   });
+}
+
+// =========================================//
+function updateTesseract(canvas) {
+  // alert("updateTesseract");
+
+  const textsInput = document.getElementById("texts-input");
+  const status = document.getElementById("status");
+
+  if (!canvas || !textsInput || !status) return;
+
   Tesseract.recognize(canvas.toDataURL("image/png"), "eng")
     .then(({ data: { text } }) => {
-      // alert("Detected text: " + text);
-      drawText(text);
-      const textsInput = document.getElementById("texts-input");
-      if (textsInput) textsInput.value = text;
+      // If text is not detected, set textsInput to empty
+      if (!text || text.trim() === "") {
+        status.innerText = "No text detected";
+        textsInput.value = "";
+      } else if (text.length > 1000) {
+        status.innerText = "Detected text";
+        textsInput.value = text.substring(0, 1000);
+      } else if (text.length > 500) {
+        status.innerText = "Detected text";
+        textsInput.value = text;
+      } else {
+        status.innerText = "Detected text";
+        textsInput.value = text;
+        // window.textDetectionEnabled = false;
+      }
     })
     .catch((error) => {
       console.error("Error during OCR:", error);
     });
-}
-
-// =========================================//
-function drawText(text) {
-  // alert("drawText: " + text);
-
-  if (!ctx || !canvas || !video) return;
-  // Resize canvas if needed
-  if (
-    canvas.width !== video.videoWidth ||
-    canvas.height !== video.videoHeight
-  ) {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-  }
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // If text contains bounding box info, draw it. Otherwise, just draw the text.
-  if (text && text.trim() !== "") {
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "red";
-    ctx.fillText(text, 10, 30); // Draw text at position (10, 30)
-    console.log("Text drawn on canvas:", text);
-  } else {
-    console.log("No text detected to draw.");
-  }
 }
