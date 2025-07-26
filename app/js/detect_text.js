@@ -155,35 +155,35 @@ function copyTexts() {
 }
 
 // =========================================//
-function cutTexts() {
-  const textarea = document.getElementById("texts-input");
-  if (textarea) {
-    if (navigator.clipboard) {
-      navigator.clipboard
-        .writeText(textarea.value)
-        .then(() => {
-          textarea.value = "";
-          const status = document.getElementById("status");
-          if (status) status.innerText = "Cut to clipboard!";
-        })
-        .catch(() => {
-          const status = document.getElementById("status");
-          if (status) status.innerText = "Failed to cut text!";
-        });
-    }
-  }
-}
+// function cutTexts() {
+//   const textarea = document.getElementById("texts-input");
+//   if (textarea) {
+//     if (navigator.clipboard) {
+//       navigator.clipboard
+//         .writeText(textarea.value)
+//         .then(() => {
+//           textarea.value = "";
+//           const status = document.getElementById("status");
+//           if (status) status.innerText = "Cut to clipboard!";
+//         })
+//         .catch(() => {
+//           const status = document.getElementById("status");
+//           if (status) status.innerText = "Failed to cut text!";
+//         });
+//     }
+//   }
+// }
 
 // =========================================//
-function selectallTexts() {
-  const textarea = document.getElementById("texts-input");
-  if (textarea) {
-    textarea.select();
-    textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
-    const status = document.getElementById("status");
-    if (status) status.innerText = "Text selected!";
-  }
-}
+// function selectallTexts() {
+//   const textarea = document.getElementById("texts-input");
+//   if (textarea) {
+//     textarea.select();
+//     textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
+//     const status = document.getElementById("status");
+//     if (status) status.innerText = "Text selected!";
+//   }
+// }
 
 // =========================================//
 function clearTexts() {
