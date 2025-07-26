@@ -83,18 +83,6 @@ function updateTextDetection() {
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   updateTesseract(canvas);
-  // Use Tesseract.js to recognize text from the canvas image
-  // Tesseract.recognize(canvas.toDataURL("image/png"), "eng")
-  //   .then(({ data: { text } }) => {
-  //     // alert("Detected text: " + text);
-  //     // drawText(text);
-  //     if (status) status.innerText = "Detected text";
-  //     if (textsInput) textsInput.value = text;
-  //     window.textDetectionEnabled = false;
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error during OCR:", error);
-  //   });
 }
 
 // =========================================//
@@ -114,10 +102,8 @@ function updateTesseract(canvas) {
         textsInput.value = "";
       } else if (text.length > 1000) {
         status.innerText = "Detected text";
-        textsInput.value = text.substring(0, 1000);
-      } else if (text.length > 500) {
-        status.innerText = "Detected text";
         textsInput.value = text;
+        // textsInput.value = text.substring(0, 1000);
       } else {
         status.innerText = "Detected text";
         textsInput.value = text;
@@ -127,4 +113,53 @@ function updateTesseract(canvas) {
     .catch((error) => {
       console.error("Error during OCR:", error);
     });
+}
+
+// =========================================//
+function detectTexts() {
+  const status = document.getElementById("status");
+  if (!status) return;
+  status.innerText = "Detecting text...";
+  window.textDetectionEnabled = true;
+}
+
+// =========================================//
+function pauseTexts() {
+  const status = document.getElementById("status");
+  if (!status) return;
+  status.innerText = "Paused.";
+  window.textDetectionEnabled = false;
+}
+
+// =========================================//
+function copyTexts() {
+  const textarea = document.getElementById("texts-input");
+  if (textarea) {
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
+    // document.execCommand("copy");
+    const status = document.getElementById("status");
+    if (status) status.innerText = "Text copied to clipboard!";
+  }
+}
+// =========================================//
+function cutTexts() {
+  const textarea = document.getElementById("texts-input");
+  if (textarea) {
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
+    // document.execCommand("cut");
+    const status = document.getElementById("status");
+    if (status) status.innerText = "Text cut to clipboard!";
+  }
+}
+
+// =========================================//
+function clearTexts() {
+  const textarea = document.getElementById("texts-input");
+  if (textarea) {
+    textarea.value = "";
+    const status = document.getElementById("status");
+    if (status) status.innerText = "Text cleared!";
+  }
 }

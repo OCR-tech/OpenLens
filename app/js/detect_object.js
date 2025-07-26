@@ -52,6 +52,8 @@ function setObjectDetectionMode(mode) {
 function updateObjectDetection() {
   // alert("updateObjectDetection");
 
+  const objectSwitch = document.getElementById("object-switch");
+  const canvas = document.getElementById("overlay");
   const source =
     document.getElementById("camera-stream") ||
     document.getElementById("usb-camera-stream") ||
@@ -77,17 +79,42 @@ function updateObjectDetection() {
   }
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
-  // Use TensorFlow.js COCO-SSD model for object detection
-  // if (!window.cocoSsdModel) {
-  //   window.cocoSsdModel = await cocoSsd.load();
-  // }
-  // const predictions = await window.cocoSsdModel.detect(canvas);
-
+  updateObjects(canvas);
   drawObjects(predictions);
 }
 
 // =========================================//
-function drawObjects(predictions) {
+function updateObjects(canvas) {
+  // alert("updateObject");
+
+  if (!canvas) {
+    console.error("Canvas element not found");
+    return;
+  }
+
+  // Use TensorFlow.js COCO-SSD model for object detection
+  if (!window.cocoSsdModel) {
+    cocoSsd.load().then((model) => {
+      window.cocoSsdModel = model;
+      console.log("COCO-SSD model loaded");
+      updateObjects(canvas);
+    });
+    return;
+  }
+
+  const predictions = window.cocoSsdModel.detect(canvas);
+  if (!predictions || predictions.length === 0) {
+    console.log("No objects detected.");
+    return;
+  }
+
+  window.cocoSsdModel.detect(canvas).then((predictions) => {
+    drawObjects(predictions);
+  });
+}
+
+// =========================================//
+function drawObject(predictions) {
   if (!canvas || !video) return;
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
