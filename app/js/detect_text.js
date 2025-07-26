@@ -91,12 +91,15 @@ function updateTesseract(canvas) {
 
   const textsInput = document.getElementById("texts-input");
   const status = document.getElementById("status");
+  const languageSelect = document.getElementById("language-select");
 
-  if (!canvas || !textsInput || !status) return;
+  if (!canvas || !textsInput || !status || !languageSelect) return;
 
-  Tesseract.recognize(canvas.toDataURL("image/png"), "eng")
+  // Get selected language from dropdown, default to "eng"
+  const lang = languageSelect.value || "eng";
+
+  Tesseract.recognize(canvas.toDataURL("image/png"), lang)
     .then(({ data: { text } }) => {
-      // If text is not detected, set textsInput to empty
       if (!text || text.trim() === "") {
         status.innerText = "No text detected";
         textsInput.value = "";
