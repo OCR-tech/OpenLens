@@ -112,6 +112,7 @@ function updateTesseract(canvas) {
         textsInput.value = text;
         // window.textDetectionEnabled = false;
       }
+      window.textDetectionEnabled = false;
     })
     .catch((error) => {
       console.error("Error during OCR:", error);
@@ -138,22 +139,49 @@ function pauseTexts() {
 function copyTexts() {
   const textarea = document.getElementById("texts-input");
   if (textarea) {
-    textarea.select();
-    textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
-    // document.execCommand("copy");
-    const status = document.getElementById("status");
-    if (status) status.innerText = "Text copied to clipboard!";
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(textarea.value)
+        .then(() => {
+          const status = document.getElementById("status");
+          if (status) status.innerText = "Copied to clipboard!";
+        })
+        .catch(() => {
+          const status = document.getElementById("status");
+          if (status) status.innerText = "Failed to copy text!";
+        });
+    }
   }
 }
+
 // =========================================//
 function cutTexts() {
   const textarea = document.getElementById("texts-input");
   if (textarea) {
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(textarea.value)
+        .then(() => {
+          textarea.value = "";
+          const status = document.getElementById("status");
+          if (status) status.innerText = "Cut to clipboard!";
+        })
+        .catch(() => {
+          const status = document.getElementById("status");
+          if (status) status.innerText = "Failed to cut text!";
+        });
+    }
+  }
+}
+
+// =========================================//
+function selectallTexts() {
+  const textarea = document.getElementById("texts-input");
+  if (textarea) {
     textarea.select();
     textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
-    // document.execCommand("cut");
     const status = document.getElementById("status");
-    if (status) status.innerText = "Text cut to clipboard!";
+    if (status) status.innerText = "Text selected!";
   }
 }
 
