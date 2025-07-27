@@ -1,6 +1,7 @@
 // =========================================//
 function startButton() {
   // alert("StartButton");
+
   stopCamera();
 
   // document.getElementById("status").innerText = "Start";

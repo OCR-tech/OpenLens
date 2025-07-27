@@ -16,143 +16,149 @@ function detectFrame(source) {
 
   if (!model || !source) return;
 
-  model.detect(source).then(function (predictions) {
-    //=========================================//
-    // Draw predictions on the canvas
-    // alert("Model loaded:" + model);
-    // alert("Video size:" + video.videoWidth + "x" + video.videoHeight);
-    // alert("Predictions:" + predictions);
-    drawPredictions(predictions);
+  model
+    .detect(source)
+    .then(function (predictions) {
+      //=========================================//
+      // Draw predictions on the canvas
+      // alert("Model loaded:" + model + " " + source);
+      // alert("Predictions:" + predictions);
 
-    //=========================================//
-    // Object detection
-    if (window.objectDetectionEnabled && !objectIntervalId) {
-      objectIntervalId = setInterval(updateObjectDetection, 200); // every 200ms
-    } else if (!window.objectDetectionEnabled && objectIntervalId) {
-      clearInterval(objectIntervalId);
-      objectIntervalId = null;
-    }
+      drawPredictions(predictions);
 
-    //=========================================//
-    // Text detection
-    if (window.textDetectionEnabled && !textIntervalId) {
-      textIntervalId = setInterval(updateTextDetection, 200); // every 200ms
-    } else if (!window.textDetectionEnabled && textIntervalId) {
-      clearInterval(textIntervalId);
-      textIntervalId = null;
-    }
+      //=========================================//
+      // Object detection
+      // if (window.objectDetectionEnabled && !objectIntervalId) {
+      //   objectIntervalId = setInterval(updateObjectDetection, 200); // every 200ms
+      // } else if (!window.objectDetectionEnabled && objectIntervalId) {
+      //   clearInterval(objectIntervalId);
+      //   objectIntervalId = null;
+      // }
 
-    //=========================================//
-    // Motion detection
-    if (window.motionDetectionEnabled && !motionIntervalId) {
-      // alert("Motion detection enabled");
-      motionIntervalId = setInterval(updateMotionDetection, 200); // every 200ms
-    } else if (!window.motionDetectionEnabled && motionIntervalId) {
-      clearInterval(motionIntervalId);
-      motionIntervalId = null;
-      // document.getElementById("status").innerText = "Not detecting motion.";
-    }
+      //=========================================//
+      // Text detection
+      if (window.textDetectionEnabled && !textIntervalId) {
+        textIntervalId = setInterval(updateTextDetection, 200); // every 200ms
+      } else if (!window.textDetectionEnabled && textIntervalId) {
+        clearInterval(textIntervalId);
+        textIntervalId = null;
+      }
 
-    // //=========================================//
-    // // Smoke detection
-    // if (window.smokeDetectionEnabled && !smokeIntervalId) {
-    //   smokeIntervalId = setInterval(updateSmokeDetection, 200); // every 200ms
-    // } else if (!window.smokeDetectionEnabled && smokeIntervalId) {
-    //   clearInterval(smokeIntervalId);
-    //   smokeIntervalId = null;
-    //   // document.getElementById("status").innerText = "Not detecting smoke.";
-    // }
+      //=========================================//
+      // Motion detection
+      if (window.motionDetectionEnabled && !motionIntervalId) {
+        // alert("Motion detection enabled");
+        motionIntervalId = setInterval(updateMotionDetection, 200); // every 200ms
+      } else if (!window.motionDetectionEnabled && motionIntervalId) {
+        clearInterval(motionIntervalId);
+        motionIntervalId = null;
+        // document.getElementById("status").innerText = "Not detecting motion.";
+      }
 
-    // //=========================================//
-    // // Fire detection
-    // if (window.fireDetectionEnabled && !fireIntervalId) {
-    //   fireIntervalId = setInterval(updateFireDetection, 200); // every 200ms
-    // } else if (!window.fireDetectionEnabled && fireIntervalId) {
-    //   clearInterval(fireIntervalId);
-    //   fireIntervalId = null;
-    //   document.getElementById("status").innerText = "Not detecting fire.";
-    // }
+      // //=========================================//
+      // // Smoke detection
+      // if (window.smokeDetectionEnabled && !smokeIntervalId) {
+      //   smokeIntervalId = setInterval(updateSmokeDetection, 200); // every 200ms
+      // } else if (!window.smokeDetectionEnabled && smokeIntervalId) {
+      //   clearInterval(smokeIntervalId);
+      //   smokeIntervalId = null;
+      //   // document.getElementById("status").innerText = "Not detecting smoke.";
+      // }
 
-    // //=========================================//
-    // // Flood detection
-    // if (window.floodDetectionEnabled && !floodIntervalId) {
-    //   floodIntervalId = setInterval(updateFloodDetection, 200); // every 200ms
-    // } else if (!window.floodDetectionEnabled && floodIntervalId) {
-    //   clearInterval(floodIntervalId);
-    //   floodIntervalId = null;
-    //   document.getElementById("status").innerText = "Not detecting flood.";
-    // }
+      // //=========================================//
+      // // Fire detection
+      // if (window.fireDetectionEnabled && !fireIntervalId) {
+      //   fireIntervalId = setInterval(updateFireDetection, 200); // every 200ms
+      // } else if (!window.fireDetectionEnabled && fireIntervalId) {
+      //   clearInterval(fireIntervalId);
+      //   fireIntervalId = null;
+      //   document.getElementById("status").innerText = "Not detecting fire.";
+      // }
 
-    // //=========================================//
-    // // Light detection
-    // if (window.lightDetectionEnabled && !lightIntervalId) {
-    //   lightIntervalId = setInterval(updateLightDetection, 200); // every 200ms
-    // } else if (!window.lightDetectionEnabled && lightIntervalId) {
-    //   clearInterval(lightIntervalId);
-    //   lightIntervalId = null;
-    //   document.getElementById("status").innerText = "Not detecting light.";
-    // }
+      // //=========================================//
+      // // Flood detection
+      // if (window.floodDetectionEnabled && !floodIntervalId) {
+      //   floodIntervalId = setInterval(updateFloodDetection, 200); // every 200ms
+      // } else if (!window.floodDetectionEnabled && floodIntervalId) {
+      //   clearInterval(floodIntervalId);
+      //   floodIntervalId = null;
+      //   document.getElementById("status").innerText = "Not detecting flood.";
+      // }
 
-    // //=========================================//
-    // // Rain detection
-    // if (window.rainDetectionEnabled && !rainIntervalId) {
-    //   rainIntervalId = setInterval(updateRainDetection, 200); // every 200ms
-    // } else if (!window.rainDetectionEnabled && rainIntervalId) {
-    //   clearInterval(rainIntervalId);
-    //   rainIntervalId = null;
-    //   document.getElementById("status").innerText = "Not detecting rain.";
-    // }
+      // //=========================================//
+      // // Light detection
+      // if (window.lightDetectionEnabled && !lightIntervalId) {
+      //   lightIntervalId = setInterval(updateLightDetection, 200); // every 200ms
+      // } else if (!window.lightDetectionEnabled && lightIntervalId) {
+      //   clearInterval(lightIntervalId);
+      //   lightIntervalId = null;
+      //   document.getElementById("status").innerText = "Not detecting light.";
+      // }
 
-    // //=========================================//
-    // // Falling detection
-    // if (window.fallingDetectionEnabled && !fallingIntervalId) {
-    //   fallingIntervalId = setInterval(updateFallingDetection, 200); // every 200ms
-    // } else if (!window.fallingDetectionEnabled && fallingIntervalId) {
-    //   clearInterval(fallingIntervalId);
-    //   fallingIntervalId = null;
-    //   document.getElementById("status").innerText = "Not detecting falling.";
-    // }
+      // //=========================================//
+      // // Rain detection
+      // if (window.rainDetectionEnabled && !rainIntervalId) {
+      //   rainIntervalId = setInterval(updateRainDetection, 200); // every 200ms
+      // } else if (!window.rainDetectionEnabled && rainIntervalId) {
+      //   clearInterval(rainIntervalId);
+      //   rainIntervalId = null;
+      //   document.getElementById("status").innerText = "Not detecting rain.";
+      // }
 
-    // //=========================================//
-    // // Breaking detection
-    // if (window.breakingDetectionEnabled && !breakingIntervalId) {
-    //   breakingIntervalId = setInterval(updateBreakingDetection, 200); // every 200ms
-    // } else if (!window.breakingDetectionEnabled && breakingIntervalId) {
-    //   clearInterval(breakingIntervalId);
-    //   breakingIntervalId = null;
-    //   document.getElementById("status").innerText = "Not detecting breaking.";
-    // }
+      // //=========================================//
+      // // Falling detection
+      // if (window.fallingDetectionEnabled && !fallingIntervalId) {
+      //   fallingIntervalId = setInterval(updateFallingDetection, 200); // every 200ms
+      // } else if (!window.fallingDetectionEnabled && fallingIntervalId) {
+      //   clearInterval(fallingIntervalId);
+      //   fallingIntervalId = null;
+      //   document.getElementById("status").innerText = "Not detecting falling.";
+      // }
 
-    // //=========================================//
-    // // Sound detection
-    // if (window.soundDetectionEnabled && !soundIntervalId) {
-    //   soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
-    // } else if (!window.soundDetectionEnabled && soundIntervalId) {
-    //   clearInterval(soundIntervalId);
-    //   soundIntervalId = null;
-    //   // document.getElementById("status").innerText = "Not detecting sound.";
-    // }
+      // //=========================================//
+      // // Breaking detection
+      // if (window.breakingDetectionEnabled && !breakingIntervalId) {
+      //   breakingIntervalId = setInterval(updateBreakingDetection, 200); // every 200ms
+      // } else if (!window.breakingDetectionEnabled && breakingIntervalId) {
+      //   clearInterval(breakingIntervalId);
+      //   breakingIntervalId = null;
+      //   document.getElementById("status").innerText = "Not detecting breaking.";
+      // }
 
-    // =========================================//
-    // Check if predictions are detected persons in frame
-    // const detectedPersons = predictions.filter((p) => p.class === "person");
-    // if (detectedPersons.length > 0) {
-    //   // alert("Detected persons: " + detectedPersons.map((p) => p.id).join(", "));
-    //   console.log(
-    //     "Detected persons: " + detectedPersons.map((p) => p.id).join(", ")
-    //   );
-    // } else {
-    //   // alert("No persons detected");
-    // }
+      // //=========================================//
+      // // Sound detection
+      // if (window.soundDetectionEnabled && !soundIntervalId) {
+      //   soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
+      // } else if (!window.soundDetectionEnabled && soundIntervalId) {
+      //   clearInterval(soundIntervalId);
+      //   soundIntervalId = null;
+      //   // document.getElementById("status").innerText = "Not detecting sound.";
+      // }
 
-    //=========================================//
-    if (window.runDetectionLoop) {
-      // Request the next animation frame
-      window.animationId = requestAnimationFrame(() => detectFrame(source));
-    }
+      // =========================================//
+      // Check if predictions are detected persons in frame
+      // const detectedPersons = predictions.filter((p) => p.class === "person");
+      // if (detectedPersons.length > 0) {
+      //   // alert("Detected persons: " + detectedPersons.map((p) => p.id).join(", "));
+      //   console.log(
+      //     "Detected persons: " + detectedPersons.map((p) => p.id).join(", ")
+      //   );
+      // } else {
+      //   // alert("No persons detected");
+      // }
 
-    //=========================================//
-  });
+      //=========================================//
+      if (window.runDetectionLoop) {
+        // Request the next animation frame
+        window.animationId = requestAnimationFrame(() => detectFrame(source));
+      }
+
+      //=========================================//
+    })
+    .catch(function (err) {
+      console.error("Error during detection:", err);
+      document.getElementById("status").innerText = "Detection error: " + err;
+    });
 }
 
 // =========================================//
@@ -263,8 +269,16 @@ function drawPredictions(predictions) {
   if (!ctx || !canvas) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  // Handle null or empty predictions
+  // if (!predictions || predictions.length === 0) {
+  //   alert("No objects detected.");
+  //   return;
+  // }
+
   if (window.showBoundingBox) {
     predictions.forEach(function (prediction) {
+      // alert("Prediction: " + JSON.stringify(prediction));
+
       // ===========================================//
       // Draw bounding box
       ctx.strokeStyle = "#00FFFF";

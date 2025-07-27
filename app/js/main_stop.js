@@ -4,10 +4,12 @@ function stopButton() {
 
   const placeholder = document.getElementById("video-placeholder");
   const btnOk = document.getElementById("btn-ok");
+  const status = document.getElementById("status");
 
   // Reset the video source selection
   // document.getElementById("btn-start").style.display = "inline-block";
   // document.getElementById("btn-stop").style.display = "none";
+
   // document.getElementById("status").innerText = "Stopped";
   // document.getElementById("video-source").disabled = false;
 
@@ -52,14 +54,12 @@ function stopButton() {
   window.notificationEnabled = false;
 
   if (placeholder) placeholder.style.display = "block";
+  if (status) status.innerText = "Stopped";
 }
 
 // =========================================//
 function stopCamera() {
-  // alert("StopCamera");
-
-  // Reset all possible video elements
-  // const videoIds = ["camera", "camera_usb", "camera_ip", "stream", "video"];
+  // List all possible video/image element IDs
   const videoIds = [
     "camera-stream",
     "usb-camera-stream",
@@ -70,31 +70,29 @@ function stopCamera() {
   ];
 
   videoIds.forEach((id) => {
-    const video = document.getElementById(id);
-
-    if (video) {
-      if (video.id === "camera-stream" || video.id === "image") {
-        video.src = "";
-        video.remove();
+    const el = document.getElementById(id);
+    if (el) {
+      // Stop media tracks if present
+      if (el.srcObject && typeof el.srcObject.getTracks === "function") {
+        el.srcObject.getTracks().forEach((track) => track.stop());
+        el.srcObject = null;
       }
-
-      // If the video element has a srcObject, stop its tracks
-      if (video.srcObject && typeof video.srcObject.getTracks === "function") {
-        video.srcObject.getTracks().forEach((track) => track.stop());
-      }
-      video.srcObject = null;
-      video.pause();
+      // Pause video if possible
+      if (typeof el.pause === "function") el.pause();
+      // Clear src for <video> and <img>
+      el.src = "";
+      // Optionally remove element from DOM
+      // el.remove();
     }
   });
 
-  // Reset all possible canvas elements
+  // Clear all canvas overlays
   const canvasIds = ["canvas", "overlay"];
   canvasIds.forEach((id) => {
     const canvas = document.getElementById(id);
     if (canvas) {
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // canvas.remove();
     }
   });
 }

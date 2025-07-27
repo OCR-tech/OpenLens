@@ -52,6 +52,8 @@ window.addEventListener("DOMContentLoaded", function () {
     .then(function (loadedModel) {
       model = loadedModel;
 
+      // alert(model);
+
       initSystem();
       // requestCameraPermission(); // Request camera permission
       // requestMicrophonePermission(); // Request microphone permission
@@ -74,8 +76,7 @@ window.addEventListener("DOMContentLoaded", function () {
     })
     .catch(function (err) {
       document.getElementById("status").innerText = "Model load error: " + err;
-      console.log("Model load error:", err);
-      console.error("Model load error:", err);
+      alert("Model load error: " + err);
     });
 });
 
