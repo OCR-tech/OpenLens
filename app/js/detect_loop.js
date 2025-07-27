@@ -11,19 +11,21 @@ let fallingIntervalId = null;
 let breakingIntervalId = null;
 
 // =========================================//
-function detectFrame(source) {
+function detectFrame() {
+  // function detectFrame(source) {
   // alert("DetectFrame");
 
-  if (!model || !source) return;
+  if (!model || !video) return;
+  // if (!model || !source) return;
 
   model
-    .detect(source)
+    .detect(video)
+    // .detect(source)
     .then(function (predictions) {
       //=========================================//
       // Draw predictions on the canvas
-      // alert("Model loaded:" + model + " " + source);
-      // alert("Predictions:" + predictions);
-
+      // const objectNames = predictions.map((p) => p.class).join(", ");
+      // alert("Model loaded:" + model + " " + source + " " + predictions + objectNames);
       drawPredictions(predictions);
 
       //=========================================//
@@ -35,8 +37,8 @@ function detectFrame(source) {
       //   objectIntervalId = null;
       // }
 
-      //=========================================//
-      // Text detection
+      // //=========================================//
+      // // Text detection
       if (window.textDetectionEnabled && !textIntervalId) {
         textIntervalId = setInterval(updateTextDetection, 200); // every 200ms
       } else if (!window.textDetectionEnabled && textIntervalId) {
@@ -44,8 +46,8 @@ function detectFrame(source) {
         textIntervalId = null;
       }
 
-      //=========================================//
-      // Motion detection
+      // //=========================================//
+      // // Motion detection
       if (window.motionDetectionEnabled && !motionIntervalId) {
         // alert("Motion detection enabled");
         motionIntervalId = setInterval(updateMotionDetection, 200); // every 200ms
@@ -147,10 +149,33 @@ function detectFrame(source) {
       //   // alert("No persons detected");
       // }
 
+      // alert(window.motionDetectionEnabled + " " + window.soundDetectionEnabled);
+      // if (
+      //   !window.objectDetectionEnabled &&
+      //   !window.textDetectionEnabled &&
+      //   !window.motionDetectionEnabled &&
+      //   !window.soundDetectionEnabled &&
+      //   !window.smokeDetectionEnabled &&
+      //   !window.fireDetectionEnabled &&
+      //   !window.floodDetectionEnabled &&
+      //   !window.lightDetectionEnabled &&
+      //   !window.rainDetectionEnabled &&
+      //   !window.fallingDetectionEnabled &&
+      //   !window.breakingDetectionEnabled
+      // ) {
+      //   alert("Stopping detection loop");
+      //   window.runDetectionLoop = false;
+      //   if (window.animationId) {
+      //     cancelAnimationFrame(window.animationId);
+      //     window.animationId = null;
+      //   }
+      // }
+
       //=========================================//
       if (window.runDetectionLoop) {
         // Request the next animation frame
-        window.animationId = requestAnimationFrame(() => detectFrame(source));
+        window.animationId = requestAnimationFrame(detectFrame);
+        // window.animationId = requestAnimationFrame(() => detectFrame(source));
       }
 
       //=========================================//
@@ -263,6 +288,8 @@ function detectFrame(source) {
 // }
 
 // =========================================//
+
+//=========================================//
 function drawPredictions(predictions) {
   // alert("DrawPredictions");
 
@@ -274,10 +301,12 @@ function drawPredictions(predictions) {
       ? predictions
           .map((p) => `Detected: ${p.class} (${Math.round(p.score * 100)}%)`)
           .join(", ")
-      : "No detections";
+      : "Detecting...";
 
   if (!ctx || !canvas) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // alert(canvas + " " + ctx + " " + predictions + " " + window.showBoundingBox);
 
   if (window.showBoundingBox) {
     predictions.forEach(function (prediction) {
