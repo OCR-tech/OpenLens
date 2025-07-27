@@ -266,18 +266,23 @@ function detectFrame(source) {
 function drawPredictions(predictions) {
   // alert("DrawPredictions");
 
+  const status = document.getElementById("status");
+
+  // alert("Predictions: " + JSON.stringify(predictions));
+  status.innerText =
+    predictions.length > 0
+      ? predictions
+          .map((p) => `Detected: ${p.class} (${Math.round(p.score * 100)}%)`)
+          .join(", ")
+      : "No detections";
+
   if (!ctx || !canvas) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Handle null or empty predictions
-  // if (!predictions || predictions.length === 0) {
-  //   alert("No objects detected.");
-  //   return;
-  // }
 
   if (window.showBoundingBox) {
     predictions.forEach(function (prediction) {
       // alert("Prediction: " + JSON.stringify(prediction));
+      // ===========================================//
 
       // ===========================================//
       // Draw bounding box
