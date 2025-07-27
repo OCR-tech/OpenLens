@@ -74,7 +74,7 @@ function startIntegratedCamera() {
               document.getElementById("btn-start").style.display = "none";
               document.getElementById("btn-stop").style.display =
                 "inline-block";
-              detectFrame();
+              detectLoop();
             });
           };
         })
@@ -176,7 +176,7 @@ function startUSBCamera() {
               document.getElementById("btn-start").style.display = "none";
               document.getElementById("btn-stop").style.display =
                 "inline-block";
-              detectFrame();
+              detectLoop();
             });
           };
         })
@@ -240,7 +240,7 @@ function startIPCamera(ipCameraUrl) {
     document.getElementById("status").innerText = "Detecting...";
     document.getElementById("btn-start").style.display = "none";
     document.getElementById("btn-stop").style.display = "inline-block";
-    detectFrame();
+    detectLoop();
   };
 
   video.onerror = function () {
@@ -299,7 +299,7 @@ function startStream(ipCameraUrl) {
     ctx = canvas.getContext("2d");
     document.getElementById("status").innerText = "Detecting...";
     // Start detection loop if needed
-    detectFrame();
+    detectLoop();
   };
 
   video.onended = function () {
@@ -362,7 +362,7 @@ function startVideo(filePath) {
     document.getElementById("status").innerText = "Detecting...";
     document.getElementById("btn-start").style.display = "none";
     document.getElementById("btn-stop").style.display = "inline-block";
-    detectFrame();
+    detectLoop();
   };
 
   video.onended = function () {
@@ -448,7 +448,7 @@ function startImage(filePath) {
     document.getElementById("status").innerText = "Detecting...";
     document.getElementById("btn-start").style.display = "none";
     document.getElementById("btn-stop").style.display = "inline-block";
-    detectFrame();
+    detectLoop();
   };
 
   video.onerror = function () {
