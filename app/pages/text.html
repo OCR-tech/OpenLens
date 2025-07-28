@@ -5,7 +5,7 @@
       <textarea
         id="texts-input"
         class="texts-input"
-        rows="3"
+        rows="8"
         placeholder="Detected texts..."
         style="width: 100%; box-sizing: border-box"
       ></textarea>
@@ -15,7 +15,7 @@
         <label for="language-select" style="margin: 0">
           <select id="language-select" title="Select language">
             <option value="eng" selected>English</option>
-            <option value="tha" selected>Thai</option>
+            <option value="tha">Thai</option>
             <option value="spa">Spanish</option>
             <option value="fra">French</option>
             <option value="deu">German</option>
@@ -91,6 +91,14 @@
           onclick="clearTexts()"
         >
           Clear
+        </button>
+        <button
+          id="btn-voice-text"
+          class="button"
+          type="button"
+          onclick="voiceTexts()"
+        >
+          Voice
         </button>
       </div>
     </div>

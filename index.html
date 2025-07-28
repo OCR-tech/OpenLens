@@ -3,13 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <title>OpenLens</title>
+
     <!-- <meta name="viewport" content="width=1200, initial-scale=1.0" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <!-- Add favicon -->
     <!-- <link rel="icon" type="image/x-icon" href="img/favicon.ico" /> -->
     <link rel="icon" type="image/x-icon" href="app/img/icon.png" />
+
     <!-- Add CSS styles -->
     <link rel="stylesheet" href="app/css/styles_main.css" />
+
+    <!-- // iOS support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="app/img/icon.png" />
+
+    <!-- // Add manifest for PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#222222" />
     <!-- TensorFlow.js and COCO-SSD -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.18.0/dist/tf.min.js"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script> -->
@@ -388,5 +400,6 @@
     <script src="app/js/voice_alert.js"></script>
     <script src="app/js/voice_status.js"></script>
     <script src="app/js/include_html.js"></script>
+    <script src="app/js/service-worker.js"></script>
   </body>
 </html>

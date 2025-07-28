@@ -103,11 +103,12 @@ function updateTesseract(canvas) {
       if (!text || text.trim() === "") {
         status.innerText = "No text detected";
         textsInput.value = "";
-      } else if (text.length > 1000) {
-        status.innerText = "Detected text";
-        textsInput.value = text;
+        // } else if (text.length > 1000) {
+        //   status.innerText = "Detected text";
+        //   textsInput.value = text;
         // textsInput.value = text.substring(0, 1000);
       } else {
+        text = processTexts(text);
         status.innerText = "Detected text";
         textsInput.value = text;
         // window.textDetectionEnabled = false;
@@ -117,6 +118,30 @@ function updateTesseract(canvas) {
     .catch((error) => {
       console.error("Error during OCR:", error);
     });
+}
+
+// =========================================//
+// Function to process the text input
+function processTexts(text) {
+  let processedText = text.replace(/\s+/g, " ").trim();
+  processedText = processedText.replace(/([.,!?])\s+/g, "$1 "); // Ensure space after punctuation
+  processedText = processedText.replace(/\s([.,!?])/g, "$1"); // Remove space before punctuatio
+  processedText = processedText.replace(/[^a-zA-Z0-9\s.,!?]/g, ""); // Remove non-alphanumeric characters except for punctuation
+  processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
+  processedText = processedText.replace(/^\s+|\s+$/g, ""); // Trim leading and trailing spaces
+  processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
+
+  // Check words with dictionary
+  processedText = lookupWordsDict(processedText);
+
+  return processedText;
+}
+
+// =========================================//
+function lookupWordsDict(processedText) {
+  // alert("lookupWordsDict");
+
+  return processedText;
 }
 
 // =========================================//
