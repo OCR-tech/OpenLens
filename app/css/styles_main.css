@@ -390,6 +390,11 @@ input {
   color: #888;
   cursor: auto;
 }
+button:disabled,
+button[disabled] {
+  background-color: #cccccc;
+  color: #888888;
+}
 .spinbox-group {
   width: 100%;
   max-width: 250px;

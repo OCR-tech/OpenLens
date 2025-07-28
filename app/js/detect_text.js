@@ -8,7 +8,7 @@ function toggleTextDetection() {
 
   if (!textSwitch) return;
 
-  window.textDetectionEnabled = textSwitch.checked;
+  // window.textDetectionEnabled = textSwitch.checked;
   groupFrameText.style.display = textSwitch.checked ? "flex" : "none";
 
   if (window.voiceStatusEnabled) {
@@ -92,7 +92,7 @@ function updateTesseract(canvas) {
   const textsInput = document.getElementById("texts-input");
   const status = document.getElementById("status");
   const languageSelect = document.getElementById("language-select");
-
+  const detectTextButton = document.getElementById("btn-detect-text");
   if (!canvas || !textsInput || !status || !languageSelect) return;
 
   // Get selected language from dropdown, default to "eng"
@@ -101,7 +101,7 @@ function updateTesseract(canvas) {
   Tesseract.recognize(canvas.toDataURL("image/png"), lang)
     .then(({ data: { text } }) => {
       if (!text || text.trim() === "") {
-        status.innerText = "No text detected";
+        // status.innerText = "No text detected";
         textsInput.value = "";
         // } else if (text.length > 1000) {
         //   status.innerText = "Detected text";
@@ -109,11 +109,11 @@ function updateTesseract(canvas) {
         // textsInput.value = text.substring(0, 1000);
       } else {
         text = processTexts(text);
-        status.innerText = "Detected text";
+        status.innerText = "Detecting text: Done";
         textsInput.value = text;
-        // window.textDetectionEnabled = false;
       }
       window.textDetectionEnabled = false;
+      detectTextButton.disabled = false;
     })
     .catch((error) => {
       console.error("Error during OCR:", error);
@@ -153,9 +153,12 @@ function lookupWordsDict(processedText) {
 // =========================================//
 function detectTexts() {
   const status = document.getElementById("status");
+  const detectTextButton = document.getElementById("btn-detect-text");
   if (!status) return;
   status.innerText = "Detecting text...";
   window.textDetectionEnabled = true;
+  detectTextButton.disabled = true;
+  // clearTexts();
 }
 
 // =========================================//
