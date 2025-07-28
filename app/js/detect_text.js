@@ -165,7 +165,7 @@ function detectTexts() {
 function pauseTexts() {
   const status = document.getElementById("status");
   if (!status) return;
-  status.innerText = "Paused.";
+  status.innerText = "Paused";
   window.textDetectionEnabled = false;
 }
 
@@ -225,6 +225,6 @@ function clearTexts() {
   if (textarea) {
     textarea.value = "";
     const status = document.getElementById("status");
-    if (status) status.innerText = "Text cleared!";
+    if (status) status.innerText = "Cleared";
   }
 }
