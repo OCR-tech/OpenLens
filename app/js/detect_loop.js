@@ -9,6 +9,7 @@ let lightIntervalId = null;
 let rainIntervalId = null;
 let fallingIntervalId = null;
 let breakingIntervalId = null;
+let timeInterval = 50; // 50ms
 
 // =========================================//
 function detectLoop() {
@@ -70,7 +71,7 @@ function detectLoop() {
     //=========================================//
     // Text detection
     if (window.textDetectionEnabled && !textIntervalId) {
-      textIntervalId = setInterval(updateTextDetection, 200); // every 200ms
+      textIntervalId = setInterval(updateTextDetection, timeInterval);
     } else if (!window.textDetectionEnabled && textIntervalId) {
       clearInterval(textIntervalId);
       textIntervalId = null;
@@ -80,7 +81,7 @@ function detectLoop() {
     // Motion detection
     if (window.motionDetectionEnabled && !motionIntervalId) {
       // alert("Motion detection enabled");
-      motionIntervalId = setInterval(updateMotionDetection, 200); // every 200ms
+      motionIntervalId = setInterval(updateMotionDetection, timeInterval);
     } else if (!window.motionDetectionEnabled && motionIntervalId) {
       clearInterval(motionIntervalId);
       motionIntervalId = null;
@@ -90,7 +91,7 @@ function detectLoop() {
     //=========================================//
     // Smoke detection
     if (window.smokeDetectionEnabled && !smokeIntervalId) {
-      smokeIntervalId = setInterval(updateSmokeDetection, 200); // every 200ms
+      smokeIntervalId = setInterval(updateSmokeDetection, timeInterval);
     } else if (!window.smokeDetectionEnabled && smokeIntervalId) {
       clearInterval(smokeIntervalId);
       smokeIntervalId = null;
@@ -100,7 +101,7 @@ function detectLoop() {
     // //=========================================//
     // // Fire detection
     // if (window.fireDetectionEnabled && !fireIntervalId) {
-    //   fireIntervalId = setInterval(updateFireDetection, 200); // every 200ms
+    //   fireIntervalId = setInterval(updateFireDetection, timeInterval);
     // } else if (!window.fireDetectionEnabled && fireIntervalId) {
     //   clearInterval(fireIntervalId);
     //   fireIntervalId = null;
@@ -110,7 +111,7 @@ function detectLoop() {
     // //=========================================//
     // // Flood detection
     // if (window.floodDetectionEnabled && !floodIntervalId) {
-    //   floodIntervalId = setInterval(updateFloodDetection, 200); // every 200ms
+    //   floodIntervalId = setInterval(updateFloodDetection, timeInterval);
     // } else if (!window.floodDetectionEnabled && floodIntervalId) {
     //   clearInterval(floodIntervalId);
     //   floodIntervalId = null;
@@ -120,7 +121,7 @@ function detectLoop() {
     // //=========================================//
     // // Light detection
     // if (window.lightDetectionEnabled && !lightIntervalId) {
-    //   lightIntervalId = setInterval(updateLightDetection, 200); // every 200ms
+    //   lightIntervalId = setInterval(updateLightDetection, timeInterval);
     // } else if (!window.lightDetectionEnabled && lightIntervalId) {
     //   clearInterval(lightIntervalId);
     //   lightIntervalId = null;
@@ -130,7 +131,7 @@ function detectLoop() {
     // //=========================================//
     // // Rain detection
     // if (window.rainDetectionEnabled && !rainIntervalId) {
-    //   rainIntervalId = setInterval(updateRainDetection, 200); // every 200ms
+    //   rainIntervalId = setInterval(updateRainDetection, timeInterval);
     // } else if (!window.rainDetectionEnabled && rainIntervalId) {
     //   clearInterval(rainIntervalId);
     //   rainIntervalId = null;
@@ -140,7 +141,7 @@ function detectLoop() {
     // //=========================================//
     // // Falling detection
     // if (window.fallingDetectionEnabled && !fallingIntervalId) {
-    //   fallingIntervalId = setInterval(updateFallingDetection, 200); // every 200ms
+    //   fallingIntervalId = setInterval(updateFallingDetection, timeInterval);
     // } else if (!window.fallingDetectionEnabled && fallingIntervalId) {
     //   clearInterval(fallingIntervalId);
     //   fallingIntervalId = null;
@@ -150,7 +151,7 @@ function detectLoop() {
     // //=========================================//
     // // Breaking detection
     // if (window.breakingDetectionEnabled && !breakingIntervalId) {
-    //   breakingIntervalId = setInterval(updateBreakingDetection, 200); // every 200ms
+    //   breakingIntervalId = setInterval(updateBreakingDetection, timeInterval);
     // } else if (!window.breakingDetectionEnabled && breakingIntervalId) {
     //   clearInterval(breakingIntervalId);
     //   breakingIntervalId = null;
@@ -160,7 +161,7 @@ function detectLoop() {
     // //=========================================//
     // // Sound detection
     // if (window.soundDetectionEnabled && !soundIntervalId) {
-    //   soundIntervalId = setInterval(updateSoundDetection, 200); // every 200ms
+    //   soundIntervalId = setInterval(updateSoundDetection, timeInterval);
     // } else if (!window.soundDetectionEnabled && soundIntervalId) {
     //   clearInterval(soundIntervalId);
     //   soundIntervalId = null;
@@ -274,7 +275,7 @@ function drawOverlays() {
 //       // alert("Motion detection enabled");
 //       // setupMotionDetectionInterval();
 //       // updateMotionDetection();
-//       setInterval(updateMotionDetection, 200); // every 200ms
+//       setInterval(updateMotionDetection, timeInterval);
 //     }
 
 //     //=========================================//
@@ -304,7 +305,7 @@ function drawOverlays() {
 //     //   // alert("Fire detection enabled");
 //     //   // setupFireDetectionInterval();
 //     //   // updateFireDetection();
-//     //   setInterval(updateFireDetection, 200); // every 200ms
+//     //   setInterval(updateFireDetection, timeInterval);
 //     // }
 
 //     //=========================================//
@@ -333,14 +334,16 @@ function drawPredictions(predictions) {
   // alert("DrawPredictions");
 
   const status = document.getElementById("status");
+  if (!ctx || !canvas) return;
 
   // alert("Predictions: " + JSON.stringify(predictions));
-  status.innerText =
-    predictions.length > 0
-      ? predictions
-          .map((p) => `Detected: ${p.class} (${Math.round(p.score * 100)}%)`)
-          .join(", ")
-      : "Detecting...";
+
+  // status.innerText =
+  //   predictions.length > 0
+  //     ? predictions
+  //         .map((p) => `Detected: ${p.class} (${Math.round(p.score * 100)}%)`)
+  //         .join(", ")
+  //     : "Detecting...";
 
   if (window.showBoundingBox) {
     predictions.forEach(function (prediction) {

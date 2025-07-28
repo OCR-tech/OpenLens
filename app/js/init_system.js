@@ -136,6 +136,8 @@ function initUI() {
     "btn-capture",
     "btn-overlay1",
     "btn-overlay2",
+    "btn-frame1",
+    "btn-frame2",
     "btn-record",
     "btn-reset",
     "datetime-switch",
