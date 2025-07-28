@@ -21,7 +21,7 @@ function detectLoop() {
 
   // Check if loop is running
   if (!window.runDetectionLoop) {
-    alert("Stopping detection loop");
+    // alert("Stopping detection loop");
     if (window.animationId) {
       cancelAnimationFrame(window.animationId);
       window.animationId = null;
