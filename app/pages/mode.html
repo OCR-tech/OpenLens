@@ -1,24 +1,61 @@
 <div class="container-section" style="margin: 0; padding: 5px">
   <div class="video-source-section">
     <div class="mode-section">
-      <!-- input for mode selection -->
-      <label for="mode-select">
-        <select id="mode-select" title="Select mode">
-          <option value="auto" selected>Auto</option>
-          <option value="manual">Manual</option>
-          <option value="custom">Custom</option>
-        </select>
-      </label>
+      <div class="controls-section">
+        <!-- mode selection -->
+        <div class="mode-row">
+          <label for="mode-select" title="Mode Selection">Mode Selection</label>
+          <label for="mode-select">
+            <select id="mode-select" title="Select mode">
+              <option value="auto" selected>Auto</option>
+              <option value="manual">Manual</option>
+              <option value="custom">Custom</option>
+            </select>
+          </label>
 
-      <!-- button -->
-      <button
-        id="btn-mode-ok"
-        class="button-ok"
-        type="button"
-        onclick="okMode()"
-      >
-        OK
-      </button>
+          <!-- button -->
+          <button
+            id="btn-mode-ok"
+            class="button-ok"
+            type="button"
+            onclick="okMode()"
+          >
+            OK
+          </button>
+        </div>
+
+        <!-- Object Detection Settings -->
+        <div class="mode-row">
+          <label for="object-switch" title="Detects objects."
+            >Object Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="object-switch"
+              title="Toggle object detection"
+              placeholder="Toggle object detection"
+              onclick="toggleObjectDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- Text Detection Settings -->
+        <div class="mode-row">
+          <label for="text-switch" title="Detects text.">Text Detection</label>
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="text-switch"
+              title="Toggle text detection"
+              placeholder="Toggle text detection"
+              onclick="toggleTextDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
     </div>
   </div>
 </div>

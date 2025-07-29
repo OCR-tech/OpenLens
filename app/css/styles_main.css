@@ -413,7 +413,8 @@ button[disabled] {
   max-width: 100%;
   box-sizing: border-box;
 }
-.settings-row {
+.settings-row,
+.mode-row {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -422,7 +423,6 @@ button[disabled] {
 }
 #video-source,
 #ip-camera-url {
-  /* width: 100%; */
   width: 200px;
   /* width: 100%; */
   /* min-width: 200px; */
@@ -502,7 +502,8 @@ button[disabled] {
   gap: 0px;
 }
 
-.settings-row label {
+.settings-row label,
+.mode-row label {
   /* width: 100px; */
   margin: 0 0 5px 0;
   /* background-color: rgb(228, 228, 228); */
@@ -829,7 +830,8 @@ body.dark-mode .controls-section button:disabled {
   .button-browse {
     width: 100%;
   }
-  .settings-row {
+  .settings-row,
+  .mode-row {
     flex-direction: row;
     align-items: center;
     gap: 8px;
