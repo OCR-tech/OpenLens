@@ -338,12 +338,12 @@ function drawPredictions(predictions) {
 
   // alert("Predictions: " + JSON.stringify(predictions));
 
-  // status.innerText =
-  //   predictions.length > 0
-  //     ? predictions
-  //         .map((p) => `Detected: ${p.class} (${Math.round(p.score * 100)}%)`)
-  //         .join(", ")
-  //     : "Detecting...";
+  status.innerText =
+    predictions.length > 0
+      ? predictions
+          .map((p) => `Detected: ${p.class} (${Math.round(p.score * 100)}%)`)
+          .join(", ")
+      : "Detecting...";
 
   if (window.showBoundingBox) {
     predictions.forEach(function (prediction) {
