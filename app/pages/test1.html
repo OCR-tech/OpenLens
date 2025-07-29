@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Country Multi-Select</title>
+    <style>
+      .flag-option {
+        font-size: 1.1em;
+      }
+    </style>
+  </head>
+  <body>
+    <select id="countrySelector" style="width: 240px"></select>
+
+    <script>
+      // List of countries with flag emojis
+      const countries = [
+        { code: "US", name: "United States", flag: "🇺🇸" },
+        { code: "CA", name: "Canada", flag: "🇨🇦" },
+        { code: "GB", name: "United Kingdom", flag: "🇬🇧" },
+        { code: "AU", name: "Australia", flag: "🇦🇺" },
+        { code: "IN", name: "India", flag: "🇮🇳" },
+        { code: "DE", name: "Germany", flag: "🇩🇪" },
+        { code: "FR", name: "France", flag: "🇫🇷" },
+        { code: "JP", name: "Japan", flag: "🇯🇵" },
+        { code: "CN", name: "China", flag: "🇨🇳" },
+        { code: "BR", name: "Brazil", flag: "🇧🇷" },
+      ];
+
+      // Add a single "Select a country" option at the top
+      const select = document.getElementById("countrySelector");
+      const topOption = document.createElement("option");
+      topOption.disabled = true;
+      topOption.selected = true;
+      topOption.textContent = "🌍 Select country/countries";
+      select.appendChild(topOption);
+
+      // Populate the dropdown with country options
+      countries.forEach((country) => {
+        const option = document.createElement("option");
+        option.value = country.code;
+        option.textContent = `${country.flag} ${country.name}`;
+        option.className = "flag-option";
+        select.appendChild(option);
+      });
+    </script>
+  </body>
+</html>
