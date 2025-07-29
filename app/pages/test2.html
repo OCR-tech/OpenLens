@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.16.0/dist/css/coreui.min.css"
+      rel="stylesheet"
+    />
+    <title>CoreUI Multi Select Example</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.16.0/dist/js/coreui.bundle.min.js"
+    ></script>
+  </head>
+  <body class="p-3 m-0 border-0 docs-example m-0 border-0">
+    <!-- Example Code Start-->
+    <select
+      class="form-multi-select"
+      id="ms1"
+      multiple
+      data-coreui-search="global"
+    >
+      <option value="0">Angular</option>
+      <option value="1">Bootstrap</option>
+      <option value="2">React.js</option>
+      <option value="3">Vue.js</option>
+      <optgroup label="backend">
+        <option value="4">Django</option>
+        <option value="5">Laravel</option>
+        <option value="6">Node.js</option>
+      </optgroup>
+    </select>
+    <!-- Example Code End -->
+  </body>
+</html>
