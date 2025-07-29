@@ -2,13 +2,14 @@
 // OBJECT DETECTION FUNCTIONS
 function toggleObjectDetection() {
   // alert("toggleObjectDetection");
+
   const groupFrameObject = document.getElementById("group-frame-object");
   const objectSwitch = document.getElementById("object-switch");
   const objectStatus = document.getElementById("object-status");
 
   if (!objectSwitch) return;
 
-  // window.objectDetectionEnabled = objectSwitch.checked;
+  window.objectDetectionEnabled = objectSwitch.checked;
   groupFrameObject.style.display = objectSwitch.checked ? "flex" : "none";
 
   if (window.voiceStatusEnabled) {

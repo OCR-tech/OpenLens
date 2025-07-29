@@ -126,10 +126,6 @@ function processTexts(text) {
   let processedText = text.replace(/\s+/g, " ").trim();
   processedText = processedText.replace(/([.,!?])\s+/g, "$1 "); // Ensure space after punctuation
   processedText = processedText.replace(/\s([.,!?])/g, "$1"); // Remove space before punctuation
-  processedText = processedText.replace(
-    /[^a-zA-Z0-9\s.,:!@#$%&*()_+={}/]/g,
-    ""
-  ); // Remove non-alphanumeric characters except for punctuation
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
   processedText = processedText.replace(/^\s+|\s+$/g, ""); // Trim leading and trailing spaces
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
