@@ -2,13 +2,14 @@
 // OBJECT DETECTION FUNCTIONS
 function toggleObjectDetection() {
   // alert("toggleObjectDetection");
-
+  const groupFrameObject = document.getElementById("group-frame-object");
   const objectSwitch = document.getElementById("object-switch");
   const objectStatus = document.getElementById("object-status");
 
   if (!objectSwitch) return;
 
-  window.objectDetectionEnabled = objectSwitch.checked;
+  // window.objectDetectionEnabled = objectSwitch.checked;
+  groupFrameObject.style.display = objectSwitch.checked ? "flex" : "none";
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus(
@@ -30,6 +31,7 @@ function toggleObjectDetection() {
 function setObjectDetectionMode(mode) {
   // alert("setObjectDetectionMode: " + mode);
 
+  const groupFrameObject = document.getElementById("group-frame-object");
   const objectSwitch = document.getElementById("object-switch");
   const objectStatus = document.getElementById("object-status");
 
@@ -43,6 +45,11 @@ function setObjectDetectionMode(mode) {
       mode === "on"
         ? 'Object: <b style="color:green">o</b>'
         : 'Object: <b style="color:blue">-</b>';
+  }
+
+  if (groupFrameObject) {
+    groupFrameObject.style.display =
+      objectSwitch && objectSwitch.checked ? "flex" : "none";
   }
 
   localStorage.setItem("objectDetectionMode", mode);
@@ -74,7 +81,7 @@ function updateObjectDetection() {
     canvas.height = source.naturalHeight;
     source.crossOrigin = "anonymous";
   } else {
-    document.getElementById("status").innerText = "No video found";
+    document.getElementById("status").innerText = "No video/image found";
     return;
   }
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);

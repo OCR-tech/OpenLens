@@ -1,0 +1,40 @@
+<div class="container-section" style="margin: 0; padding: 5px">
+  <div class="video-source-section">
+    <div class="object-section">
+      <!-- input for detected objects -->
+      <objectarea
+        id="objects-input"
+        class="objects-input"
+        rows="8"
+        placeholder="Detected objects..."
+        style="width: 100%; box-sizing: border-box"
+      ></objectarea>
+
+      <div class="row-object">
+        <!-- Row 1: Language select -->
+        <label for="object-class-select" style="margin: 0">
+          <select
+            id="object-class-select"
+            class="object-class-select"
+            title="Select object class"
+          >
+            <option value="person" selected>Person</option>
+            <option value="car">Car</option>
+            <option value="bicycle">Bicycle</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="row-object">
+        <!-- Row 2: Buttons -->
+        <button id="btn-detect-object" type="button" onclick="detectobjects()">
+          Detect
+        </button>
+      </div>
+
+      <!-- // Output area for detected objects -->
+    </div>
+  </div>
+</div>

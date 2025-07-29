@@ -259,6 +259,7 @@ input {
 .group-frame-mode,
 .group-frame-status,
 .group-frame-text,
+.group-frame-object,
 .group-frame-command,
 .group-frame-voice,
 .group-frame-detect,
@@ -283,6 +284,7 @@ input {
 .group-frame-mode label,
 .group-frame-status label,
 .group-frame-text label,
+.group-frame-object label,
 .group-frame-command label,
 .group-frame-voice label,
 .group-frame-detect label,
@@ -303,7 +305,8 @@ input {
 .source-section,
 .mode-section,
 .status-section,
-.text-section {
+.text-section,
+.object-section {
   font-size: 1em;
   gap: 0px;
   margin: 0;
@@ -332,7 +335,8 @@ input {
 .source-section input,
 .mode-section input,
 .status-section input,
-.text-section input {
+.text-section input,
+.object-section input {
   /* width: 100%; */
   /* max-width: 200px; */
   padding: 8px;
@@ -347,7 +351,8 @@ input {
 .source-section button,
 .mode-section button,
 .status-section button,
-.text-section button {
+.text-section button,
+.object-section button {
   width: auto;
   min-width: 120px;
   margin: 5px;
@@ -377,9 +382,9 @@ input {
 .mode-section .button-ok,
 .mode-section .button-browse,
 .status-section .button-ok,
-.status-section .button-browse,
-.text-section .button-ok,
-.text-section .button-browse {
+.status-section .button-browse {
+  /* .text-section .button-ok,
+.text-section .button-browse { */
   display: none;
   flex: none;
   font-size: 1em;
@@ -467,7 +472,8 @@ button[disabled] {
 .source-section,
 .mode-section,
 .status-section,
-.text-section {
+.text-section,
+.object-section {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -770,7 +776,8 @@ body.dark-mode .controls-section button:disabled {
   .source-section,
   .mode-section,
   .status-section,
-  .text-section {
+  .text-section,
+  .object-section {
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
@@ -782,6 +789,7 @@ body.dark-mode .controls-section button:disabled {
   .group-frame-source,
   .group-frame-mode,
   .group-frame-text,
+  .group-frame-object,
   .group-frame-status,
   .group-frame-command,
   .group-frame-voice,
@@ -817,7 +825,8 @@ body.dark-mode .controls-section button:disabled {
   .source-section,
   .mode-section,
   .status-section,
-  .text-section {
+  .text-section,
+  .object-section {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
@@ -870,7 +879,8 @@ body.dark-mode .controls-section button:disabled {
     align-items: center;
     justify-content: center;
   }
-  .text-section button {
+  .text-section button,
+  .object-section button {
     font-size: 0.8em;
     width: 100%;
   }
@@ -878,7 +888,8 @@ body.dark-mode .controls-section button:disabled {
     width: 100%;
     max-width: 100%;
   }
-  .text-section .row-text select {
+  .text-section .row-text select,
+  .object-section .row-text select {
     font-size: 1.2em;
     width: 100%;
     max-width: 100%;
