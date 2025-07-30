@@ -220,7 +220,7 @@ input {
 .mode-mode-text,
 .status-mode-text {
   margin-left: 5px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-size: 1em;
   font-weight: bold;
   color: #2980b9;
@@ -237,7 +237,8 @@ input {
   /* Adjusted for horizontal layout */
   /* Adjusted for horizontal layout */
   /* aspect-ratio: 16/9; */
-  aspect-ratio: 16/5;
+  /* aspect-ratio: 16/5; */
+  aspect-ratio: 16/3;
   /* aspect-ratio: 16/1; */
   /* Adjusted for horizontal layout */
   /* Adjusted for horizontal layout */
