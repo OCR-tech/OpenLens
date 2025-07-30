@@ -189,12 +189,13 @@ input {
 .voice-columns {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 16px;
   justify-content: space-between;
 }
 .voice-col {
   display: flex;
   flex-direction: column;
+  flex: 1 1 30%;
   align-items: center;
   background: #f8f8f8;
   border-radius: 8px;
@@ -207,15 +208,19 @@ input {
 }
 .screen-label,
 .theme-label,
-.source-label {
+.source-label,
+.mode-label,
+.status-label {
   font-weight: bold;
   margin-right: 8px;
 }
 .screen-mode-text,
 .theme-mode-text,
-.source-mode-text {
+.source-mode-text,
+.mode-mode-text,
+.status-mode-text {
   margin-left: 5px;
-  margin-right: 0px;
+  margin-bottom: 8px;
   font-size: 1em;
   font-weight: bold;
   color: #2980b9;
@@ -715,20 +720,6 @@ body.dark-mode .controls-section button:disabled {
   .video-source-section {
     font-size: 0.8em;
   }
-
-  .voice-columns {
-    /* flex-direction: column; */
-    gap: 12px;
-    justify-content: center;
-    align-items: center;
-  }
-  .voice-col {
-    min-width: 180px;
-    max-width: 100%;
-    min-width: 0;
-    margin-bottom: 0;
-    padding: 12px 8px;
-  }
   .row-tile {
     gap: 8px;
   }
@@ -844,16 +835,6 @@ body.dark-mode .controls-section button:disabled {
     flex-direction: row;
     align-items: center;
     gap: 8px;
-  }
-  .voice-columns {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .voice-col {
-    width: 100%;
-    min-width: 0;
-    margin-bottom: 0;
-    padding: 10px 4px;
   }
   .switch {
     width: 44px;
