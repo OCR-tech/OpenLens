@@ -27,7 +27,50 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         el.innerHTML = data;
 
-        // Attach handler after include (example for video source/unit)
+        // ==========================================//
+        // Only run this block for text.html includes
+        if (file.endsWith("text.html")) {
+          const dropdown = document.getElementById("languageDropdown");
+          if (!dropdown) return;
+
+          const checkboxInputs = dropdown.querySelectorAll(
+            '.multi-options-box input[type="checkbox"]'
+          );
+          const dropdownSelect = dropdown.querySelector(".dropdown-select");
+
+          function toggleDropdown() {
+            dropdown.classList.toggle("open");
+          }
+          window.toggleDropdown = toggleDropdown; // So HTML onclick can call it
+
+          function updateSelectedLanguages() {
+            let selected = [];
+            checkboxInputs.forEach((input) => {
+              if (input.checked) selected.push(input.value);
+            });
+            dropdownSelect.textContent = selected.length
+              ? selected.join(", ")
+              : "Select Languages...";
+          }
+
+          checkboxInputs.forEach((input) => {
+            input.addEventListener("change", updateSelectedLanguages);
+          });
+
+          // Only add the document click handler once
+          if (!window._languageDropdownClickHandlerAdded) {
+            document.addEventListener("click", function (e) {
+              const dropdown = document.getElementById("languageDropdown");
+              if (dropdown && !dropdown.contains(e.target)) {
+                dropdown.classList.remove("open");
+              }
+            });
+            window._languageDropdownClickHandlerAdded = true;
+          }
+        }
+
+        // ==========================================//
+        // Restore video source selection
         if (el.id === "group-frame-source") {
           const selectVideo = el.querySelector("#video-source");
           const selectUnit = el.querySelector("#video-unit");
@@ -39,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
             selectUnit.onchange = updateVideoUnit;
           }
         }
+
         // Load next include
         loadIncludesSync(index + 1);
       })

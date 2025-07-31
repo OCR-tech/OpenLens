@@ -5,10 +5,24 @@
       <textarea
         id="texts-input"
         class="texts-input"
-        rows="8"
+        rows="1"
         placeholder="Detected texts..."
         style="width: 100%; box-sizing: border-box"
       ></textarea>
+
+      <!-- // Row 3: Status -->
+      <div class="row-text">
+        <div class="dropdown" id="languageDropdown">
+          <div class="dropdown-select" onclick="toggleDropdown()">
+            Select Languages...
+          </div>
+          <div class="multi-options-box">
+            <label><input type="checkbox" value="English" /> English</label>
+            <label><input type="checkbox" value="Thai" /> Thai</label>
+            <label><input type="checkbox" value="Spanish" /> Spanish</label>
+          </div>
+        </div>
+      </div>
 
       <!-- Row 1: Language select -->
       <div class="row-text">
@@ -16,7 +30,7 @@
           <select id="language-select" title="Select language">
             <option value="eng">English</option>
             <option value="tha" selected>Thai</option>
-            <option value="spa">Spanish</option>
+            <!-- <option value="spa">Spanish</option>
             <option value="fra">French</option>
             <option value="deu">German</option>
             <option value="chi_sim">Chinese (Simplified)</option>
@@ -37,7 +51,7 @@
             <option value="ron">Romanian</option>
             <option value="swe">Swedish</option>
             <option value="fin">Finnish</option>
-            <option value="hun">Hungarian</option>
+            <option value="hun">Hungarian</option> -->
           </select>
         </label>
       </div>
@@ -92,13 +106,7 @@
         </button>
       </div>
 
-      <!-- // Row 3: Status -->
-      <div class="multiselect" id="country-multiselect">
-        <div class="multiselect-selected" onclick="toggleMultiselect()">
-          Select country
-        </div>
-        <div class="multiselect-options" id="country-options"></div>
-      </div>
+      <!-- Row 1: Language select -->
 
       <!-- Row 1: Language select -->
     </div>
