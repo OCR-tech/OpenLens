@@ -34,6 +34,7 @@ function detectLoop() {
 
     //=========================================//
     // Object detection
+
     if (window.objectDetectionEnabled) {
       model.detect(video).then(function (predictions) {
         // const objectNames = predictions.map((p) => p.class).join(", ");

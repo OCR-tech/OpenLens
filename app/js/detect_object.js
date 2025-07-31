@@ -53,6 +53,8 @@ function setObjectDetectionMode(mode) {
       objectSwitch && objectSwitch.checked ? "flex" : "none";
   }
 
+  window.objectDetectionEnabled = objectSwitch.checked;
+
   localStorage.setItem("objectDetectionMode", mode);
 }
 
