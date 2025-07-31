@@ -641,18 +641,9 @@ button[disabled] {
   border-radius: 6px;
   box-sizing: border-box;
 }
-/* .multi-options-box label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  font-weight: normal;
-  padding: 5px 0px;
-} */
 .multi-options-box label {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Add this line */
   gap: 5px;
   cursor: pointer;
   font-weight: normal;
@@ -662,7 +653,7 @@ button[disabled] {
   width: 100%;
 }
 .multi-options-box label:hover {
-  background: #f0f4fa;
+  background: #dadada;
 }
 .dropdown.open .multi-options-box {
   display: block;

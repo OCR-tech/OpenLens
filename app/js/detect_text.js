@@ -185,37 +185,6 @@ function copyTexts() {
 }
 
 // =========================================//
-// function cutTexts() {
-//   const textarea = document.getElementById("texts-input");
-//   if (textarea) {
-//     if (navigator.clipboard) {
-//       navigator.clipboard
-//         .writeText(textarea.value)
-//         .then(() => {
-//           textarea.value = "";
-//           const status = document.getElementById("status");
-//           if (status) status.innerText = "Cut to clipboard!";
-//         })
-//         .catch(() => {
-//           const status = document.getElementById("status");
-//           if (status) status.innerText = "Failed to cut text!";
-//         });
-//     }
-//   }
-// }
-
-// =========================================//
-// function selectallTexts() {
-//   const textarea = document.getElementById("texts-input");
-//   if (textarea) {
-//     textarea.select();
-//     textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
-//     const status = document.getElementById("status");
-//     if (status) status.innerText = "Text selected!";
-//   }
-// }
-
-// =========================================//
 function clearTexts() {
   const textarea = document.getElementById("texts-input");
   if (textarea) {
@@ -223,4 +192,39 @@ function clearTexts() {
     const status = document.getElementById("status");
     if (status) status.innerText = "Cleared";
   }
+}
+
+// =========================================//
+function csvTexts() {
+  const textarea = document.getElementById("texts-input");
+  const status = document.getElementById("status");
+  if (!textarea || !textarea.value.trim()) {
+    if (status) status.innerText = "No detected text to export.";
+    return;
+  }
+
+  // Split text into rows (by newline or period, adjust as needed)
+  const rows = textarea.value
+    .split(/\r?\n|(?<=\.)\s+/)
+    .map((line) => [line.trim()])
+    .filter((row) => row[0]);
+
+  // Convert rows to CSV format
+  const csvContent = rows
+    .map((row) => row.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(","))
+    .join("\r\n");
+
+  // Create a Blob and trigger download
+  const blob = new Blob([csvContent], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "detected_text.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  if (status) status.innerText = "Spreadsheet created!";
 }

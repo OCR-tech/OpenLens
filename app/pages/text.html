@@ -11,16 +11,14 @@
       ></textarea>
 
       <!-- // Row 3: Status -->
-      <div class="row-text">
-        <div class="dropdown" id="languageDropdown">
-          <div class="dropdown-select" onclick="toggleDropdown()">
-            Select Languages...
-          </div>
-          <div class="multi-options-box">
-            <label><input type="checkbox" value="English" /> English</label>
-            <label><input type="checkbox" value="Thai" /> Thai</label>
-            <label><input type="checkbox" value="Spanish" /> Spanish</label>
-          </div>
+      <div class="dropdown" id="languageDropdown">
+        <div class="dropdown-select" onclick="toggleDropdown()">
+          Select Languages...
+        </div>
+        <div class="multi-options-box">
+          <label><input type="checkbox" value="English" /> English</label>
+          <label><input type="checkbox" value="Thai" /> Thai</label>
+          <label><input type="checkbox" value="Spanish" /> Spanish</label>
         </div>
       </div>
 
@@ -96,6 +94,9 @@
           onclick="translateTexts()"
         >
           Translate
+        </button>
+        <button id="btn-csv-text" type="button" onclick="csvTexts()">
+          CSV
         </button>
         <button
           id="btn-spreadsheet-text"
