@@ -82,6 +82,9 @@ function updateTextDetection() {
 
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
+  // redBoxes = detectRedBoxesInImage(canvas);
+  // alert("Red boxes detected: " + redBoxes.length + " + " + redBoxes);
+  detectRedBoxesInImage(canvas);
   updateTesseract(canvas);
 }
 
