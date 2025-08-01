@@ -5,6 +5,7 @@ const languages = [
   { value: "ara", label: "Arabic" },
   { value: "ces", label: "Czech" },
   { value: "chi_sim", label: "Chinese (Simplified)" },
+  { value: "chi_tra", label: "Chinese (Traditional)" },
   { value: "deu", label: "German" },
   { value: "ell", label: "Greek" },
   { value: "fin", label: "Finnish" },
@@ -12,8 +13,10 @@ const languages = [
   { value: "heb", label: "Hebrew" },
   { value: "hin", label: "Hindi" },
   { value: "hun", label: "Hungarian" },
+  { value: "ind", label: "Indonesian" },
   { value: "ita", label: "Italian" },
   { value: "jpn", label: "Japanese" },
+  { value: "jpn_vert", label: "Japanese (Vertical)" },
   { value: "kor", label: "Korean" },
   { value: "nld", label: "Dutch" },
   { value: "pol", label: "Polish" },
@@ -23,6 +26,7 @@ const languages = [
   { value: "spa", label: "Spanish" },
   { value: "swe", label: "Swedish" },
   { value: "tur", label: "Turkish" },
+  { value: "ukr", label: "Ukrainian" },
   { value: "vie", label: "Vietnamese" },
   // Add more as needed
 ];
