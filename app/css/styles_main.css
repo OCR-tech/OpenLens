@@ -598,7 +598,7 @@ button[disabled] {
 
 /* Dropdown styles for Language selection */
 .dropdown {
-  width: 250px;
+  width: 200px;
   position: relative;
 }
 .dropdown-select {
@@ -644,6 +644,7 @@ button[disabled] {
 }
 .multi-options-box label {
   display: flex;
+  flex-direction: row; /* Default: checkbox left, label right */
   align-items: center;
   justify-content: flex-start;
   gap: 3px;
@@ -651,8 +652,18 @@ button[disabled] {
   font-weight: normal;
   padding: 2px 0;
   margin: 1px 0;
-  width: 100%;
+  /* width: 100%; */
   text-align: left;
+  /* background-color: aqua; */
+}
+.multi-options-box label input[type="checkbox"] {
+  width: 18px; /* Set desired width */
+  height: 18px; /* Set desired height */
+  margin: 0; /* Remove negative margin */
+  padding: 0;
+  margin-right: -80px; /* Adjust this value to move checkbox left */
+  vertical-align: middle;
+  accent-color: #2980b9; /* Optional: change checkbox color in modern browsers */
 }
 
 /*=============================================*/
