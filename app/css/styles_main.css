@@ -172,9 +172,8 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
-input {
+/* input {
   display: inline-block;
-  /* width: 185px; */
   min-width: 185px;
   margin: 0;
   margin-right: 10px;
@@ -185,7 +184,7 @@ input {
   outline: none;
   transition: border-color 0.3s ease;
   font: 1em sans-serif;
-}
+} */
 .voice-columns {
   display: flex;
   flex-wrap: wrap;
@@ -539,14 +538,14 @@ button[disabled] {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+/*=============================================*/
 .status-color {
   display: inline-block;
   background-color: #dddddd;
   gap: 0;
   height: 20px;
   width: 20px;
-  /* margin: 0; */
-  /* padding: 0; */
 }
 .status-color::before {
   content: "";
@@ -556,21 +555,18 @@ button[disabled] {
   margin: 0;
   padding: 0;
 }
-
 .status-color.normal::before {
   background-color: green;
   border-color: green;
   margin: 0;
   padding: 0;
 }
-
 .status-color.warn::before {
   background-color: yellow;
   border-color: yellow;
   margin: 0;
   padding: 0;
 }
-
 .status-color.alert::before {
   background-color: red;
   border-color: red;
@@ -596,6 +592,7 @@ button[disabled] {
   justify-content: space-between;
 }
 
+/*=============================================*/
 /* Dropdown styles for Language selection */
 .dropdown {
   width: 200px;
@@ -647,21 +644,16 @@ button[disabled] {
   flex-direction: row; /* Default: checkbox left, label right */
   align-items: center;
   justify-content: flex-start;
-  gap: 3px;
+  gap: 10px;
   cursor: pointer;
   font-weight: normal;
-  padding: 2px 0;
-  margin: 1px 0;
-  /* width: 100%; */
   text-align: left;
-  /* background-color: aqua; */
 }
 .multi-options-box label input[type="checkbox"] {
   width: 18px; /* Set desired width */
   height: 18px; /* Set desired height */
-  margin: 0; /* Remove negative margin */
+  margin-left: 12px; /* Remove negative margin */
   padding: 0;
-  margin-right: -80px; /* Adjust this value to move checkbox left */
   vertical-align: middle;
   accent-color: #2980b9; /* Optional: change checkbox color in modern browsers */
 }

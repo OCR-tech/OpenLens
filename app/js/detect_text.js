@@ -201,7 +201,7 @@ function clearTexts() {
   if (textarea) {
     textarea.value = "";
     const status = document.getElementById("status");
-    if (status) status.innerText = "Cleared";
+    if (status) status.innerText = "Cleared!";
   }
 }
 
@@ -210,7 +210,7 @@ function csvTexts() {
   const textarea = document.getElementById("texts-input");
   const status = document.getElementById("status");
   if (!textarea || !textarea.value.trim()) {
-    if (status) status.innerText = "No text to export";
+    if (status) status.innerText = "No text";
     return;
   }
 
@@ -248,7 +248,7 @@ function spreadsheetTexts() {
   const textarea = document.getElementById("texts-input");
   const status = document.getElementById("status");
   if (!textarea || !textarea.value.trim()) {
-    if (status) status.innerText = "No text to export";
+    if (status) status.innerText = "No text";
     return;
   }
 
