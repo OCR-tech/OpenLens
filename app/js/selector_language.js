@@ -75,8 +75,12 @@ function getSelectedLanguages() {
   });
 
   if (selected.length === 0) {
-    // Default to English if no language is selected
     return ["eng"];
+  }
+
+  if (selected.length > 1) {
+    selected.sort();
+    alert("Multiple " + selected);
   }
 
   return selected;
