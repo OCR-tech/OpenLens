@@ -220,11 +220,51 @@ function csvTexts() {
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = "detected_text.csv";
+  a.download = "OpenLens.csv";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  if (status) status.innerText = "Spreadsheet created!";
+  if (status) status.innerText = "CSV file created!";
+}
+
+// =========================================//
+// Function to export detected text to an XLSX spreadsheet
+function spreadsheetTexts() {
+  alert("spreadsheetTexts");
+
+  const textarea = document.getElementById("texts-input");
+  const status = document.getElementById("status");
+  if (!textarea || !textarea.value.trim()) {
+    if (status) status.innerText = "No detected text to export.";
+    return;
+  }
+
+  // Split text into rows (by newline)
+  const rows = textarea.value
+    .split(/\r?\n/)
+    .map((line) => [line.trim()])
+    .filter((row) => row[0]);
+
+  // XLSX generation using SheetJS (xlsx library)
+  // Make sure xlsx.full.min.js is loaded in your HTML
+  const worksheet = XLSX.utils.aoa_to_sheet(rows);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "DetectedText");
+
+  // Create XLSX file and trigger download
+  const wbout = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+  const blob = new Blob([wbout], { type: "application/octet-stream" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "OpenLens.xlsx";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  if (status) status.innerText = "Spreadsheet file created!";
 }
