@@ -2,28 +2,28 @@
 const languages = [
   { value: "eng", label: "English" },
   { value: "tha", label: "Thai" },
-  { value: "spa", label: "Spanish" },
-  { value: "fra", label: "French" },
-  { value: "deu", label: "German" },
-  { value: "chi_sim", label: "Chinese (Simplified)" },
-  { value: "jpn", label: "Japanese" },
-  { value: "rus", label: "Russian" },
   { value: "ara", label: "Arabic" },
-  { value: "por", label: "Portuguese" },
+  { value: "ces", label: "Czech" },
+  { value: "chi_sim", label: "Chinese (Simplified)" },
+  { value: "deu", label: "German" },
+  { value: "ell", label: "Greek" },
+  { value: "fin", label: "Finnish" },
+  { value: "fra", label: "French" },
+  { value: "heb", label: "Hebrew" },
   { value: "hin", label: "Hindi" },
+  { value: "hun", label: "Hungarian" },
   { value: "ita", label: "Italian" },
+  { value: "jpn", label: "Japanese" },
   { value: "kor", label: "Korean" },
+  { value: "nld", label: "Dutch" },
+  { value: "pol", label: "Polish" },
+  { value: "por", label: "Portuguese" },
+  { value: "ron", label: "Romanian" },
+  { value: "rus", label: "Russian" },
+  { value: "spa", label: "Spanish" },
+  { value: "swe", label: "Swedish" },
   { value: "tur", label: "Turkish" },
   { value: "vie", label: "Vietnamese" },
-  { value: "nld", label: "Dutch" },
-  { value: "ell", label: "Greek" },
-  { value: "heb", label: "Hebrew" },
-  { value: "pol", label: "Polish" },
-  { value: "ces", label: "Czech" },
-  { value: "ron", label: "Romanian" },
-  { value: "swe", label: "Swedish" },
-  { value: "fin", label: "Finnish" },
-  { value: "hun", label: "Hungarian" },
   // Add more as needed
 ];
 
@@ -80,7 +80,7 @@ function getSelectedLanguages() {
 
   if (selected.length > 1) {
     selected.sort();
-    alert("Multiple " + selected);
+    // alert("Multiple " + selected);
   }
 
   return selected;
