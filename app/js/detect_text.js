@@ -232,7 +232,7 @@ function csvTexts() {
 // =========================================//
 // Function to export detected text to an XLSX spreadsheet
 function spreadsheetTexts() {
-  alert("spreadsheetTexts");
+  // alert("spreadsheetTexts");
 
   const textarea = document.getElementById("texts-input");
   const status = document.getElementById("status");
