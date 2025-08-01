@@ -210,7 +210,7 @@ function csvTexts() {
   const textarea = document.getElementById("texts-input");
   const status = document.getElementById("status");
   if (!textarea || !textarea.value.trim()) {
-    if (status) status.innerText = "No detected text to export.";
+    if (status) status.innerText = "No text to export";
     return;
   }
 
@@ -248,7 +248,7 @@ function spreadsheetTexts() {
   const textarea = document.getElementById("texts-input");
   const status = document.getElementById("status");
   if (!textarea || !textarea.value.trim()) {
-    if (status) status.innerText = "No detected text to export.";
+    if (status) status.innerText = "No text to export";
     return;
   }
 
