@@ -33,39 +33,30 @@ document.addEventListener("DOMContentLoaded", function () {
           const dropdown = document.getElementById("languageDropdown");
           if (!dropdown) return;
 
-          const checkboxInputs = dropdown.querySelectorAll(
-            '.multi-options-box input[type="checkbox"]'
+          // Get the container for the checkboxes
+          const optionsBox = document.querySelector(
+            "#languageDropdown .multi-options-box"
           );
-          const dropdownSelect = dropdown.querySelector(".dropdown-select");
 
-          function toggleDropdown() {
-            dropdown.classList.toggle("open");
-          }
-          window.toggleDropdown = toggleDropdown; // So HTML onclick can call it
+          // Clear existing options (optional)
+          optionsBox.innerHTML = "";
 
-          function updateSelectedLanguages() {
-            let selected = [];
-            checkboxInputs.forEach((input) => {
-              if (input.checked) selected.push(input.value);
-            });
-            dropdownSelect.textContent = selected.length
-              ? selected.join(", ")
-              : "Select Languages...";
-          }
-
-          checkboxInputs.forEach((input) => {
-            input.addEventListener("change", updateSelectedLanguages);
+          // Loop through the array and add checkboxes
+          languages.forEach((lang) => {
+            const label = document.createElement("label");
+            label.innerHTML = `<input type="checkbox" value="${lang.value}" /> ${lang.label}`;
+            optionsBox.appendChild(label);
           });
 
           // Only add the document click handler once
-          if (!window._languageDropdownClickHandlerAdded) {
+          if (!window.languageDropdownClickHandlerAdded) {
             document.addEventListener("click", function (e) {
               const dropdown = document.getElementById("languageDropdown");
               if (dropdown && !dropdown.contains(e.target)) {
                 dropdown.classList.remove("open");
               }
             });
-            window._languageDropdownClickHandlerAdded = true;
+            window.languageDropdownClickHandlerAdded = true;
           }
         }
 

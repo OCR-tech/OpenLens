@@ -82,9 +82,12 @@ function updateTextDetection() {
 
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
+  // ----------------------------- //
   // redBoxes = detectRedBoxesInImage(canvas);
   // alert("Red boxes detected: " + redBoxes.length + " + " + redBoxes);
-  detectRedBoxesInImage(canvas);
+  // detectRedBoxesInImage(canvas);
+
+  // ----------------------------- //
   updateTesseract(canvas);
 }
 
@@ -94,12 +97,16 @@ function updateTesseract(canvas) {
 
   const textsInput = document.getElementById("texts-input");
   const status = document.getElementById("status");
-  const languageSelect = document.getElementById("language-select");
+  // const languageSelect = document.getElementById("language-select");
   const detectTextButton = document.getElementById("btn-detect-text");
-  if (!canvas || !textsInput || !status || !languageSelect) return;
+  if (!canvas || !textsInput || !status) return;
 
   // Get selected language from dropdown, default to "eng"
-  const lang = languageSelect.value || "eng" || "tha";
+  // const lang = languageSelect.value || "eng" || "tha";
+
+  const lang = getSelectedLanguages();
+  // const lang = "eng" || "tha";
+  // alert("Selected language: " + lang);
 
   Tesseract.recognize(canvas.toDataURL("image/png"), lang)
     .then(({ data: { text } }) => {
@@ -269,5 +276,5 @@ function spreadsheetTexts() {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  if (status) status.innerText = "Spreadsheet file created!";
+  if (status) status.innerText = "XLSX file created!";
 }
