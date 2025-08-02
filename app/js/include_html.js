@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // ==========================================//
         // Only run this block for text.html includes
         if (file.endsWith("text.html")) {
-          const dropdown = document.getElementById("languageDropdown");
+          const dropdown = document.getElementById("language-dropdown");
           if (!dropdown) return;
 
           // Get the container for the checkboxes
           const optionsBox = document.querySelector(
-            "#languageDropdown .multi-options-box"
+            "#language-dropdown .multi-options-box"
           );
 
           // Clear existing options (optional)
@@ -51,12 +51,45 @@ document.addEventListener("DOMContentLoaded", function () {
           // Only add the document click handler once
           if (!window.languageDropdownClickHandlerAdded) {
             document.addEventListener("click", function (e) {
-              const dropdown = document.getElementById("languageDropdown");
+              const dropdown = document.getElementById("language-dropdown");
               if (dropdown && !dropdown.contains(e.target)) {
                 dropdown.classList.remove("open");
               }
             });
             window.languageDropdownClickHandlerAdded = true;
+          }
+        }
+
+        // ==========================================//
+        // Only run this block for object.html includes
+        if (file.endsWith("object.html")) {
+          const dropdown = document.getElementById("object-dropdown");
+          if (!dropdown) return;
+
+          // Get the container for the checkboxes
+          const optionsBox = document.querySelector(
+            "#object-dropdown .multi-options-box"
+          );
+
+          // Clear existing options (optional)
+          optionsBox.innerHTML = "";
+
+          // Loop through the object and add checkboxes
+          Object.entries(objects).forEach(([key, obj]) => {
+            const label = document.createElement("label");
+            label.innerHTML = `<input type="checkbox" value="${key}" /> ${obj.label}`;
+            optionsBox.appendChild(label);
+          });
+
+          // Only add the document click handler once
+          if (!window.objectDropdownClickHandlerAdded) {
+            document.addEventListener("click", function (e) {
+              const dropdown = document.getElementById("object-dropdown");
+              if (dropdown && !dropdown.contains(e.target)) {
+                dropdown.classList.remove("open");
+              }
+            });
+            window.objectDropdownClickHandlerAdded = true;
           }
         }
 

@@ -148,12 +148,9 @@ function processTexts(text) {
 }
 
 // =========================================//
-// Synchronous dictionary lookup using a local word list (english_dictionary.js must be loaded)
-// This function checks each word in processedText and updates the status with unknown words.
 function lookupWordsDict(processedText) {
   // alert("lookupWordsDict");
 
-  // Return the original text (or you can return a highlighted version)
   return processedText;
 }
 
@@ -171,9 +168,11 @@ function detectTexts() {
 // =========================================//
 function pauseTexts() {
   const status = document.getElementById("status");
+  const detectTextButton = document.getElementById("btn-detect-text");
   if (!status) return;
   status.innerText = "Paused";
   window.textDetectionEnabled = false;
+  detectTextButton.disabled = false;
 }
 
 // =========================================//
@@ -210,7 +209,7 @@ function csvTexts() {
   const textarea = document.getElementById("texts-input");
   const status = document.getElementById("status");
   if (!textarea || !textarea.value.trim()) {
-    if (status) status.innerText = "No text";
+    if (status) status.innerText = "No text to export!";
     return;
   }
 
@@ -248,7 +247,7 @@ function spreadsheetTexts() {
   const textarea = document.getElementById("texts-input");
   const status = document.getElementById("status");
   if (!textarea || !textarea.value.trim()) {
-    if (status) status.innerText = "No text";
+    if (status) status.innerText = "No text to export!";
     return;
   }
 

@@ -10,8 +10,16 @@
         style="width: 100%; box-sizing: border-box"
       ></objectarea>
 
-      <div class="row-object">
-        <!-- Row 1: Language select -->
+      <!-- // Row 1: Status -->
+      <div class="dropdown" id="object-dropdown">
+        <div class="dropdown-select" onclick="toggleDropdownObjects()">
+          Select Objects...
+        </div>
+        <div class="multi-options-box"></div>
+      </div>
+
+      <!-- Row 1: Object select -->
+      <!-- <div class="row-object">
         <label for="object-class-select" style="margin: 0">
           <select
             id="object-class-select"
@@ -25,10 +33,10 @@
             <option value="cat">Cat</option>
           </select>
         </label>
-      </div>
+      </div> -->
 
+      <!-- Row 2: Buttons -->
       <div class="row-object">
-        <!-- Row 2: Buttons -->
         <button id="btn-detect-object" type="button" onclick="detectobjects()">
           Detect
         </button>

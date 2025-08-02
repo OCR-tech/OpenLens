@@ -43,7 +43,7 @@ function populateLanguageDropdown() {
   // alert("PopulateLanguageDropdown");
 
   const optionsBox = document.querySelector(
-    "#languageDropdown .multi-options-box"
+    "#language-dropdown .multi-options-box"
   );
   optionsBox.innerHTML = "";
   languages.forEach((lang) => {
@@ -57,13 +57,13 @@ function populateLanguageDropdown() {
 function toggleDropdownLanguages() {
   // alert("ToggleDropdownLanguages");
 
-  document.getElementById("languageDropdown").classList.toggle("open");
+  document.getElementById("language-dropdown").classList.toggle("open");
 }
 
 // ================================= //
 // Optional: Close dropdown when clicking outside
 document.addEventListener("click", function (e) {
-  const dropdown = document.getElementById("languageDropdown");
+  const dropdown = document.getElementById("language-dropdown");
   if (!dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
   }
@@ -75,7 +75,7 @@ function getSelectedLanguages() {
   // alert("GetSelectedLanguages");
 
   const checkboxes = document.querySelectorAll(
-    "#languageDropdown input[type='checkbox']"
+    "#language-dropdown input[type='checkbox']"
   );
   const selected = [];
 
