@@ -607,6 +607,7 @@ button[disabled] {
   background: #fff;
   box-sizing: border-box;
   margin-bottom: 2px;
+  /* text-align: left; */
 }
 .dropdown-select::after {
   content: "";
