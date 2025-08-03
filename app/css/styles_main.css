@@ -546,7 +546,9 @@ button[disabled] {
   background-color: transparent;
   width: 20px;
   height: 20px;
-  /* margin-right: 6px; */
+  margin: 0px;
+  padding: 0px;
+  gap: 0px;
 }
 .status-color::before {
   content: "";
@@ -554,10 +556,11 @@ button[disabled] {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  /* margin: 3px; */
   background-color: #dddddd;
   border: 2px solid #bbb;
-  vertical-align: middle;
+  margin: 0px;
+  padding: 0px;
+  gap: 0px;
 }
 .status-color.normal::before {
   background-color: green;
