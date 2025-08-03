@@ -11,14 +11,55 @@ function startButton() {
   const videoSource = document.getElementById("video-source").value;
   const ipCameraUrl = document.getElementById("ip-camera-url").value;
 
+  const motionDetectionEnabled =
+    document.getElementById("motion-switch").checked;
+  const smokeDetectionEnabled = document.getElementById("smoke-switch").checked;
+  const fireDetectionEnabled = document.getElementById("fire-switch").checked;
+  const floodDetectionEnabled = document.getElementById("flood-switch").checked;
+  const lightDetectionEnabled = document.getElementById("light-switch").checked;
+  const rainDetectionEnabled = document.getElementById("rain-switch").checked;
+  const fallingDetectionEnabled =
+    document.getElementById("falling-switch").checked;
+  const BreakingDetectionEnabled =
+    document.getElementById("breaking-switch").checked;
+  const soundDetectionEnabled = document.getElementById("sound-switch").checked;
+
   // ==============================//
   window.timerDelay3000ms = true; // Reset the timer
   window.runDetectionLoop = true; // Start the detection loop
   window.voiceAlertEnabled = true;
   window.notificationEnabled = true;
-  // window.motionDetectionEnabled = true;
-  // window.smokeDetectionEnabled = true;
-  // window.fireDetectionEnabled = true;
+
+  // ==============================//
+  if (motionDetectionEnabled) {
+    window.motionDetectionEnabled = true; // Enable motion detection
+  }
+  if (smokeDetectionEnabled) {
+    window.smokeDetectionEnabled = true; // Enable smoke detection
+  }
+  if (fireDetectionEnabled) {
+    window.fireDetectionEnabled = true; // Enable fire detection
+  }
+  if (floodDetectionEnabled) {
+    window.floodDetectionEnabled = true; // Enable flood detection
+  }
+  if (lightDetectionEnabled) {
+    window.lightDetectionEnabled = true; // Enable light detection
+  }
+  if (rainDetectionEnabled) {
+    window.rainDetectionEnabled = true; // Enable rain detection
+  }
+  if (fallingDetectionEnabled) {
+    window.fallingDetectionEnabled = true; // Enable falling detection
+  }
+  if (BreakingDetectionEnabled) {
+    window.BreakingDetectionEnabled = true; // Enable breaking detection
+  }
+  if (soundDetectionEnabled) {
+    window.soundDetectionEnabled = true; // Enable sound detection
+  }
+
+  // ==============================//
   window.audioContext = true;
 
   if (window.voiceStatusEnabled) {

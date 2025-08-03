@@ -542,37 +542,37 @@ button[disabled] {
 /*=============================================*/
 .status-color {
   display: inline-block;
-  background-color: #dddddd;
-  gap: 0;
-  height: 20px;
+  vertical-align: middle;
+  background-color: transparent;
   width: 20px;
+  height: 20px;
+  /* margin-right: 6px; */
 }
 .status-color::before {
   content: "";
   display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 0;
-  padding: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  /* margin: 3px; */
+  background-color: #dddddd;
+  border: 2px solid #bbb;
+  vertical-align: middle;
 }
 .status-color.normal::before {
   background-color: green;
   border-color: green;
-  margin: 0;
-  padding: 0;
 }
 .status-color.warn::before {
   background-color: yellow;
   border-color: yellow;
-  margin: 0;
-  padding: 0;
 }
 .status-color.alert::before {
   background-color: red;
   border-color: red;
-  margin: 0;
-  padding: 0;
 }
+
+/*=============================================*/
 .texts-input {
   width: 100%;
   max-width: 100%;
@@ -666,7 +666,7 @@ body.dark-mode {
   color: #e0e0e0;
 }
 .container.dark-mode {
-  background: #333;
+  background-color: #333;
   /* background: #23272b; */
   /* color: #e0e0e0; */
   box-shadow: 0 0 20px #111;
@@ -675,18 +675,18 @@ body.dark-mode {
   color: #a1a1a1;
 }
 .video-feed.dark-mode {
-  background: #111;
+  background-color: #111;
   border-color: #333;
 }
 .dark-mode .controls-section button {
-  background: #2980b9;
+  background-color: #2980b9;
   color: #303030;
 }
 .dark-mode .controls-section button:hover {
-  background: #357ab8;
+  background-color: #357ab8;
 }
 body.dark-mode .controls-section button:disabled {
-  background: #333;
+  background-color: #8f8f8f;
   color: #494949;
   cursor: not-allowed;
 }
