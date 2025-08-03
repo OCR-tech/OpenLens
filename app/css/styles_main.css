@@ -662,7 +662,7 @@ button[disabled] {
 /*=============================================*/
 /* Dark mode styles */
 body.dark-mode {
-  background-color: #181c20;
+  background-color: #111;
   color: #e0e0e0;
 }
 .container.dark-mode {
@@ -686,16 +686,16 @@ body.dark-mode {
   background: #357ab8;
 }
 body.dark-mode .controls-section button:disabled {
-  background: #585858;
+  background: #333;
   color: #494949;
   cursor: not-allowed;
 }
 .dark-mode code {
-  background-color: #505050;
+  background-color: #333;
   color: #e0e0e0;
 }
 .dark-mode input {
-  background-color: #2c2f33;
+  background-color: #333;
   color: #e0e0e0;
   border: 2px solid #4a90e2;
 }
@@ -710,15 +710,20 @@ body.dark-mode .controls-section button:disabled {
 }
 .dark-mode #video-source,
 .dark-mode .video-source-section select {
-  background: #23272b;
+  background-color: #333;
   color: #e0e0e0;
   border-color: #4a90e2;
 }
 .dark-mode #video-source:disabled,
 .dark-mode .video-source-section select:disabled {
-  background-color: #2c2f33;
+  background-color: #333;
   color: #aaa;
   cursor: not-allowed;
+}
+.dark-mode .voice-col {
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #4a90e2;
 }
 
 /*==============================================*/
