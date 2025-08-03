@@ -541,13 +541,12 @@ button[disabled] {
 
 /*=============================================*/
 .status-color {
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
   background-color: transparent;
   width: 20px;
   height: 20px;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   gap: 0px;
 }
 .status-color::before {
