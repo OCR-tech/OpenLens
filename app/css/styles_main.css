@@ -607,7 +607,7 @@ button[disabled] {
   border-radius: 6px;
   border: 2px solid #2980b9;
   cursor: pointer;
-  background: #fff;
+  /* background: #fff; */
   box-sizing: border-box;
   margin-bottom: 2px;
   /* text-align: left; */
@@ -639,6 +639,10 @@ button[disabled] {
   border-radius: 6px;
   box-sizing: border-box;
   text-align: left;
+}
+.dark-mode .multi-options-box {
+  background: #333;
+  border-color: #4a90e2;
 }
 .dropdown.open .multi-options-box {
   display: block;
@@ -727,6 +731,11 @@ body.dark-mode .controls-section button:disabled {
   background-color: #333;
   color: #e0e0e0;
   border: 1px solid #4a90e2;
+}
+.dark-mode textarea {
+  background-color: #555;
+  color: #ffffff;
+  border: 2px solid #4a90e2;
 }
 
 /*==============================================*/
