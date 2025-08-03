@@ -129,6 +129,16 @@ function updateRainDetection() {
     document.getElementById("status").innerText = "No video found";
     return;
   }
+
+  if (canvas.width === 0 || canvas.height === 0) {
+    if (window.rainDetectionEnabled && window.rainIntervalId) {
+      clearInterval(window.rainIntervalId);
+      window.rainIntervalId = null;
+      window.rainDetectionEnabled = false;
+    }
+    return;
+  }
+
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
   const currFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 

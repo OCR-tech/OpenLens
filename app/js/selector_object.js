@@ -40,7 +40,7 @@ function toggleDropdownObjects() {
 // Optional: Close dropdown when clicking outside
 document.addEventListener("click", function (e) {
   const dropdown = document.getElementById("object-dropdown");
-  if (!dropdown.contains(e.target)) {
+  if (dropdown && !dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
   }
 });

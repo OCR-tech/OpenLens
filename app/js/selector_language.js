@@ -64,7 +64,7 @@ function toggleDropdownLanguages() {
 // Optional: Close dropdown when clicking outside
 document.addEventListener("click", function (e) {
   const dropdown = document.getElementById("language-dropdown");
-  if (!dropdown.contains(e.target)) {
+  if (dropdown && !dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
   }
 });

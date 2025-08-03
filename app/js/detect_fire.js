@@ -127,6 +127,16 @@ function updateFireDetection() {
     document.getElementById("status").innerText = "No video found";
     return;
   }
+
+  if (canvas.width === 0 || canvas.height === 0) {
+    if (window.fireDetectionEnabled && window.fireIntervalId) {
+      clearInterval(window.fireIntervalId);
+      window.fireIntervalId = null;
+      window.fireDetectionEnabled = false;
+    }
+    return;
+  }
+
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
   const currFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 

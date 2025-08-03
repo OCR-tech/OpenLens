@@ -6,30 +6,15 @@ function stopButton() {
   const btnOk = document.getElementById("btn-ok");
   const status = document.getElementById("status");
 
-  // Reset the video source selection
-  // document.getElementById("btn-start").style.display = "inline-block";
-  // document.getElementById("btn-stop").style.display = "none";
-
-  // document.getElementById("status").innerText = "Stopped";
-  // document.getElementById("video-source").disabled = false;
-
-  // document.getElementById("motion-status-normal").style.boxShadow = "none";
-  // document.getElementById("motion-status-warn").style.boxShadow = "none";
-  // document.getElementById("motion-status-alert").style.boxShadow = "none";
-
-  // document.getElementById("fire-status-normal").style.boxShadow = "none";
-  // document.getElementById("fire-status-warn").style.boxShadow = "none";
-  // document.getElementById("fire-status-alert").style.boxShadow = "none";
-
   ReInitUI(); // Reinitialize UI elements
 
   btnOk.disabled = false; // Disable the OK button after setting the URL
 
   //=========================================//
-  // window.motionDetectionEnabled = false;
-  // window.smokeDetectionEnabled = false;
-  // window.fireDetectionEnabled = false;
   window.audioContext = false;
+  window.motionDetectionEnabled = false;
+  window.smokeDetectionEnabled = false;
+  window.fireDetectionEnabled = false;
 
   //=========================================//
   window.runDetectionLoop = false; // Stop the detection loop
@@ -59,6 +44,8 @@ function stopButton() {
 
 // =========================================//
 function stopCamera() {
+  // alert("StopCamera");
+
   // List all possible video/image element IDs
   const videoIds = [
     "camera-stream",

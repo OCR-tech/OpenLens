@@ -19,6 +19,8 @@ function detectLoop() {
 
   if (!model || !video) return;
 
+  // status.innerText = "detectLoop" + window.runDetectionLoop;
+
   // Check if loop is running
   if (!window.runDetectionLoop) {
     // alert("Stopping detection loop");
@@ -29,12 +31,12 @@ function detectLoop() {
     return;
   } else {
     // Detection loop is running
-    // alert("Running detection loop");
+    // status.innerText = "Running Detecting...";
+
     drawOverlays();
 
     //=========================================//
     // Object detection
-
     if (window.objectDetectionEnabled) {
       model.detect(video).then(function (predictions) {
         // const objectNames = predictions.map((p) => p.class).join(", ");
