@@ -142,7 +142,8 @@ function updateTesseract(canvas) {
 // =========================================//
 // Function to process the text input
 function processTexts(text) {
-  let processedText = text.replace(/\s+/g, " ").trim();
+  // let processedText = "";
+  processedText = text.replace(/\s+/g, " ").trim();
   processedText = processedText.replace(/([.,!?])\s+/g, "$1 "); // Ensure space after punctuation
   processedText = processedText.replace(/\s([.,!?])/g, "$1"); // Remove space before punctuation
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
@@ -150,16 +151,36 @@ function processTexts(text) {
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
 
   // Check words with dictionary
-  processedText = lookupWordsDict(processedText);
+  processedDictText = lookupWordsDict(processedText);
 
-  return processedText;
+  return processedDictText;
 }
+
+
 
 // =========================================//
 function lookupWordsDict(processedText) {
   // alert("lookupWordsDict");
 
-  return processedText;
+  // Split text into words
+  const words = processedText.split(/\s+/);
+
+  // Check each word against the dictionary
+  const checkedWords = words.map((word) => {
+    // Remove punctuation for checking
+    const cleanWord = word.replace(/[.,!?;:()"]/g, "").toLowerCase();
+
+    // check wo on json file directly
+
+    if (.has(cleanWord)) {
+      return word; // Known word
+    } else {
+      return "+"; // Unknown word, return empty string
+    }
+  });
+
+  // Rejoin words into a string
+  return checkedWords.join(" ");
 }
 
 // =========================================//
