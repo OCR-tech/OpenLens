@@ -209,14 +209,6 @@ function drawOverlays() {
   // bbox2 = [350, 50, 500, 150];
   // ctx.strokeRect(...bbox2);
 
-  // const redBoxes = detectRedBoxesInImage(canvas);
-  // alert("Red boxes detected: " + redBoxes);
-  // redBoxes.forEach((box) => {
-  //   alert(box.left, box.top, box.width, box.height);
-  //   ctx.strokeRect(box.left, box.top, box.width, box.height);
-  //   // ctx.strokeRect(100, 50, 150, 500);
-  // });
-
   // Draw date and time overlay
   if (window.showDateTimeOverlay) {
     displayDateTime();

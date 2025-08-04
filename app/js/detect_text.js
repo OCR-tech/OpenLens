@@ -317,10 +317,16 @@ function spreadsheetTexts() {
   }
 
   // Split text into rows (by newline)
+  // const rows = textarea.value
+  //   .split(/\r?\n/)
+  //   .map((line) => [line.trim()])
+  //   .filter((row) => row[0]);
+
+  // Split text into columns (by ":", adjust as needed)
   const rows = textarea.value
     .split(/\r?\n/)
-    .map((line) => [line.trim()])
-    .filter((row) => row[0]);
+    .map((line) => line.split(":").map((cell) => cell.trim()))
+    .filter((row) => row.length > 0 && row[0]);
 
   // XLSX generation using SheetJS (xlsx library)
   // Make sure xlsx.full.min.js is loaded in your HTML
