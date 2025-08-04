@@ -19,7 +19,6 @@ const languages = [
   { value: "ind", label: "Indonesian" },
   { value: "ita", label: "Italian" },
   { value: "jpn", label: "Japanese" },
-  { value: "jpn_vert", label: "Japanese (Vertical)" },
   { value: "khm", label: "Khmer" },
   { value: "kor", label: "Korean" },
   { value: "kor_vert", label: "Korean (Vertical)" },
@@ -72,27 +71,12 @@ document.addEventListener("click", function (e) {
 // ================================= //
 // Function to get selected languages from the dropdown
 function getSelectedLanguages() {
-  // alert("GetSelectedLanguages");
-
   const checkboxes = document.querySelectorAll(
     "#language-dropdown input[type='checkbox']"
   );
   const selected = [];
-
   checkboxes.forEach((checkbox) => {
-    if (checkbox.checked) {
-      selected.push(checkbox.value);
-    }
+    if (checkbox.checked) selected.push(checkbox.value);
   });
-
-  if (selected.length === 0) {
-    return ["eng"];
-  }
-
-  if (selected.length > 1) {
-    selected.sort();
-    // alert("Multiple " + selected);
-  }
-
-  return selected;
+  return selected.length ? selected : ["eng"];
 }

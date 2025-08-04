@@ -101,13 +101,21 @@ function updateTesseract(canvas) {
   const detectTextButton = document.getElementById("btn-detect-text");
   if (!canvas || !textsInput || !status) return;
 
-  // Get selected language from dropdown, default to "eng"
-  // const lang = languageSelect.value || "eng" || "tha";
+  // ---------------------------------------//
+  // alert(Object.keys(Tesseract.languages));
+  const langArray = getSelectedLanguages();
+  const lang = Array.isArray(langArray)
+    ? langArray.length > 1
+      ? langArray.join("+")
+      : langArray[0] || "eng"
+    : langArray || "eng";
 
-  const lang = getSelectedLanguages();
-  // const lang = "eng" || "tha";
+  // const lang = "eng";
   // const lang = "tha";
   // const lang = "jpn";
+  // const lang = "chi_sim";
+
+  // status.innerText = " +++ " + lang;
 
   Tesseract.recognize(canvas.toDataURL("image/png"), lang)
     .then(({ data: { text } }) => {
@@ -120,7 +128,7 @@ function updateTesseract(canvas) {
         // textsInput.value = text.substring(0, 1000);
       } else {
         text = processTexts(text);
-        status.innerText = "Detecting text: Done" + " + " + lang;
+        status.innerText = "Detecting text: Done" + " *** " + lang;
         textsInput.value = text;
       }
       window.textDetectionEnabled = false;

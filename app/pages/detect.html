@@ -4,7 +4,6 @@
       <div class="controls-section">
         <!-- Detection Settings -->
 
-
         <!-- Motion Detection Settings -->
         <div class="settings-row">
           <label for="motion-switch" title="Detects movement."
@@ -33,21 +32,27 @@
           />
           <span id="motion-sensitivity-value">5</span>
 
-          <div
-            class="status-color normal"
-            id="motion-status-normal"
-            title="Normal"
-          ></div>
-          <div
-            class="status-color warn"
-            id="motion-status-warn"
-            title="Warning"
-          ></div>
-          <div
-            class="status-color alert"
-            id="motion-status-alert"
-            title="Alert"
-          ></div>
+          <div class="status-indicators">
+            <div
+              class="status-color normal"
+              id="motion-status-normal"
+              title="Normal"
+            ></div>
+          </div>
+          <div class="status-indicators">
+            <div
+              class="status-color warn"
+              id="motion-status-warn"
+              title="Warning"
+            ></div>
+          </div>
+          <div class="status-indicators">
+            <div
+              class="status-color alert"
+              id="motion-status-alert"
+              title="Alert"
+            ></div>
+          </div>
         </div>
 
         <!-- Smoke Detection Settings -->
