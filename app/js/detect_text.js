@@ -189,7 +189,7 @@ function updateTesseract(canvas) {
     .then(({ data: { text } }) => {
       if (!text || text.trim() === "") {
         // status.innerText = "No text detected";
-        textsInput.value = "";
+        textsInput.innerHTML = "";
         // } else if (text.length > 1000) {
         // status.innerText = "Detected text";
         // textsInput.value = text;
@@ -197,7 +197,7 @@ function updateTesseract(canvas) {
       } else {
         text = processTexts(text);
         status.innerText = "Detecting text: Done" + " *** " + lang;
-        textsInput.value = text;
+        textsInput.innerHTML = text;
       }
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
@@ -261,6 +261,7 @@ function lookupWordsDict(processedText) {
       // return ""; // Unknown word
       // return "*"; // Unknown word
       return cleanWord; // Unknown word
+      // return `<span style="color: yellow;">${word}</span>`;
     }
   });
 
