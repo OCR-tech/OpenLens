@@ -130,7 +130,7 @@ function updateTextDetection() {
   }
 
   // ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+  // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // ----------------------------- //
   // const redBoxes = detectRedBoxesInImage(canvas);
@@ -143,13 +143,13 @@ function updateTextDetection() {
   // );
 
   // draw boxes in the canvas
-  ctx.strokeStyle = "red";
-  ctx.lineWidth = 2;
-  bbox2 = [350, 50, 100, 150];
-  ctx.strokeRect(...bbox2);
-  ctx.strokeRect(100, 50, 150, 200);
+  // ctx.strokeStyle = "red";
+  // ctx.lineWidth = 5;
+  // bbox2 = [350, 50, 100, 150];
+  // ctx.strokeRect(...bbox2);
+  // ctx.strokeRect(100, 50, 150, 200);
 
-  // alert(canvas.width + " x " + canvas.height);
+  // alert(canvas.width + " x " + canvas.height + ctx);
 
   // redBoxes.forEach((box) => {
   //   ctx.strokeRect(box.left, box.top, box.width, box.height);

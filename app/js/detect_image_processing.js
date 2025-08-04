@@ -11,6 +11,8 @@ function detectRedBoxesInImage(canvas) {
 
   // Read image from canvas
   const src = cv.imread(canvas);
+  // const ctx = canvas.getContext("2d");
+  // const src = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
   // Convert to HSV color space for better red detection
   const hsv = new cv.Mat();

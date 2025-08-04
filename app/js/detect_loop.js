@@ -70,7 +70,7 @@ function detectLoop() {
         drawPredictions(predictions);
       });
     }
-
+    drawRedBoxes();
     //=========================================//
     // Text detection
     if (window.textDetectionEnabled && !textIntervalId) {
@@ -204,12 +204,6 @@ function drawOverlays() {
   if (!ctx || !canvas) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // ctx.strokeStyle = "green";
-  // ctx.lineWidth = 2;
-  // bbox2 = [350, 50, 500, 150];
-  // ctx.strokeRect(...bbox2);
-  // ctx.strokeRect(405, 20, 300, 50);
-
   // Draw date and time overlay
   if (window.showDateTimeOverlay) {
     displayDateTime();
@@ -233,6 +227,47 @@ function drawOverlays() {
   if (window.showFramerateOverlay) {
     displayFramerate();
   }
+}
+
+// =========================================//
+function drawRedBoxes() {
+  // alert("drawRedBoxes");
+
+  const status = document.getElementById("status");
+  // const canvas = document.getElementById("overlay");
+
+  const source =
+    document.getElementById("camera-stream") ||
+    document.getElementById("usb-camera-stream") ||
+    document.getElementById("stream-player") ||
+    document.getElementById("video-file-player") ||
+    document.getElementById("video") ||
+    document.getElementById("image") ||
+    document.getElementById("image-file-viewer");
+
+  if (!canvas) return;
+  // const ctx = canvas.getContext("2d");
+
+  ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = "green";
+  ctx.lineWidth = 5;
+  // ctx.strokeRect(405, 20, 300, 50);
+  // ctx.fillStyle = "red";
+  // ctx.fillRect(50, 50, 100, 100);
+
+  // ----------------------------- //
+  const redBoxes = detectRedBoxesInImage(canvas);
+  // alert(
+  //   "Red boxes: " + " + " + redBoxes.length + " + " + JSON.stringify(redBoxes)
+  // );
+
+  status.innerText =
+    "Red boxes detected: " + redBoxes.length + " + " + JSON.stringify(redBoxes);
+
+  redBoxes.forEach((box) => {
+    // alert(box.left + " " + box.top + " " + box.width + " " + box.height);
+    ctx.strokeRect(box.left, box.top, box.width, box.height);
+  });
 }
 
 // =========================================//
