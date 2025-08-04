@@ -1,6 +1,8 @@
 // =========================================//
 // Detect red boxes in an image using OpenCV.js
 function detectRedBoxesInImage(canvas) {
+  // alert("detectRedBoxesInImage");
+
   // canvas: HTMLCanvasElement containing the image
   if (!window.cv || !canvas) {
     console.error("OpenCV.js is not loaded or canvas is not provided.");
@@ -82,6 +84,6 @@ function detectRedBoxesInImage(canvas) {
   contours.delete();
   hierarchy.delete();
 
-  alert("Red boxes detected: " + boxes.length + " + " + JSON.stringify(boxes));
+  // alert("Red boxes detected: " + boxes.length + " + " + JSON.stringify(boxes));
   return boxes; // Array of {left, top, width, height}
 }

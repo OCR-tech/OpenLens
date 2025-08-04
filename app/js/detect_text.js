@@ -80,12 +80,32 @@ function updateTextDetection() {
     return;
   }
 
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // ----------------------------- //
-  // redBoxes = detectRedBoxesInImage(canvas);
-  // alert("Red boxes detected: " + redBoxes.length + " + " + redBoxes);
-  // detectRedBoxesInImage(canvas);
+  // const redBoxes = detectRedBoxesInImage(canvas);
+  // alert(
+  //   "Red boxes: " +
+  //     " + " +
+  //     redBoxes.length +
+  //     " + " +
+  //     JSON.stringify(redBoxes)
+  // );
+
+  // draw boxes in the canvas
+  ctx.strokeStyle = "red";
+  ctx.lineWidth = 2;
+  bbox2 = [350, 50, 100, 150];
+  ctx.strokeRect(...bbox2);
+  ctx.strokeRect(100, 50, 150, 200);
+
+  // alert(canvas.width + " x " + canvas.height);
+
+  // redBoxes.forEach((box) => {
+  //   ctx.strokeRect(box.left, box.top, box.width, box.height);
+  //   ctx.strokeRect(100, 50, 150, 200);
+  // });
 
   // ----------------------------- //
   updateTesseract(canvas);
