@@ -188,7 +188,8 @@ function lookupWordsDict(processedText) {
     if (offlineDictionarySet && offlineDictionarySet.has(cleanWord)) {
       return word; // Known word
     } else {
-      return "*"; // Unknown word, return empty string
+      return cleanWord; // Unknown word, return empty string
+      // return "*"; // Unknown word, return empty string
     }
   });
 
