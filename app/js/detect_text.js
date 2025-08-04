@@ -189,7 +189,7 @@ function updateTesseract(canvas) {
     .then(({ data: { text } }) => {
       if (!text || text.trim() === "") {
         // status.innerText = "No text detected";
-        textsInput.innerHTML = "";
+        textsInput.value = "";
         // } else if (text.length > 1000) {
         // status.innerText = "Detected text";
         // textsInput.value = text;
@@ -197,7 +197,7 @@ function updateTesseract(canvas) {
       } else {
         text = processTexts(text);
         status.innerText = "Detecting text: Done" + " *** " + lang;
-        textsInput.innerHTML = text;
+        textsInput.value = text;
       }
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
