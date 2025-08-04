@@ -51,6 +51,55 @@ function setTextDetectionMode(mode) {
 }
 
 // =========================================//
+function browseFolder() {
+  // alert("browseFolder");
+  const videoSource = document.getElementById("video-source");
+  const btnStart = document.getElementById("btn-start");
+  const btnCommand = document.getElementById("btn-command");
+  const btnVoice = document.getElementById("btn-voice");
+  const btnOk = document.getElementById("btn-ok");
+
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.webkitdirectory = true; // Enable folder selection
+  fileInput.multiple = true;
+
+  if (videoSource.value === "video") {
+    fileInput.accept = "video/*";
+  } else if (videoSource.value === "image") {
+    fileInput.accept = "image/*";
+  }
+
+  fileInput.onchange = function (event) {
+    const files = Array.from(event.target.files);
+    if (files.length > 0) {
+      const fileNames = files.map((f) => f.name).join(", ");
+      document.getElementById("status").innerText =
+        "Selected files: " + fileNames;
+      btnStart.disabled = false;
+      btnCommand.disabled = false;
+      btnVoice.disabled = false;
+      btnOk.disabled = true;
+
+      if (videoSource.value === "video") {
+        window.selectedVideoFiles = files;
+        // Optionally: CheckVideo(files[0]);
+        // Optionally: startVideo(URL.createObjectURL(files[0]));
+      } else if (videoSource.value === "image") {
+        window.selectedImageFiles = files;
+      }
+      startButton();
+    } else {
+      document.getElementById("status").innerText = "No files selected.";
+      window.selectedVideoFiles = null;
+      window.selectedImageFiles = null;
+    }
+  };
+
+  fileInput.click();
+}
+
+// =========================================//
 function updateTextDetection() {
   // alert("updateTextDetection");
 
@@ -224,10 +273,10 @@ function detectTexts() {
   const status = document.getElementById("status");
   const detectTextButton = document.getElementById("btn-detect-text");
   if (!status) return;
+  clearTexts();
   status.innerText = "Detecting text...";
   window.textDetectionEnabled = true;
   detectTextButton.disabled = true;
-  // clearTexts();
 }
 
 // =========================================//
