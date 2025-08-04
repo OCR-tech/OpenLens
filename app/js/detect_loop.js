@@ -208,6 +208,7 @@ function drawOverlays() {
   // ctx.lineWidth = 2;
   // bbox2 = [350, 50, 500, 150];
   // ctx.strokeRect(...bbox2);
+  // ctx.strokeRect(405, 20, 300, 50);
 
   // Draw date and time overlay
   if (window.showDateTimeOverlay) {
