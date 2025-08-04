@@ -316,13 +316,15 @@ function spreadsheetTexts() {
     return;
   }
 
+  // ----------------------------------//
   // Split text into rows (by newline)
   // const rows = textarea.value
   //   .split(/\r?\n/)
   //   .map((line) => [line.trim()])
   //   .filter((row) => row[0]);
 
-  // Split text into columns (by ":", adjust as needed)
+  // ----------------------------------//
+  // Split text into columns (by ":")
   const rows = textarea.value
     .split(/\r?\n/)
     .map((line) => line.split(":").map((cell) => cell.trim()))
@@ -332,7 +334,7 @@ function spreadsheetTexts() {
   // Make sure xlsx.full.min.js is loaded in your HTML
   const worksheet = XLSX.utils.aoa_to_sheet(rows);
   const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "DetectedText");
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Text");
 
   // Create XLSX file and trigger download
   const wbout = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
