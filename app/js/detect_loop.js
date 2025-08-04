@@ -234,8 +234,6 @@ function drawRedBoxes() {
   // alert("drawRedBoxes");
 
   const status = document.getElementById("status");
-  // const canvas = document.getElementById("overlay");
-
   const source =
     document.getElementById("camera-stream") ||
     document.getElementById("usb-camera-stream") ||
@@ -245,13 +243,25 @@ function drawRedBoxes() {
     document.getElementById("image") ||
     document.getElementById("image-file-viewer");
 
-  if (!canvas) return;
-  // const ctx = canvas.getContext("2d");
+  if (!canvas || !source) return;
+
+  if (source instanceof HTMLVideoElement) {
+    canvas.width = source.videoWidth;
+    canvas.height = source.videoHeight;
+  } else if (source instanceof HTMLImageElement) {
+    canvas.width = source.naturalWidth;
+    canvas.height = source.naturalHeight;
+    source.crossOrigin = "anonymous"; // Set Cross-Origin Attribute
+  } else {
+    document.getElementById("status").innerText = "No video/image found";
+    return;
+  }
 
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
   ctx.strokeStyle = "green";
   ctx.lineWidth = 5;
   // ctx.strokeRect(405, 20, 300, 50);
+
   // ctx.fillStyle = "red";
   // ctx.fillRect(50, 50, 100, 100);
 
@@ -261,11 +271,10 @@ function drawRedBoxes() {
   //   "Red boxes: " + " + " + redBoxes.length + " + " + JSON.stringify(redBoxes)
   // );
 
-  status.innerText =
-    "Red boxes detected: " + redBoxes.length + " + " + JSON.stringify(redBoxes);
+  // status.innerText =
+  //   "Red boxes detected: " + redBoxes.length + " + " + JSON.stringify(redBoxes);
 
   redBoxes.forEach((box) => {
-    // alert(box.left + " " + box.top + " " + box.width + " " + box.height);
     ctx.strokeRect(box.left, box.top, box.width, box.height);
   });
 }
