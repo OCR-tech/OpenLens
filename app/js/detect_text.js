@@ -335,7 +335,7 @@ function csvTexts() {
 
   // Convert rows to CSV format
   const csvContent = rows
-    .map((row) => row.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(","))
+    .map((row) => row.map((cell) => `${cell.replace(/"/g, '""')}`).join(","))
     .join("\r\n");
 
   // Create a Blob and trigger download
@@ -350,7 +350,7 @@ function csvTexts() {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  if (status) status.innerText = "CSV file created!";
+  if (status) status.innerText = "File created!";
 }
 
 // =========================================//
@@ -398,5 +398,5 @@ function spreadsheetTexts() {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  if (status) status.innerText = "XLSX file created!";
+  if (status) status.innerText = "File created!";
 }
