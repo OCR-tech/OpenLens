@@ -114,7 +114,6 @@ function updateTesseract(canvas) {
   // const lang = "tha";
   // const lang = "jpn";
   // const lang = "chi_sim";
-
   // status.innerText = " +++ " + lang;
 
   Tesseract.recognize(canvas.toDataURL("image/png"), lang)
@@ -123,8 +122,8 @@ function updateTesseract(canvas) {
         // status.innerText = "No text detected";
         textsInput.value = "";
         // } else if (text.length > 1000) {
-        //   status.innerText = "Detected text";
-        //   textsInput.value = text;
+        // status.innerText = "Detected text";
+        // textsInput.value = text;
         // textsInput.value = text.substring(0, 1000);
       } else {
         text = processTexts(text);
@@ -142,7 +141,6 @@ function updateTesseract(canvas) {
 // =========================================//
 // Function to process the text input
 function processTexts(text) {
-  // let processedText = "";
   processedText = text.replace(/\s+/g, " ").trim();
   processedText = processedText.replace(/([.,!?])\s+/g, "$1 "); // Ensure space after punctuation
   processedText = processedText.replace(/\s([.,!?])/g, "$1"); // Remove space before punctuation
@@ -156,7 +154,24 @@ function processTexts(text) {
   return processedDictText;
 }
 
+// =========================================//
+let offlineDictionarySet = null;
+// Load dictionary from local JSON file (e.g., 'pages/dict_eng1.json')
+async function loadOfflineDictionary() {
+  try {
+    // alert("loadOfflineDictionary");
+    const response = await fetch("app/json/dict_eng.json");
+    const words = await response.json(); // Should be an array of words
+    offlineDictionarySet = new Set(words.map((w) => w.toLowerCase()));
+    // alert(words + offlineDictionarySet);
+  } catch (err) {
+    alert("Failed to load dictionary:", err);
+    offlineDictionarySet = new Set();
+  }
+}
 
+// Call this once at startup
+loadOfflineDictionary();
 
 // =========================================//
 function lookupWordsDict(processedText) {
@@ -167,15 +182,13 @@ function lookupWordsDict(processedText) {
 
   // Check each word against the dictionary
   const checkedWords = words.map((word) => {
-    // Remove punctuation for checking
     const cleanWord = word.replace(/[.,!?;:()"]/g, "").toLowerCase();
 
-    // check wo on json file directly
-
-    if (.has(cleanWord)) {
+    // check cleanWord on json file directly
+    if (offlineDictionarySet && offlineDictionarySet.has(cleanWord)) {
       return word; // Known word
     } else {
-      return "+"; // Unknown word, return empty string
+      return "*"; // Unknown word, return empty string
     }
   });
 
