@@ -70,9 +70,12 @@ function detectLoop() {
         drawPredictions(predictions);
       });
     }
-    drawRedBoxes();
     //=========================================//
     // Text detection
+    // if (window.textDetectionEnabled) {
+    drawRedBoxes();
+    // }
+
     if (window.textDetectionEnabled && !textIntervalId) {
       textIntervalId = setInterval(updateTextDetection, timeInterval);
     } else if (!window.textDetectionEnabled && textIntervalId) {
