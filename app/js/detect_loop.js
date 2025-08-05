@@ -205,19 +205,9 @@ function detectLoop() {
 function drawOverlays() {
   // alert("drawOverlays");
 
-  // const source =
-  //   document.getElementById("camera-stream") ||
-  //   document.getElementById("usb-camera-stream") ||
-  //   document.getElementById("stream-player") ||
-  //   document.getElementById("video-file-player") ||
-  //   document.getElementById("video") ||
-  //   document.getElementById("image") ||
-  //   document.getElementById("image-file-viewer");
-
   if (!ctx || !canvas) return;
 
   // ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // Draw date and time overlay
   if (window.showDateTimeOverlay) {
