@@ -98,6 +98,7 @@ function initSystem() {
   //------------//
   window.objectDetectionEnabled = true;
   window.textDetectionEnabled = true;
+  window.redBoxesDetectionEnabled = true;
   window.motionDetectionEnabled = true;
   window.soundDetectionEnabled = true;
   window.smokeDetectionEnabled = true;

@@ -92,7 +92,7 @@ let fps = "-";
 // =========================================//
 // Display current framerate on canvas
 function displayFramerate() {
-  const canvas = document.getElementById("overlay"); // or your canvas ID
+  const canvas = document.getElementById("overlay");
   const ctx = canvas.getContext("2d");
 
   if (!ctx || !canvas) return;

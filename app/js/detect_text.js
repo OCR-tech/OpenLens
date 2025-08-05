@@ -9,6 +9,7 @@ function toggleTextDetection() {
   if (!textSwitch) return;
 
   // window.textDetectionEnabled = textSwitch.checked;
+  window.redBoxesDetectionEnabled = textSwitch.checked; // Use red boxes for text detection
   groupFrameText.style.display = textSwitch.checked ? "flex" : "none";
 
   if (window.voiceStatusEnabled) {
@@ -34,6 +35,8 @@ function setTextDetectionMode(mode) {
     textSwitch.checked = mode === "on";
     textSwitch.dispatchEvent(new Event("change"));
   }
+
+  window.redBoxesDetectionEnabled = textSwitch.checked;
 
   if (textStatus) {
     textStatus.innerHTML =

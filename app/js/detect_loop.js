@@ -71,9 +71,12 @@ function detectLoop() {
     }
     //=========================================//
     // Text detection
-    // if (window.textDetectionEnabled) {
-    drawRedBoxes();
-    // }
+    if (window.redBoxesDetectionEnabled) {
+      drawRedBoxes();
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    }
 
     if (window.textDetectionEnabled && !textIntervalId) {
       textIntervalId = setInterval(updateTextDetection, timeInterval);
@@ -266,19 +269,17 @@ function drawRedBoxes() {
   //   "Red boxes: " + " + " + redBoxes.length + " + " + JSON.stringify(redBoxes)
   // );
 
-  status.innerText =
-    "Red boxes detected: " +
-    redBoxes.length +
-    " + " +
-    JSON.stringify(redBoxes) +
-    " + " +
-    source.width +
-    "x" +
-    source.height +
-    " + " +
-    canvas.width +
-    "x" +
-    canvas.height;
+  // status.innerText = "Red boxes detected: " + redBoxes.length
+  // " + " +
+  // JSON.stringify(redBoxes) +
+  // " + " +
+  // source.width +
+  // "x" +
+  // source.height +
+  // " + " +
+  // canvas.width +
+  // "x" +
+  // canvas.height;
 
   // ----------------------------- //
   redBoxes.forEach((box) => {
