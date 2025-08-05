@@ -134,3 +134,21 @@ function setVideoSizeMode(mode) {
     videoSizeLabel.style.display = videoSizeSwitch.checked ? "block" : "none";
   }
 }
+
+// =========================================//
+function updateVideoResolution() {
+  // alert("UpdateVideoResolution");
+
+  const videoSizeSelect = document.getElementById("video-size-select");
+  const videoFeed = document.getElementById("video-feed");
+  if (!videoFeed || !videoSizeSelect) return;
+
+  // Get selected resolution value (e.g. "1280x720")
+  const selectedValue = videoSizeSelect.value;
+  const [width, height] = selectedValue.split("x").map(Number);
+
+  // Find video/canvas elements inside videoFeed
+  const video = videoFeed.querySelector("video");
+  const img = videoFeed.querySelector("img");
+  const canvas = videoFeed.querySelector("canvas");
+}
