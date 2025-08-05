@@ -92,7 +92,7 @@ function displayGPSlocation(latitude, longitude) {
   if (!ctx || !canvas) return;
   const gpsString = `Lat: ${latitude.toFixed(2)}, Lon: ${longitude.toFixed(2)}`;
   ctx.save();
-  ctx.font = "20px Arial";
+  ctx.font = "40px Arial";
   ctx.fillStyle = "rgba(0,0,0,0.5)";
   const textWidth = ctx.measureText(gpsString).width;
 

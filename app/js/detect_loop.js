@@ -32,8 +32,7 @@ function detectLoop() {
   } else {
     // Detection loop is running
     // status.innerText = "Running Detecting...";
-
-    drawOverlays();
+    // drawOverlays();
 
     //=========================================//
     // Object detection
@@ -196,6 +195,8 @@ function detectLoop() {
     //   }
     // }
 
+    drawOverlays();
+
     window.animationId = requestAnimationFrame(detectLoop);
   }
 }
@@ -204,8 +205,19 @@ function detectLoop() {
 function drawOverlays() {
   // alert("drawOverlays");
 
+  // const source =
+  //   document.getElementById("camera-stream") ||
+  //   document.getElementById("usb-camera-stream") ||
+  //   document.getElementById("stream-player") ||
+  //   document.getElementById("video-file-player") ||
+  //   document.getElementById("video") ||
+  //   document.getElementById("image") ||
+  //   document.getElementById("image-file-viewer");
+
   if (!ctx || !canvas) return;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // Draw date and time overlay
   if (window.showDateTimeOverlay) {
@@ -248,23 +260,13 @@ function drawRedBoxes() {
 
   if (!canvas || !source) return;
 
-  if (source instanceof HTMLVideoElement) {
-    canvas.width = source.videoWidth;
-    canvas.height = source.videoHeight;
-  } else if (source instanceof HTMLImageElement) {
-    canvas.width = source.naturalWidth;
-    canvas.height = source.naturalHeight;
-    source.crossOrigin = "anonymous"; // Set Cross-Origin Attribute
-  } else {
-    document.getElementById("status").innerText = "No video/image found";
-    return;
-  }
-
+  // -------------------------------- //
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+
   ctx.strokeStyle = "green";
   ctx.lineWidth = 5;
   // ctx.strokeRect(405, 20, 300, 50);
-
   // ctx.fillStyle = "red";
   // ctx.fillRect(50, 50, 100, 100);
 
@@ -274,9 +276,21 @@ function drawRedBoxes() {
   //   "Red boxes: " + " + " + redBoxes.length + " + " + JSON.stringify(redBoxes)
   // );
 
-  // status.innerText =
-  //   "Red boxes detected: " + redBoxes.length + " + " + JSON.stringify(redBoxes);
+  status.innerText =
+    "Red boxes detected: " +
+    redBoxes.length +
+    " + " +
+    JSON.stringify(redBoxes) +
+    " + " +
+    source.width +
+    "x" +
+    source.height +
+    " + " +
+    canvas.width +
+    "x" +
+    canvas.height;
 
+  // ----------------------------- //
   redBoxes.forEach((box) => {
     ctx.strokeRect(box.left, box.top, box.width, box.height);
   });

@@ -107,7 +107,7 @@ function displayVideoSize() {
 
   if (!sizeText) return;
   ctx.save();
-  ctx.font = "20px Arial";
+  ctx.font = "40px Arial";
   ctx.fillStyle = "rgba(0,0,0,0.5)";
   const textWidth = ctx.measureText("WxH: " + sizeText).width;
 

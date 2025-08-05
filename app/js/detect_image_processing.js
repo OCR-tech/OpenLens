@@ -3,16 +3,13 @@
 function detectRedBoxesInImage(canvas) {
   // alert("detectRedBoxesInImage");
 
-  // canvas: HTMLCanvasElement containing the image
   if (!window.cv || !canvas) {
     console.error("OpenCV.js is not loaded or canvas is not provided.");
     return [];
   }
 
-  // Read image from canvas
-  const src = cv.imread(canvas);
-  // const ctx = canvas.getContext("2d");
-  // const src = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const src = cv.imread(canvas); // Read the image from the canvas
+  // alert("Image loaded: " + src + src.size().width + "x" + src.size().height);
 
   // Convert to HSV color space for better red detection
   const hsv = new cv.Mat();
