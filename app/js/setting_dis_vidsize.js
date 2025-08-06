@@ -48,7 +48,7 @@ function toggleVideoSize() {
 
 // =========================================//
 function updateVideoSizeLabel() {
-  alert("UpdateVideoSizeLabel");
+  // alert("UpdateVideoSizeLabel");
 
   const videoSizeSwitch = document.getElementById("video-size-switch");
   const videoSizeLabel = document.getElementById("video-size-label");
@@ -135,7 +135,7 @@ function setVideoSizeMode(mode) {
 
 // =========================================//
 function updateVideoResolution() {
-  alert("UpdateVideoResolution");
+  // alert("UpdateVideoResolution");
 
   const videoSizeSelect = document.getElementById("video-size-select");
   const videoFeed = document.getElementById("video-feed");

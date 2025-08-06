@@ -315,7 +315,7 @@ function startVideo(filePath) {
 
   // Clean up previous video/canvas if any
   if (video) {
-    video.pause();
+    // video.pause();
     video.srcObject = null;
     video.remove();
     video = null;
