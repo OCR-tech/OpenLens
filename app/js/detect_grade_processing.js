@@ -102,3 +102,73 @@ function detectFilledGradeBoxes(canvas, threshold = 80) {
 
   return filledCircles; // Array of filled circles (same format as detectGradeBoxes)
 }
+
+// =========================================//
+function sortGradeBoxes(boxes) {
+  // alert("sortGradeBoxes");
+
+  const gradesInput = document.getElementById("grades-input");
+
+  // Sort circles top-to-bottom, then left-to-right
+  const sorted = boxes.slice().sort((a, b) => {
+    // First by Y (row), then by X (column)
+    if (Math.abs(a.centerY - b.centerY) > 10) {
+      return a.centerY - b.centerY;
+    }
+    return a.centerX - b.centerX;
+  });
+
+  // Group by rows (tolerance for Y, e.g., 10 pixels)
+  const rowTolerance = 10;
+  let rows = [];
+  sorted.forEach((circle) => {
+    let row = rows.find(
+      (r) => Math.abs(r[0].centerY - circle.centerY) < rowTolerance
+    );
+    if (row) {
+      row.push(circle);
+    } else {
+      rows.push([circle]);
+    }
+  });
+
+  // Sort each row by X (column)
+  colIndex = 5;
+
+  // Append all detected positions to the gradesInput element
+  let output = "";
+  rows.forEach((row, rowIndex) => {
+    row.sort((a, b) => a.centerX - b.centerX);
+    row.forEach((circle, colIndex) => {
+      output += `Question ${rowIndex + 1}, Choice ${
+        colIndex + 1
+      }: (${circle.centerX.toFixed(1)}, ${circle.centerY.toFixed(1)}) + \n`;
+    });
+  });
+  gradesInput.innerText = output;
+}
+
+// =========================================//
+function mapGradeBoxesToGrades(boxes) {
+  // Map each box to a grade (A, B, C, D, F)
+  const grades = ["A", "B", "C", "D", "F"];
+  return boxes.map((box, index) => {
+    return {
+      ...box,
+      grade: grades[index % grades.length], // Cycle through grades
+    };
+  });
+}
+
+// =========================================//
+function assignGradesToBoxes(boxes) {
+  // Sort the boxes first
+  const sortedBoxes = sortGradeBoxes(boxes);
+
+  // Map sorted boxes to grades
+  const gradedBoxes = mapGradeBoxesToGrades(sortedBoxes);
+
+  // Return the graded boxes
+  return gradedBoxes;
+}
+// =========================================//
