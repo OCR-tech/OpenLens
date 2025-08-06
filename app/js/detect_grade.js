@@ -106,18 +106,15 @@ function drawGradeBoxes() {
   // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
-  ctx.strokeStyle = "blue";
-  ctx.lineWidth = 5;
-
   // ctx.strokeRect(405, 20, 300, 50);
   // ctx.fillStyle = "blue";
   // ctx.fillRect(50, 50, 100, 100);
 
   // ----------------------------- //
   // updateGradeDetectionBox(canvas);
-  // const gradeBoxes = detectGradeBoxes(canvas);
-  const gradeBoxes = detectFilledGradeBoxes(canvas);
-  sortGradeBoxes(gradeBoxes);
+  const gradeBoxes = detectGradeBoxes(canvas);
+  const filledGradeBoxes = detectFilledGradeBoxes(canvas);
+  sortGradeBoxes(filledGradeBoxes);
 
   status.innerText =
     "Grade boxes detected: " +
@@ -135,6 +132,14 @@ function drawGradeBoxes() {
 
   // ----------------------------- //
   gradeBoxes.forEach((box) => {
+    ctx.strokeStyle = "blue";
+    ctx.lineWidth = 5;
+    ctx.strokeRect(box.left, box.top, box.width, box.height);
+  });
+
+  filledGradeBoxes.forEach((box) => {
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 5;
     ctx.strokeRect(box.left, box.top, box.width, box.height);
   });
 }
