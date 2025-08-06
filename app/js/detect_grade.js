@@ -115,7 +115,8 @@ function drawGradeBoxes() {
 
   // ----------------------------- //
   // updateGradeDetectionBox(canvas);
-  const gradeBoxes = detectGradeBoxes(canvas);
+  // const gradeBoxes = detectGradeBoxes(canvas);
+  const gradeBoxes = detectFilledGradeBoxes(canvas);
 
   status.innerText =
     "Grade boxes detected: " +

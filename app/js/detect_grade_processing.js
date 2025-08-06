@@ -56,3 +56,49 @@ function detectGradeBoxes(canvas) {
 
   return boxes; // Array of {centerX, centerY, radius, left, top, width, height}
 }
+
+// =========================================//
+// Detect filled (dark) grade circles in an image using OpenCV.js
+function detectFilledGradeBoxes(canvas, threshold = 80) {
+  if (!window.cv || !canvas) {
+    console.error("OpenCV.js is not loaded or canvas is not provided.");
+    return [];
+  }
+
+  // First, detect all circles
+  const circles = detectGradeBoxes(canvas);
+
+  // Read grayscale image from canvas
+  const src = cv.imread(canvas);
+  const gray = new cv.Mat();
+  cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+
+  // For each circle, check if it's filled (average intensity below threshold)
+  const filledCircles = [];
+  circles.forEach((circle) => {
+    // Create a mask for the circle
+    const mask = new cv.Mat.zeros(gray.rows, gray.cols, cv.CV_8UC1);
+    cv.circle(
+      mask,
+      new cv.Point(circle.centerX, circle.centerY),
+      Math.round(circle.radius * 0.8), // slightly inside the edge
+      new cv.Scalar(255, 255, 255, 255),
+      -1
+    );
+
+    // Calculate mean intensity inside the circle
+    const mean = cv.mean(gray, mask)[0];
+
+    // If mean intensity is below threshold, consider it filled
+    if (mean < threshold) {
+      filledCircles.push(circle);
+    }
+
+    mask.delete();
+  });
+
+  src.delete();
+  gray.delete();
+
+  return filledCircles; // Array of filled circles (same format as detectGradeBoxes)
+}
