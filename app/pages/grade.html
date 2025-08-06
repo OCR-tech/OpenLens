@@ -1,0 +1,47 @@
+<div class="container-section" style="margin: 0; padding: 5px">
+  <div class="video-source-section">
+    <div class="text-section">
+      <!-- input for detected grades -->
+      <textarea
+        id="grades-input"
+        class="grades-input"
+        contenteditable="true"
+        spellcheck="true"
+        rows="2"
+        placeholder="Detected grades..."
+        style="width: 100%; box-sizing: border-box"
+      ></textarea>
+
+      <!-- Row 1: Status -->
+
+      <!-- Row 2: Buttons -->
+      <div class="row-text">
+        <button id="btn-detect-grade" type="button" onclick="detectGrades()">
+          Detect
+        </button>
+        <button id="btn-pause-grade" type="button" onclick="pauseGrades()">
+          Pause
+        </button>
+        <button id="btn-copy-grade" type="button" onclick="copyGrades()">
+          Copy
+        </button>
+        <button id="btn-clear-grade" type="button" onclick="clearGrades()">
+          Clear
+        </button>
+      </div>
+
+      <div class="row-text">
+        <button id="btn-csv-grade" type="button" onclick="csvGrades()">
+          CSV
+        </button>
+        <button
+          id="btn-spreadsheet-grade"
+          type="button"
+          onclick="spreadsheetGrades()"
+        >
+          Spreadsheet
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

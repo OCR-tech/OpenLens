@@ -18,6 +18,7 @@ const btnStop = document.getElementById("btn-stop");
 const groupFrameSource = document.getElementById("group-frame-source");
 const groupFrameMode = document.getElementById("group-frame-mode");
 const groupFrameText = document.getElementById("group-frame-text");
+const groupFrameGrade = document.getElementById("group-frame-grade");
 const groupFrameObject = document.getElementById("group-frame-object");
 const groupFrameGemini = document.getElementById("group-frame-gemini");
 const groupFrameCommand = document.getElementById("group-frame-command");
@@ -98,6 +99,7 @@ function initSystem() {
   //------------//
   window.objectDetectionEnabled = true;
   window.textDetectionEnabled = true;
+  window.gradeDetectionEnabled = true;
   window.redBoxesDetectionEnabled = true;
   window.motionDetectionEnabled = true;
   window.soundDetectionEnabled = true;

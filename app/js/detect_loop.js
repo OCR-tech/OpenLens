@@ -1,5 +1,6 @@
 let objectIntervalId = null;
 let textIntervalId = null;
+let gradeIntervalId = null;
 let motionIntervalId = null;
 let soundIntervalId = null;
 let smokeIntervalId = null;
@@ -83,6 +84,22 @@ function detectLoop() {
     } else if (!window.textDetectionEnabled && textIntervalId) {
       clearInterval(textIntervalId);
       textIntervalId = null;
+    }
+
+    //=========================================//
+    // Grade detection
+    // if (window.gradeDetectionEnabled) {
+    //   drawGrades();
+    // } else {
+    //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // }
+
+    if (window.gradeDetectionEnabled && !gradeIntervalId) {
+      gradeIntervalId = setInterval(updateGradeDetection, timeInterval);
+    } else if (!window.gradeDetectionEnabled && gradeIntervalId) {
+      clearInterval(gradeIntervalId);
+      gradeIntervalId = null;
     }
 
     //=========================================//
@@ -264,7 +281,7 @@ function drawRedBoxes() {
   // ctx.fillRect(50, 50, 100, 100);
 
   // ----------------------------- //
-  const redBoxes = detectRedBoxesInImage(canvas);
+  const redBoxes = detectRedBoxes(canvas);
   // alert(
   //   "Red boxes: " + " + " + redBoxes.length + " + " + JSON.stringify(redBoxes)
   // );

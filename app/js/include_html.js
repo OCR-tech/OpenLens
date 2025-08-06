@@ -147,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
     restoreMode("notificationMode", window.setNotificationMode);
     restoreMode("objectDetectionMode", window.setObjectDetectionMode);
     restoreMode("textDetectionMode", window.setTextDetectionMode);
+    restoreMode("gradeDetectionMode", window.setGradeDetectionMode);
     restoreMode("motionDetectionMode", window.setMotionDetectionMode);
     restoreValue(
       "volumeSliderMotionDetectionValue",
