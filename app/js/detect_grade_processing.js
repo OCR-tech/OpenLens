@@ -104,11 +104,13 @@ function detectFilledGradeBoxes(canvas, threshold = 80) {
 }
 
 // =========================================//
-function sortGradeBoxes(boxes) {
+function sortGradeBoxes(boxes, filledBoxes) {
   // alert("sortGradeBoxes");
 
   const gradesInput = document.getElementById("grades-input");
+  const gradesInput1 = document.getElementById("grades-input1");
 
+  // ----------------------------------- //
   // Sort circles top-to-bottom, then left-to-right
   const sorted = boxes.slice().sort((a, b) => {
     // First by Y (row), then by X (column)
@@ -118,6 +120,7 @@ function sortGradeBoxes(boxes) {
     return a.centerX - b.centerX;
   });
 
+  // ----------------------------------- //
   // Group by rows (tolerance for Y, e.g., 10 pixels)
   const rowTolerance = 10;
   let rows = [];
@@ -132,9 +135,15 @@ function sortGradeBoxes(boxes) {
     }
   });
 
-  // Sort each row by X (column)
-  colIndex = 5;
+  // ----------------------------------- //
+  // get the box of the first rows and the first columns
+  const firstBoxes = rows.map((row) => row[0]);
+  const lastBoxes = rows.map((row) => row[row.length - 1]);
 
+  gradesInput1.innerText = `"firstBoxes: ${JSON.stringify(firstBoxes[0])}" +
+  "lastBoxes: ${JSON.stringify(lastBoxes[lastBoxes.length - 1])}"`;
+
+  // ----------------------------------- //
   // Append all detected positions to the gradesInput element
   let output = "";
   rows.forEach((row, rowIndex) => {
