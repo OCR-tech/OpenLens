@@ -59,7 +59,7 @@ function detectGradeBoxes(canvas) {
 
 // =========================================//
 // Detect filled (dark) grade circles in an image using OpenCV.js
-function detectFilledGradeBoxes(canvas, threshold = 80) {
+function detectFilledGradeBoxes(canvas, threshold = 150) {
   if (!window.cv || !canvas) {
     console.error("OpenCV.js is not loaded or canvas is not provided.");
     return [];
