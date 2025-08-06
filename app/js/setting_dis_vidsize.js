@@ -48,7 +48,7 @@ function toggleVideoSize() {
 
 // =========================================//
 function updateVideoSizeLabel() {
-  // alert("UpdateVideoSizeLabel");
+  alert("UpdateVideoSizeLabel");
 
   const videoSizeSwitch = document.getElementById("video-size-switch");
   const videoSizeLabel = document.getElementById("video-size-label");
@@ -58,13 +58,11 @@ function updateVideoSizeLabel() {
   if (!videoSizeSwitch.checked) {
     videoSizeLabel.style.display = "none";
     videoSizeLabel.textContent = "";
-    // return;
   } else {
     videoSizeLabel.style.display = "inline-block";
 
     if (!video) {
       videoSizeLabel.textContent = "WxH: N/A";
-      // return;
     } else {
       videoSizeLabel.textContent = "WxH: " + widthVideo + "x" + heightVideo;
     }
@@ -137,18 +135,40 @@ function setVideoSizeMode(mode) {
 
 // =========================================//
 function updateVideoResolution() {
-  // alert("UpdateVideoResolution");
+  alert("UpdateVideoResolution");
 
   const videoSizeSelect = document.getElementById("video-size-select");
   const videoFeed = document.getElementById("video-feed");
   if (!videoFeed || !videoSizeSelect) return;
 
-  // Get selected resolution value (e.g. "1280x720")
   const selectedValue = videoSizeSelect.value;
   const [width, height] = selectedValue.split("x").map(Number);
 
-  // Find video/canvas elements inside videoFeed
   const video = videoFeed.querySelector("video");
   const img = videoFeed.querySelector("img");
   const canvas = videoFeed.querySelector("canvas");
+
+  if (video) {
+    video.width = width;
+    video.height = height;
+    video.style.width = "100%";
+    video.style.height = "100%";
+  }
+  if (img) {
+    img.width = width;
+    img.height = height;
+    img.style.width = "100%";
+    img.style.height = "100%";
+  }
+  if (canvas) {
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+  }
+
+  // widthVideo = width;
+  // heightVideo = height;
+  // displayVideoSize();
+  // updateVideoSizeLabel();
 }
