@@ -9,6 +9,7 @@ function toggleGradeDetection() {
 
   if (!gradeSwitch) return;
 
+  window.gradeDetectionEnabled = gradeSwitch.checked; // Use red boxes for grade detection
   groupFrameGrade.style.display = gradeSwitch.checked ? "flex" : "none";
 
   if (window.voiceStatusEnabled) {
@@ -38,7 +39,7 @@ function setGradeDetectionMode(mode) {
     gradeSwitch.dispatchEvent(new Event("change"));
   }
 
-  // window.redBoxesDetectionEnabled = gradeSwitch.checked;
+  window.gradeDetectionEnabled = gradeSwitch.checked;
 
   // if (gradeStatus) {
   //   gradeStatus.innerHTML =
@@ -85,15 +86,32 @@ function updateGradeDetection() {
     document.getElementById("status").innerText = "No video/image found";
     return;
   }
+}
+
+// =========================================//
+function drawGradeBoxes() {
+  // alert("drawGradeBoxes");
+
+  const status = document.getElementById("status");
+  const canvas = document.getElementById("overlay");
+  const source =
+    document.getElementById("camera-stream") ||
+    document.getElementById("usb-camera-stream") ||
+    document.getElementById("stream-player") ||
+    document.getElementById("video-file-player") ||
+    document.getElementById("video") ||
+    document.getElementById("image") ||
+    document.getElementById("image-file-viewer");
 
   // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   ctx.strokeStyle = "blue";
   ctx.lineWidth = 5;
-  ctx.strokeRect(405, 20, 300, 50);
-  ctx.fillStyle = "blue";
-  ctx.fillRect(50, 50, 100, 100);
+
+  // ctx.strokeRect(405, 20, 300, 50);
+  // ctx.fillStyle = "blue";
+  // ctx.fillRect(50, 50, 100, 100);
 
   // ----------------------------- //
   // updateGradeDetectionBox(canvas);
@@ -118,35 +136,6 @@ function updateGradeDetection() {
     ctx.strokeRect(box.left, box.top, box.width, box.height);
   });
 }
-
-// =========================================//
-// function updateGradeDetectionBox(canvas) {
-//   // alert("updateGradeDetectionBox");
-
-//   const status = document.getElementById("status");
-//   if (!status) return;
-
-//   status.innerText = "Detecting...";
-
-//   // Get the canvas context
-//   const ctx = canvas.getContext("2d", { willReadFrequently: true });
-//   if (!ctx) {
-//     status.innerText = "Canvas context not found!";
-//     return;
-//   }
-
-//   // Process the image data to detect grades
-//   // const processedText = processGrades(data);
-
-//   // Display the processed text in the textarea
-//   const textarea = document.getElementById("grades-input");
-//   if (textarea) {
-//     textarea.value = processedText;
-//     status.innerText = "Grade detected!";
-//   } else {
-//     status.innerText = "Textarea not found!";
-//   }
-// }
 
 // =========================================//
 // Function to process the grade input

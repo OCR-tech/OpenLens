@@ -27,8 +27,8 @@ function detectGradeBoxes(canvas) {
     20, // minDist (minimum distance between circle centers)
     100, // param1 (higher threshold for Canny edge detector)
     30, // param2 (threshold for center detection)
-    10, // minRadius
-    100 // maxRadius
+    15, // minRadius
+    50 // maxRadius
   );
 
   // Collect detected circles

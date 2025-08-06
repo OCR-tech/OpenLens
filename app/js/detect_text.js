@@ -139,6 +139,56 @@ function updateTextDetection() {
 }
 
 // =========================================//
+function drawRedBoxes() {
+  // alert("drawRedBoxes");
+
+  const status = document.getElementById("status");
+  const source =
+    document.getElementById("camera-stream") ||
+    document.getElementById("usb-camera-stream") ||
+    document.getElementById("stream-player") ||
+    document.getElementById("video-file-player") ||
+    document.getElementById("video") ||
+    document.getElementById("image") ||
+    document.getElementById("image-file-viewer");
+
+  if (!canvas || !source) return;
+
+  // -------------------------------- //
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+
+  ctx.strokeStyle = "green";
+  ctx.lineWidth = 5;
+  // ctx.strokeRect(405, 20, 300, 50);
+  // ctx.fillStyle = "red";
+  // ctx.fillRect(50, 50, 100, 100);
+
+  // ----------------------------- //
+  const redBoxes = detectRedBoxes(canvas);
+  // alert(
+  //   "Red boxes: " + " + " + redBoxes.length + " + " + JSON.stringify(redBoxes)
+  // );
+
+  // status.innerText = "Red boxes detected: " + redBoxes.length
+  // " + " +
+  // JSON.stringify(redBoxes) +
+  // " + " +
+  // source.width +
+  // "x" +
+  // source.height +
+  // " + " +
+  // canvas.width +
+  // "x" +
+  // canvas.height;
+
+  // ----------------------------- //
+  redBoxes.forEach((box) => {
+    ctx.strokeRect(box.left, box.top, box.width, box.height);
+  });
+}
+
+// =========================================//
 function updateTesseract(canvas) {
   // alert("updateTesseract");
 
