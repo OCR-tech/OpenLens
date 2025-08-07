@@ -135,9 +135,13 @@ function updateTextDetection() {
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // ----------------------------- //
-  updateTesseract(canvas);
+  detectTextsTesseract(canvas);
+
+  // ----------------------------- //
+  extractTextFromBoxes(redBoxes);
 }
 
+let redBoxes = [];
 // =========================================//
 function drawRedBoxes() {
   // alert("drawRedBoxes");
@@ -160,27 +164,28 @@ function drawRedBoxes() {
 
   ctx.strokeStyle = "green";
   ctx.lineWidth = 5;
+
   // ctx.strokeRect(405, 20, 300, 50);
   // ctx.fillStyle = "red";
   // ctx.fillRect(50, 50, 100, 100);
 
   // ----------------------------- //
-  const redBoxes = detectRedBoxes(canvas);
+  redBoxes = detectRedBoxes(canvas);
   // alert(
   //   "Red boxes: " + " + " + redBoxes.length + " + " + JSON.stringify(redBoxes)
   // );
 
-  // status.innerText = "Red boxes detected: " + redBoxes.length
+  // status.innerText = "Red boxes detected: " + redBoxes.length;
   // " + " +
-  // JSON.stringify(redBoxes) +
-  // " + " +
-  // source.width +
-  // "x" +
-  // source.height +
-  // " + " +
-  // canvas.width +
-  // "x" +
-  // canvas.height;
+  //   JSON.stringify(redBoxes) +
+  //   " + " +
+  //   source.width +
+  //   "x" +
+  //   source.height +
+  //   " + " +
+  //   canvas.width +
+  //   "x" +
+  //   canvas.height;
 
   // ----------------------------- //
   redBoxes.forEach((box) => {
@@ -189,8 +194,65 @@ function drawRedBoxes() {
 }
 
 // =========================================//
-function updateTesseract(canvas) {
-  // alert("updateTesseract");
+function extractTextFromBoxes(boxes, lang = "eng") {
+  // alert("extractTextFromBoxes");
+
+  const textsInput1 = document.getElementById("texts-input1");
+  if (!canvas || !boxes || boxes.length === 0) {
+    if (textsInput1) textsInput1.innerText = "No boxes detected";
+    return [];
+  }
+
+  // sort boxes from top to bottom, left to right
+  boxes.sort((a, b) => {
+    if (a.top !== b.top) {
+      return a.top - b.top; // Sort by top position
+    }
+    return a.left - b.left; // If tops are equal, sort by left position
+  });
+
+  // Process each box asynchronously
+  Promise.all(
+    boxes.map(async (box) => {
+      // Create a temporary canvas for each box
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = box.width;
+      tempCanvas.height = box.height;
+      const tempCtx = tempCanvas.getContext("2d");
+
+      // Draw the box region from the main canvas
+      tempCtx.drawImage(
+        canvas,
+        box.left,
+        box.top,
+        box.width,
+        box.height,
+        0,
+        0,
+        box.width,
+        box.height
+      );
+
+      // Run OCR on the cropped region
+      const {
+        data: { text },
+      } = await Tesseract.recognize(tempCanvas.toDataURL("image/png"), lang);
+      return {
+        box,
+        text: text.trim(),
+      };
+    })
+  ).then((results) => {
+    if (textsInput1) {
+      textsInput1.innerText = results.map((r) => r.text).join("\n");
+    }
+    // Optionally: do something with results
+  });
+}
+
+// =========================================//
+function detectTextsTesseract(canvas) {
+  // alert("detectTextsTesseract");
 
   const textsInput = document.getElementById("texts-input");
   const status = document.getElementById("status");

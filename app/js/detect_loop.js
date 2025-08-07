@@ -227,6 +227,7 @@ function drawOverlays() {
 
   if (!ctx || !canvas) return;
 
+  // check if video is playing
   // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Draw date and time overlay
