@@ -194,7 +194,7 @@ function drawRedBoxes() {
 }
 
 // =========================================//
-function extractTextFromBoxes(boxes, lang = "eng") {
+function extractTextFromBoxes(boxes) {
   // alert("extractTextFromBoxes");
 
   const textsInput1 = document.getElementById("texts-input1");
@@ -233,6 +233,13 @@ function extractTextFromBoxes(boxes, lang = "eng") {
         box.height
       );
 
+      const langArray = getSelectedLanguages();
+      const lang = Array.isArray(langArray)
+        ? langArray.length > 1
+          ? langArray.join("+")
+          : langArray[0] || "eng"
+        : langArray || "eng";
+
       // Run OCR on the cropped region
       const {
         data: { text },
@@ -244,7 +251,8 @@ function extractTextFromBoxes(boxes, lang = "eng") {
     })
   ).then((results) => {
     if (textsInput1) {
-      textsInput1.innerText = results.map((r) => r.text).join("\n");
+      textsInput1.innerText = results.map((r) => r.text).join("|*****|");
+      // textsInput1.innerText = results.map((r) => r.text).join("\n");
     }
     // Optionally: do something with results
   });
@@ -449,7 +457,8 @@ function csvTexts() {
 function spreadsheetTexts() {
   // alert("spreadsheetTexts");
 
-  const textarea = document.getElementById("texts-input");
+  // const textarea = document.getElementById("texts-input");
+  const textarea = document.getElementById("texts-input1");
   const status = document.getElementById("status");
   if (!textarea || !textarea.value.trim()) {
     if (status) status.innerText = "No text to export!";
@@ -467,7 +476,8 @@ function spreadsheetTexts() {
   // Split text into columns (by ":")
   const rows = textarea.value
     .split(/\r?\n/)
-    .map((line) => line.split(":").map((cell) => cell.trim()))
+    // .map((line) => line.split(":").map((cell) => cell.trim()))
+    .map((line) => line.split("|*****|").map((cell) => cell.trim()))
     .filter((row) => row.length > 0 && row[0]);
 
   // XLSX generation using SheetJS (xlsx library)
