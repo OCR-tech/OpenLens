@@ -22,9 +22,10 @@ function populateObjectDropdown() {
     "#object-dropdown .multi-options-box"
   );
   optionsBox.innerHTML = "";
+
   objects.forEach((obj) => {
     const label = document.createElement("label");
-    label.innerHTML = `<input type="checkbox" value="${obj.value}"> ${obj.label}`;
+    label.innerHTML = `<input type="checkbox" id="${obj.label}" value="${obj.value}"> ${obj.label}`;
     optionsBox.appendChild(label);
   });
 }

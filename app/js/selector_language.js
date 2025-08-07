@@ -45,9 +45,16 @@ function populateLanguageDropdown() {
     "#language-dropdown .multi-options-box"
   );
   optionsBox.innerHTML = "";
+
+  // languages.forEach((lang) => {
+  //   const label = document.createElement("label");
+  //   label.innerHTML = `<input type="checkbox" value="${lang.value}"> ${lang.label}`;
+  //   optionsBox.appendChild(label);
+  // });
+
   languages.forEach((lang) => {
     const label = document.createElement("label");
-    label.innerHTML = `<input type="checkbox" value="${lang.value}"> ${lang.label}`;
+    label.innerHTML = `<input type="checkbox" id="${lang.label}" value="${lang.value}"> ${lang.label}`;
     optionsBox.appendChild(label);
   });
 }
