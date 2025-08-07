@@ -294,7 +294,8 @@ function detectTextsTesseract(canvas) {
         // textsInput.value = text.substring(0, 1000);
       } else {
         text = processTexts(text);
-        status.innerText = "Detecting text: Done" + " *** " + lang;
+        // status.innerText = "Detecting text: Done" + " *** " + lang;
+        status.innerText = "Detecting text: Done";
         textsInput.value = text;
       }
       window.textDetectionEnabled = false;
@@ -410,8 +411,10 @@ function copyTexts() {
 // =========================================//
 function clearTexts() {
   const textarea = document.getElementById("texts-input");
+  const textarea1 = document.getElementById("texts-input1");
   if (textarea) {
     textarea.value = "";
+    textarea1.value = "";
     const status = document.getElementById("status");
     if (status) status.innerText = "Cleared!";
   }
