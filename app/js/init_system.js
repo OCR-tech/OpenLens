@@ -20,7 +20,6 @@ const groupFrameMode = document.getElementById("group-frame-mode");
 const groupFrameText = document.getElementById("group-frame-text");
 const groupFrameGrade = document.getElementById("group-frame-grade");
 const groupFrameObject = document.getElementById("group-frame-object");
-const groupFrameGemini = document.getElementById("group-frame-gemini");
 const groupFrameCommand = document.getElementById("group-frame-command");
 const groupFrameVoice = document.getElementById("group-frame-voice");
 const groupFrameDetect = document.getElementById("group-frame-detect");

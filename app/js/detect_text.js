@@ -251,7 +251,7 @@ function extractTextFromBoxes(boxes) {
     })
   ).then((results) => {
     if (textsInput1) {
-      textsInput1.innerText = results.map((r) => r.text).join("|*****|");
+      textsInput1.innerText = results.map((r) => r.text).join("|---|");
       // textsInput1.innerText = results.map((r) => r.text).join("\n");
     }
     // Optionally: do something with results
@@ -480,7 +480,7 @@ function spreadsheetTexts() {
   const rows = textarea.value
     .split(/\r?\n/)
     // .map((line) => line.split(":").map((cell) => cell.trim()))
-    .map((line) => line.split("|*****|").map((cell) => cell.trim()))
+    .map((line) => line.split("|---|").map((cell) => cell.trim()))
     .filter((row) => row.length > 0 && row[0]);
 
   // XLSX generation using SheetJS (xlsx library)
