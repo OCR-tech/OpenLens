@@ -22,7 +22,6 @@ body {
   box-sizing: border-box;
 }
 h1 {
-  text-align: center;
   font-size: 2.5em;
   margin-top: 0px;
   margin-bottom: 20px;
@@ -32,14 +31,12 @@ h1 {
   background-color: #f0f0f0;
 }
 h2 {
-  text-align: center;
   font-size: 2em;
   margin-top: 0px;
   margin-bottom: 15px;
   color: #2980b9;
 }
 h3 {
-  text-align: center;
   font-size: 1.5em;
   padding: 10px;
   border-radius: 5px;
@@ -48,7 +45,6 @@ h3 {
   color: #2980b9;
 }
 h4 {
-  text-align: center;
   font-size: 1.1em;
   font-weight: normal;
   margin-top: 0px;
@@ -120,7 +116,6 @@ ul {
   color: #555;
 }
 .status {
-  margin: 10px auto 0 auto;
   text-align: center;
   background-color: #23272b;
   color: #fff;
