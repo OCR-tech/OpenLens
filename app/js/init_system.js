@@ -148,7 +148,9 @@ function initUI() {
     const el = document.getElementById(id);
     if (el) {
       el.disabled = false;
+      // alert("Enabled: " + id);
     } else {
+      // alert("Not found: " + id);
     }
   });
 
