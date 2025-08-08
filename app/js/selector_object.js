@@ -94,11 +94,21 @@ function getSelectedObjects() {
 
   if (selected.length === 0) {
     return ["person"];
-  }
-
-  if (selected.length > 1) {
+  } else if (selected.length === 1 && selected[0] === "all") {
+    return objects.map((obj) => obj.value).filter((value) => value !== "all");
+  } else if (selected.length > 1) {
     selected.sort();
   }
+
+  // convert selected.value to objects.value
+  // selected.forEach((value, index) => {
+  //   const obj = objects.find((o) => o.value === value);
+  //   if (obj) {
+  //     selected[index] = obj.value;
+  //   }
+  // });
+
+  // alert(`Selected: ${selected.join(", ")}`);
 
   return selected;
 }

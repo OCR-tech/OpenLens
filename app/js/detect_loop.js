@@ -76,20 +76,34 @@ function detectLoop() {
         //   objAlertInput.innerText = "Not Alert";
         // }
 
-        // status.innerText = "123" + predictions;
-        // const selectedObjects = getSelectedObjects();
-        status.innerText = selectedObjects.join(", ");
-        // =========================================//
-        // predictions = predictions.filter(
-        //   (p) =>
-        //     selectedObjects.includes("all") ||
-        //     selectedObjects.includes(p.class.toLowerCase())
-        // );
+        status.innerText = "123 " + predictions.map((p) => p.class).join(", ");
 
-        objAlertInput.innerText = "123" + predictions;
+        //=========================================//
+        // Filter predictions based on selected objects
+        // const selectedObjects = getSelectedObjects();
+        // alert("Selected Objects: " + selectedObjects);
+
+        // convert selectedObjects value to objects value
+        const selectedObjects = Array.from(
+          document.querySelectorAll(
+            "#object-dropdown input[type='checkbox']:checked"
+          )
+        ).map((object) => object.value);
+
+        objAlertInput.innerText =
+          "Selected Objects: " + selectedObjects.join(", ");
+
+        const filteredPredictions = predictions.filter((p) =>
+          selectedObjects.includes(p.class)
+        );
+
+        // Display filtered detected objects
+        // objAlertInput.innerText = selectedObjects;
+        // objAlertInput.innerText =
+        //   "Filtered Predictions: " + JSON.stringify(filteredPredictions);
         //=========================================//
         // Draw predictions on the canvas
-        drawPredictions(predictions);
+        drawPredictions(filteredPredictions);
       });
     }
     //=========================================//
@@ -384,7 +398,9 @@ function drawOverlays() {
 function drawPredictions(predictions) {
   // alert("DrawPredictions");
 
-  const status = document.getElementById("status");
+  // const status = document.getElementById("status");
+  // const objAlertInput = document.getElementById("obj-alert-input");
+
   if (!ctx || !canvas) return;
 
   // alert("Predictions: " + JSON.stringify(predictions));
@@ -396,10 +412,10 @@ function drawPredictions(predictions) {
   //         .join(", ")
   //     : "Detecting...";
 
+  // ===========================================//
   if (window.showBoundingBox) {
     predictions.forEach(function (prediction) {
       // alert("Prediction: " + JSON.stringify(prediction));
-      // ===========================================//
 
       // ===========================================//
       // Draw bounding box
