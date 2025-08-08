@@ -146,7 +146,10 @@ function initUI() {
     "datetime-switch",
   ].forEach((id) => {
     const el = document.getElementById(id);
-    if (el) el.disabled = false;
+    if (el) {
+      el.disabled = false;
+    } else {
+    }
   });
 
   // document.getElementById("video-size-label").style.display = "inline-block";
