@@ -17,6 +17,8 @@ function detectLoop() {
   // alert("detectLoop");
 
   const status = document.getElementById("status");
+  const objDetectInput = document.getElementById("obj-detect-input");
+  const objAlertInput = document.getElementById("obj-alert-input");
 
   if (!model || !video) return;
 
@@ -42,28 +44,36 @@ function detectLoop() {
         // const objectNames = predictions.map((p) => p.class).join(", ");
         // alert("Model loaded:" + model + " " + video + " " + predictions + objectNames);
 
-        // =========================================//
+        objDetectInput.innerText =
+          predictions.length > 0
+            ? predictions
+                .map((p) => `${p.class} (${Math.round(p.score * 100)}%)`)
+                .join(" , ")
+            : "Not Detected";
+
+        //=========================================//
         // Lists of all detected objects
-        // const detectedObjects = predictions.map((p) => p.class);
-        // if (detectedObjects.includes("person")) {
-        //   alert("*** Persons ***");
-        // } else if (detectedObjects.includes("car")) {
-        //   alert("*** Cars ***");
-        // } else if (detectedObjects.includes("chair")) {
-        //   alert("*** Chairs ***");
-        // } else if (detectedObjects.includes("table")) {
-        //   alert("*** Tables ***");
-        // } else if (detectedObjects.includes("couch")) {
-        //   alert("*** Couches ***");
-        // } else if (detectedObjects.includes("tv")) {
-        //   alert("*** TVs ***");
-        // } else if (detectedObjects.includes("vase")) {
-        //   alert("*** Vases ***");
-        // } else if (detectedObjects.includes("bicycle")) {
-        //   alert("*** Bicycles ***");
-        // } else {
-        //   console.log("*** No ***");
-        // }
+        const detectedObjects = predictions.map((p) => p.class);
+
+        if (detectedObjects.includes("person")) {
+          objAlertInput.innerText = "Persons";
+        } else if (detectedObjects.includes("car")) {
+          objAlertInput.innerText = "Cars";
+        } else if (detectedObjects.includes("chair")) {
+          objAlertInput.innerText = "Chairs";
+        } else if (detectedObjects.includes("table")) {
+          objAlertInput.innerText = "Tables";
+        } else if (detectedObjects.includes("couch")) {
+          objAlertInput.innerText = "Couches";
+        } else if (detectedObjects.includes("tv")) {
+          objAlertInput.innerText = "TVs";
+        } else if (detectedObjects.includes("vase")) {
+          objAlertInput.innerText = "Vases";
+        } else if (detectedObjects.includes("bicycle")) {
+          objAlertInput.innerText = "Bicycles";
+        } else {
+          objAlertInput.innerText = "Not Alert";
+        }
 
         //=========================================//
         // Draw predictions on the canvas
@@ -130,7 +140,7 @@ function detectLoop() {
     } else if (!window.fireDetectionEnabled && fireIntervalId) {
       clearInterval(fireIntervalId);
       fireIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting fire.";
+      // document.getElementById("status").innerText = "Not detecting fire.";
     }
 
     //=========================================//
@@ -140,7 +150,7 @@ function detectLoop() {
     } else if (!window.floodDetectionEnabled && floodIntervalId) {
       clearInterval(floodIntervalId);
       floodIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting flood.";
+      // document.getElementById("status").innerText = "Not detecting flood.";
     }
 
     //=========================================//
@@ -150,7 +160,7 @@ function detectLoop() {
     } else if (!window.lightDetectionEnabled && lightIntervalId) {
       clearInterval(lightIntervalId);
       lightIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting light.";
+      // document.getElementById("status").innerText = "Not detecting light.";
     }
 
     //=========================================//
@@ -160,7 +170,7 @@ function detectLoop() {
     } else if (!window.rainDetectionEnabled && rainIntervalId) {
       clearInterval(rainIntervalId);
       rainIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting rain.";
+      // document.getElementById("status").innerText = "Not detecting rain.";
     }
 
     //=========================================//
@@ -170,7 +180,7 @@ function detectLoop() {
     } else if (!window.fallingDetectionEnabled && fallingIntervalId) {
       clearInterval(fallingIntervalId);
       fallingIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting falling.";
+      // document.getElementById("status").innerText = "Not detecting falling.";
     }
 
     //=========================================//
@@ -180,7 +190,7 @@ function detectLoop() {
     } else if (!window.breakingDetectionEnabled && breakingIntervalId) {
       clearInterval(breakingIntervalId);
       breakingIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting breaking.";
+      // document.getElementById("status").innerText = "Not detecting breaking.";
     }
 
     //=========================================//
@@ -190,7 +200,7 @@ function detectLoop() {
     } else if (!window.soundDetectionEnabled && soundIntervalId) {
       clearInterval(soundIntervalId);
       soundIntervalId = null;
-      document.getElementById("status").innerText = "Not detecting sound.";
+      // document.getElementById("status").innerText = "Not detecting sound.";
     }
 
     // alert(window.motionDetectionEnabled + " " + window.soundDetectionEnabled);
