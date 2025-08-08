@@ -64,14 +64,21 @@ function displayDateTime() {
   const dateTimeString = now.toLocaleString();
   ctx.save();
   // ctx.font = "16px Arial";
-  ctx.font = "40px Arial";
+
+  const canvasWidth = canvas.width;
+  const fontSize = Math.round(canvasWidth / 25);
+  ctx.font = `${fontSize}px Arial`;
   ctx.fillStyle = "rgba(0,0,0,0.5)";
+  const textWidth = ctx.measureText(dateTimeString).width;
 
   // Draw background rectangle for better readability
-  const textWidth = ctx.measureText(dateTimeString).width;
-  ctx.fillRect(8, 8, textWidth + 8, 24);
+  const padding = Math.round(canvasWidth / 100); // Adjust padding based on canvas width
+  const textHeight = Math.round(fontSize * 1.2); // Adjust text height based on font size
+  const x = padding;
+  const y = padding;
+  ctx.fillRect(x, y, textWidth + padding, textHeight);
   ctx.fillStyle = "#FFF";
-  ctx.fillText(dateTimeString, 12, 26);
+  ctx.fillText(dateTimeString, x, y + textHeight);
   ctx.restore();
 }
 

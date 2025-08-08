@@ -100,18 +100,22 @@ function displayFramerate() {
   const sizeText = fps;
   if (!sizeText) return;
   ctx.save();
-  ctx.font = "40px Arial";
+  // ctx.font = "40px Arial";
+
+  const canvasWidth = canvas.width;
+  const fontSize = Math.round(canvasWidth / 25);
+  ctx.font = `${fontSize}px Arial`;
   ctx.fillStyle = "rgba(0,0,0,0.5)";
   const textWidth = ctx.measureText("FPS: " + sizeText).width;
 
   // Draw background rectangle for better readability
-  const padding = 8;
-  const textHeight = 24;
-  const x = canvas.width - textWidth - padding - 10;
-  const y = padding + 10;
+  const padding = Math.round(canvasWidth / 100); // Adjust padding based on canvas width
+  const textHeight = Math.round(fontSize * 1.2); // Adjust text height based on font size
+  const x = canvas.width - textWidth - padding;
+  const y = padding;
   ctx.fillRect(x, y, textWidth + padding, textHeight);
   ctx.fillStyle = "#FFF";
-  ctx.fillText("FPS: " + sizeText, x + 4, y + textHeight - 6);
+  ctx.fillText("FPS: " + sizeText, x, y + textHeight);
   ctx.restore();
 }
 

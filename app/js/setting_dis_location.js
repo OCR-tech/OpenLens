@@ -92,18 +92,22 @@ function displayGPSlocation(latitude, longitude) {
   if (!ctx || !canvas) return;
   const gpsString = `Lat: ${latitude.toFixed(2)}, Lon: ${longitude.toFixed(2)}`;
   ctx.save();
-  ctx.font = "40px Arial";
+  // ctx.font = "40px Arial";
+
+  const canvasWidth = canvas.width;
+  const fontSize = Math.round(canvasWidth / 25);
+  ctx.font = `${fontSize}px Arial`;
   ctx.fillStyle = "rgba(0,0,0,0.5)";
   const textWidth = ctx.measureText(gpsString).width;
 
   // Draw background rectangle below the date/time
-  const padding = 8;
-  const textHeight = 24;
+  const padding = Math.round(canvasWidth / 100); // Adjust padding based on canvas width
+  const textHeight = Math.round(fontSize * 1.2); // Adjust text height based on font size
   const x = padding;
   const y = canvas.height - textHeight - padding;
   ctx.fillRect(x, y, textWidth + padding, textHeight);
   ctx.fillStyle = "#FFF";
-  ctx.fillText(gpsString, x + 4, y + textHeight - 6);
+  ctx.fillText(gpsString, x, y + textHeight);
   ctx.restore();
 }
 
