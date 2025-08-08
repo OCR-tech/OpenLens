@@ -110,8 +110,7 @@ function updateFireDetection() {
     document.getElementById("stream-player") ||
     document.getElementById("video-file-player") ||
     document.getElementById("video") ||
-    document.getElementById("image") ||
-    document.getElementById("image-file-viewer");
+    document.getElementById("image_file");
 
   if (!canvas || !fireSwitch || !fireSwitch.checked || !source) return;
 

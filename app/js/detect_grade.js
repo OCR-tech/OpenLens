@@ -69,7 +69,7 @@ function updateGradeDetection() {
     document.getElementById("stream-player") ||
     document.getElementById("video-file-player") ||
     document.getElementById("video") ||
-    document.getElementById("image") ||
+    document.getElementById("image_file") ||
     document.getElementById("image-file-viewer");
 
   if (!canvas || !gradeSwitch || !gradeSwitch.checked || !source) return;

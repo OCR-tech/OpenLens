@@ -114,10 +114,10 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Show the button initially
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
-    browseFile(); // Call the function to browse video files
+    browseButton(); // Call the function to browse video files
 
     //------------------------------//
-  } else if (videoSource.value === "image") {
+  } else if (videoSource.value === "image_file") {
     // CheckImage(); // Call the function to start the image file selection
     document.getElementById("status").innerText = "Image (file)";
     btnStart.disabled = true; // Disable the start button
@@ -129,7 +129,21 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Show the button initially
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
-    browseFile(); // Call the function to browse image files
+    browseButton(); // Call the function to browse image files
+
+    //------------------------------//
+  } else if (videoSource.value === "image_folder") {
+    document.getElementById("status").innerText = "Image (folder)";
+    btnStart.disabled = true; // Disable the start button
+    btnCommand.disabled = false; // Enable the command button
+    btnVoice.disabled = false; // Enable the voice button
+    btnBrowse.style.display = "inline-block"; // Show the browse button
+    btnBrowse.disabled = false; // Enable the browse button
+    btnOk.disabled = true; // Disable the OK button
+    btnOk.style.display = "none"; // Hide the OK button
+    ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
+    ipCameraUrlInput.style.display = "none"; // Hide the input
+    browseButton(); // Call the function to browse image folders
   }
 }
 
@@ -446,10 +460,12 @@ window.selectedVideoFilePath = null;
 window.selectedImageFilePath = null;
 // =========================================//
 // Browse video cam function
-function browseFile() {
-  // alert("browseFile");
+function browseButton() {
+  // alert("browseButton");
+
   const videoSource = document.getElementById("video-source");
 
+  // =========================================//
   if (videoSource.value === "video") {
     // Open file dialog to select a video file
     const fileInput = document.createElement("input");
@@ -481,7 +497,9 @@ function browseFile() {
     };
     // Open the file dialog
     fileInput.click();
-  } else if (videoSource.value === "image") {
+
+    // =========================================//
+  } else if (videoSource.value === "image_file") {
     // Open file dialog to select an image file
     const fileInput = document.createElement("input");
     const btnStart = document.getElementById("btn-start");
@@ -507,8 +525,37 @@ function browseFile() {
         window.selectedImageFilePath = null;
       }
     };
-
     // Open the file dialog
     fileInput.click();
+
+    // =========================================//
+  } else if (videoSource.value === "image_folder") {
+    // Open file dialog to select an image file
+    const folderInput = document.createElement("input");
+    const btnStart = document.getElementById("btn-start");
+    const btnCommand = document.getElementById("btn-command");
+    const btnVoice = document.getElementById("btn-voice");
+    const btnOk = document.getElementById("btn-ok");
+
+    folderInput.type = "file";
+    folderInput.webkitdirectory = true; // Allow folder selection
+    folderInput.onchange = function (event) {
+      const files = event.target.files;
+      if (files.length > 0) {
+        window.selectedImageFilePath = URL.createObjectURL(files[0]);
+        document.getElementById("status").innerText =
+          "Selected image folder: " + files[0].webkitRelativePath;
+        btnStart.disabled = false; // Enable the start button
+        btnCommand.disabled = false; // Enable the command button
+        btnVoice.disabled = false; // Enable the voice button
+        btnOk.disabled = true; // Disable the OK button
+        startButton();
+      } else {
+        document.getElementById("status").innerText = "No folder selected.";
+        window.selectedImageFilePath = null;
+      }
+    };
+    // Open the folder dialog
+    folderInput.click();
   }
 }

@@ -78,8 +78,10 @@ function startButton() {
     startStream();
   } else if (videoSource === "video") {
     startVideo(window.selectedVideoFilePath);
-  } else if (videoSource === "image") {
+  } else if (videoSource === "image_file") {
     startImage(window.selectedImageFilePath);
+  } else if (videoSource === "image_folder") {
+    startImageFolder(window.selectedImageFolderPath);
   }
 
   if (window.timerDelay3000ms) {

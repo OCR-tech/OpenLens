@@ -88,8 +88,11 @@ function browseFolder() {
         window.selectedVideoFiles = files;
         // Optionally: CheckVideo(files[0]);
         // Optionally: startVideo(URL.createObjectURL(files[0]));
-      } else if (videoSource.value === "image") {
+      } else if (videoSource.value === "image_file") {
         window.selectedImageFiles = files;
+      } else if (videoSource.value === "image_folder") {
+        window.selectedImageFiles = files;
+        // Optionally: startImage(URL.createObjectURL(files[0]));
       }
       startButton();
     } else {

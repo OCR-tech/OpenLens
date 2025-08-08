@@ -107,7 +107,8 @@ function captureImage() {
     document.getElementById("camera-stream") ||
     document.getElementById("stream-player") ||
     document.getElementById("video-file-player") ||
-    document.getElementById("image");
+    document.getElementById("image") ||
+    document.getElementById("image_folder");
 
   if (!canvas) {
     document.getElementById("status").innerText = "No video found";
