@@ -1,5 +1,6 @@
 // ================================= //
 const objects = [
+  { value: "all", label: "All" },
   { value: "person", label: "Person" },
   { value: "car", label: "Car" },
   { value: "bicycle", label: "Bicycle" },
@@ -15,7 +16,22 @@ const objects = [
   { value: "boat", label: "Boat" },
   { value: "motorcycle", label: "Motorcycle" },
   { value: "truck", label: "Truck" },
+  { value: "couch", label: "Couch" },
+  { value: "chair", label: "Chair" },
+  { value: "table", label: "Table" },
+  { value: "lamp", label: "Lamp" },
+  { value: "phone", label: "Phone" },
+  { value: "laptop", label: "Laptop" },
+  { value: "book", label: "Book" },
+  { value: "bottle", label: "Bottle" },
+  { value: "cup", label: "Cup" },
+  { value: "plate", label: "Plate" },
+  { value: "fork", label: "Fork" },
+  { value: "knife", label: "Knife" },
+  { value: "spoon", label: "Spoon" },
+  { value: "potted plant", label: "Potted Plant" },
 ];
+
 // ================================= //
 function populateObjectDropdown() {
   const optionsBox = document.querySelector(
@@ -33,7 +49,6 @@ function populateObjectDropdown() {
 // ================================= //
 function toggleDropdownObjects() {
   // alert("ToggleDropdownObjects");
-
   document.getElementById("object-dropdown").classList.toggle("open");
 }
 
@@ -49,16 +64,31 @@ document.addEventListener("click", function (e) {
 // ================================= //
 // Function to get selected objects from the dropdown
 function getSelectedObjects() {
+  // alert("GetSelectedObjects");
+
   const checkboxes = document.querySelectorAll(
     "#object-dropdown input[type='checkbox']"
   );
   const selected = [];
+
+  // Set all checkboxes as default checked
+  // checkboxes.forEach((checkbox) => {
+  //   checkbox.checked = true;
+  // });
 
   checkboxes.forEach((checkbox) => {
     if (checkbox.checked) {
       selected.push(checkbox.value);
     }
   });
+
+  // If "all" is selected, check all checkboxes and return all object values except "all"
+  if (selected.includes("all")) {
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = true;
+    });
+    return objects.filter((obj) => obj.value !== "all").map((obj) => obj.value);
+  }
 
   if (selected.length === 0) {
     return ["person"];

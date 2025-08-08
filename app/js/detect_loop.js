@@ -19,6 +19,7 @@ function detectLoop() {
   const status = document.getElementById("status");
   const objDetectInput = document.getElementById("obj-detect-input");
   const objAlertInput = document.getElementById("obj-alert-input");
+  const objectDropdown = document.getElementById("object-dropdown");
 
   if (!model || !video) return;
 
@@ -55,26 +56,37 @@ function detectLoop() {
         // Lists of all detected objects
         const detectedObjects = predictions.map((p) => p.class);
 
-        if (detectedObjects.includes("person")) {
-          objAlertInput.innerText = "Persons";
-        } else if (detectedObjects.includes("car")) {
-          objAlertInput.innerText = "Cars";
-        } else if (detectedObjects.includes("chair")) {
-          objAlertInput.innerText = "Chairs";
-        } else if (detectedObjects.includes("table")) {
-          objAlertInput.innerText = "Tables";
-        } else if (detectedObjects.includes("couch")) {
-          objAlertInput.innerText = "Couches";
-        } else if (detectedObjects.includes("tv")) {
-          objAlertInput.innerText = "TVs";
-        } else if (detectedObjects.includes("vase")) {
-          objAlertInput.innerText = "Vases";
-        } else if (detectedObjects.includes("bicycle")) {
-          objAlertInput.innerText = "Bicycles";
-        } else {
-          objAlertInput.innerText = "Not Alert";
-        }
+        // if (detectedObjects.includes("person")) {
+        //   objAlertInput.innerText = "Persons";
+        // } else if (detectedObjects.includes("car")) {
+        //   objAlertInput.innerText = "Cars";
+        // } else if (detectedObjects.includes("chair")) {
+        //   objAlertInput.innerText = "Chairs";
+        // } else if (detectedObjects.includes("table")) {
+        //   objAlertInput.innerText = "Tables";
+        // } else if (detectedObjects.includes("couch")) {
+        //   objAlertInput.innerText = "Couches";
+        // } else if (detectedObjects.includes("tv")) {
+        //   objAlertInput.innerText = "TVs";
+        // } else if (detectedObjects.includes("vase")) {
+        //   objAlertInput.innerText = "Vases";
+        // } else if (detectedObjects.includes("bicycle")) {
+        //   objAlertInput.innerText = "Bicycles";
+        // } else {
+        //   objAlertInput.innerText = "Not Alert";
+        // }
 
+        // status.innerText = "123" + predictions;
+        const selectedObjects = getSelectedObjects();
+        status.innerText = selectedObjects.join(", ");
+        // =========================================//
+        // predictions = predictions.filter(
+        //   (p) =>
+        //     selectedObjects.includes("all") ||
+        //     selectedObjects.includes(p.class.toLowerCase())
+        // );
+
+        objAlertInput.innerText = "123" + predictions;
         //=========================================//
         // Draw predictions on the canvas
         drawPredictions(predictions);
@@ -82,35 +94,35 @@ function detectLoop() {
     }
     //=========================================//
     // Text detection
-    if (window.redBoxesDetectionEnabled) {
-      drawRedBoxes();
-      // } else {
-      //   ctx.clearRect(0, 0, canvas.width, canvas.height);
-      //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    }
+    // if (window.redBoxesDetectionEnabled) {
+    //   drawRedBoxes();
+    //   // } else {
+    //   //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //   //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // }
 
-    if (window.textDetectionEnabled && !textIntervalId) {
-      textIntervalId = setInterval(updateTextDetection, timeInterval);
-    } else if (!window.textDetectionEnabled && textIntervalId) {
-      clearInterval(textIntervalId);
-      textIntervalId = null;
-    }
+    // if (window.textDetectionEnabled && !textIntervalId) {
+    //   textIntervalId = setInterval(updateTextDetection, timeInterval);
+    // } else if (!window.textDetectionEnabled && textIntervalId) {
+    //   clearInterval(textIntervalId);
+    //   textIntervalId = null;
+    // }
 
     //=========================================//
     // Grade detection
-    if (window.gradeDetectionEnabled) {
-      drawGradeBoxes();
-      // } else {
-      //   ctx.clearRect(0, 0, canvas.width, canvas.height);
-      //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    }
+    // if (window.gradeDetectionEnabled) {
+    //   drawGradeBoxes();
+    //   // } else {
+    //   //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //   //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // }
 
-    if (window.gradeDetectionEnabled && !gradeIntervalId) {
-      gradeIntervalId = setInterval(updateGradeDetection, timeInterval);
-    } else if (!window.gradeDetectionEnabled && gradeIntervalId) {
-      clearInterval(gradeIntervalId);
-      gradeIntervalId = null;
-    }
+    // if (window.gradeDetectionEnabled && !gradeIntervalId) {
+    //   gradeIntervalId = setInterval(updateGradeDetection, timeInterval);
+    // } else if (!window.gradeDetectionEnabled && gradeIntervalId) {
+    //   clearInterval(gradeIntervalId);
+    //   gradeIntervalId = null;
+    // }
 
     //=========================================//
     // Motion detection
