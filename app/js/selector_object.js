@@ -52,12 +52,14 @@ function toggleDropdownObjects() {
   document.getElementById("object-dropdown").classList.toggle("open");
 }
 
+selectedObjects = [];
 // ================================= //
 // Optional: Close dropdown when clicking outside
 document.addEventListener("click", function (e) {
   const dropdown = document.getElementById("object-dropdown");
   if (dropdown && !dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
+    selectedObjects = getSelectedObjects();
   }
 });
 

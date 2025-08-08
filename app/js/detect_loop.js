@@ -77,7 +77,7 @@ function detectLoop() {
         // }
 
         // status.innerText = "123" + predictions;
-        const selectedObjects = getSelectedObjects();
+        // const selectedObjects = getSelectedObjects();
         status.innerText = selectedObjects.join(", ");
         // =========================================//
         // predictions = predictions.filter(
