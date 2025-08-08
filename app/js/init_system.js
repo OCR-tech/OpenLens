@@ -64,8 +64,7 @@ window.addEventListener("DOMContentLoaded", function () {
       initUI();
 
       document.getElementById("status").innerText = "Ready!";
-      document.getElementById("debug1").innerText = "";
-      document.getElementById("debug2").innerText = "";
+      document.getElementById("debug").innerText = "";
 
       // document.getElementById("status").innerText =
       //   " window.motionDetectionEnabled: " +
