@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Loop through the array and add checkboxes
           languages.forEach((lang) => {
             const label = document.createElement("label");
-            label.innerHTML = `<input type="checkbox" value="${lang.value}" /> ${lang.label}`;
+            label.innerHTML = `<input type="checkbox" value="${lang.value}" id="${lang.value}-checkbox" /> ${lang.label}`;
             optionsBox.appendChild(label);
           });
 
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Loop through the object and add checkboxes
           Object.entries(objects).forEach(([key, obj]) => {
             const label = document.createElement("label");
-            label.innerHTML = `<input type="checkbox" value="${key}" /> ${obj.label}`;
+            label.innerHTML = `<input type="checkbox" value="${key}" id="${key}-checkbox" /> ${obj.label}`;
             optionsBox.appendChild(label);
           });
 

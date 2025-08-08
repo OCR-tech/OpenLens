@@ -33,7 +33,7 @@ function detectLoop() {
   } else {
     // Detection loop is running
     // status.innerText = "Running Detecting...";
-    // drawOverlays();
+    drawOverlays();
 
     //=========================================//
     // Object detection
@@ -215,7 +215,7 @@ function detectLoop() {
     //   }
     // }
 
-    drawOverlays();
+    // drawOverlays();
 
     window.animationId = requestAnimationFrame(detectLoop);
   }
@@ -228,7 +228,7 @@ function drawOverlays() {
   if (!ctx || !canvas) return;
 
   // check if video is playing
-  // ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Draw date and time overlay
   if (window.showDateTimeOverlay) {
