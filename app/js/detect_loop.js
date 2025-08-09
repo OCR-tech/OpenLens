@@ -84,18 +84,18 @@ function detectLoop() {
         // alert("Selected Objects: " + selectedObjects);
 
         // convert selectedObjects value to objects value
-        const selectedObjects = Array.from(
-          document.querySelectorAll(
-            "#object-dropdown input[type='checkbox']:checked"
-          )
-        ).map((object) => object.value);
+        // const selectedObjects = Array.from(
+        //   document.querySelectorAll(
+        //     "#object-dropdown input[type='checkbox']:checked"
+        //   )
+        // ).map((object) => object.value);
 
-        objAlertInput.innerText =
-          "Selected Objects: " + selectedObjects.join(", ");
+        // objAlertInput.innerText =
+        //   "Selected Objects: " + selectedObjects.join(", ");
 
-        const filteredPredictions = predictions.filter((p) =>
-          selectedObjects.includes(p.class)
-        );
+        // const filteredPredictions = predictions.filter((p) =>
+        //   selectedObjects.includes(p.class)
+        // );
 
         // Display filtered detected objects
         // objAlertInput.innerText = selectedObjects;
@@ -103,7 +103,8 @@ function detectLoop() {
         //   "Filtered Predictions: " + JSON.stringify(filteredPredictions);
         //=========================================//
         // Draw predictions on the canvas
-        drawPredictions(filteredPredictions);
+        drawPredictions(predictions);
+        // drawPredictions(filteredPredictions);
       });
     }
     //=========================================//
