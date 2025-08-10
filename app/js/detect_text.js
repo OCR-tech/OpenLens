@@ -141,14 +141,35 @@ function updateTextDetection() {
   canvas_processed = detectImageProcessing(canvas);
 
   // ----------------------------- //
+  displayProcessedImage(canvas_processed);
+
+  // ----------------------------- //
   detectTextsTesseract(canvas_processed);
 
   // ----------------------------- //
   extractTextFromBoxes(redBoxes);
 }
 
-let redBoxes = [];
 // =========================================//
+function displayProcessedImage(processedCanvas) {
+  // Create a new image element from the processed canvas
+  const img = new Image();
+  img.src = processedCanvas.toDataURL("image/png");
+  img.alt = "Processed Image";
+  img.style.border = "2px solid red";
+  img.style.margin = "10px";
+  img.style.maxWidth = "35%";
+  img.style.maxHeight = "35%";
+
+  if (canvas.nextSibling) {
+    canvas.parentNode.insertBefore(img, canvas.nextSibling);
+  } else {
+    canvas.parentNode.appendChild(img);
+  }
+}
+
+// =========================================//
+let redBoxes = [];
 function drawRedBoxes() {
   // alert("drawRedBoxes");
 
