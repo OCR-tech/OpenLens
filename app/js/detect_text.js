@@ -138,10 +138,10 @@ function updateTextDetection() {
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // ----------------------------- //
-  // detectImageProcessing(canvas);
+  canvas_processed = detectImageProcessing(canvas);
 
   // ----------------------------- //
-  detectTextsTesseract(canvas);
+  detectTextsTesseract(canvas_processed);
 
   // ----------------------------- //
   extractTextFromBoxes(redBoxes);

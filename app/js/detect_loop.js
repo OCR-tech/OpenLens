@@ -76,7 +76,7 @@ function detectLoop() {
         //   objAlertInput.innerText = "Not Alert";
         // }
 
-        status.innerText = "123 " + predictions.map((p) => p.class).join(", ");
+        // status.innerText = "123 " + predictions.map((p) => p.class).join(", ");
 
         //=========================================//
         // Filter predictions based on selected objects
