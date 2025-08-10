@@ -22,6 +22,7 @@ function deskewImage(canvas) {
   let angleSum = 0;
   let count = 0;
   for (let i = 0; i < lines.rows; i++) {
+    const rho = lines.data32F[i * 2];
     const theta = lines.data32F[i * 2 + 1];
     const angle = (theta * 180) / Math.PI - 90; // Convert to degrees and adjust
     if (Math.abs(angle) < 45) {
