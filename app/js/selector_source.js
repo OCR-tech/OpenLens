@@ -114,7 +114,7 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Show the button initially
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
-    browseButton(); // Call the function to browse video files
+    // browseButton(); // Call the function to browse video files
 
     //------------------------------//
   } else if (videoSource.value === "image_file") {
@@ -129,7 +129,7 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Show the button initially
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
-    browseButton(); // Call the function to browse image files
+    // browseButton(); // Call the function to browse image files
 
     //------------------------------//
   } else if (videoSource.value === "image_folder") {
@@ -143,7 +143,7 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Hide the OK button
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input
-    browseButton(); // Call the function to browse image folders
+    // browseButton(); // Call the function to browse image folders
   }
 }
 
