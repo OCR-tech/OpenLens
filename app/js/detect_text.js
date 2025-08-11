@@ -138,6 +138,7 @@ function updateTextDetection() {
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // ----------------------------- //
+  // canvas_processed = canvas;
   canvas_processed = detectImageProcessing(canvas);
 
   // ----------------------------- //

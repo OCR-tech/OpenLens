@@ -1,66 +1,78 @@
 // ================================ //
 function detectImageProcessing(canvas) {
-  // const processedCanvas = deskewImage(canvas);
-  deskewImage(canvas);
+  const processedCanvas = deskewImage(canvas);
+  // deskewImage(canvas);
 
-  processedCanvas = canvas;
+  // processedCanvas = canvas;
   return processedCanvas;
 }
 
 // ================================ //
 function deskewImage(canvas) {
+  // Read and preprocess
   const src = cv.imread(canvas);
   const gray = new cv.Mat();
   cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
+  // Adaptive threshold for better edge detection
+  const thresh = new cv.Mat();
+  cv.adaptiveThreshold(
+    gray,
+    thresh,
+    255,
+    cv.ADAPTIVE_THRESH_MEAN_C,
+    cv.THRESH_BINARY_INV,
+    21,
+    15
+  );
+
+  // Canny edge detection
   const edges = new cv.Mat();
-  cv.Canny(gray, edges, 50, 150);
+  cv.Canny(thresh, edges, 30, 100);
 
+  // Probabilistic Hough transform
   const lines = new cv.Mat();
-  cv.HoughLines(edges, lines, 1, Math.PI / 180, 150);
+  cv.HoughLinesP(edges, lines, 1, Math.PI / 180, 60, canvas.width / 10, 10);
 
-  let angleSum = 0;
-  let count = 0;
+  let angles = [];
   for (let i = 0; i < lines.rows; i++) {
-    const rho = lines.data32F[i * 2];
-    const theta = lines.data32F[i * 2 + 1];
-    const angle = (theta * 180) / Math.PI - 90; // Convert to degrees and adjust
-    if (Math.abs(angle) < 45) {
-      // Filter out angles that are too steep
-      angleSum += angle;
-      count++;
-    }
+    const x1 = lines.data32S[i * 4];
+    const y1 = lines.data32S[i * 4 + 1];
+    const x2 = lines.data32S[i * 4 + 2];
+    const y2 = lines.data32S[i * 4 + 3];
+    const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+    if (Math.abs(angle) < 45) angles.push(angle);
   }
-  const avgAngle = count > 0 ? angleSum / count : 0;
 
-  // alert("Image " + avgAngle.toFixed(2));
-  document.getElementById("status").innerText = "Image " + avgAngle.toFixed(2);
-
-  if (Math.abs(avgAngle) > 0.1) {
-    const center = new cv.Point(src.cols / 2, src.rows / 2);
-    const rotationMatrix = cv.getRotationMatrix2D(center, avgAngle, 1);
-    const rotated = new cv.Mat();
-    cv.warpAffine(
-      src,
-      rotated,
-      rotationMatrix,
-      src.size(),
-      cv.INTER_LINEAR,
-      cv.BORDER_CONSTANT,
-      new cv.Scalar()
-    );
-
-    // Update the canvas with the rotated image
-    cv.imshow(canvas, rotated);
-
-    // Clean up
-    src.delete();
-    gray.delete();
-    edges.delete();
-    lines.delete();
-    rotated.delete();
-  } else {
-    // No significant skew detected
-    cv.imshow(canvas, src);
+  // Use median for robust angle estimation
+  let avgAngle = 0;
+  if (angles.length > 0) {
+    angles.sort((a, b) => a - b);
+    const mid = Math.floor(angles.length / 2);
+    avgAngle =
+      angles.length % 2 !== 0
+        ? angles[mid]
+        : (angles[mid - 1] + angles[mid]) / 2;
   }
+
+  // Deskew
+  const outputCanvas = document.createElement("canvas");
+  outputCanvas.width = canvas.width;
+  outputCanvas.height = canvas.height;
+  const ctx = outputCanvas.getContext("2d");
+
+  ctx.save();
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.rotate((-avgAngle * Math.PI) / 180);
+  ctx.drawImage(canvas, -canvas.width / 2, -canvas.height / 2);
+  ctx.restore();
+
+  // Clean up
+  src.delete();
+  gray.delete();
+  thresh.delete();
+  edges.delete();
+  lines.delete();
+
+  return outputCanvas;
 }
