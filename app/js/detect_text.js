@@ -158,9 +158,9 @@ function displayProcessedImage(processedCanvas) {
   img.src = processedCanvas.toDataURL("image/png");
   img.alt = "Processed Image";
   img.style.border = "2px solid red";
-  img.style.margin = "10px";
-  img.style.maxWidth = "35%";
-  img.style.maxHeight = "35%";
+  img.style.margin = "3px";
+  img.style.maxWidth = "100%";
+  img.style.maxHeight = "100%";
 
   if (canvas.nextSibling) {
     canvas.parentNode.insertBefore(img, canvas.nextSibling);
