@@ -1,11 +1,11 @@
 // ================================ //
 function detectImageProcessing(canvas) {
   processedCanvas = deskewImage(canvas);
-  // processedCanvas = removeBlobImage(processedCanvas);
   // processedCanvas = cropROIImage(processedCanvas);
   processedCanvas = binarizeImage(processedCanvas);
   processedCanvas = removeNoiseImage(processedCanvas);
   processedCanvas = removeLineImage(processedCanvas);
+  // processedCanvas = removeBlobImage(processedCanvas);
 
   // processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
   // processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
@@ -251,33 +251,21 @@ function removeLineImage(canvas, ksize = 30) {
   cv.bitwise_and(hLines, vLines, lines);
 
   // ---------------------------------- //
-  // Small horizontal lines
-  // const hKernel1 = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(10, 1));
-  // const hLines1 = new cv.Mat();
-  // cv.morphologyEx(lines, hLines1, cv.MORPH_OPEN, hKernel1);
-
-  // // Small vertical lines
-  // const vKernel1 = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(1, 10));
-  // const vLines1 = new cv.Mat();
-  // cv.morphologyEx(lines, vLines1, cv.MORPH_OPEN, vKernel1);
-
-  // // Combine horizontal and vertical lines
-  // const lines1 = new cv.Mat();
-  // cv.bitwise_and(hLines1, vLines1, lines1);
+  // remove line noises
 
   // ---------------------------------- //
   // subtract lines from the binarized image
-  const subtract = new cv.Mat();
-  cv.subtract(lines, bin, subtract);
+  // const subtract = new cv.Mat();
+  // cv.subtract(lines, bin, subtract);
 
   // Invert mask and remove lines from binarized image
-  const maskInv = new cv.Mat();
-  cv.bitwise_not(subtract, maskInv);
+  // const maskInv = new cv.Mat();
+  // cv.bitwise_not(subtract, maskInv);
 
   const outputCanvas = document.createElement("canvas");
   outputCanvas.width = canvas.width;
   outputCanvas.height = canvas.height;
-  cv.imshow(outputCanvas, maskInv);
+  cv.imshow(outputCanvas, noiseRemoved);
 
   // Clean up
   src.delete();
@@ -290,8 +278,8 @@ function removeLineImage(canvas, ksize = 30) {
   vClosed.delete();
   vLines.delete();
   lines.delete();
-  maskInv.delete();
-  subtract.delete();
+  // maskInv.delete();
+  // subtract.delete();
 
   return outputCanvas;
 }
