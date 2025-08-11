@@ -2,9 +2,9 @@
 function detectImageProcessing(canvas) {
   let processedCanvas = deskewImage(canvas);
   processedCanvas = binarizeImage(processedCanvas);
-  processedCanvas = removeNoiseImage(processedCanvas);
+  // processedCanvas = removeNoiseImage(processedCanvas);
+  processedCanvas = removeNoiseFastImage(processedCanvas);
 
-  // processedCanvas = closeBoxImage(processedCanvas);
   // processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
   // processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
   // processedCanvas = removeBoxImage(processedCanvas);
@@ -148,65 +148,40 @@ function removeNoiseImage(canvas) {
 }
 
 // ================================ //
-// function closeBoxImage(canvas, ksize = 40) {
-//   // Remove only boxes, preserve text
-//   const src = cv.imread(canvas);
-//   const gray = new cv.Mat();
-//   cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+function removeNoiseFastImage(
+  canvas,
+  h = 30,
+  templateWindowSize = 7,
+  searchWindowSize = 21
+) {
+  // Fast noise removal: Gaussian blur + morphological opening
+  const src = cv.imread(canvas);
+  const gray = new cv.Mat();
+  cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
-//   // Binarize the image
-//   const bin = new cv.Mat();
-//   cv.adaptiveThreshold(
-//     gray,
-//     bin,
-//     255,
-//     cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-//     cv.THRESH_BINARY,
-//     25,
-//     15
-//   );
+  // Non-local means denoising (fastNlMeansDenoising)
+  const denoised = new cv.Mat();
+  cv.fastNlMeansDenoising(
+    gray,
+    denoised,
+    h,
+    templateWindowSize,
+    searchWindowSize
+  );
 
-//   // Morphological closing to connect box edges
-//   const closeKernel = cv.getStructuringElement(
-//     cv.MORPH_RECT,
-//     new cv.Size(ksize, ksize / 4) // Use a rectangular kernel to avoid removing text
-//   );
-//   const closed = new cv.Mat();
-//   cv.morphologyEx(bin, closed, cv.MORPH_CLOSE, closeKernel);
+  // Show result
+  const outputCanvas = document.createElement("canvas");
+  outputCanvas.width = canvas.width;
+  outputCanvas.height = canvas.height;
+  cv.imshow(outputCanvas, denoised);
 
-//   // Morphological opening to isolate boxes
-//   const openKernel = cv.getStructuringElement(
-//     cv.MORPH_RECT,
-//     new cv.Size(ksize, ksize / 4)
-//   );
-//   const boxes = new cv.Mat();
-//   cv.morphologyEx(closed, boxes, cv.MORPH_OPEN, openKernel);
+  // Clean up
+  src.delete();
+  gray.delete();
+  denoised.delete();
 
-//   // Invert boxes mask and remove boxes from binarized image
-//   const maskInv = new cv.Mat();
-//   cv.bitwise_not(boxes, maskInv);
-//   const cleaned = new cv.Mat();
-//   cv.bitwise_and(bin, maskInv, cleaned);
-
-//   // Show result on a new canvas
-//   const outputCanvas = document.createElement("canvas");
-//   outputCanvas.width = canvas.width;
-//   outputCanvas.height = canvas.height;
-//   cv.imshow(outputCanvas, cleaned);
-
-//   // Clean up
-//   src.delete();
-//   gray.delete();
-//   bin.delete();
-//   closeKernel.delete();
-//   closed.delete();
-//   openKernel.delete();
-//   boxes.delete();
-//   maskInv.delete();
-//   cleaned.delete();
-
-//   return outputCanvas;
-// }
+  return outputCanvas;
+}
 
 // ================================ //
 // function removeBoxImage(canvas, ksize = 40) {
