@@ -65,7 +65,7 @@ code {
   padding: 5px 5px;
   border-radius: 5px;
   font-family: monospace;
-  color: #333;
+  color: #333 !important;
 }
 span {
   color: #2980b9;
