@@ -120,7 +120,8 @@ function fullScreen() {
 
   const exitText = document.createElement("div");
   exitText.id = "exit-fullscreen-text";
-  exitText.textContent = "Press Esc to exit full screen";
+  // exitText.textContent = "Press Esc to exit full screen";
+  exitText.textContent = "Exit Fullscreen";
   exitText.style.position = "fixed";
   exitText.style.top = "10px";
   exitText.style.left = "50%";
@@ -131,4 +132,18 @@ function fullScreen() {
   exitText.style.borderRadius = "5px";
   exitText.style.zIndex = "10001";
   document.body.appendChild(exitText);
+
+  // Add touch/click event for mobile exit
+  exitText.addEventListener("touchstart", function () {
+    normalScreen();
+    exitText.remove();
+    const screenSwitch = document.getElementById("screen-switch");
+    if (screenSwitch) screenSwitch.checked = false;
+  });
+  exitText.addEventListener("click", function () {
+    normalScreen();
+    exitText.remove();
+    const screenSwitch = document.getElementById("screen-switch");
+    if (screenSwitch) screenSwitch.checked = false;
+  });
 }

@@ -130,8 +130,7 @@ function captureImage() {
       const ctx = canvas.getContext("2d");
       canvas.width = videoElement.naturalWidth;
       canvas.height = videoElement.naturalHeight;
-      // Set Cross-Origin Attribute
-      videoElement.crossOrigin = "anonymous"; // Ensure cross-origin is set
+      videoElement.crossOrigin = "anonymous"; // *** Set Cross-Origin Attribute ***
       ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
       saveCanvasAsImage(canvas);
     } else {
