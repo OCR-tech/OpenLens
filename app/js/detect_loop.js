@@ -116,12 +116,12 @@ function detectLoop() {
     //   //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     // }
 
-    if (window.textDetectionEnabled && !textIntervalId) {
-      textIntervalId = setInterval(updateTextDetection, timeInterval);
-    } else if (!window.textDetectionEnabled && textIntervalId) {
-      clearInterval(textIntervalId);
-      textIntervalId = null;
-    }
+    // if (window.textDetectionEnabled && !textIntervalId) {
+    //   textIntervalId = setInterval(updateTextDetection, timeInterval);
+    // } else if (!window.textDetectionEnabled && textIntervalId) {
+    //   clearInterval(textIntervalId);
+    //   textIntervalId = null;
+    // }
 
     //=========================================//
     // Grade detection
