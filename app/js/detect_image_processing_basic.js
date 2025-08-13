@@ -5,9 +5,10 @@ function detectImageProcessing(canvas) {
 
   // processedCanvas = canvas;
   processedCanvas = binarizeImage(canvas);
-  processedCanvas = deskewImage(processedCanvas);
-  processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
-  processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
+  processedCanvas = thresholdImage(processedCanvas);
+  // processedCanvas = deskewImage(processedCanvas);
+  // processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
+  // processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
 
   // ---------------------------  //
   // processedCanvas = cropROIImage(processedCanvas);
@@ -46,6 +47,36 @@ function binarizeImage(canvas) {
   gray.delete();
   bin.delete();
 
+  return outputCanvas;
+}
+
+// ================================ //
+function thresholdImage(canvas) {
+  // Convert binarized image to colored image and thresholding for only black color
+  const src = cv.imread(canvas);
+  const gray = new cv.Mat();
+  cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+  const bin = new cv.Mat();
+
+  // Apply binary thresholding, black and white
+  // cv.threshold(gray, bin, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU);
+  cv.adaptiveThreshold(
+    gray,
+    bin,
+    255,
+    cv.ADAPTIVE_THRESH_GAUSSIAN_C,
+    cv.THRESH_BINARY,
+    35, // 25
+    30 // 15
+  );
+
+  const outputCanvas = document.createElement("canvas");
+  outputCanvas.width = canvas.width;
+  outputCanvas.height = canvas.height;
+  cv.imshow(outputCanvas, bin);
+  src.delete();
+  gray.delete();
+  bin.delete();
   return outputCanvas;
 }
 
