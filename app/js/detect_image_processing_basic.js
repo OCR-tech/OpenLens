@@ -2,97 +2,126 @@
 function detectImageProcessing(canvas) {
   // processedCanvas = canvas;
 
-  processedCanvas = deskewImage(canvas);
-  processedCanvas = binarizeImage(processedCanvas);
+  processedCanvas = binarizeImage(canvas);
+  processedCanvas = deskewImage(processedCanvas);
   processedCanvas = removeNoiseImage(processedCanvas);
-  processedCanvas = removeBoxImage(processedCanvas);
+  processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
+  processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
+  // processedCanvas = removeBlobImage(processedCanvas);
+
+  // processedCanvas = removeWatermarkImage(processedCanvas);
+  // processedCanvas = removeBoxImage(processedCanvas);
 
   // ---------------------------  //
   // processedCanvas = removeLineImage(processedCanvas);
   // processedCanvas = cropROIImage(processedCanvas);
-  // processedCanvas = removeBlobImage(processedCanvas);
-  // processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
-  // processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
+
   // processedCanvas = removeTableImage(processedCanvas);
-  // processedCanvas = removeWatermarkImage(processedCanvas);
 
   return processedCanvas;
 }
 
 // ================================ //
-function cropROIImage(canvas) {
-  // Automatically crop the largest contour (ROI) from the image
+function binarizeImage(canvas) {
   const src = cv.imread(canvas);
   const gray = new cv.Mat();
   cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
-  // Binarize for contour detection
   const bin = new cv.Mat();
   cv.adaptiveThreshold(
     gray,
     bin,
     255,
     cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-    cv.THRESH_BINARY_INV,
+    cv.THRESH_BINARY,
     25,
     15
   );
 
-  // Find contours
-  const contours = new cv.MatVector();
-  const hierarchy = new cv.Mat();
-  cv.findContours(
-    bin,
-    contours,
-    hierarchy,
-    cv.RETR_EXTERNAL,
-    cv.CHAIN_APPROX_SIMPLE
-  );
+  const outputCanvas = document.createElement("canvas");
+  outputCanvas.width = canvas.width;
+  outputCanvas.height = canvas.height;
+  cv.imshow(outputCanvas, bin);
 
-  // Find the largest contour
-  let maxArea = 0;
-  let maxContour = null;
-  for (let i = 0; i < contours.size(); i++) {
-    const cnt = contours.get(i);
-    const area = cv.contourArea(cnt);
-    if (area > maxArea) {
-      maxArea = area;
-      maxContour = cnt;
-    }
-  }
-
-  let outputCanvas = canvas;
-  if (maxContour && maxArea > 0) {
-    // Get bounding rect and crop
-    const rect = cv.boundingRect(maxContour);
-    const cropped = src.roi(rect);
-
-    outputCanvas = document.createElement("canvas");
-    outputCanvas.width = rect.width;
-    outputCanvas.height = rect.height;
-    cv.imshow(outputCanvas, cropped);
-    cropped.delete();
-  }
-
-  // Clean up
   src.delete();
   gray.delete();
   bin.delete();
-  contours.delete();
-  hierarchy.delete();
 
   return outputCanvas;
 }
 
 // ================================ //
+// function cropROIImage(canvas) {
+//   // Automatically crop the largest contour (ROI) from the image
+//   const src = cv.imread(canvas);
+//   const gray = new cv.Mat();
+//   cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+
+//   // Binarize for contour detection
+//   const bin = new cv.Mat();
+//   cv.adaptiveThreshold(
+//     gray,
+//     bin,
+//     255,
+//     cv.ADAPTIVE_THRESH_GAUSSIAN_C,
+//     cv.THRESH_BINARY_INV,
+//     25,
+//     15
+//   );
+
+//   // Find contours
+//   const contours = new cv.MatVector();
+//   const hierarchy = new cv.Mat();
+//   cv.findContours(
+//     bin,
+//     contours,
+//     hierarchy,
+//     cv.RETR_EXTERNAL,
+//     cv.CHAIN_APPROX_SIMPLE
+//   );
+
+//   // Find the largest contour
+//   let maxArea = 0;
+//   let maxContour = null;
+//   for (let i = 0; i < contours.size(); i++) {
+//     const cnt = contours.get(i);
+//     const area = cv.contourArea(cnt);
+//     if (area > maxArea) {
+//       maxArea = area;
+//       maxContour = cnt;
+//     }
+//   }
+
+//   let outputCanvas = canvas;
+//   if (maxContour && maxArea > 0) {
+//     // Get bounding rect and crop
+//     const rect = cv.boundingRect(maxContour);
+//     const cropped = src.roi(rect);
+
+//     outputCanvas = document.createElement("canvas");
+//     outputCanvas.width = rect.width;
+//     outputCanvas.height = rect.height;
+//     cv.imshow(outputCanvas, cropped);
+//     cropped.delete();
+//   }
+
+//   // Clean up
+//   src.delete();
+//   gray.delete();
+//   bin.delete();
+//   contours.delete();
+//   hierarchy.delete();
+
+//   return outputCanvas;
+// }
+
+// ================================ //
 function deskewImage(canvas) {
   // Improved deskew: use adaptive threshold and more robust angle filtering
   const src = cv.imread(canvas);
-  const gray = new cv.Mat();
-  cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
   const edges = new cv.Mat();
-  cv.Canny(gray, edges, 50, 150);
+  cv.Canny(src, edges, 50, 150);
 
   const lines = new cv.Mat();
   cv.HoughLinesP(edges, lines, 1, Math.PI / 180, 80, canvas.width / 12, 15);
@@ -129,7 +158,6 @@ function deskewImage(canvas) {
   ctx.restore();
 
   src.delete();
-  gray.delete();
   edges.delete();
   lines.delete();
 
@@ -137,190 +165,10 @@ function deskewImage(canvas) {
 }
 
 // ================================ //
-// function removeBlobImage(canvas, minArea = 100) {
-//   // Remove small blobs/noise from the image using contour filtering
-//   const src = cv.imread(canvas);
-//   const gray = new cv.Mat();
-//   cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-//   // Binarize for contour detection
-//   const bin = new cv.Mat();
-//   cv.adaptiveThreshold(
-//     gray,
-//     bin,
-//     255,
-//     cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-//     cv.THRESH_BINARY_INV,
-//     25,
-//     15
-//   );
-
-//   // Find contours
-//   const contours = new cv.MatVector();
-//   const hierarchy = new cv.Mat();
-//   cv.findContours(
-//     bin,
-//     contours,
-//     hierarchy,
-//     cv.RETR_EXTERNAL,
-//     cv.CHAIN_APPROX_SIMPLE
-//   );
-
-//   // Create mask for large contours only
-//   const mask = cv.Mat.zeros(bin.rows, bin.cols, cv.CV_8UC1);
-//   for (let i = 0; i < contours.size(); i++) {
-//     const cnt = contours.get(i);
-//     const area = cv.contourArea(cnt);
-//     if (area > minArea) {
-//       cv.drawContours(
-//         mask,
-//         contours,
-//         i,
-//         new cv.Scalar(255, 255, 255),
-//         -1,
-//         cv.LINE_8,
-//         hierarchy,
-//         0
-//       );
-//     }
-//     cnt.delete();
-//   }
-
-//   // Apply mask to original image
-//   const result = new cv.Mat();
-//   cv.bitwise_and(gray, mask, result);
-
-//   // Show result
-//   const outputCanvas = document.createElement("canvas");
-//   outputCanvas.width = canvas.width;
-//   outputCanvas.height = canvas.height;
-//   cv.imshow(outputCanvas, result);
-
-//   // Clean up
-//   src.delete();
-//   gray.delete();
-//   bin.delete();
-//   contours.delete();
-//   hierarchy.delete();
-//   mask.delete();
-//   result.delete();
-
-//   return outputCanvas;
-// }
-
-// ================================ //
-
-// ================================ //
-function removeLineImage(canvas, ksize = 30) {
-  // Remove both horizontal and vertical lines from the image
-  const src = cv.imread(canvas);
-  const gray = new cv.Mat();
-  cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-  // Binarize the image
-  const bin = new cv.Mat();
-  cv.adaptiveThreshold(
-    gray,
-    bin,
-    255,
-    cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-    cv.THRESH_BINARY,
-    25,
-    15
-  );
-
-  // Horizontal line removal
-  const hKernel = cv.getStructuringElement(
-    cv.MORPH_RECT,
-    new cv.Size(ksize, 1)
-  );
-  const hClosed = new cv.Mat();
-  cv.morphologyEx(bin, hClosed, cv.MORPH_CLOSE, hKernel);
-  const hLines = new cv.Mat();
-  cv.morphologyEx(hClosed, hLines, cv.MORPH_OPEN, hKernel);
-
-  // Vertical line removal
-  const vKernel = cv.getStructuringElement(
-    cv.MORPH_RECT,
-    new cv.Size(1, ksize)
-  );
-  const vClosed = new cv.Mat();
-  cv.morphologyEx(bin, vClosed, cv.MORPH_CLOSE, vKernel);
-  const vLines = new cv.Mat();
-  cv.morphologyEx(vClosed, vLines, cv.MORPH_OPEN, vKernel);
-
-  // Combine horizontal and vertical lines
-  const lines = new cv.Mat();
-  cv.bitwise_and(hLines, vLines, lines);
-
-  // ---------------------------------- //
-  // remove line noises
-
-  // ---------------------------------- //
-  // subtract lines from the binarized image
-  const subtract = new cv.Mat();
-  cv.subtract(lines, bin, subtract);
-
-  // Invert mask and remove lines from binarized image
-  const maskInv = new cv.Mat();
-  cv.bitwise_not(subtract, maskInv);
-
-  const outputCanvas = document.createElement("canvas");
-  outputCanvas.width = canvas.width;
-  outputCanvas.height = canvas.height;
-  cv.imshow(outputCanvas, maskInv);
-
-  // Clean up
-  src.delete();
-  gray.delete();
-  bin.delete();
-  hKernel.delete();
-  hClosed.delete();
-  hLines.delete();
-  vKernel.delete();
-  vClosed.delete();
-  vLines.delete();
-  lines.delete();
-  maskInv.delete();
-  subtract.delete();
-
-  return outputCanvas;
-}
-
-function binarizeImage(canvas) {
-  // Improved binarization: use Gaussian adaptive threshold
-  const src = cv.imread(canvas);
-  const gray = new cv.Mat();
-  cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-  const bin = new cv.Mat();
-  // Use adaptive thresholding for better results on varying lighting conditions
-  cv.adaptiveThreshold(
-    gray,
-    bin,
-    255,
-    cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-    cv.THRESH_BINARY,
-    25,
-    15
-  );
-
-  const outputCanvas = document.createElement("canvas");
-  outputCanvas.width = canvas.width;
-  outputCanvas.height = canvas.height;
-  cv.imshow(outputCanvas, bin);
-
-  src.delete();
-  gray.delete();
-  bin.delete();
-
-  return outputCanvas;
-}
-
-// ================================ //
 function removeNoiseImage(canvas) {
-  // Adaptive noise removal: bilateral filter + median blur + non-local means + morphological opening
   const src = cv.imread(canvas);
+
+  // Convert to grayscale
   const gray = new cv.Mat();
   cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
@@ -368,80 +216,109 @@ function removeNoiseImage(canvas) {
 }
 
 // ================================ //
-function removeBoxImage(canvas, ksize = 40) {
+function removeBlobImage(canvas, minArea = 100) {
+  // Remove small blobs/noise from the image using contour filtering
   const src = cv.imread(canvas);
-  const gray = new cv.Mat();
-  cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
-  // Binarize
-  const bin = new cv.Mat();
-  cv.adaptiveThreshold(
-    gray,
-    bin,
-    255,
-    cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-    cv.THRESH_BINARY,
-    25,
-    15
+  // Find contours
+  const contours = new cv.MatVector();
+  const hierarchy = new cv.Mat();
+  cv.findContours(
+    src,
+    contours,
+    hierarchy,
+    cv.RETR_EXTERNAL,
+    cv.CHAIN_APPROX_SIMPLE
   );
 
-  // Closing to connect box edges
-  const closeKernel = cv.getStructuringElement(
-    cv.MORPH_RECT,
-    new cv.Size(ksize, ksize / 4)
-  );
-  const closed = new cv.Mat();
-  cv.morphologyEx(bin, closed, cv.MORPH_CLOSE, closeKernel);
+  // Create mask for large contours only
+  const mask = cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC1);
+  for (let i = 0; i < contours.size(); i++) {
+    const cnt = contours.get(i);
+    const area = cv.contourArea(cnt);
+    if (area > minArea) {
+      cv.drawContours(
+        mask,
+        contours,
+        i,
+        new cv.Scalar(255, 255, 255),
+        -1,
+        cv.LINE_8,
+        hierarchy,
+        0
+      );
+    }
+    cnt.delete();
+  }
 
-  // Opening to isolate boxes
-  const openKernel = cv.getStructuringElement(
-    cv.MORPH_RECT,
-    new cv.Size(ksize, ksize / 4)
-  );
-  const boxes = new cv.Mat();
-  cv.morphologyEx(closed, boxes, cv.MORPH_OPEN, openKernel);
+  // Apply mask to original image
+  const result = new cv.Mat();
+  cv.bitwise_and(src, mask, result);
 
-  // Invert and mask out boxes
-  const maskInv = new cv.Mat();
-  cv.bitwise_not(boxes, maskInv);
-  const cleaned = new cv.Mat();
-  cv.bitwise_and(bin, maskInv, cleaned);
-
+  // Show result
   const outputCanvas = document.createElement("canvas");
   outputCanvas.width = canvas.width;
   outputCanvas.height = canvas.height;
-  cv.imshow(outputCanvas, cleaned);
+  cv.imshow(outputCanvas, result);
 
+  // Clean up
   src.delete();
-  gray.delete();
-  bin.delete();
-  closeKernel.delete();
-  closed.delete();
-  openKernel.delete();
-  boxes.delete();
-  maskInv.delete();
-  cleaned.delete();
+  contours.delete();
+  hierarchy.delete();
+  mask.delete();
+  result.delete();
 
   return outputCanvas;
 }
 
 // ================================ //
-function removeLineHImage(canvas, ksize = 30) {
+// function removeBoxImage(canvas, ksize = 30) {
+//   const src = cv.imread(canvas);
+
+//   // Use morphological operations to isolate boxes
+//   const kernel = cv.getStructuringElement(
+//     cv.MORPH_RECT,
+//     new cv.Size(ksize, ksize)
+//   );
+//   const closed = new cv.Mat();
+//   cv.morphologyEx(src, closed, cv.MORPH_CLOSE, kernel);
+//   const opened = new cv.Mat();
+//   cv.morphologyEx(closed, opened, cv.MORPH_OPEN, kernel);
+//   // Find contours
+//   const contours = new cv.Mat();
+//   const hierarchy = new cv.Mat();
+//   cv.findContours(
+//     opened,
+//     contours,
+//     hierarchy,
+//     cv.RETR_EXTERNAL,
+//     cv.CHAIN_APPROX_SIMPLE
+//   );
+//   // Create mask for boxes
+//   const mask = cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC1);
+//   cv.drawContours(mask, contours, -1, new cv.Scalar(255), cv.FILLED);
+
+//   const outputCanvas = document.createElement("canvas");
+//   outputCanvas.width = canvas.width;
+//   outputCanvas.height = canvas.height;
+//   cv.imshow(outputCanvas, mask);
+
+//   // Clean up
+//   src.delete();
+//   kernel.delete();
+//   closed.delete();
+//   opened.delete();
+//   contours.delete();
+//   hierarchy.delete();
+//   mask.delete();
+
+//   return outputCanvas;
+// }
+
+// ================================ //
+function removeLineHImage(canvas, ksize = 150) {
   // Robust horizontal line removal: binarize, then mask lines out
   const src = cv.imread(canvas);
-  const gray = new cv.Mat();
-  cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-
-  const bin = new cv.Mat();
-  cv.adaptiveThreshold(
-    gray,
-    bin,
-    255,
-    cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-    cv.THRESH_BINARY,
-    25,
-    15
-  );
 
   // Use closing to connect broken lines, then opening to isolate them
   const closeKernel = cv.getStructuringElement(
@@ -449,7 +326,7 @@ function removeLineHImage(canvas, ksize = 30) {
     new cv.Size(ksize, 1)
   );
   const closed = new cv.Mat();
-  cv.morphologyEx(bin, closed, cv.MORPH_CLOSE, closeKernel);
+  cv.morphologyEx(src, closed, cv.MORPH_CLOSE, closeKernel);
 
   const openKernel = cv.getStructuringElement(
     cv.MORPH_RECT,
@@ -458,12 +335,11 @@ function removeLineHImage(canvas, ksize = 30) {
   const lines = new cv.Mat();
   cv.morphologyEx(closed, lines, cv.MORPH_OPEN, openKernel);
 
-  // Invert mask and remove lines from binarized image
   const maskInv = new cv.Mat();
   cv.bitwise_not(lines, maskInv);
 
   const cleaned = new cv.Mat();
-  cv.bitwise_and(bin, maskInv, cleaned);
+  cv.bitwise_or(src, maskInv, cleaned);
 
   const outputCanvas = document.createElement("canvas");
   outputCanvas.width = canvas.width;
@@ -471,8 +347,6 @@ function removeLineHImage(canvas, ksize = 30) {
   cv.imshow(outputCanvas, cleaned);
 
   src.delete();
-  gray.delete();
-  bin.delete();
   closeKernel.delete();
   closed.delete();
   openKernel.delete();
@@ -484,45 +358,108 @@ function removeLineHImage(canvas, ksize = 30) {
 }
 
 // ================================ //
-// function removeLineVImage(canvas, ksize = 40) {
-//   // Improved vertical line removal: operate on binarized image
-//   const src = cv.imread(canvas);
-//   const gray = new cv.Mat();
-//   cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+function removeLineVImage(canvas, ksize = 150) {
+  // Robust vertical line removal: binarize, then mask lines out
+  const src = cv.imread(canvas);
 
-//   const bin = new cv.Mat();
-//   cv.adaptiveThreshold(
-//     gray,
-//     bin,
-//     255,
-//     cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-//     cv.THRESH_BINARY,
-//     25,
-//     15
-//   );
+  // Use closing to connect broken lines, then opening to isolate them
+  const closeKernel = cv.getStructuringElement(
+    cv.MORPH_RECT,
+    new cv.Size(1, ksize)
+  );
+  const closed = new cv.Mat();
+  cv.morphologyEx(src, closed, cv.MORPH_CLOSE, closeKernel);
 
-//   const kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(1, ksize));
-//   const line = new cv.Mat();
-//   cv.morphologyEx(bin, line, cv.MORPH_CLOSE, kernel);
+  const openKernel = cv.getStructuringElement(
+    cv.MORPH_RECT,
+    new cv.Size(1, ksize)
+  );
+  const lines = new cv.Mat();
+  cv.morphologyEx(closed, lines, cv.MORPH_OPEN, openKernel);
 
-//   const clean = new cv.Mat();
-//   cv.subtract(line, bin, clean);
+  const maskInv = new cv.Mat();
+  cv.bitwise_not(lines, maskInv);
 
-//   const imageRemoveLine = new cv.Mat();
-//   cv.bitwise_not(clean, imageRemoveLine);
+  const cleaned = new cv.Mat();
+  cv.bitwise_or(src, maskInv, cleaned);
 
-//   const outputCanvas = document.createElement("canvas");
-//   outputCanvas.width = canvas.width;
-//   outputCanvas.height = canvas.height;
-//   cv.imshow(outputCanvas, imageRemoveLine);
+  const outputCanvas = document.createElement("canvas");
+  outputCanvas.width = canvas.width;
+  outputCanvas.height = canvas.height;
+  cv.imshow(outputCanvas, cleaned);
 
-//   src.delete();
-//   gray.delete();
-//   bin.delete();
-//   kernel.delete();
-//   line.delete();
-//   clean.delete();
-//   imageRemoveLine.delete();
+  src.delete();
+  closeKernel.delete();
+  closed.delete();
+  openKernel.delete();
+  lines.delete();
+  maskInv.delete();
+  cleaned.delete();
 
-//   return outputCanvas;
-// }
+  return outputCanvas;
+}
+
+// ================================ //
+function removeWatermarkImage(canvas) {
+  // Remove watermark using iterative morphological operations (Python port)
+  let src = cv.imread(canvas);
+  let bg = src.clone();
+
+  // Iteratively apply closing and opening with increasing elliptical kernels
+  for (let i = 0; i < 5; i++) {
+    let ksize = 2 * i + 1;
+    let kernel = cv.getStructuringElement(
+      cv.MORPH_ELLIPSE,
+      new cv.Size(ksize, ksize)
+    );
+    cv.morphologyEx(bg, bg, cv.MORPH_CLOSE, kernel);
+    cv.morphologyEx(bg, bg, cv.MORPH_OPEN, kernel);
+    kernel.delete();
+  }
+
+  // Compute difference
+  let dif = new cv.Mat();
+  cv.subtract(bg, src, dif);
+
+  // Threshold difference (binary inverse + OTSU)
+  let bw = new cv.Mat();
+  cv.threshold(dif, bw, 0, 255, cv.THRESH_BINARY_INV | cv.THRESH_OTSU);
+
+  // Threshold background (binary inverse + OTSU)
+  let dark = new cv.Mat();
+  cv.threshold(bg, dark, 0, 255, cv.THRESH_BINARY_INV | cv.THRESH_OTSU);
+
+  // Try to restore dark pixels (not a direct port, but similar effect)
+  let result = new cv.Mat();
+  try {
+    // Where dark > 0, set bw to 0 (remove watermark in dark regions)
+    let mask = new cv.Mat();
+    cv.compare(
+      dark,
+      new cv.Mat(dark.rows, dark.cols, dark.type(), [0, 0, 0, 0]),
+      mask,
+      cv.CMP_GT
+    );
+    bw.setTo(new cv.Scalar(0, 0, 0, 0), mask);
+    mask.delete();
+    result = bw.clone();
+  } catch (e) {
+    result = bg.clone();
+  }
+
+  // Show result
+  const outputCanvas = document.createElement("canvas");
+  outputCanvas.width = canvas.width;
+  outputCanvas.height = canvas.height;
+  cv.imshow(outputCanvas, result);
+
+  // Clean up
+  src.delete();
+  bg.delete();
+  dif.delete();
+  bw.delete();
+  dark.delete();
+  result.delete();
+
+  return outputCanvas;
+}
