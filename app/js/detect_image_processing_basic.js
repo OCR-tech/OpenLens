@@ -8,16 +8,14 @@ function detectImageProcessing(canvas) {
   processedCanvas = deskewImage(processedCanvas);
   processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
   processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
-  // processedCanvas = removeBlobImage(processedCanvas);
-  processedCanvas = removeNoiseImage(processedCanvas);
-
+  // processedCanvas = removeBlobImage(processedCanvas, 100); // Remove small blobs
+  // processedCanvas = removeBoxImage(processedCanvas, 30); // Remove boxes
   // processedCanvas = removeWatermarkImage(processedCanvas);
-  // processedCanvas = removeBoxImage(processedCanvas);
+  // processedCanvas = removeNoiseImage(processedCanvas);
+  // processedCanvas = despeckleImage(processedCanvas);
 
   // ---------------------------  //
-  // processedCanvas = removeLineImage(processedCanvas);
   // processedCanvas = cropROIImage(processedCanvas);
-
   // processedCanvas = removeTableImage(processedCanvas);
 
   return processedCanvas;
@@ -191,27 +189,27 @@ function removeNoiseImage(canvas) {
   const morph = new cv.Mat();
   cv.morphologyEx(blurred, morph, cv.MORPH_OPEN, kernel);
 
-  // Apply dilation to enhance text
-  // const dilateKernel = cv.getStructuringElement(
-  //   cv.MORPH_RECT,
-  //   new cv.Size(2,2)
-  // );
-  // const enhanced = new cv.Mat();
-  // cv.dilate(morph, enhanced, dilateKernel);
-
   // Apply erosion to reduce noise
   const erodeKernel = cv.getStructuringElement(
     cv.MORPH_RECT,
     new cv.Size(2, 2)
   );
-  const enhanced = new cv.Mat();
-  cv.erode(morph, enhanced, erodeKernel);
+  const enhanced_erode = new cv.Mat();
+  cv.erode(morph, enhanced_erode, erodeKernel);
+
+  // Apply dilation to enhance text
+  const dilateKernel = cv.getStructuringElement(
+    cv.MORPH_RECT,
+    new cv.Size(2, 2)
+  );
+  const enhanced_dilate = new cv.Mat();
+  cv.dilate(morph, enhanced_dilate, dilateKernel);
 
   // Show result
   const outputCanvas = document.createElement("canvas");
   outputCanvas.width = canvas.width;
   outputCanvas.height = canvas.height;
-  cv.imshow(outputCanvas, enhanced);
+  cv.imshow(outputCanvas, enhanced_dilate);
 
   // Clean up
   src.delete();
@@ -451,7 +449,6 @@ function removeWatermarkImage(canvas) {
       cv.CMP_GT
     );
     bw.setTo(new cv.Scalar(0, 0, 0, 0), mask);
-    mask.delete();
     result = bw.clone();
   } catch (e) {
     result = bg.clone();
@@ -461,13 +458,14 @@ function removeWatermarkImage(canvas) {
   const outputCanvas = document.createElement("canvas");
   outputCanvas.width = canvas.width;
   outputCanvas.height = canvas.height;
-  cv.imshow(outputCanvas, result);
+  cv.imshow(outputCanvas, mask);
 
   // Clean up
   src.delete();
   bg.delete();
   dif.delete();
   bw.delete();
+  mask.delete();
   dark.delete();
   result.delete();
 
