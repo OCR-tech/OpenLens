@@ -128,6 +128,8 @@ function fullScreen() {
   exitText.style.transform = "translateX(-50%)";
   exitText.style.color = "#fff";
   exitText.style.background = "rgba(0, 0, 0, 0.7)";
+  exitText.style.border = "1px solid #fff";
+  exitText.style.cursor = "pointer";
   exitText.style.padding = "10px";
   exitText.style.borderRadius = "5px";
   exitText.style.zIndex = "10001";
