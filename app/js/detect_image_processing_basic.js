@@ -6,7 +6,7 @@ function detectImageProcessing(canvas) {
   // processedCanvas = canvas;
   processedCanvas = binarizeImage(canvas);
   processedCanvas = deskewImage(processedCanvas);
-  processedCanvas = cropROIImage(processedCanvas);
+  // processedCanvas = cropROIImage(processedCanvas);
   processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
   processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
 
