@@ -1,15 +1,18 @@
 // ================================ //
 function detectImageProcessing(canvas) {
+  // processedCanvas = canvas;
+
   processedCanvas = deskewImage(canvas);
   processedCanvas = binarizeImage(processedCanvas);
   processedCanvas = removeNoiseImage(processedCanvas);
+  processedCanvas = removeBoxImage(processedCanvas);
 
+  // ---------------------------  //
   // processedCanvas = removeLineImage(processedCanvas);
   // processedCanvas = cropROIImage(processedCanvas);
   // processedCanvas = removeBlobImage(processedCanvas);
   // processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
   // processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
-  // processedCanvas = removeBoxImage(processedCanvas);
   // processedCanvas = removeTableImage(processedCanvas);
   // processedCanvas = removeWatermarkImage(processedCanvas);
 

@@ -238,9 +238,9 @@ input:checked + .slider:before {
   /* Adjusted for horizontal layout */
   /* Adjusted for horizontal layout */
   /* aspect-ratio: 16/9; */
-  /* aspect-ratio: 16/5; */
+  aspect-ratio: 16/5;
   /* aspect-ratio: 16/3; */
-  aspect-ratio: 16/2;
+  /* aspect-ratio: 16/2; */
   /* aspect-ratio: 16/1; */
   /* Adjusted for horizontal layout */
   /* Adjusted for horizontal layout */
