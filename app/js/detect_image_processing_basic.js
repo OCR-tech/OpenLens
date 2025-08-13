@@ -1,13 +1,15 @@
 // ================================ //
 function detectImageProcessing(canvas) {
-  // processedCanvas = canvas;
+  const status = document.getElementById("status");
+  status.innerText = "Processing Image...";
 
+  // processedCanvas = canvas;
   processedCanvas = binarizeImage(canvas);
   processedCanvas = deskewImage(processedCanvas);
-  processedCanvas = removeNoiseImage(processedCanvas);
   processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
   processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
   // processedCanvas = removeBlobImage(processedCanvas);
+  processedCanvas = removeNoiseImage(processedCanvas);
 
   // processedCanvas = removeWatermarkImage(processedCanvas);
   // processedCanvas = removeBoxImage(processedCanvas);
@@ -190,12 +192,20 @@ function removeNoiseImage(canvas) {
   cv.morphologyEx(blurred, morph, cv.MORPH_OPEN, kernel);
 
   // Apply dilation to enhance text
-  const dilateKernel = cv.getStructuringElement(
+  // const dilateKernel = cv.getStructuringElement(
+  //   cv.MORPH_RECT,
+  //   new cv.Size(2,2)
+  // );
+  // const enhanced = new cv.Mat();
+  // cv.dilate(morph, enhanced, dilateKernel);
+
+  // Apply erosion to reduce noise
+  const erodeKernel = cv.getStructuringElement(
     cv.MORPH_RECT,
     new cv.Size(2, 2)
   );
   const enhanced = new cv.Mat();
-  cv.dilate(morph, enhanced, dilateKernel);
+  cv.erode(morph, enhanced, erodeKernel);
 
   // Show result
   const outputCanvas = document.createElement("canvas");
