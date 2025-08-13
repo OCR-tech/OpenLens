@@ -321,10 +321,14 @@ function detectTextsTesseract(canvas) {
         // textsInput.value = text;
         // textsInput.value = text.substring(0, 1000);
       } else {
-        text = processTexts(text);
+        // ----------------------------- //
+        processedText = processTexts(text);
+        processedDictText = lookupWordsDict(processedText);
+
+        // ----------------------------- //
         // status.innerText = "Detecting text: Done" + " *** " + lang;
         status.innerText = "Detecting text: Done";
-        textsInput.value = text;
+        textsInput.value = processedText;
       }
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
@@ -343,11 +347,7 @@ function processTexts(text) {
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
   processedText = processedText.replace(/^\s+|\s+$/g, ""); // Trim leading and trailing spaces
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
-
-  // Check words with dictionary
-  processedDictText = lookupWordsDict(processedText);
-
-  return processedDictText;
+  return processedText;
 }
 
 // =========================================//
@@ -491,6 +491,7 @@ function spreadsheetTexts() {
 
   const textarea = document.getElementById("texts-input");
   // const textarea = document.getElementById("texts-input1");
+
   const status = document.getElementById("status");
   if (!textarea || !textarea.value.trim()) {
     if (status) status.innerText = "No text to export!";
