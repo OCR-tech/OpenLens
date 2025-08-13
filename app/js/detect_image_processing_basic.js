@@ -4,7 +4,7 @@ function detectImageProcessing(canvas) {
   status.innerText = "Processing Image...";
 
   // processedCanvas = canvas;
-  processedCanvas_res = resizeImage(canvas, 500);
+  processedCanvas_res = resizeImage(canvas, 1000);
   processedCanvas_bin = binarizeImage(processedCanvas_res);
   // processedCanvas = thresholdImage(processedCanvas_res, processedCanvas_bin);
   // processedCanvas = deskewImage(processedCanvas);
