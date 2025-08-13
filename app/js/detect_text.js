@@ -148,7 +148,7 @@ function updateTextDetection() {
   detectTextsTesseract(canvas_processed);
 
   // ----------------------------- //
-  extractTextFromBoxes(redBoxes);
+  // extractTextFromBoxes(redBoxes);
 }
 
 // =========================================//
@@ -378,7 +378,8 @@ function lookupWordsDict(processedText) {
 
   // Check each word against the dictionary
   const checkedWords = words.map((word) => {
-    const cleanWord = word.replace(/[.,!?;:()"]/g, "").toLowerCase();
+    // const cleanWord = word.replace(/[.,!?;:()"]/g, "").toLowerCase();
+    const cleanWord = word.replace(/[]/g, "").toLowerCase();
 
     // check cleanWord on json file directly
     if (offlineDictionarySet && offlineDictionarySet.has(cleanWord)) {
@@ -488,8 +489,8 @@ function csvTexts() {
 function spreadsheetTexts() {
   // alert("spreadsheetTexts");
 
-  // const textarea = document.getElementById("texts-input");
-  const textarea = document.getElementById("texts-input1");
+  const textarea = document.getElementById("texts-input");
+  // const textarea = document.getElementById("texts-input1");
   const status = document.getElementById("status");
   if (!textarea || !textarea.value.trim()) {
     if (status) status.innerText = "No text to export!";
@@ -507,12 +508,11 @@ function spreadsheetTexts() {
   // Split text into columns (by ":")
   const rows = textarea.value
     .split(/\r?\n/)
-    // .map((line) => line.split(":").map((cell) => cell.trim()))
-    .map((line) => line.split("|---|").map((cell) => cell.trim()))
+    .map((line) => line.split(":").map((cell) => cell.trim()))
+    // .map((line) => line.split("|---|").map((cell) => cell.trim()))
     .filter((row) => row.length > 0 && row[0]);
 
   // XLSX generation using SheetJS (xlsx library)
-  // Make sure xlsx.full.min.js is loaded in your HTML
   const worksheet = XLSX.utils.aoa_to_sheet(rows);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Text");
