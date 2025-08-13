@@ -4,8 +4,9 @@ function detectImageProcessing(canvas) {
   status.innerText = "Processing Image...";
 
   // processedCanvas = canvas;
-  processedCanvas = binarizeImage(canvas);
-  processedCanvas = thresholdImage(processedCanvas);
+  processedCanvas_res = resizeImage(canvas, 500);
+  processedCanvas_bin = binarizeImage(processedCanvas_res);
+  // processedCanvas = thresholdImage(processedCanvas_res, processedCanvas_bin);
   // processedCanvas = deskewImage(processedCanvas);
   // processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
   // processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
@@ -18,7 +19,38 @@ function detectImageProcessing(canvas) {
   // processedCanvas = despeckleImage(processedCanvas);
   // processedCanvas = removeTableImage(processedCanvas);
 
+  processedCanvas = processedCanvas_bin;
+
   return processedCanvas;
+}
+
+// ================================ //
+function resizeImage(canvas, maxWidth) {
+  // Resize the image to a maximum width while maintaining aspect ratio
+  const src = cv.imread(canvas);
+  const aspectRatio = src.rows / src.cols;
+  const newWidth = maxWidth;
+  const newHeight = Math.round(newWidth * aspectRatio);
+
+  const resized = new cv.Mat();
+  cv.resize(
+    src,
+    resized,
+    new cv.Size(newWidth, newHeight),
+    0,
+    0,
+    cv.INTER_AREA
+  );
+
+  const outputCanvas = document.createElement("canvas");
+  outputCanvas.width = newWidth;
+  outputCanvas.height = newHeight;
+  cv.imshow(outputCanvas, resized);
+
+  src.delete();
+  resized.delete();
+
+  return outputCanvas;
 }
 
 // ================================ //
@@ -35,7 +67,7 @@ function binarizeImage(canvas) {
     cv.ADAPTIVE_THRESH_GAUSSIAN_C,
     cv.THRESH_BINARY,
     35, // 25
-    30 // 15
+    35 // 15
   );
 
   const outputCanvas = document.createElement("canvas");
@@ -51,32 +83,40 @@ function binarizeImage(canvas) {
 }
 
 // ================================ //
-function thresholdImage(canvas) {
-  // Convert binarized image to colored image and thresholding for only black color
+function thresholdImage(canvas, canvas_proc) {
   const src = cv.imread(canvas);
+  const src_proc = cv.imread(canvas_proc);
+
   const gray = new cv.Mat();
   cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
-  const bin = new cv.Mat();
 
-  // Apply binary thresholding, black and white
-  // cv.threshold(gray, bin, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU);
-  cv.adaptiveThreshold(
-    gray,
-    bin,
-    255,
-    cv.ADAPTIVE_THRESH_GAUSSIAN_C,
-    cv.THRESH_BINARY,
-    35, // 25
-    30 // 15
-  );
+  const gray_proc = new cv.Mat();
+  cv.cvtColor(src_proc, gray_proc, cv.COLOR_RGBA2GRAY);
 
+  const bw = new cv.Mat();
+  cv.threshold(gray, bw, 50, 255, cv.THRESH_BINARY);
+
+  const maskInv = new cv.Mat();
+  cv.bitwise_not(bw, maskInv);
+
+  const cleaned = new cv.Mat();
+  cv.bitwise_or(gray_proc, maskInv, cleaned);
+
+  // Show result
   const outputCanvas = document.createElement("canvas");
   outputCanvas.width = canvas.width;
   outputCanvas.height = canvas.height;
-  cv.imshow(outputCanvas, bin);
+  cv.imshow(outputCanvas, cleaned);
+
+  // Clean up
   src.delete();
+  src_proc.delete();
   gray.delete();
-  bin.delete();
+  gray;
+  bw.delete();
+  maskInv.delete();
+  cleaned.delete();
+
   return outputCanvas;
 }
 
