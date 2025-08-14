@@ -5,9 +5,10 @@ function detectImageProcessing(canvas) {
 
   // processedCanvas = canvas;
   processedCanvas_res = resizeImage(canvas, 1000);
-  processedCanvas_bin = binarizeImage(processedCanvas_res);
-  // processedCanvas = thresholdImage(processedCanvas_res, processedCanvas_bin);
-  // processedCanvas = deskewImage(processedCanvas);
+  processedCanvas = binarizeImage(processedCanvas_res);
+  // processedCanvas_thr = thresholdImage(processedCanvas_res);
+  // processedCanvas = subtractImage(processedCanvas_bin, processedCanvas_thr);
+  processedCanvas = deskewImage(processedCanvas);
   // processedCanvas = removeLineHImage(processedCanvas); // Larger kernel for better line removal
   // processedCanvas = removeLineVImage(processedCanvas); // Larger kernel for better line removal
 
@@ -18,8 +19,6 @@ function detectImageProcessing(canvas) {
   // processedCanvas = removeNoiseImage(processedCanvas);
   // processedCanvas = despeckleImage(processedCanvas);
   // processedCanvas = removeTableImage(processedCanvas);
-
-  processedCanvas = processedCanvas_bin;
 
   return processedCanvas;
 }
@@ -83,37 +82,55 @@ function binarizeImage(canvas) {
 }
 
 // ================================ //
-function thresholdImage(canvas, canvas_proc) {
+function thresholdImage(canvas) {
   const src = cv.imread(canvas);
-  const src_proc = cv.imread(canvas_proc);
 
   const gray = new cv.Mat();
   cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
 
-  const gray_proc = new cv.Mat();
-  cv.cvtColor(src_proc, gray_proc, cv.COLOR_RGBA2GRAY);
-
-  const bw = new cv.Mat();
-  cv.threshold(gray, bw, 50, 255, cv.THRESH_BINARY);
-
-  const maskInv = new cv.Mat();
-  cv.bitwise_not(bw, maskInv);
-
-  const cleaned = new cv.Mat();
-  cv.bitwise_or(gray_proc, maskInv, cleaned);
+  const bin = new cv.Mat();
+  cv.threshold(gray, bin, 50, 255, cv.THRESH_BINARY);
 
   // Show result
   const outputCanvas = document.createElement("canvas");
   outputCanvas.width = canvas.width;
   outputCanvas.height = canvas.height;
-  cv.imshow(outputCanvas, cleaned);
+  cv.imshow(outputCanvas, bin);
 
   // Clean up
   src.delete();
-  src_proc.delete();
   gray.delete();
-  gray;
-  bw.delete();
+  bin.delete();
+
+  return outputCanvas;
+}
+
+// ================================ //
+function subtractImage(canvas1, canvas2) {
+  const src1 = cv.imread(canvas1);
+  const src2 = cv.imread(canvas2);
+
+  const gray1 = new cv.Mat();
+  cv.cvtColor(src1, gray1, cv.COLOR_RGBA2GRAY);
+
+  const gray2 = new cv.Mat();
+  cv.cvtColor(src2, gray2, cv.COLOR_RGBA2GRAY);
+
+  const maskInv = new cv.Mat();
+  cv.bitwise_not(gray2, maskInv);
+
+  const cleaned = new cv.Mat();
+  cv.bitwise_or(gray1, maskInv, cleaned);
+
+  const outputCanvas = document.createElement("canvas");
+  outputCanvas.width = canvas1.width; // Ensure same size as input
+  outputCanvas.height = canvas1.height; // Ensure same size as input
+  cv.imshow(outputCanvas, cleaned);
+
+  src1.delete();
+  src2.delete();
+  gray1.delete();
+  gray2.delete();
   maskInv.delete();
   cleaned.delete();
 
