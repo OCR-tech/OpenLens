@@ -56,10 +56,10 @@ window.addEventListener("DOMContentLoaded", function () {
       // alert(model);
 
       initSystem();
-      requestCameraPermission(); // Request camera permission
-      requestMicrophonePermission(); // Request microphone permission
-      requestLocationPermission(); // Request location permission
-      requestNotificationPermission(); // Request notification permission
+      // requestCameraPermission(); // Request camera permission
+      // requestMicrophonePermission(); // Request microphone permission
+      // requestLocationPermission(); // Request location permission
+      // requestNotificationPermission(); // Request notification permission
       // listAllCameras();
       initUI();
 
