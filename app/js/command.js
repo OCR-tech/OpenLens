@@ -105,82 +105,62 @@ function pauseVideo() {
 }
 
 // =========================================//
-// Capture image functions
 function captureImage() {
   document.getElementById("status").innerText = "Capture Image";
 
-  // Use the overlay canvas for capture
-  const canvas = document.getElementById("overlay");
-
+  // Get overlay and video/image elements
+  const overlayCanvas = document.getElementById("overlay");
   const videoElement =
     document.getElementById("camera-stream") ||
     document.getElementById("usb-camera-stream") ||
-    document.getElementById("camera-stream") ||
     document.getElementById("stream-player") ||
     document.getElementById("video-file-player") ||
     document.getElementById("image") ||
     document.getElementById("image_folder");
 
-  if (!canvas) {
-    document.getElementById("status").innerText = "No video found";
-    if (window.voiceStatusEnabled) {
-      playVoiceStatus("No video found");
-    }
+  if (!overlayCanvas || !videoElement) {
+    document.getElementById("status").innerText = "No video or overlay found";
+    if (window.voiceStatusEnabled) playVoiceStatus("No video found");
     return;
-  } else {
-    if (window.voiceStatusEnabled) {
-      playVoiceStatus("Capture Image");
-    }
-    if (videoElement instanceof HTMLVideoElement) {
-      const ctx = canvas.getContext("2d");
-      canvas.width = videoElement.videoWidth;
-      canvas.height = videoElement.videoHeight;
-      ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-    } else if (videoElement instanceof HTMLImageElement) {
-      const ctx = canvas.getContext("2d");
-      canvas.width = videoElement.naturalWidth;
-      canvas.height = videoElement.naturalHeight;
-      videoElement.crossOrigin = "anonymous"; // *** Set Cross-Origin Attribute ***
-      ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-    }
-
-    saveCanvasAsImage(canvas);
   }
+
+  // Get source dimensions
+  let srcWidth, srcHeight;
+  if (videoElement instanceof HTMLVideoElement) {
+    srcWidth = videoElement.videoWidth;
+    srcHeight = videoElement.videoHeight;
+  } else if (videoElement instanceof HTMLImageElement) {
+    srcWidth = videoElement.naturalWidth;
+    srcHeight = videoElement.naturalHeight;
+  } else {
+    document.getElementById("status").innerText = "No video found";
+    return;
+  }
+
+  // Create a new canvas to combine video/image and overlay
+  const combinedCanvas = document.createElement("canvas");
+  combinedCanvas.width = srcWidth;
+  combinedCanvas.height = srcHeight;
+  const ctx = combinedCanvas.getContext("2d");
+
+  // Draw video/image
+  ctx.drawImage(videoElement, 0, 0, srcWidth, srcHeight);
+
+  // Draw overlay (date/time, boxes, etc)
+  ctx.drawImage(
+    overlayCanvas,
+    0,
+    0,
+    overlayCanvas.width,
+    overlayCanvas.height,
+    0,
+    0,
+    srcWidth,
+    srcHeight
+  );
+
+  saveCanvasAsImage(combinedCanvas);
 }
-
-// =========================================//
-// function saveCanvasAsImage0(canvas) {
-//   // ------------------------------- //
-//   // Add time and date to the canvas
-//   const ctx = canvas.getContext("2d");
-//   ctx.font = "15px Arial";
-//   // ctx.fillStyle = "White";
-//   // ctx.fillStyle = "Blue";
-//   ctx.fillStyle = "White";
-//   // ctx.fillText("Date: " + new Date().toLocaleString(), 10, canvas.height - 150);
-//   ctx.fillText(new Date().toLocaleString(), 10, 25);
-
-//   // Create a temporary link to trigger download
-//   const link = document.createElement("a");
-//   link.href = canvas.toDataURL("image/png");
-
-//   // Format date as YYYYMMDD_HHMMSS
-//   const now = new Date();
-//   const pad = (n) => n.toString().padStart(2, "0");
-//   const fileName =
-//     now.getFullYear().toString() +
-//     pad(now.getMonth() + 1) +
-//     pad(now.getDate()) +
-//     "_" +
-//     pad(now.getHours()) +
-//     pad(now.getMinutes()) +
-//     pad(now.getSeconds());
-
-//   link.download = `img_${fileName}.png`;
-//   document.body.appendChild(link);
-//   link.click();
-//   document.body.removeChild(link);
-// }
 
 // =========================================//
 function saveCanvasAsImage(canvas) {
