@@ -146,6 +146,9 @@ function captureImage() {
   // Draw video/image
   ctx.drawImage(videoElement, 0, 0, srcWidth, srcHeight);
 
+  // if window.showBoundingBox
+  // if window.showOverlay
+
   // Draw overlay (date/time, boxes, etc)
   ctx.drawImage(
     overlayCanvas,
@@ -349,8 +352,7 @@ function hideOverlay() {
     overlay.style.display = "none";
   }
 
-  // Stop the overlay/detection loop
-  window.flagOverlay = false;
+  window.showOverlay = false;
 
   // Update status and buttons
   document.getElementById("status").innerText = "Hide Overlay";
@@ -372,11 +374,10 @@ function showOverlay() {
     overlay.style.display = "block";
   }
 
-  // Start the overlay/detection loop
-  window.flagOverlay = true;
-  if (typeof detectFrame === "function") {
-    detectFrame();
-  }
+  window.showOverlay = true;
+  // if (typeof detectFrame === "function") {
+  //   detectFrame();
+  // }
 
   // Update status and buttons
   document.getElementById("status").innerText = "Show Overlay";
