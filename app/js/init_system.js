@@ -113,6 +113,7 @@ function initSystem() {
   //------------//
   window.audioContext = true;
   window.detectionLoopId = null;
+  window.showOverlays = true;
 
   // console.log("Initializing system");
 }

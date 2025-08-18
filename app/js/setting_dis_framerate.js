@@ -123,9 +123,7 @@ function displayFramerate() {
 
   // Draw text right-aligned in the rectangle
   ctx.fillStyle = "#FFF";
-  ctx.textAlign = "right";
-  ctx.fillText("FPS: " + sizeText, x + boxWidth - paddingX, y + paddingY);
-
+  ctx.fillText("FPS: " + sizeText, x + paddingX, y + paddingY);
   ctx.restore();
 }
 

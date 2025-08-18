@@ -146,21 +146,21 @@ function captureImage() {
   // Draw video/image
   ctx.drawImage(videoElement, 0, 0, srcWidth, srcHeight);
 
-  // if window.showBoundingBox
-  // if window.showOverlay
-
-  // Draw overlay (date/time, boxes, etc)
-  ctx.drawImage(
-    overlayCanvas,
-    0,
-    0,
-    overlayCanvas.width,
-    overlayCanvas.height,
-    0,
-    0,
-    srcWidth,
-    srcHeight
-  );
+  // if (window.showBoundingBox) {
+  if (window.showOverlays) {
+    // Draw overlay (date/time, boxes, etc)
+    ctx.drawImage(
+      overlayCanvas,
+      0,
+      0,
+      overlayCanvas.width,
+      overlayCanvas.height,
+      0,
+      0,
+      srcWidth,
+      srcHeight
+    );
+  }
 
   saveCanvasAsImage(combinedCanvas);
 }
@@ -208,8 +208,8 @@ function recordVideo() {
   btnStopRC.style.display = "inline-block";
 
   // Use the overlay canvas for recording (contains video + overlays)
-  const canvas = document.getElementById("overlay");
-  if (!canvas) {
+  const overlayCanvas = document.getElementById("overlay");
+  if (!overlayCanvas) {
     document.getElementById("status").innerText = "No video found";
     if (window.voiceStatusEnabled) {
       playVoiceStatus("No video found");
@@ -233,14 +233,57 @@ function recordVideo() {
   }
 
   // Capture the video stream from the video element
-  const stream = videoElement.captureStream
-    ? videoElement.captureStream()
-    : videoElement.mozCaptureStream
-    ? videoElement.mozCaptureStream()
-    : null;
+  // const stream = videoElement.captureStream(30);
+
+  // Get source dimensions
+  let srcWidth, srcHeight;
+  if (videoElement instanceof HTMLVideoElement) {
+    srcWidth = videoElement.videoWidth;
+    srcHeight = videoElement.videoHeight;
+  } else if (videoElement instanceof HTMLImageElement) {
+    srcWidth = videoElement.naturalWidth;
+    srcHeight = videoElement.naturalHeight;
+  } else {
+    document.getElementById("status").innerText = "No video found";
+    return;
+  }
+
+  // // Create a new canvas to combine video/image and overlay
+  const combinedCanvas = document.createElement("canvas");
+  combinedCanvas.width = srcWidth;
+  combinedCanvas.height = srcHeight;
+  const ctx = combinedCanvas.getContext("2d");
+
+  let recordingAnimationId = null;
+
+  function drawRecordingFrame() {
+    // Draw video frame
+    ctx.drawImage(videoElement, 0, 0, srcWidth, srcHeight);
+
+    // Draw overlay if enabled
+    if (window.showOverlays) {
+      ctx.drawImage(
+        overlayCanvas,
+        0,
+        0,
+        overlayCanvas.width,
+        overlayCanvas.height,
+        0,
+        0,
+        srcWidth,
+        srcHeight
+      );
+    }
+
+    // Keep drawing frames while recording
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+      recordingAnimationId = requestAnimationFrame(drawRecordingFrame);
+    }
+  }
 
   // Capture the canvas stream
-  // const stream = canvas.captureStream(30); // 30 FPS
+  // const stream = overlayCanvas.captureStream(30); // 30 FPS
+  const stream = combinedCanvas.captureStream(30); // 30 FPS
 
   if (!stream) {
     document.getElementById("status").innerText = "Unable to record video";
@@ -280,10 +323,19 @@ function recordVideo() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }, 100);
+
+    if (recordingAnimationId) {
+      cancelAnimationFrame(recordingAnimationId);
+      recordingAnimationId = null;
+    }
+
+    // Reset buttons and status
     document.getElementById("status").innerText = "Recording saved.";
   };
 
   mediaRecorder.start();
+  drawRecordingFrame();
+
   document.getElementById("status").innerText = "Recording...";
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Recording");
@@ -341,6 +393,8 @@ function showFrame() {
 
 // =========================================//
 function hideOverlay() {
+  // alert("Hide Overlay");
+
   // Hide the overlay canvas
   const overlay = document.getElementById("overlay");
 
@@ -352,7 +406,7 @@ function hideOverlay() {
     overlay.style.display = "none";
   }
 
-  window.showOverlay = false;
+  window.showOverlays = false;
 
   // Update status and buttons
   document.getElementById("status").innerText = "Hide Overlay";
@@ -363,6 +417,8 @@ function hideOverlay() {
 }
 
 function showOverlay() {
+  // alert("Show Overlay");
+
   // Show the overlay canvas
   const overlay = document.getElementById("overlay");
 
@@ -374,10 +430,7 @@ function showOverlay() {
     overlay.style.display = "block";
   }
 
-  window.showOverlay = true;
-  // if (typeof detectFrame === "function") {
-  //   detectFrame();
-  // }
+  window.showOverlays = true;
 
   // Update status and buttons
   document.getElementById("status").innerText = "Show Overlay";

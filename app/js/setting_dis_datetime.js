@@ -87,7 +87,6 @@ function displayDateTime() {
   // Draw text centered in the rectangle
   ctx.fillStyle = "#FFF";
   ctx.fillText(dateTimeString, x + paddingX, y + paddingY);
-
   ctx.restore();
 }
 
