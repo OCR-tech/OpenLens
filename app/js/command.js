@@ -101,6 +101,7 @@ function captureImage() {
 
   // Use the overlay canvas for capture
   const canvas = document.getElementById("overlay");
+
   const videoElement =
     document.getElementById("camera-stream") ||
     document.getElementById("usb-camera-stream") ||
@@ -125,31 +126,54 @@ function captureImage() {
       canvas.width = videoElement.videoWidth;
       canvas.height = videoElement.videoHeight;
       ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-      saveCanvasAsImage(canvas); // Save the canvas as an image
     } else if (videoElement instanceof HTMLImageElement) {
       const ctx = canvas.getContext("2d");
       canvas.width = videoElement.naturalWidth;
       canvas.height = videoElement.naturalHeight;
       videoElement.crossOrigin = "anonymous"; // *** Set Cross-Origin Attribute ***
       ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-      saveCanvasAsImage(canvas);
-    } else {
-      document.getElementById("status").innerText = "No video found";
-      return;
     }
+
+    saveCanvasAsImage(canvas);
   }
 }
 
 // =========================================//
-function saveCanvasAsImage(canvas) {
-  // Add time and date to the canvas
-  const ctx = canvas.getContext("2d");
-  ctx.font = "15px Arial";
-  // ctx.fillStyle = "White";
-  ctx.fillStyle = "Blue";
-  // ctx.fillText("Date: " + new Date().toLocaleString(), 10, canvas.height - 150);
-  ctx.fillText("Date: " + new Date().toLocaleString(), 10, 25);
+// function saveCanvasAsImage0(canvas) {
+//   // ------------------------------- //
+//   // Add time and date to the canvas
+//   const ctx = canvas.getContext("2d");
+//   ctx.font = "15px Arial";
+//   // ctx.fillStyle = "White";
+//   // ctx.fillStyle = "Blue";
+//   ctx.fillStyle = "White";
+//   // ctx.fillText("Date: " + new Date().toLocaleString(), 10, canvas.height - 150);
+//   ctx.fillText(new Date().toLocaleString(), 10, 25);
 
+//   // Create a temporary link to trigger download
+//   const link = document.createElement("a");
+//   link.href = canvas.toDataURL("image/png");
+
+//   // Format date as YYYYMMDD_HHMMSS
+//   const now = new Date();
+//   const pad = (n) => n.toString().padStart(2, "0");
+//   const fileName =
+//     now.getFullYear().toString() +
+//     pad(now.getMonth() + 1) +
+//     pad(now.getDate()) +
+//     "_" +
+//     pad(now.getHours()) +
+//     pad(now.getMinutes()) +
+//     pad(now.getSeconds());
+
+//   link.download = `img_${fileName}.png`;
+//   document.body.appendChild(link);
+//   link.click();
+//   document.body.removeChild(link);
+// }
+
+// =========================================//
+function saveCanvasAsImage(canvas) {
   // Create a temporary link to trigger download
   const link = document.createElement("a");
   link.href = canvas.toDataURL("image/png");
