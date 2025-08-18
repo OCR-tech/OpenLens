@@ -359,9 +359,11 @@ function startVideo(filePath) {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     ctx = canvas.getContext("2d");
+
     document.getElementById("status").innerText = "Detecting...";
     document.getElementById("btn-start").style.display = "none";
     document.getElementById("btn-stop").style.display = "inline-block";
+    // resizeVideoAndCanvas(640);
     detectLoop();
   };
 
@@ -456,4 +458,34 @@ function startImage(filePath) {
     document.getElementById("btn-start").style.display = "inline-block";
     document.getElementById("btn-stop").style.display = "none";
   };
+}
+
+// =========================================//
+function resizeVideoAndCanvas(newWidth = 640) {
+  if (!video || !canvas) return;
+
+  // Get source dimensions
+  let srcWidth, srcHeight;
+  if (video instanceof HTMLVideoElement) {
+    srcWidth = video.videoWidth;
+    srcHeight = video.videoHeight;
+  } else if (video instanceof HTMLImageElement) {
+    srcWidth = video.naturalWidth;
+    srcHeight = video.naturalHeight;
+  } else {
+    console.warn("Unknown video element type.");
+    return;
+  }
+
+  // Calculate new dimensions
+  const aspectRatio = srcHeight / srcWidth;
+  const width = newWidth;
+  const height = Math.round(width * aspectRatio);
+
+  // Set display size for video/image
+  video.videoWidth = width;
+  video.videoHeight = height;
+
+  document.getElementById("status").innerText =
+    video.videoWidth + "x" + video.videoHeight + " " + width + "x" + height;
 }

@@ -114,7 +114,7 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Show the button initially
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
-    // browseButton(); // Call the function to browse video files
+    browseButton(); // Call the function to browse video files
 
     //------------------------------//
   } else if (videoSource.value === "image_file") {
