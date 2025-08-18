@@ -107,7 +107,7 @@ function displayGPSlocation(latitude, longitude) {
   const y = canvas.height - textHeight - padding;
   ctx.fillRect(x, y, textWidth + padding, textHeight);
   ctx.fillStyle = "#FFF";
-  ctx.fillText(gpsString, x, y + textHeight);
+  ctx.fillText(gpsString, x + 5, y - 5 + textHeight);
   ctx.restore();
 }
 

@@ -119,7 +119,7 @@ function displayVideoSize() {
   const y = canvas.height - textHeight - padding;
   ctx.fillRect(x, y, textWidth + padding, textHeight);
   ctx.fillStyle = "#FFF";
-  ctx.fillText("Size: " + sizeText, x, y + textHeight);
+  ctx.fillText("Size: " + sizeText, x + 5, y - 5 + textHeight);
   ctx.restore();
 }
 

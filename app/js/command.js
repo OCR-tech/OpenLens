@@ -106,7 +106,7 @@ function pauseVideo() {
 
 // =========================================//
 function captureImage() {
-  document.getElementById("status").innerText = "Capture Image";
+  document.getElementById("status").innerText = "Capture Image!";
 
   // Get overlay and video/image elements
   const overlayCanvas = document.getElementById("overlay");
