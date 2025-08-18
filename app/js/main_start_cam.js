@@ -485,12 +485,12 @@ function resizeVideoAndCanvas(newWidth = 640) {
   // Set display size for video/image
   video.width = width;
   video.height = height;
-  video.style.width = "100%";
-  video.style.height = "100%";
   canvas.width = width;
   canvas.height = height;
-  canvas.style.width = "100%";
-  canvas.style.height = "100%";
+
+  const ctx = canvas.getContext("2d");
+  // ctx.clearRect(0, 0, width, height);
+  ctx.drawImage(video, 0, 0, width, height, 0, 0, width, height);
 
   document.getElementById("status").innerText =
     video.videoWidth + "x" + video.videoHeight + " " + width + "x" + height;
