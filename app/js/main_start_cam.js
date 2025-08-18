@@ -483,8 +483,14 @@ function resizeVideoAndCanvas(newWidth = 640) {
   const height = Math.round(width * aspectRatio);
 
   // Set display size for video/image
-  video.videoWidth = width;
-  video.videoHeight = height;
+  video.width = width;
+  video.height = height;
+  video.style.width = "100%";
+  video.style.height = "100%";
+  canvas.width = width;
+  canvas.height = height;
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
 
   document.getElementById("status").innerText =
     video.videoWidth + "x" + video.videoHeight + " " + width + "x" + height;
