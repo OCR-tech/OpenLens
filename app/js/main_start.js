@@ -2,7 +2,7 @@
 function startButton() {
   // alert("StartButton");
 
-  stopCamera();
+  // stopCamera();
 
   // document.getElementById("status").innerText = "Start";
   document.getElementById("btn-start").style.display = "none";

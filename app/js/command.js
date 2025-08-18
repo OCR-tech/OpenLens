@@ -18,34 +18,39 @@ function resumeVideo() {
       playVoiceStatus("No video found");
     }
     return;
-  } else {
-    if (window.voiceStatusEnabled) {
-      playVoiceStatus("Resume");
-    }
+  }
 
-    if (videoSource === "camera") {
-      // alert("Playing camera stream...");
-      const videoElement = document.getElementById("camera-stream");
-      if (videoElement) {
-        videoElement.play();
-        detectFrame();
-      }
-    } else if (videoSource === "camera_usb") {
-      // alert("Playing USB camera stream...");
-      const videoElement = document.getElementById("usb-camera-stream");
-      if (videoElement) {
-        videoElement.play();
-        detectFrame();
-      }
-    } else if (videoSource === "video") {
-      // alert("Playing video file playback...");
-      const videoElement = document.getElementById("video-file-player");
-      if (videoElement) {
-        videoElement.play();
-        detectFrame();
-      }
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Resume");
+  }
+
+  if (videoSource === "camera") {
+    // alert("Playing camera stream...");
+    const videoElement = document.getElementById("camera-stream");
+    if (videoElement) {
+      videoElement.play();
+      startButton();
+      // detectLoop();
+    }
+  } else if (videoSource === "camera_usb") {
+    // alert("Playing USB camera stream...");
+    const videoElement = document.getElementById("usb-camera-stream");
+    if (videoElement) {
+      videoElement.play();
+      startButton();
+      // detectLoop();
+    }
+  } else if (videoSource === "video") {
+    // alert("Playing video file playback...");
+    const videoElement = document.getElementById("video-file-player");
+    if (videoElement) {
+      videoElement.play();
+      startButton();
+      // detectLoop();
     }
   }
+
+  // window.runDetectionLoop = true;
 }
 
 // =========================================//
@@ -61,6 +66,7 @@ function pauseVideo() {
   btnPause.style.display = "none";
 
   const videoSource = document.getElementById("video-source").value;
+  // alert("Video Source: " + videoSource);
 
   // Use the overlay canvas for recording (contains video + overlays)
   const canvas = document.getElementById("overlay");
@@ -70,28 +76,32 @@ function pauseVideo() {
       playVoiceStatus("No video found");
     }
     return;
-  } else {
-    if (window.voiceStatusEnabled) {
-      playVoiceStatus("Pause");
-    }
+  }
 
-    if (videoSource === "camera") {
-      const videoElement = document.getElementById("camera-stream");
-      if (videoElement) {
-        videoElement.pause();
-      }
-    } else if (videoSource === "camera_usb") {
-      const videoElement = document.getElementById("usb-camera-stream");
-      if (videoElement) {
-        videoElement.pause();
-      }
-    } else if (videoSource === "video") {
-      const video = document.getElementById("video-file-player");
-      if (video) {
-        video.pause();
-      }
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Pause");
+  }
+
+  if (videoSource === "camera") {
+    const videoElement = document.getElementById("camera-stream");
+    if (videoElement) {
+      videoElement.pause();
+      // alert("Camera stream paused.");
+    }
+  } else if (videoSource === "camera_usb") {
+    const videoElement = document.getElementById("usb-camera-stream");
+    if (videoElement) {
+      videoElement.pause();
+    }
+  } else if (videoSource === "video") {
+    const video = document.getElementById("video-file-player");
+    if (video) {
+      video.pause();
     }
   }
+
+  // Stop the overlay/detection loop
+  window.runDetectionLoop = false;
 }
 
 // =========================================//
