@@ -36,6 +36,7 @@ function detectLoop() {
   } else {
     // Detection loop is running
     // status.innerText = "Running Detecting...";
+
     drawOverlays();
 
     //=========================================//
