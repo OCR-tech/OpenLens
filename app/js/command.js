@@ -362,7 +362,7 @@ function recordVideoLabel(detectedLabel) {
       stopTimeout = setTimeout(() => {
         stopRCVideo();
         stopTimeout = null;
-      }, 3000);
+      }, 5000);
     }
   }
 }
