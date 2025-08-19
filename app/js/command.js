@@ -148,7 +148,6 @@ function captureImage() {
 
   // if (window.showBoundingBox) {
   if (window.showOverlays) {
-    // Draw overlay (date/time, boxes, etc)
     ctx.drawImage(
       overlayCanvas,
       0,
@@ -190,10 +189,26 @@ function saveCanvasAsImage(canvas) {
 }
 
 // =========================================//
-// Capture image with boxes function
-function captureImageWithBoxes() {
-  document.getElementById("status").innerText = "Boxes";
+function captureImageLabel(detectedLabel) {
+  const overlayCanvas = document.getElementById("overlay");
+  if (!overlayCanvas) {
+    document.getElementById("status").innerText = "No overlay found";
+    return;
+  }
+
+  const ctx = overlayCanvas.getContext("2d");
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "red";
+  ctx.fillText(detectedLabel, 25, 50);
+
+  captureImage();
 }
+
+// =========================================//
+// Capture image with boxes function
+// function captureImageWithBoxes() {
+//   document.getElementById("status").innerText = "Boxes";
+// }
 
 let mediaRecorder = null;
 let recordedChunks = [];
@@ -202,6 +217,8 @@ let recordedChunks = [];
 function recordVideo() {
   // document.getElementById("status").innerText = "Recording...";
 
+  if (mediaRecorder && mediaRecorder.state === "recording") return; // Prevent multiple recordings
+
   const btnRecord = document.getElementById("btn-record");
   const btnStopRC = document.getElementById("btn-stoprc");
   btnRecord.style.display = "none";
@@ -209,15 +226,6 @@ function recordVideo() {
 
   // Use the overlay canvas for recording (contains video + overlays)
   const overlayCanvas = document.getElementById("overlay");
-  if (!overlayCanvas) {
-    document.getElementById("status").innerText = "No video found";
-    if (window.voiceStatusEnabled) {
-      playVoiceStatus("No video found");
-    }
-    return;
-  }
-
-  // Get the video element (try all possible sources)
   const videoElement =
     document.getElementById("camera-stream") ||
     document.getElementById("usb-camera-stream") ||
@@ -225,12 +233,6 @@ function recordVideo() {
     document.getElementById("stream-player") ||
     document.getElementById("video-file-player") ||
     document.getElementById("image");
-
-  if (!videoElement) {
-    document.getElementById("status").innerText = "No video found";
-
-    return;
-  }
 
   // Capture the video stream from the video element
   // const stream = videoElement.captureStream(30);
@@ -343,8 +345,33 @@ function recordVideo() {
 }
 
 // =========================================//
+let stopTimeout = null;
+
+// Call this function to start/stop recording based on detection
+function recordVideoLabel(detectedLabel) {
+  if (detectedLabel === "Cars" || detectedLabel === "Persons") {
+    // If detection is present, clear any pending stop and start recording immediately
+    if (stopTimeout) {
+      clearTimeout(stopTimeout);
+      stopTimeout = null;
+    }
+    recordVideo();
+  } else {
+    // If detection is lost, wait 5 seconds before stopping the recording
+    if (!stopTimeout && mediaRecorder && mediaRecorder.state === "recording") {
+      stopTimeout = setTimeout(() => {
+        stopRCVideo();
+        stopTimeout = null;
+      }, 3000);
+    }
+  }
+}
+
+// =========================================//
 // Call this function to stop and save the recording
 function stopRCVideo() {
+  // alert("Stop Recording");
+
   document.getElementById("status").innerText = "Stop Recording.";
 
   if (window.voiceStatusEnabled) {

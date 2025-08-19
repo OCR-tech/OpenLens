@@ -46,6 +46,8 @@ function detectLoop() {
         // const objectNames = predictions.map((p) => p.class).join(", ");
         // alert("Model loaded:" + model + " " + video + " " + predictions + objectNames);
 
+        drawPredictions(predictions);
+
         objDetectInput.innerText =
           predictions.length > 0
             ? predictions
@@ -57,25 +59,31 @@ function detectLoop() {
         // Lists of all detected objects
         const detectedObjects = predictions.map((p) => p.class);
 
-        // if (detectedObjects.includes("person")) {
-        //   objAlertInput.innerText = "Persons";
-        // } else if (detectedObjects.includes("car")) {
-        //   objAlertInput.innerText = "Cars";
-        // } else if (detectedObjects.includes("chair")) {
-        //   objAlertInput.innerText = "Chairs";
-        // } else if (detectedObjects.includes("table")) {
-        //   objAlertInput.innerText = "Tables";
-        // } else if (detectedObjects.includes("couch")) {
-        //   objAlertInput.innerText = "Couches";
-        // } else if (detectedObjects.includes("tv")) {
-        //   objAlertInput.innerText = "TVs";
-        // } else if (detectedObjects.includes("vase")) {
-        //   objAlertInput.innerText = "Vases";
-        // } else if (detectedObjects.includes("bicycle")) {
-        //   objAlertInput.innerText = "Bicycles";
-        // } else {
-        //   objAlertInput.innerText = "Not Alert";
-        // }
+        if (detectedObjects.includes("person")) {
+          objAlertInput.innerText = "Persons";
+          // captureImageLabel("Persons");
+          recordVideoLabel("Persons");
+        } else if (detectedObjects.includes("car")) {
+          objAlertInput.innerText = "Cars";
+          // captureImageLabel("Cars");
+          recordVideoLabel("Cars");
+          // } else if (detectedObjects.includes("chair")) {
+          //   objAlertInput.innerText = "Chairs";
+          //   recordVideoLabel("Chairs");
+          // } else if (detectedObjects.includes("table")) {
+          //   objAlertInput.innerText = "Tables";
+          // } else if (detectedObjects.includes("couch")) {
+          //   objAlertInput.innerText = "Couches";
+          // } else if (detectedObjects.includes("tv")) {
+          //   objAlertInput.innerText = "TVs";
+          // } else if (detectedObjects.includes("vase")) {
+          //   objAlertInput.innerText = "Vases";
+          // } else if (detectedObjects.includes("bicycle")) {
+          //   objAlertInput.innerText = "Bicycles";
+        } else {
+          objAlertInput.innerText = "Not Alert";
+          recordVideoLabel("");
+        }
 
         // status.innerText = "123 " + predictions.map((p) => p.class).join(", ");
 
@@ -104,7 +112,7 @@ function detectLoop() {
         //   "Filtered Predictions: " + JSON.stringify(filteredPredictions);
         //=========================================//
         // Draw predictions on the canvas
-        drawPredictions(predictions);
+        // drawPredictions(predictions);
         // drawPredictions(filteredPredictions);
       });
     }
