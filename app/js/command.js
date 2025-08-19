@@ -115,7 +115,7 @@ function captureImage() {
     document.getElementById("usb-camera-stream") ||
     document.getElementById("stream-player") ||
     document.getElementById("video-file-player") ||
-    document.getElementById("image") ||
+    document.getElementById("image_file") ||
     document.getElementById("image_folder");
 
   if (!overlayCanvas || !videoElement) {
@@ -232,7 +232,7 @@ function recordVideo() {
     document.getElementById("camera-stream") ||
     document.getElementById("stream-player") ||
     document.getElementById("video-file-player") ||
-    document.getElementById("image");
+    document.getElementById("image_file");
 
   // Capture the video stream from the video element
   // const stream = videoElement.captureStream(30);

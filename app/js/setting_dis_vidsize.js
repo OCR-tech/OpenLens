@@ -91,7 +91,7 @@ function displayVideoSize() {
     if (video) break;
   }
 
-  if (videoSource.value === "image" || videoSource.value === "camera_ip") {
+  if (videoSource.value === "image_file" || videoSource.value === "camera_ip") {
     widthVideo = video.naturalWidth;
     heightVideo = video.naturalHeight;
   } else {
@@ -100,6 +100,15 @@ function displayVideoSize() {
   }
 
   if (!ctx || !canvas) return;
+
+  // alert(
+  //   "DisplayVideoSize: " +
+  //     widthVideo +
+  //     "x" +
+  //     heightVideo +
+  //     video +
+  //     videoSource.value
+  // );
 
   const sizeText = video ? widthVideo + "x" + heightVideo : "off";
 

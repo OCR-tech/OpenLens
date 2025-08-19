@@ -363,6 +363,7 @@ function startVideo(filePath) {
     document.getElementById("status").innerText = "Detecting...";
     document.getElementById("btn-start").style.display = "none";
     document.getElementById("btn-stop").style.display = "inline-block";
+    // resizeImageToCanvas(640, 480);
     detectLoop();
   };
 
@@ -449,6 +450,7 @@ function startImage(filePath) {
     document.getElementById("status").innerText = "Detecting...";
     document.getElementById("btn-start").style.display = "none";
     document.getElementById("btn-stop").style.display = "inline-block";
+    // resizeImageToCanvas(640, 480);
     detectLoop();
   };
 
@@ -460,3 +462,18 @@ function startImage(filePath) {
 }
 
 // =========================================//
+function resizeImageToCanvas(targetWidth, targetHeight) {
+  if (!video) return;
+
+  // resize the video size
+  // video.style.width = targetWidth + "px";
+  // video.style.height = targetHeight + "px";
+  video.width = targetWidth;
+  video.height = targetHeight;
+
+  // resize the canvas size
+  canvas.width = targetWidth;
+  canvas.height = targetHeight;
+  ctx = canvas.getContext("2d");
+  ctx.drawImage(video, 0, 0, targetWidth, targetHeight);
+}
