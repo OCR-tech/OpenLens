@@ -37,6 +37,8 @@ function detectLoop() {
     // Detection loop is running
     // status.innerText = "Running Detecting...";
 
+    // drawVideoToCanvas(640, 480); // Draw video to canvas at 640x480 resolution
+
     drawOverlays();
 
     //=========================================//
@@ -264,7 +266,30 @@ function detectLoop() {
     // drawOverlays();
 
     window.animationId = requestAnimationFrame(detectLoop);
+
+    // status.innerText =
+    //   video.videoWidth + "x" + video.videoHeight + " - " + video;
   }
+}
+
+// =========================================//
+function drawVideoToCanvas(targetWidth, targetHeight) {
+  if (!video || !canvas) return;
+  canvas.width = targetWidth;
+  canvas.height = targetHeight;
+
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(
+    video,
+    0,
+    0,
+    video.videoWidth,
+    video.videoHeight, // source: full video frame
+    0,
+    0,
+    targetWidth,
+    targetHeight // destination: scaled to canvas
+  );
 }
 
 // =========================================//
