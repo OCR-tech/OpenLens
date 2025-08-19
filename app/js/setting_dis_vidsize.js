@@ -105,21 +105,31 @@ function displayVideoSize() {
 
   if (!sizeText) return;
   ctx.save();
-  // ctx.font = "40px Arial";
+
   const canvasWidth = canvas.width;
+  const canvasHeight = canvas.height;
   const fontSize = Math.round(canvasWidth / 25);
   ctx.font = `${fontSize}px Arial`;
-  ctx.fillStyle = "rgba(0,0,0,0.5)";
-  const textWidth = ctx.measureText("WxH: " + sizeText).width;
+  ctx.textBaseline = "top"; // Align text to the top of the rectangle
 
-  // Draw background rectangle for better readability
-  const padding = Math.round(canvasWidth / 100); // Adjust padding based on canvas width
+  const textWidth = ctx.measureText("WxH: " + sizeText).width;
   const textHeight = Math.round(fontSize * 1.2); // Adjust text height based on font size
-  const x = canvas.width - textWidth - padding; // 10px margin from right edge
-  const y = canvas.height - textHeight - padding;
-  ctx.fillRect(x, y, textWidth + padding, textHeight);
+
+  const paddingX = Math.round(canvasWidth / 100); // Horizontal padding
+  const paddingY = Math.round(canvasWidth / 100); // Vertical padding
+
+  const boxWidth = textWidth + paddingX * 2;
+  const boxHeight = textHeight + paddingY * 1;
+  const x = canvasWidth - boxWidth - paddingX;
+  const y = canvasHeight - boxHeight - paddingY;
+
+  // Draw background rectangle
+  ctx.fillStyle = "rgba(0,0,0,0.3)";
+  ctx.fillRect(x, y, boxWidth, boxHeight);
+
+  // Draw background rectangle
   ctx.fillStyle = "#FFF";
-  ctx.fillText("Size: " + sizeText, x + 5, y - 5 + textHeight);
+  ctx.fillText("Size: " + sizeText, x + paddingX, y + paddingY);
   ctx.restore();
 }
 
