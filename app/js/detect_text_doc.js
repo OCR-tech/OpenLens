@@ -58,7 +58,20 @@ function readXLSXFile() {
 }
 
 // ======================================= //
-function addTextToExistingXLSX(file, newText) {
+function addTextToXLSX() {
+  const status = document.getElementById("status");
+  const file = window.selectedXLSXFile;
+  const newText = document.getElementById("texts-input").value;
+
+  if (!file) {
+    status.innerText = "No XLSX file selected.";
+    return;
+  }
+  if (!newText.trim()) {
+    status.innerText = "No text to add.";
+    return;
+  }
+
   const reader = new FileReader();
   reader.onload = function (e) {
     const data = new Uint8Array(e.target.result);
@@ -69,13 +82,16 @@ function addTextToExistingXLSX(file, newText) {
     const worksheet = workbook.Sheets[sheetName];
 
     // Convert sheet to array of arrays
-    const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+    // Process the new text input
+    rows_processed = processTextInput(rows);
 
     // Add new text as a new row (split by ":" for columns, or just [newText])
-    rows.push(newText.split(":").map((cell) => cell.trim()));
+    rows_processed.push(newText.split(":").map((cell) => cell.trim()));
 
     // Convert back to sheet and update workbook
-    workbook.Sheets[sheetName] = XLSX.utils.aoa_to_sheet(rows);
+    workbook.Sheets[sheetName] = XLSX.utils.aoa_to_sheet(rows_processed);
 
     // Write and download the updated file
     const wbout = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
@@ -89,6 +105,30 @@ function addTextToExistingXLSX(file, newText) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+
+    status.innerText = "Text added and XLSX file downloaded.";
   };
   reader.readAsArrayBuffer(file);
+}
+
+// ======================================= //
+// Function to process text input and display it in the second input
+function processTextInput(rows) {
+  // alert("processTextInput");
+
+  // add new data in row based on the columns data
+  rows_processed = [];
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    if (row.length > 0) {
+      // remove column words
+      const columnWords = ["Column1", "Column2", "Column3"];
+      const filteredRow = row.filter((cell) => !columnWords.includes(cell));
+      // Process each row, e.g., split by ":" and trim spaces
+      const processedRow = filteredRow.map((cell) => cell.trim());
+      rows_processed.push(processedRow);
+    }
+  }
+
+  return rows_processed;
 }
