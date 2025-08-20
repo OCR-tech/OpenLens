@@ -189,6 +189,7 @@ function saveCanvasAsImage(canvas) {
 }
 
 let flagCaptureImage = true;
+let lastDetectedLabel = null; // Track the last detected label
 // =========================================//
 function captureImageLabel(detectedLabel) {
   const overlayCanvas = document.getElementById("overlay");
@@ -203,13 +204,20 @@ function captureImageLabel(detectedLabel) {
   ctx.fillText(detectedLabel, 25, 50);
 
   if (detectedLabel === "Cars" || detectedLabel === "Persons") {
-    if (flagCaptureImage) {
-      flagCaptureImage = false;
-      captureImage();
+    // check if the same detected objects
+    if (detectedLabel === lastDetectedLabel) {
+      lastDetectedLabel = detectedLabel; // Update last detected label
+    } else {
+      // If the same object is detected, capture the image
+      if (flagCaptureImage) {
+        flagCaptureImage = false;
+        captureImage();
+      }
 
       setTimeout(() => {
         flagCaptureImage = true;
       }, 5000); // 5 seconds delay before next capture allowed
+      lastDetectedLabel = detectedLabel; // Update last detected label
     }
   }
 }
