@@ -199,9 +199,18 @@ function captureImageLabel(detectedLabel) {
   }
 
   const ctx = overlayCanvas.getContext("2d");
-  ctx.font = "20px Arial";
+
+  const canvasWidth = canvas.width;
+  const canvasHeight = canvas.height;
+  const fontSize = Math.round(canvasWidth / 25);
+  ctx.font = `${fontSize}px Arial`;
+  // ctx.font = "50px Arial";
   ctx.fillStyle = "red";
-  ctx.fillText(detectedLabel, 25, 50);
+
+  const textWidth = ctx.measureText(detectedLabel).width;
+  const x = (overlayCanvas.width - textWidth) / 2;
+  const y = Math.round(canvasHeight / 15);
+  ctx.fillText(detectedLabel, x, y);
 
   if (detectedLabel === "Cars" || detectedLabel === "Persons") {
     // check if the same detected objects

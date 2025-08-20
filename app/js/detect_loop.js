@@ -64,11 +64,11 @@ function detectLoop() {
         if (detectedObjects.includes("person")) {
           objAlertInput.innerText = "Persons";
           captureImageLabel("Persons");
-          recordVideoLabel("Persons");
+          // recordVideoLabel("Persons");
         } else if (detectedObjects.includes("car")) {
           objAlertInput.innerText = "Cars";
           captureImageLabel("Cars");
-          recordVideoLabel("Cars");
+          // recordVideoLabel("Cars");
           // } else if (detectedObjects.includes("chair")) {
           //   objAlertInput.innerText = "Chairs";
           //   recordVideoLabel("Chairs");
