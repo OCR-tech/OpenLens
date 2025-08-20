@@ -85,13 +85,13 @@ function addTextToXLSX() {
     rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
     // Process the new text input
-    rows_processed = processTextInput(rows);
+    newText_processed = processTextInput(newText);
 
     // Add new text as a new row (split by ":" for columns, or just [newText])
-    rows_processed.push(newText.split(":").map((cell) => cell.trim()));
+    rows.push(newText_processed);
 
     // Convert back to sheet and update workbook
-    workbook.Sheets[sheetName] = XLSX.utils.aoa_to_sheet(rows_processed);
+    workbook.Sheets[sheetName] = XLSX.utils.aoa_to_sheet(rows);
 
     // Write and download the updated file
     const wbout = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
@@ -113,22 +113,15 @@ function addTextToXLSX() {
 
 // ======================================= //
 // Function to process text input and display it in the second input
-function processTextInput(rows) {
+function processTextInput(newText) {
   // alert("processTextInput");
 
-  // add new data in row based on the columns data
-  rows_processed = [];
-  for (let i = 0; i < rows.length; i++) {
-    const row = rows[i];
-    if (row.length > 0) {
-      // remove column words
-      const columnWords = ["Column1", "Column2", "Column3"];
-      const filteredRow = row.filter((cell) => !columnWords.includes(cell));
-      // Process each row, e.g., split by ":" and trim spaces
-      const processedRow = filteredRow.map((cell) => cell.trim());
-      rows_processed.push(processedRow);
-    }
-  }
+  const textInput1 = document.getElementById("texts-input1");
 
-  return rows_processed;
+  // Split the input by ":" and trim each part
+  const newText_processed = newText.split(":").map((part) => part.trim());
+
+  textInput1.innerText = newText + " + " + newText_processed;
+
+  return newText_processed;
 }
