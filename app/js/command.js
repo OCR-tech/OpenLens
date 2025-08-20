@@ -188,6 +188,7 @@ function saveCanvasAsImage(canvas) {
   document.body.removeChild(link);
 }
 
+let flagCaptureImage = true;
 // =========================================//
 function captureImageLabel(detectedLabel) {
   const overlayCanvas = document.getElementById("overlay");
@@ -201,7 +202,16 @@ function captureImageLabel(detectedLabel) {
   ctx.fillStyle = "red";
   ctx.fillText(detectedLabel, 25, 50);
 
-  captureImage();
+  if (detectedLabel === "Cars" || detectedLabel === "Persons") {
+    if (flagCaptureImage) {
+      flagCaptureImage = false;
+      captureImage();
+
+      setTimeout(() => {
+        flagCaptureImage = true;
+      }, 5000); // 5 seconds delay before next capture allowed
+    }
+  }
 }
 
 // =========================================//
