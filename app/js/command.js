@@ -206,9 +206,8 @@ function captureImageLabel(detectedLabel) {
   if (detectedLabel === "Cars" || detectedLabel === "Persons") {
     // check if the same detected objects
     if (detectedLabel === lastDetectedLabel) {
-      lastDetectedLabel = detectedLabel; // Update last detected label
+      console.log("Same object detected, skipping capture.");
     } else {
-      // If the same object is detected, capture the image
       if (flagCaptureImage) {
         flagCaptureImage = false;
         captureImage();
@@ -217,8 +216,9 @@ function captureImageLabel(detectedLabel) {
       setTimeout(() => {
         flagCaptureImage = true;
       }, 5000); // 5 seconds delay before next capture allowed
-      lastDetectedLabel = detectedLabel; // Update last detected label
     }
+
+    lastDetectedLabel = detectedLabel;
   }
 }
 
