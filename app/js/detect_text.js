@@ -486,6 +486,55 @@ function csvTexts() {
 
 // =========================================//
 // Function to export detected text to an XLSX spreadsheet
+function spreadsheetTexts0() {
+  // alert("spreadsheetTexts");
+
+  const textarea = document.getElementById("texts-input");
+  // const textarea = document.getElementById("texts-input1");
+
+  const status = document.getElementById("status");
+  if (!textarea || !textarea.value.trim()) {
+    if (status) status.innerText = "No text to export!";
+    return;
+  }
+
+  // ----------------------------------//
+  // Split text into rows (by newline)
+  // const rows = textarea.value
+  //   .split(/\r?\n/)
+  //   .map((line) => [line.trim()])
+  //   .filter((row) => row[0]);
+
+  // ----------------------------------//
+  // Split text into columns (by ":")
+  const rows = textarea.value
+    .split(/\r?\n/)
+    .map((line) => line.split(":").map((cell) => cell.trim()))
+    // .map((line) => line.split("|---|").map((cell) => cell.trim()))
+    .filter((row) => row.length > 0 && row[0]);
+
+  // XLSX generation using SheetJS (xlsx library)
+  const worksheet = XLSX.utils.aoa_to_sheet(rows);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Text");
+
+  // Create XLSX file and trigger download
+  const wbout = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+  const blob = new Blob([wbout], { type: "application/octet-stream" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "OpenLens.xlsx";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  if (status) status.innerText = "File created!";
+}
+
+// =========================================//
 function spreadsheetTexts() {
   // alert("spreadsheetTexts");
 
@@ -512,6 +561,9 @@ function spreadsheetTexts() {
     .map((line) => line.split(":").map((cell) => cell.trim()))
     // .map((line) => line.split("|---|").map((cell) => cell.trim()))
     .filter((row) => row.length > 0 && row[0]);
+
+  // ----------------------------------//
+  // Check if the file exists
 
   // XLSX generation using SheetJS (xlsx library)
   const worksheet = XLSX.utils.aoa_to_sheet(rows);
