@@ -1,5 +1,7 @@
 // Detects if the file is a text document or an XLSX file
 function browseXLSXFile() {
+  // alert("browseXLSXFile");
+
   // Create a file input element
   const fileInput = document.createElement("input");
   fileInput.type = "file";
@@ -27,10 +29,10 @@ function browseXLSXFile() {
 // ======================================= //
 // Reads the selected XLSX file and displays its content
 function readXLSXFile() {
-  // alert("Reading XLSX file...");
+  // alert("readXLSXFile");
 
   const status = document.getElementById("status");
-  const textInput = document.getElementById("texts-input");
+  // const textInput = document.getElementById("texts-input");
   const textInput1 = document.getElementById("texts-input1");
 
   const file = window.selectedXLSXFile;
