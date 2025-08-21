@@ -157,6 +157,15 @@ function updateMotionDetection() {
     return;
   }
 
+  // Set target downscaled size
+  // if (canvas.width >= 640) {
+  //   canvas.width = 640;
+  //   canvas.height = (source.videoHeight * 640) / source.videoWidth;
+  // } else if (canvas.height >= 480) {
+  //   canvas.height = 480;
+  //   canvas.width = (source.videoWidth * 480) / source.videoHeight;
+  // }
+
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
   const currFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 

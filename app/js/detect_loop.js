@@ -37,7 +37,9 @@ function detectLoop() {
     // Detection loop is running
     // status.innerText = "Running Detecting...";
 
-    // drawVideoToCanvas(640, 480); // Draw video to canvas at 640x480 resolution
+    // const PROCESS_WIDTH = 640;
+    // const PROCESS_HEIGHT = 480;
+    // const canvas = drawVideoToCanvas(PROCESS_WIDTH, PROCESS_HEIGHT);
 
     drawOverlays();
 
@@ -45,6 +47,7 @@ function detectLoop() {
     // Object detection
     if (window.objectDetectionEnabled) {
       model.detect(video).then(function (predictions) {
+        // model.detect(canvas).then(function (predictions) {
         // const objectNames = predictions.map((p) => p.class).join(", ");
         // alert("Model loaded:" + model + " " + video + " " + predictions + objectNames);
 
@@ -274,12 +277,14 @@ function detectLoop() {
 
 // =========================================//
 function drawVideoToCanvas(targetWidth, targetHeight) {
-  if (!video || !canvas) return;
-  canvas.width = targetWidth;
-  canvas.height = targetHeight;
+  // Create a hidden canvas for processing
+  const processingCanvas = document.createElement("canvas");
+  const processingCtx = processingCanvas.getContext("2d");
+  processingCanvas.width = targetWidth;
+  processingCanvas.height = targetHeight;
 
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(
+  // In your detection loop, before calling model.detect:
+  processingCtx.drawImage(
     video,
     0,
     0,
@@ -288,8 +293,9 @@ function drawVideoToCanvas(targetWidth, targetHeight) {
     0,
     0,
     targetWidth,
-    targetHeight // destination: scaled to canvas
+    targetHeight // destination: downscaled
   );
+  return processingCanvas;
 }
 
 // =========================================//
