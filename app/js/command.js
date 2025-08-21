@@ -212,7 +212,11 @@ function captureImageLabel(detectedLabel) {
   const y = Math.round(canvasHeight / 15);
   ctx.fillText(detectedLabel, x, y);
 
-  if (detectedLabel === "Cars" || detectedLabel === "Persons") {
+  if (
+    detectedLabel === "Cars" ||
+    detectedLabel === "Persons" ||
+    detectedLabel === "Smoke"
+  ) {
     // check if the same detected objects
     if (detectedLabel === lastDetectedLabel) {
       console.log("Same object detected, skipping capture.");

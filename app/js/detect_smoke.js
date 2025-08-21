@@ -171,11 +171,14 @@ function updateSmokeDetection() {
     smokeStatusNormal.style.boxShadow = "none";
     smokeStatusWarn.style.boxShadow = "none";
     smokeStatusAlert.style.boxShadow = "0 0 5px 5px gray";
+    captureImage();
+    // captureImageLabel("Smoke");
   } else {
     smokeStatus.innerHTML = 'Smoke: <b style="color:green">o</b>';
     smokeStatusNormal.style.boxShadow = "0 0 5px 5px green";
     smokeStatusWarn.style.boxShadow = "none";
     smokeStatusAlert.style.boxShadow = "none";
+    // captureImageLabel("No Smoke");
   }
 }
 
@@ -188,7 +191,7 @@ function detectSmoke(prevFrame, currFrame, width, height, threshold) {
   const totalPixels = width * height;
   const intensityThreshold = 30;
   const MOST_SENSITIVE_RATIO = 0.3; // 0.015
-  const LEAST_SENSITIVE_RATIO = 0.25;
+  const LEAST_SENSITIVE_RATIO = 0.032;
 
   let smokeRatioThreshold =
     LEAST_SENSITIVE_RATIO +
