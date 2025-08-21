@@ -171,7 +171,7 @@ function updateSmokeDetection() {
     smokeStatusNormal.style.boxShadow = "none";
     smokeStatusWarn.style.boxShadow = "none";
     smokeStatusAlert.style.boxShadow = "0 0 5px 5px gray";
-    captureImage();
+    // captureImage();
     // captureImageLabel("Smoke");
   } else {
     smokeStatus.innerHTML = 'Smoke: <b style="color:green">o</b>';
