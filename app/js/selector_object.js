@@ -9,6 +9,9 @@ const objects = [
   { value: "truck", label: "Truck" },
   { value: "dog", label: "Dog" },
   { value: "cat", label: "Cat" },
+  { value: "chair", label: "Chair" },
+  { value: "couch", label: "Couch" },
+  { value: "tv", label: "TV" },
   // { value: "train", label: "Train" },
   // { value: "airplane", label: "Airplane" },
   // { value: "boat", label: "Boat" },
@@ -16,8 +19,6 @@ const objects = [
   // { value: "building", label: "Building" },
   // { value: "traffic light", label: "Traffic Light" },
   // { value: "stop sign", label: "Stop Sign" },
-  // { value: "couch", label: "Couch" },
-  // { value: "chair", label: "Chair" },
   // { value: "table", label: "Table" },
   // { value: "lamp", label: "Lamp" },
   // { value: "phone", label: "Phone" },
@@ -53,13 +54,19 @@ function toggleDropdownObjects() {
 }
 
 selectedObjects = [];
+selectedObjectsIndex = [];
 // ================================= //
 // Optional: Close dropdown when clicking outside
 document.addEventListener("click", function (e) {
   const dropdown = document.getElementById("object-dropdown");
   if (dropdown && !dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
-    selectedObjects = getSelectedObjects();
+    selectedObjectsIndex = getSelectedObjects();
+
+    // convert index to value
+    selectedObjects = selectedObjectsIndex.map((i) => objects[i].value);
+    // alert("Selected Objects:" + selectedObjects);
+    window.classListSelect = selectedObjects;
   }
 });
 

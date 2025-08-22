@@ -12,7 +12,8 @@ let fallingIntervalId = null;
 let breakingIntervalId = null;
 let timeInterval = 50; // 50ms
 
-const classListSelect = ["person", "car", "chair", "tv"]; // Only show these classes
+// window.classListSelect = ["person", "car", "chair", "tv"]; // Only show these classes
+
 // =========================================//
 function detectLoop() {
   // alert("detectLoop");
@@ -455,7 +456,7 @@ function drawPredictions(predictions) {
 
   // Filter predictions to only those in classListSelect
   const filteredPredictions = predictions.filter((p) =>
-    classListSelect.includes(p.class)
+    window.classListSelect.includes(p.class)
   );
 
   if (window.showBoundingBox) {
