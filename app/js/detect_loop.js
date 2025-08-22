@@ -48,9 +48,12 @@ function detectLoop() {
     if (window.objectDetectionEnabled) {
       model.detect(video).then(function (predictions) {
         // model.detect(canvas).then(function (predictions) {
+
         // const objectNames = predictions.map((p) => p.class).join(", ");
         // alert("Model loaded:" + model + " " + video + " " + predictions + objectNames);
 
+        const detectedObjects = predictions.map((p) => p.class);
+        // ----------------------------- //
         drawPredictions(predictions);
 
         objDetectInput.innerText =
@@ -62,7 +65,7 @@ function detectLoop() {
 
         //=========================================//
         // Lists of all detected objects
-        const detectedObjects = predictions.map((p) => p.class);
+        // const detectedObjects = predictions.map((p) => p.class);
 
         if (detectedObjects.includes("person")) {
           objAlertInput.innerText = "Persons";
@@ -121,6 +124,7 @@ function detectLoop() {
         // drawPredictions(filteredPredictions);
       });
     }
+
     //=========================================//
     // Text detection
     // if (window.redBoxesDetectionEnabled) {
@@ -275,28 +279,28 @@ function detectLoop() {
   }
 }
 
-// =========================================//
-function drawVideoToCanvas(targetWidth, targetHeight) {
-  // Create a hidden canvas for processing
-  const processingCanvas = document.createElement("canvas");
-  const processingCtx = processingCanvas.getContext("2d");
-  processingCanvas.width = targetWidth;
-  processingCanvas.height = targetHeight;
+// // =========================================//
+// function drawVideoToCanvas(targetWidth, targetHeight) {
+//   // Create a hidden canvas for processing
+//   const processingCanvas = document.createElement("canvas");
+//   const processingCtx = processingCanvas.getContext("2d");
+//   processingCanvas.width = targetWidth;
+//   processingCanvas.height = targetHeight;
 
-  // In your detection loop, before calling model.detect:
-  processingCtx.drawImage(
-    video,
-    0,
-    0,
-    video.videoWidth,
-    video.videoHeight, // source: full video frame
-    0,
-    0,
-    targetWidth,
-    targetHeight // destination: downscaled
-  );
-  return processingCanvas;
-}
+//   // In your detection loop, before calling model.detect:
+//   processingCtx.drawImage(
+//     video,
+//     0,
+//     0,
+//     video.videoWidth,
+//     video.videoHeight, // source: full video frame
+//     0,
+//     0,
+//     targetWidth,
+//     targetHeight // destination: downscaled
+//   );
+//   return processingCanvas;
+// }
 
 // =========================================//
 function drawOverlays() {
@@ -433,15 +437,11 @@ function drawOverlays() {
 //   });
 // }
 
-// =========================================//
+// ========================================= //
 
-//=========================================//
+const classListSelect = ["person", "car", "chair", "tv"]; // Only show these classes
+// =========================================== //
 function drawPredictions(predictions) {
-  // alert("DrawPredictions");
-
-  // const status = document.getElementById("status");
-  // const objAlertInput = document.getElementById("obj-alert-input");
-
   if (!ctx || !canvas) return;
 
   // alert("Predictions: " + JSON.stringify(predictions));
@@ -453,16 +453,18 @@ function drawPredictions(predictions) {
   //         .join(", ")
   //     : "Detecting...";
 
-  // ===========================================//
-  if (window.showBoundingBox) {
-    predictions.forEach(function (prediction) {
-      // alert("Prediction: " + JSON.stringify(prediction));
+  // Filter predictions to only those in classListSelect
+  const filteredPredictions = predictions.filter((p) =>
+    classListSelect.includes(p.class)
+  );
 
-      // ===========================================//
+  if (window.showBoundingBox) {
+    filteredPredictions.forEach(function (prediction) {
       // Draw bounding box
       ctx.strokeStyle = "#00FFFF";
       ctx.lineWidth = 2;
       ctx.strokeRect(...prediction.bbox);
+
       // Draw label background
       ctx.fillStyle = "#00FFFF";
       const textWidth = ctx.measureText(prediction.class).width;
@@ -473,6 +475,7 @@ function drawPredictions(predictions) {
         textWidth + 10,
         textHeight
       );
+
       // Draw text
       ctx.fillStyle = "#222";
       ctx.font = "16px Arial";
