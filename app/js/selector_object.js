@@ -53,7 +53,7 @@ function toggleDropdownObjects() {
   document.getElementById("object-dropdown").classList.toggle("open");
 }
 
-selectedObjects = [];
+// selectedObjects = [];
 selectedObjectsIndex = [];
 // ================================= //
 // Optional: Close dropdown when clicking outside
@@ -64,9 +64,7 @@ document.addEventListener("click", function (e) {
     selectedObjectsIndex = getSelectedObjects();
 
     // convert index to value
-    selectedObjects = selectedObjectsIndex.map((i) => objects[i].value);
-    // alert("Selected Objects:" + selectedObjects);
-    window.classListSelect = selectedObjects;
+    window.classListSelect = selectedObjectsIndex.map((i) => objects[i].value);
   }
 });
 
@@ -116,6 +114,8 @@ function getSelectedObjects() {
   // });
 
   // alert(`Selected: ${selected.join(", ")}`);
+
+  // window.classListSelect = selected.map((i) => objects[i].value);
 
   return selected;
 }
