@@ -291,7 +291,10 @@ function extractTextFromBoxes(boxes) {
 
 // =========================================//
 function detectLayoutDocument(canvas) {
-  // const status = document.getElementById("status");
+  // alert("detectLayoutDocument");
+
+  const status = document.getElementById("status");
+  // const canvas = document.getElementById("overlay");
 
   const source =
     document.getElementById("camera-stream") ||
@@ -302,71 +305,80 @@ function detectLayoutDocument(canvas) {
     document.getElementById("image") ||
     document.getElementById("image-file-viewer");
 
+  status.innerText = canvas.width + "x" + canvas.height;
+
   const ctx = canvas.getContext("2d");
-  // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+
+  ctx.strokeStyle = "green";
+  ctx.lineWidth = 5;
+  ctx.strokeRect(40, 20, 30, 50);
+
+  ctx.fillStyle = "red";
+  ctx.fillRect(50, 50, 10, 100);
 
   // Use Tesseract's layout analysis (returns blocks, lines, words, etc.)
-  Tesseract.recognize(canvas.toDataURL("image/png"), "eng", {}).then(
-    ({ data }) => {
-      // alert("Layout data: " + JSON.stringify(data));
-      // status.innerText = JSON.stringify(data);
-      // alert(
-      //   "Layout data: " +
-      //     " + " +
-      //     data.blocks.length +
-      //     " + " +
-      //     data.lines.length +
-      //     " + " +
-      //     data.words.length
-      // );
+  // Tesseract.recognize(canvas.toDataURL("image/png"), "eng", {}).then(
+  //   ({ data }) => {
+  //     // alert("Layout data: " + JSON.stringify(data));
+  //     // status.innerText = JSON.stringify(data);
+  //     // alert(
+  //     //   "Layout data: " +
+  //     //     " + " +
+  //     //     data.blocks.length +
+  //     //     " + " +
+  //     //     data.lines.length +
+  //     //     " + " +
+  //     //     data.words.length
+  //     // );
 
-      ctx.save();
+  //     ctx.save();
 
-      // Draw blocks in green
-      ctx.strokeStyle = "green";
-      ctx.lineWidth = 2;
-      if (data.blocks && data.blocks.length > 0) {
-        data.blocks.forEach((block) => {
-          ctx.strokeRect(
-            block.bbox.x0,
-            block.bbox.y0,
-            block.bbox.x1 - block.bbox.x0,
-            block.bbox.y1 - block.bbox.y0
-          );
-        });
-      }
+  //     // Draw blocks in green
+  //     ctx.strokeStyle = "green";
+  //     ctx.lineWidth = 2;
+  //     if (data.blocks && data.blocks.length > 0) {
+  //       data.blocks.forEach((block) => {
+  //         ctx.strokeRect(
+  //           block.bbox.x0,
+  //           block.bbox.y0,
+  //           block.bbox.x1 - block.bbox.x0,
+  //           block.bbox.y1 - block.bbox.y0
+  //         );
+  //       });
+  //     }
 
-      // Draw lines in orange
-      ctx.strokeStyle = "orange";
-      ctx.lineWidth = 1.5;
-      if (data.lines && data.lines.length > 0) {
-        data.lines.forEach((line) => {
-          ctx.strokeRect(
-            line.bbox.x0,
-            line.bbox.y0,
-            line.bbox.x1 - line.bbox.x0,
-            line.bbox.y1 - line.bbox.y0
-          );
-        });
-      }
+  //     // Draw lines in orange
+  //     ctx.strokeStyle = "orange";
+  //     ctx.lineWidth = 1.5;
+  //     if (data.lines && data.lines.length > 0) {
+  //       data.lines.forEach((line) => {
+  //         ctx.strokeRect(
+  //           line.bbox.x0,
+  //           line.bbox.y0,
+  //           line.bbox.x1 - line.bbox.x0,
+  //           line.bbox.y1 - line.bbox.y0
+  //         );
+  //       });
+  //     }
 
-      // Draw words in blue
-      ctx.strokeStyle = "blue";
-      ctx.lineWidth = 1;
-      if (data.words && data.words.length > 0) {
-        data.words.forEach((word) => {
-          ctx.strokeRect(
-            word.bbox.x0,
-            word.bbox.y0,
-            word.bbox.x1 - word.bbox.x0,
-            word.bbox.y1 - word.bbox.y0
-          );
-        });
-      }
+  //     // Draw words in blue
+  //     ctx.strokeStyle = "blue";
+  //     ctx.lineWidth = 1;
+  //     if (data.words && data.words.length > 0) {
+  //       data.words.forEach((word) => {
+  //         ctx.strokeRect(
+  //           word.bbox.x0,
+  //           word.bbox.y0,
+  //           word.bbox.x1 - word.bbox.x0,
+  //           word.bbox.y1 - word.bbox.y0
+  //         );
+  //       });
+  //     }
 
-      ctx.restore();
-    }
-  );
+  //     ctx.restore();
+  //   }
+  // );
 }
 
 // =========================================//
