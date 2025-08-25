@@ -1,4 +1,6 @@
 let objectIntervalId = null;
+let poseIntervalId = null;
+let faceIntervalId = null;
 let textIntervalId = null;
 let gradeIntervalId = null;
 let motionIntervalId = null;
@@ -128,6 +130,24 @@ function detectLoop() {
     }
 
     //=========================================//
+    // Pose detection
+    // if (window.poseDetectionEnabled && !poseIntervalId) {
+    //   poseIntervalId = setInterval(updatePoseDetection, timeInterval);
+    // } else if (!window.poseDetectionEnabled && poseIntervalId) {
+    //   clearInterval(poseIntervalId);
+    //   poseIntervalId = null;
+    // }
+
+    //=========================================//
+    // Face detection
+    // if (window.faceDetectionEnabled && !faceIntervalId) {
+    //   faceIntervalId = setInterval(updateFaceDetection, timeInterval);
+    // } else if (!window.faceDetectionEnabled && faceIntervalId) {
+    //   clearInterval(faceIntervalId);
+    //   faceIntervalId = null;
+    // }
+
+    //=========================================//
     // Text detection
     // if (window.redBoxesDetectionEnabled) {
     //   drawRedBoxes();
@@ -249,6 +269,8 @@ function detectLoop() {
       soundIntervalId = null;
       // document.getElementById("status").innerText = "Not detecting sound.";
     }
+
+    //=========================================//
 
     // alert(window.motionDetectionEnabled + " " + window.soundDetectionEnabled);
     // if (

@@ -81,6 +81,14 @@ document.addEventListener("DOMContentLoaded", function () {
             optionsBox.appendChild(label);
           });
 
+          // Set all checkboxes as default checked
+          const checkboxes = document.querySelectorAll(
+            "#object-dropdown input[type='checkbox']"
+          );
+          checkboxes.forEach((checkbox) => {
+            checkbox.checked = true;
+          });
+
           // Only add the document click handler once
           if (!window.objectDropdownClickHandlerAdded) {
             document.addEventListener("click", function (e) {

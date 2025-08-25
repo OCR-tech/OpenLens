@@ -82,9 +82,9 @@ function getSelectedObjects() {
   const selected = [];
 
   // Set all checkboxes as default checked
-  // checkboxes.forEach((checkbox) => {
-  //   checkbox.checked = true;
-  // });
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = true;
+  });
 
   checkboxes.forEach((checkbox) => {
     if (checkbox.checked) {

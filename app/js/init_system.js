@@ -98,6 +98,8 @@ function initSystem() {
   window.showFramerateOverlay = true;
   //------------//
   window.objectDetectionEnabled = true;
+  window.poseDetectionEnabled = true;
+  window.faceDetectionEnabled = true;
   window.textDetectionEnabled = true;
   window.gradeDetectionEnabled = true;
   window.redBoxesDetectionEnabled = true;
@@ -110,6 +112,7 @@ function initSystem() {
   window.rainDetectionEnabled = true;
   window.fallingDetectionEnabled = true;
   window.breakingDetectionEnabled = true;
+
   //------------//
   window.audioContext = true;
   window.detectionLoopId = null;
