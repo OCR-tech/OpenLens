@@ -102,7 +102,7 @@ function addTextToXLSX() {
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "Updated_OpenLens.xlsx";
+    a.download = "OpenLens1.xlsx";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

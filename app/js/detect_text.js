@@ -145,6 +145,9 @@ function updateTextDetection() {
   displayProcessedImage(canvas_processed);
 
   // ----------------------------- //
+  // detectLayoutDocument(canvas_processed);
+
+  // ----------------------------- //
   detectTextsTesseract(canvas_processed);
 
   // ----------------------------- //
@@ -159,8 +162,8 @@ function displayProcessedImage(processedCanvas) {
   img.alt = "Processed Image";
   img.style.border = "2px solid red";
   img.style.margin = "3px";
-  img.style.maxWidth = "80%";
-  img.style.maxHeight = "80%";
+  img.style.maxWidth = "50%";
+  img.style.maxHeight = "50%";
 
   if (canvas.nextSibling) {
     canvas.parentNode.insertBefore(img, canvas.nextSibling);
@@ -287,6 +290,86 @@ function extractTextFromBoxes(boxes) {
 }
 
 // =========================================//
+function detectLayoutDocument(canvas) {
+  // const status = document.getElementById("status");
+
+  const source =
+    document.getElementById("camera-stream") ||
+    document.getElementById("usb-camera-stream") ||
+    document.getElementById("stream-player") ||
+    document.getElementById("video-file-player") ||
+    document.getElementById("video") ||
+    document.getElementById("image") ||
+    document.getElementById("image-file-viewer");
+
+  const ctx = canvas.getContext("2d");
+  // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+
+  // Use Tesseract's layout analysis (returns blocks, lines, words, etc.)
+  Tesseract.recognize(canvas.toDataURL("image/png"), "eng", {}).then(
+    ({ data }) => {
+      // alert("Layout data: " + JSON.stringify(data));
+      // status.innerText = JSON.stringify(data);
+      // alert(
+      //   "Layout data: " +
+      //     " + " +
+      //     data.blocks.length +
+      //     " + " +
+      //     data.lines.length +
+      //     " + " +
+      //     data.words.length
+      // );
+
+      ctx.save();
+
+      // Draw blocks in green
+      ctx.strokeStyle = "green";
+      ctx.lineWidth = 2;
+      if (data.blocks && data.blocks.length > 0) {
+        data.blocks.forEach((block) => {
+          ctx.strokeRect(
+            block.bbox.x0,
+            block.bbox.y0,
+            block.bbox.x1 - block.bbox.x0,
+            block.bbox.y1 - block.bbox.y0
+          );
+        });
+      }
+
+      // Draw lines in orange
+      ctx.strokeStyle = "orange";
+      ctx.lineWidth = 1.5;
+      if (data.lines && data.lines.length > 0) {
+        data.lines.forEach((line) => {
+          ctx.strokeRect(
+            line.bbox.x0,
+            line.bbox.y0,
+            line.bbox.x1 - line.bbox.x0,
+            line.bbox.y1 - line.bbox.y0
+          );
+        });
+      }
+
+      // Draw words in blue
+      ctx.strokeStyle = "blue";
+      ctx.lineWidth = 1;
+      if (data.words && data.words.length > 0) {
+        data.words.forEach((word) => {
+          ctx.strokeRect(
+            word.bbox.x0,
+            word.bbox.y0,
+            word.bbox.x1 - word.bbox.x0,
+            word.bbox.y1 - word.bbox.y0
+          );
+        });
+      }
+
+      ctx.restore();
+    }
+  );
+}
+
+// =========================================//
 function detectTextsTesseract(canvas) {
   // alert("detectTextsTesseract");
 
@@ -329,6 +412,7 @@ function detectTextsTesseract(canvas) {
         // status.innerText = "Detecting text: Done" + " *** " + lang;
         status.innerText = "Detecting text: Done";
         textsInput.value = processedText;
+        // textsInput.value = text;
       }
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
