@@ -401,6 +401,8 @@ function getImageInfo(video) {
 
 // =========================================//
 function startImage(filePath) {
+  // alert("StartImage: " + filePath);
+
   document.getElementById("status").innerText = "Loading Image...";
 
   // Clean up previous video/canvas if any
@@ -464,14 +466,9 @@ function startImage(filePath) {
 let imageFolderFiles = [];
 let imageFolderIndex = 0;
 
-// =========================================//
 function startImageFolder(folderPath) {
-  // alert("startImageFolder: " + folderPath);
-
   const videoFeed = document.getElementById("video-feed");
   const status = document.getElementById("status");
-
-  imageFolderFiles = window.selectedImageFiles;
 
   // Navigation buttons (create if not present)
   let navDiv = document.getElementById("image-folder-nav");
@@ -486,22 +483,18 @@ function startImageFolder(folderPath) {
   const prevBtn = document.createElement("button");
   prevBtn.innerText = "Previous";
   prevBtn.onclick = () => {
-    alert("Previous button clicked. Current index: " + imageFolderIndex);
-
     if (imageFolderIndex > 0) {
       imageFolderIndex--;
-      showImageInFolder(imageFolderFiles[imageFolderIndex]);
+      showImageInFolder();
     }
   };
 
   const nextBtn = document.createElement("button");
   nextBtn.innerText = "Next";
   nextBtn.onclick = () => {
-    alert("Next button clicked. Current index: " + imageFolderIndex);
-
     if (imageFolderIndex < imageFolderFiles.length - 1) {
       imageFolderIndex++;
-      showImageInFolder(imageFolderFiles[imageFolderIndex]);
+      showImageInFolder();
     }
   };
 
@@ -509,56 +502,61 @@ function startImageFolder(folderPath) {
   navDiv.appendChild(nextBtn);
 
   // Load image file list and show the first image
-  window.api.listImagesInFolder(folderPath).then((files) => {
-    alert(folderPath);
+  alert("Loading images from folder: " + folderPath);
 
-    imageFolderFiles = files.filter((f) =>
-      /\.(jpg|jpeg|png|bmp|gif)$/i.test(f)
-    );
+  window.api.listImagesInFolder(folderPath).then((files) => {
+    alert("Found files: " + files.join(", "));
+
+    imageFolderFiles = files
+      .filter((f) => /\.(jpg|jpeg|png|bmp|gif)$/i.test(f))
+      .map((f) =>
+        folderPath.endsWith("/") || folderPath.endsWith("\\")
+          ? folderPath + f
+          : folderPath + "/" + f
+      );
     imageFolderIndex = 0;
     if (imageFolderFiles.length === 0) {
       if (status) status.innerText = "No images found in folder.";
       return;
     }
-    // Show the first image using startImage, which handles DOM setup
-    showImageInFolder(imageFolderFiles[imageFolderIndex]);
+    showImageInFolder();
     if (status) status.innerText = `Image 1 of ${imageFolderFiles.length}`;
   });
 }
 
-// =========================================//
-function showImageInFolder(imagePath) {
-  alert("showImageInFolder" + imagePath);
-
+function showImageInFolder() {
   const status = document.getElementById("status");
   const videoFeed = document.getElementById("video-feed");
 
-  // Clear previous content
-  videoFeed.innerHTML = "";
+  // Get or create image element
+  let img = document.getElementById("image-file-viewer");
+  if (!img) {
+    img = document.createElement("img");
+    img.id = "image-file-viewer";
+    img.style.width = "100%";
+    img.style.height = "100%";
+    img.style.objectFit = "contain";
+    img.title = "Image Viewer";
+    videoFeed.appendChild(img);
+  }
 
+  // Get or create overlay canvas
+  let canvas = document.getElementById("overlay");
+  if (!canvas) {
+    canvas = document.createElement("canvas");
+    canvas.id = "overlay";
+    canvas.style.position = "absolute";
+    canvas.style.top = "0";
+    canvas.style.left = "0";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.pointerEvents = "none";
+    videoFeed.appendChild(canvas);
+  }
+
+  // Hide placeholder if present
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
-
-  // Create image element
-  let img = document.createElement("img");
-  img.id = "image-file-viewer";
-  img.src = imagePath;
-  img.style.width = "100%";
-  img.style.height = "100%";
-  img.style.objectFit = "contain";
-  img.title = "Image Viewer";
-  videoFeed.appendChild(img);
-
-  // Create overlay canvas
-  let canvas = document.createElement("canvas");
-  canvas.id = "overlay";
-  canvas.style.position = "absolute";
-  canvas.style.top = "0";
-  canvas.style.left = "0";
-  canvas.style.width = "100%";
-  canvas.style.height = "100%";
-  canvas.style.pointerEvents = "none";
-  videoFeed.appendChild(canvas);
 
   img.onload = function () {
     canvas.width = img.naturalWidth;
@@ -577,5 +575,7 @@ function showImageInFolder(imagePath) {
     document.getElementById("btn-start").style.display = "inline-block";
     document.getElementById("btn-stop").style.display = "none";
   };
+
+  // Set image source (this triggers onload)
   img.src = imageFolderFiles[imageFolderIndex];
 }
