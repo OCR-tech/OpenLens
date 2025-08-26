@@ -1,11 +1,11 @@
 // ================================= //
 const objects = [
-  { value: "all", label: "All" },
+  // { value: "all", label: "All" },
   { value: "person", label: "Person" },
   { value: "car", label: "Car" },
-  // { value: "motorcycle", label: "Motorcycle" },
-  // { value: "bicycle", label: "Bicycle" },
-  // { value: "bus", label: "Bus" },
+  { value: "motorcycle", label: "Motorcycle" },
+  { value: "bicycle", label: "Bicycle" },
+  { value: "bus", label: "Bus" },
   // { value: "truck", label: "Truck" },
   // { value: "dog", label: "Dog" },
   // { value: "cat", label: "Cat" },
