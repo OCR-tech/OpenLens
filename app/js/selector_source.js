@@ -143,7 +143,7 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Hide the OK button
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input
-    // browseButton(); // Call the function to browse image folders
+    browseButton(); // Call the function to browse image folders
   }
 }
 
@@ -458,6 +458,8 @@ function CheckVideo(file) {
 
 window.selectedVideoFilePath = null;
 window.selectedImageFilePath = null;
+window.selectedImageFolderPath = null;
+window.selectedImageFiles = null;
 // =========================================//
 // Browse video cam function
 function browseButton() {
@@ -539,20 +541,27 @@ function browseButton() {
 
     folderInput.type = "file";
     folderInput.webkitdirectory = true; // Allow folder selection
+    folderInput.multiple = true; // Allow multiple files (all in the folder)
     folderInput.onchange = function (event) {
-      const files = event.target.files;
+      const files = Array.from(event.target.files);
       if (files.length > 0) {
-        window.selectedImageFilePath = URL.createObjectURL(files[0]);
+        // Get the folder name from the first file's relative path
+        const folderName = files[0].webkitRelativePath.split("/")[0];
+        window.selectedImageFolderPath = folderName;
         document.getElementById("status").innerText =
-          "Selected image folder: " + files[0].webkitRelativePath;
+          "Selected image folder: " + folderName + ` (${files.length} images)`;
         btnStart.disabled = false; // Enable the start button
         btnCommand.disabled = false; // Enable the command button
         btnVoice.disabled = false; // Enable the voice button
         btnOk.disabled = true; // Disable the OK button
+        // Optionally, store the file list for later use
+        window.selectedImageFiles = files;
+        // alert("Total " + files.length + files);
         startButton();
       } else {
         document.getElementById("status").innerText = "No folder selected.";
-        window.selectedImageFilePath = null;
+        window.selectedImageFolderPath = null;
+        window.selectedImageFiles = null;
       }
     };
     // Open the folder dialog

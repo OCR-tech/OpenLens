@@ -458,3 +458,124 @@ function startImage(filePath) {
     document.getElementById("btn-stop").style.display = "none";
   };
 }
+
+// =========================================//
+// Global state for image folder navigation
+let imageFolderFiles = [];
+let imageFolderIndex = 0;
+
+// =========================================//
+function startImageFolder(folderPath) {
+  // alert("startImageFolder: " + folderPath);
+
+  const videoFeed = document.getElementById("video-feed");
+  const status = document.getElementById("status");
+
+  imageFolderFiles = window.selectedImageFiles;
+
+  // Navigation buttons (create if not present)
+  let navDiv = document.getElementById("image-folder-nav");
+  if (!navDiv) {
+    navDiv = document.createElement("div");
+    navDiv.id = "image-folder-nav";
+    navDiv.style.margin = "10px 0";
+    videoFeed.parentNode.insertBefore(navDiv, videoFeed.nextSibling);
+  }
+  navDiv.innerHTML = "";
+
+  const prevBtn = document.createElement("button");
+  prevBtn.innerText = "Previous";
+  prevBtn.onclick = () => {
+    alert("Previous button clicked. Current index: " + imageFolderIndex);
+
+    if (imageFolderIndex > 0) {
+      imageFolderIndex--;
+      showImageInFolder(imageFolderFiles[imageFolderIndex]);
+    }
+  };
+
+  const nextBtn = document.createElement("button");
+  nextBtn.innerText = "Next";
+  nextBtn.onclick = () => {
+    alert("Next button clicked. Current index: " + imageFolderIndex);
+
+    if (imageFolderIndex < imageFolderFiles.length - 1) {
+      imageFolderIndex++;
+      showImageInFolder(imageFolderFiles[imageFolderIndex]);
+    }
+  };
+
+  navDiv.appendChild(prevBtn);
+  navDiv.appendChild(nextBtn);
+
+  // Load image file list and show the first image
+  window.api.listImagesInFolder(folderPath).then((files) => {
+    alert(folderPath);
+
+    imageFolderFiles = files.filter((f) =>
+      /\.(jpg|jpeg|png|bmp|gif)$/i.test(f)
+    );
+    imageFolderIndex = 0;
+    if (imageFolderFiles.length === 0) {
+      if (status) status.innerText = "No images found in folder.";
+      return;
+    }
+    // Show the first image using startImage, which handles DOM setup
+    showImageInFolder(imageFolderFiles[imageFolderIndex]);
+    if (status) status.innerText = `Image 1 of ${imageFolderFiles.length}`;
+  });
+}
+
+// =========================================//
+function showImageInFolder(imagePath) {
+  alert("showImageInFolder" + imagePath);
+
+  const status = document.getElementById("status");
+  const videoFeed = document.getElementById("video-feed");
+
+  // Clear previous content
+  videoFeed.innerHTML = "";
+
+  const placeholder = document.getElementById("video-placeholder");
+  if (placeholder) placeholder.style.display = "none";
+
+  // Create image element
+  let img = document.createElement("img");
+  img.id = "image-file-viewer";
+  img.src = imagePath;
+  img.style.width = "100%";
+  img.style.height = "100%";
+  img.style.objectFit = "contain";
+  img.title = "Image Viewer";
+  videoFeed.appendChild(img);
+
+  // Create overlay canvas
+  let canvas = document.createElement("canvas");
+  canvas.id = "overlay";
+  canvas.style.position = "absolute";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.pointerEvents = "none";
+  videoFeed.appendChild(canvas);
+
+  img.onload = function () {
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    ctx = canvas.getContext("2d");
+    if (status)
+      status.innerText = `Image ${imageFolderIndex + 1} of ${
+        imageFolderFiles.length
+      }`;
+    document.getElementById("btn-start").style.display = "none";
+    document.getElementById("btn-stop").style.display = "inline-block";
+    detectLoop();
+  };
+  img.onerror = function () {
+    if (status) status.innerText = "Failed to load image.";
+    document.getElementById("btn-start").style.display = "inline-block";
+    document.getElementById("btn-stop").style.display = "none";
+  };
+  img.src = imageFolderFiles[imageFolderIndex];
+}
