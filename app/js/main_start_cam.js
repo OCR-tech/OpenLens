@@ -466,6 +466,7 @@ function startImage(filePath) {
 let imageFolderFiles = [];
 let imageFolderIndex = 0;
 
+// =========================================//
 function startImageFolder() {
   const videoFeed = document.getElementById("video-feed");
   const status = document.getElementById("status");
@@ -517,21 +518,30 @@ function startImageFolder() {
   if (status) status.innerText = `Image 1 of ${imageFolderFiles.length}`;
 }
 
+// =========================================//
 function showImageInFolder() {
   // alert("Showing image");
 
   const status = document.getElementById("status");
-  const videoFeed = document.getElementById("video-feed");
+
+  // Clean up previous video/canvas if any
+  if (video) {
+    video.remove();
+    video = null;
+  }
+  if (canvas) {
+    canvas.remove();
+    canvas = null;
+  }
 
   // Create image element
   video = document.createElement("img");
   video.id = "image-file-viewer";
+  video.src = imageFolderFiles[imageFolderIndex];
   video.style.width = "100%";
   video.style.height = "100%";
   video.style.objectFit = "contain";
   video.title = "Image Viewer";
-  video.src = imageFolderFiles[imageFolderIndex];
-  videoFeed.appendChild(video);
 
   // Create overlay canvas
   canvas = document.createElement("canvas");
@@ -542,6 +552,10 @@ function showImageInFolder() {
   canvas.style.width = "100%";
   canvas.style.height = "100%";
   canvas.style.pointerEvents = "none";
+
+  const videoFeed = document.getElementById("video-feed");
+  videoFeed.innerHTML = "";
+  videoFeed.appendChild(video);
   videoFeed.appendChild(canvas);
 
   // Hide placeholder if present
