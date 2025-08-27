@@ -91,7 +91,11 @@ function displayVideoSize() {
     if (video) break;
   }
 
-  if (videoSource.value === "image_file" || videoSource.value === "camera_ip") {
+  if (
+    videoSource.value === "image_file" ||
+    videoSource.value === "image_folder" ||
+    videoSource.value === "camera_ip"
+  ) {
     widthVideo = video.naturalWidth;
     heightVideo = video.naturalHeight;
   } else {
