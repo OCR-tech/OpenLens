@@ -109,6 +109,7 @@ function browseFolder() {
 function updateTextDetection() {
   // alert("updateTextDetection");
 
+  const videoSource = document.getElementById("video-source");
   const textSwitch = document.getElementById("text-switch");
   const canvas = document.getElementById("overlay");
   const source =
@@ -137,21 +138,44 @@ function updateTextDetection() {
 
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
-  // ----------------------------- //
-  // canvas_processed = canvas;
-  canvas_processed = detectImageProcessing(canvas);
+  if (videoSource.value === "image_folder") {
+    // alert("Processing" + imageFolderFiles + " + " + imageFolderIndex);
 
-  // ----------------------------- //
-  // displayProcessedImage(canvas_processed);
+    // ----------------------------- //
+    // Loop for all images in the folder
+    if (imageFolderFiles && imageFolderFiles.length > 0) {
+      for (let i = 0; i < imageFolderFiles.length; i++) {
+        // alert("Processing image: " + imageFolderFiles[i]);
 
-  // ----------------------------- //
-  // detectLayoutDocument(canvas_processed);
+        // Process and detect text for each image
+        canvas_processed = detectImageProcessing(canvas);
+        detectTextsTesseract(canvas_processed);
 
-  // ----------------------------- //
-  detectTextsTesseract(canvas_processed);
+        // check if text detection is done
+        // while (window.textDetectionEnabled) {
+        //   getNextImageInFolder();
+        // }
+      }
+    }
 
-  // ----------------------------- //
-  // extractTextFromBoxes(redBoxes);
+    // ----------------------------- //
+  } else {
+    // ----------------------------- //
+    // canvas_processed = canvas;
+    canvas_processed = detectImageProcessing(canvas);
+
+    // ----------------------------- //
+    displayProcessedImage(canvas_processed);
+
+    // ----------------------------- //
+    // detectLayoutDocument(canvas_processed);
+
+    // ----------------------------- //
+    detectTextsTesseract(canvas_processed);
+
+    // ----------------------------- //
+    // extractTextFromBoxes(redBoxes);
+  }
 }
 
 // =========================================//

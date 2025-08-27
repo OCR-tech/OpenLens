@@ -459,7 +459,8 @@ function CheckVideo(file) {
 window.selectedVideoFilePath = null;
 window.selectedImageFilePath = null;
 window.selectedImageFolderPath = null;
-window.selectedImageFiles = null;
+// window.selectedImageFiles = null;
+
 // =========================================//
 // Browse video cam function
 function browseButton() {
@@ -513,8 +514,6 @@ function browseButton() {
     fileInput.accept = "image/*"; // Accept image files only
     fileInput.onchange = function (event) {
       const file = event.target.files[0];
-      window.selectedImageFiles = file;
-
       if (file) {
         window.selectedImageFilePath = URL.createObjectURL(file); // Create a URL for the selected image file
         document.getElementById("status").innerText =
@@ -546,6 +545,7 @@ function browseButton() {
     folderInput.multiple = true; // Allow multiple files (all in the folder)
     folderInput.onchange = function (event) {
       const files = Array.from(event.target.files);
+
       if (files.length > 0) {
         // Get the folder name from the first file's relative path
         const folderName = files[0].webkitRelativePath.split("/")[0];
