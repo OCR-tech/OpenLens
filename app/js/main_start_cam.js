@@ -489,6 +489,33 @@ function startImageFolder(folderPath) {
     }
   };
 
+  // alert(
+  //   window.selectedImageFolderPath +
+  //     " Length: " +
+  //     window.selectedImageFolderPath.length +
+  //     "path" +
+  //     window.selectedImageFolderPath[0]?.path
+  // );
+
+  // Use the selected files to create blob URLs for images
+  // Use the selected files to create blob URLs for images
+  if (window.selectedImageFolderPath && window.selectedImageFolderPath.length) {
+    imageFolderFiles = Array.from(window.selectedImageFolderPath)
+      .filter((f) => /\.(jpg|jpeg|png|bmp|gif)$/i.test(f.name))
+      .map((f) => URL.createObjectURL(f));
+  } else {
+    imageFolderFiles = [];
+  }
+
+  imageFolderIndex = 0;
+
+  alert(
+    "Found " +
+      imageFolderFiles +
+      imageFolderIndex +
+      imageFolderFiles[imageFolderIndex]
+  );
+
   const nextBtn = document.createElement("button");
   nextBtn.innerText = "Next";
   nextBtn.onclick = () => {
@@ -501,62 +528,43 @@ function startImageFolder(folderPath) {
   navDiv.appendChild(prevBtn);
   navDiv.appendChild(nextBtn);
 
-  // Load image file list and show the first image
-  alert("Loading images from folder: " + folderPath);
-
-  window.api.listImagesInFolder(folderPath).then((files) => {
-    alert("Found files: " + files.join(", "));
-
-    imageFolderFiles = files
-      .filter((f) => /\.(jpg|jpeg|png|bmp|gif)$/i.test(f))
-      .map((f) =>
-        folderPath.endsWith("/") || folderPath.endsWith("\\")
-          ? folderPath + f
-          : folderPath + "/" + f
-      );
-    imageFolderIndex = 0;
-    if (imageFolderFiles.length === 0) {
-      if (status) status.innerText = "No images found in folder.";
-      return;
-    }
-    showImageInFolder();
-    if (status) status.innerText = `Image 1 of ${imageFolderFiles.length}`;
-  });
+  // Show the first image
+  showImageInFolder();
+  if (status) status.innerText = `Image 1 of ${imageFolderFiles.length}`;
 }
 
 function showImageInFolder() {
+  alert("Showing image");
+
   const status = document.getElementById("status");
   const videoFeed = document.getElementById("video-feed");
 
-  // Get or create image element
-  let img = document.getElementById("image-file-viewer");
-  if (!img) {
-    img = document.createElement("img");
-    img.id = "image-file-viewer";
-    img.style.width = "100%";
-    img.style.height = "100%";
-    img.style.objectFit = "contain";
-    img.title = "Image Viewer";
-    videoFeed.appendChild(img);
-  }
+  // Create image element
+  let img = document.createElement("img");
+  img.id = "image-file-viewer";
+  img.style.width = "100%";
+  img.style.height = "100%";
+  img.style.objectFit = "contain";
+  img.title = "Image Viewer";
+  img.src = imageFolderFiles[imageFolderIndex];
+  videoFeed.appendChild(img);
 
-  // Get or create overlay canvas
-  let canvas = document.getElementById("overlay");
-  if (!canvas) {
-    canvas = document.createElement("canvas");
-    canvas.id = "overlay";
-    canvas.style.position = "absolute";
-    canvas.style.top = "0";
-    canvas.style.left = "0";
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
-    canvas.style.pointerEvents = "none";
-    videoFeed.appendChild(canvas);
-  }
+  // Create overlay canvas
+  let canvas = document.createElement("canvas");
+  canvas.id = "overlay";
+  canvas.style.position = "absolute";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.pointerEvents = "none";
+  videoFeed.appendChild(canvas);
 
   // Hide placeholder if present
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
+
+  alert("Image src: " + img.src);
 
   img.onload = function () {
     canvas.width = img.naturalWidth;
@@ -568,6 +576,8 @@ function showImageInFolder() {
       }`;
     document.getElementById("btn-start").style.display = "none";
     document.getElementById("btn-stop").style.display = "inline-block";
+    alert("Starting detection...");
+
     detectLoop();
   };
   img.onerror = function () {

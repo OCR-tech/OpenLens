@@ -514,7 +514,7 @@ function browseButton() {
     fileInput.onchange = function (event) {
       const file = event.target.files[0];
       if (file) {
-        window.selectedImageFilePath = URL.createObjectURL(file);
+        window.selectedImageFilePath = URL.createObjectURL(file); // Create a URL for the selected image file
         document.getElementById("status").innerText =
           "Selected image file: " + file.name;
         btnStart.disabled = false; // Enable the start button
@@ -547,21 +547,18 @@ function browseButton() {
       if (files.length > 0) {
         // Get the folder name from the first file's relative path
         const folderName = files[0].webkitRelativePath.split("/")[0];
-        window.selectedImageFolderPath = folderName;
+        window.selectedImageFolderPath = files;
         document.getElementById("status").innerText =
           "Selected image folder: " + folderName + ` (${files.length} images)`;
         btnStart.disabled = false; // Enable the start button
         btnCommand.disabled = false; // Enable the command button
         btnVoice.disabled = false; // Enable the voice button
         btnOk.disabled = true; // Disable the OK button
-        // Optionally, store the file list for later use
-        window.selectedImageFiles = files;
-        // alert("Total " + files.length + files);
+        // alert("Total " + files.length + " " + files + " " + folderName);
         startButton();
       } else {
         document.getElementById("status").innerText = "No folder selected.";
         window.selectedImageFolderPath = null;
-        window.selectedImageFiles = null;
       }
     };
     // Open the folder dialog
