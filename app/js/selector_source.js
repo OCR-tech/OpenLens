@@ -513,6 +513,8 @@ function browseButton() {
     fileInput.accept = "image/*"; // Accept image files only
     fileInput.onchange = function (event) {
       const file = event.target.files[0];
+      window.selectedImageFiles = file;
+
       if (file) {
         window.selectedImageFilePath = URL.createObjectURL(file); // Create a URL for the selected image file
         document.getElementById("status").innerText =

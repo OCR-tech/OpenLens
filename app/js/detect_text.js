@@ -142,7 +142,7 @@ function updateTextDetection() {
   canvas_processed = detectImageProcessing(canvas);
 
   // ----------------------------- //
-  displayProcessedImage(canvas_processed);
+  // displayProcessedImage(canvas_processed);
 
   // ----------------------------- //
   // detectLayoutDocument(canvas_processed);
@@ -174,6 +174,8 @@ function displayProcessedImage(processedCanvas) {
 
 // =========================================//
 let redBoxes = [];
+
+// =========================================//
 function drawRedBoxes() {
   // alert("drawRedBoxes");
 
@@ -409,7 +411,7 @@ function detectTextsTesseract(canvas) {
   Tesseract.recognize(canvas.toDataURL("image/png"), lang)
     .then(({ data: { text } }) => {
       if (!text || text.trim() === "") {
-        // status.innerText = "No text detected";
+        status.innerText = "Detecting text: No text";
         textsInput.value = "";
         // } else if (text.length > 1000) {
         // status.innerText = "Detected text";
