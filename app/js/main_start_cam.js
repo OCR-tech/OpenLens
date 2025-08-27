@@ -480,15 +480,6 @@ function startImageFolder() {
   }
   navDiv.innerHTML = "";
 
-  const prevBtn = document.createElement("button");
-  prevBtn.innerText = "Previous";
-  prevBtn.onclick = () => {
-    if (imageFolderIndex > 0) {
-      imageFolderIndex--;
-      showImageInFolder();
-    }
-  };
-
   // Use the selected files to create blob URLs for images
   if (window.selectedImageFolderPath && window.selectedImageFolderPath.length) {
     imageFolderFiles = Array.from(window.selectedImageFolderPath)
@@ -505,6 +496,15 @@ function startImageFolder() {
   nextBtn.onclick = () => {
     if (imageFolderIndex < imageFolderFiles.length - 1) {
       imageFolderIndex++;
+      showImageInFolder();
+    }
+  };
+
+  const prevBtn = document.createElement("button");
+  prevBtn.innerText = "Previous";
+  prevBtn.onclick = () => {
+    if (imageFolderIndex > 0) {
+      imageFolderIndex--;
       showImageInFolder();
     }
   };

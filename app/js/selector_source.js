@@ -554,7 +554,6 @@ function browseButton() {
         btnCommand.disabled = false; // Enable the command button
         btnVoice.disabled = false; // Enable the voice button
         btnOk.disabled = true; // Disable the OK button
-        // alert("Total " + files.length + " " + files + " " + folderName);
         startButton();
       } else {
         document.getElementById("status").innerText = "No folder selected.";
