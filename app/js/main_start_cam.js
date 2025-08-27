@@ -509,12 +509,12 @@ function startImageFolder(folderPath) {
 
   imageFolderIndex = 0;
 
-  alert(
-    "Found " +
-      imageFolderFiles +
-      imageFolderIndex +
-      imageFolderFiles[imageFolderIndex]
-  );
+  // alert(
+  //   "Found " +
+  //     imageFolderFiles +
+  //     imageFolderIndex +
+  //     imageFolderFiles[imageFolderIndex]
+  // );
 
   const nextBtn = document.createElement("button");
   nextBtn.innerText = "Next";
@@ -534,7 +534,7 @@ function startImageFolder(folderPath) {
 }
 
 function showImageInFolder() {
-  alert("Showing image");
+  // alert("Showing image");
 
   const status = document.getElementById("status");
   const videoFeed = document.getElementById("video-feed");
@@ -564,7 +564,7 @@ function showImageInFolder() {
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
 
-  alert("Image src: " + img.src);
+  // alert("Image src: " + img.src);
 
   img.onload = function () {
     canvas.width = img.naturalWidth;
@@ -576,8 +576,6 @@ function showImageInFolder() {
       }`;
     document.getElementById("btn-start").style.display = "none";
     document.getElementById("btn-stop").style.display = "inline-block";
-    alert("Starting detection...");
-
     detectLoop();
   };
   img.onerror = function () {
