@@ -466,7 +466,7 @@ function startImage(filePath) {
 let imageFolderFiles = [];
 let imageFolderIndex = 0;
 
-function startImageFolder(folderPath) {
+function startImageFolder() {
   const videoFeed = document.getElementById("video-feed");
   const status = document.getElementById("status");
 
@@ -489,15 +489,6 @@ function startImageFolder(folderPath) {
     }
   };
 
-  // alert(
-  //   window.selectedImageFolderPath +
-  //     " Length: " +
-  //     window.selectedImageFolderPath.length +
-  //     "path" +
-  //     window.selectedImageFolderPath[0]?.path
-  // );
-
-  // Use the selected files to create blob URLs for images
   // Use the selected files to create blob URLs for images
   if (window.selectedImageFolderPath && window.selectedImageFolderPath.length) {
     imageFolderFiles = Array.from(window.selectedImageFolderPath)
@@ -508,13 +499,6 @@ function startImageFolder(folderPath) {
   }
 
   imageFolderIndex = 0;
-
-  // alert(
-  //   "Found " +
-  //     imageFolderFiles +
-  //     imageFolderIndex +
-  //     imageFolderFiles[imageFolderIndex]
-  // );
 
   const nextBtn = document.createElement("button");
   nextBtn.innerText = "Next";
@@ -564,8 +548,6 @@ function showImageInFolder() {
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
 
-  // alert("Image src: " + img.src);
-
   img.onload = function () {
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
@@ -583,7 +565,4 @@ function showImageInFolder() {
     document.getElementById("btn-start").style.display = "inline-block";
     document.getElementById("btn-stop").style.display = "none";
   };
-
-  // Set image source (this triggers onload)
-  img.src = imageFolderFiles[imageFolderIndex];
 }

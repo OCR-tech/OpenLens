@@ -81,7 +81,7 @@ function startButton() {
   } else if (videoSource === "image_file") {
     startImage(window.selectedImageFilePath);
   } else if (videoSource === "image_folder") {
-    startImageFolder(window.selectedImageFolderPath);
+    startImageFolder();
   }
 
   if (window.timerDelay3000ms) {
