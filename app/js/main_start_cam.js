@@ -495,19 +495,13 @@ function startImageFolder() {
   const nextBtn = document.createElement("button");
   nextBtn.innerText = "Next";
   nextBtn.onclick = () => {
-    if (imageFolderIndex < imageFolderFiles.length - 1) {
-      imageFolderIndex++;
-      showImageInFolder();
-    }
+    getNextImageInFolder();
   };
 
   const prevBtn = document.createElement("button");
   prevBtn.innerText = "Previous";
   prevBtn.onclick = () => {
-    if (imageFolderIndex > 0) {
-      imageFolderIndex--;
-      showImageInFolder();
-    }
+    getPreviousImageInFolder();
   };
 
   navDiv.appendChild(prevBtn);
@@ -579,4 +573,20 @@ function showImageInFolder() {
     document.getElementById("btn-start").style.display = "inline-block";
     document.getElementById("btn-stop").style.display = "none";
   };
+}
+
+// =========================================//
+function getNextImageInFolder() {
+  if (imageFolderIndex < imageFolderFiles.length - 1) {
+    imageFolderIndex++;
+    showImageInFolder();
+  }
+}
+
+// =========================================//
+function getPreviousImageInFolder() {
+  if (imageFolderIndex > 0) {
+    imageFolderIndex--;
+    showImageInFolder();
+  }
 }
