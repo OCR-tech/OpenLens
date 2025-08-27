@@ -524,17 +524,17 @@ function showImageInFolder() {
   const videoFeed = document.getElementById("video-feed");
 
   // Create image element
-  let img = document.createElement("img");
-  img.id = "image-file-viewer";
-  img.style.width = "100%";
-  img.style.height = "100%";
-  img.style.objectFit = "contain";
-  img.title = "Image Viewer";
-  img.src = imageFolderFiles[imageFolderIndex];
-  videoFeed.appendChild(img);
+  video = document.createElement("img");
+  video.id = "image-file-viewer";
+  video.style.width = "100%";
+  video.style.height = "100%";
+  video.style.objectFit = "contain";
+  video.title = "Image Viewer";
+  video.src = imageFolderFiles[imageFolderIndex];
+  videoFeed.appendChild(video);
 
   // Create overlay canvas
-  let canvas = document.createElement("canvas");
+  canvas = document.createElement("canvas");
   canvas.id = "overlay";
   canvas.style.position = "absolute";
   canvas.style.top = "0";
@@ -548,9 +548,9 @@ function showImageInFolder() {
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
 
-  img.onload = function () {
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
+  video.onload = function () {
+    canvas.width = video.naturalWidth;
+    canvas.height = video.naturalHeight;
     ctx = canvas.getContext("2d");
     if (status)
       status.innerText = `Image ${imageFolderIndex + 1} of ${
@@ -560,7 +560,7 @@ function showImageInFolder() {
     document.getElementById("btn-stop").style.display = "inline-block";
     detectLoop();
   };
-  img.onerror = function () {
+  video.onerror = function () {
     if (status) status.innerText = "Failed to load image.";
     document.getElementById("btn-start").style.display = "inline-block";
     document.getElementById("btn-stop").style.display = "none";
