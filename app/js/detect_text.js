@@ -139,25 +139,12 @@ function updateTextDetection() {
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   if (videoSource.value === "image_folder") {
-    // alert("Processing" + imageFolderFiles + " + " + imageFolderIndex);
+    alert("Processing" + imageFolderFiles + " + " + imageFolderIndex);
 
-    // ----------------------------- //
     // Loop for all images in the folder
-    if (imageFolderFiles && imageFolderFiles.length > 0) {
-      for (let i = 0; i < imageFolderFiles.length; i++) {
-        // alert("Processing image: " + imageFolderFiles[i]);
-
-        // Process and detect text for each image
-        canvas_processed = detectImageProcessing(canvas);
-        detectTextsTesseract(canvas_processed);
-
-        // check if text detection is done
-        // while (window.textDetectionEnabled) {
-        //   getNextImageInFolder();
-        // }
-      }
-    }
-
+    // ----------------------------- //
+    // if (imageFolderFiles && imageFolderFiles.length > 0) {
+    // }
     // ----------------------------- //
   } else {
     // ----------------------------- //
