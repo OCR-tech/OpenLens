@@ -140,15 +140,25 @@ function updateTextDetection() {
 
   if (videoSource.value === "image_folder") {
     // alert("Processing" + imageFolderFiles + " + " + imageFolderIndex);
-    canvas_processed = detectImageProcessing(canvas);
-    detectTextsTesseract(canvas_processed);
-    // call the function at every 10s interval
-    // setTimeout(getNextImageInFolder, 10000);
-    // getNextImageInFolder();
-    // Loop for all images in the folder
-    // ----------------------------- //
 
     // ----------------------------- //
+    // for loop for all images in the folder
+    // for (let i = 0; i < imageFolderFiles.length; i++) {
+    canvas_processed = detectImageProcessing(canvas);
+    detectTextsTesseract(canvas_processed);
+
+    // call the function at every 10s interval
+    // setTimeout(getNextImageInFolder, 10000);
+    if (!window.textDetectionEnabled) {
+      alert("Processing " + (i + 1) + " / " + imageFolderFiles.length);
+      getNextImageInFolder();
+      window.textDetectionEnabled = true;
+    }
+    // Loop for all images in the folder
+    // ----------------------------- //
+    // spreadsheetTexts();
+    // ----------------------------- //
+    // }
   } else {
     // ----------------------------- //
     // canvas_processed = canvas;
@@ -165,6 +175,29 @@ function updateTextDetection() {
 
     // ----------------------------- //
     // extractTextFromBoxes(redBoxes);
+  }
+}
+
+let statusDetectTextDone = false;
+// =========================================//
+function updateTextDetectionAll() {
+  // alert("updateTextDetectionAll");
+
+  if (!statusDetectTextDone) {
+    updateTextDetection();
+
+    // Wait for the text detection to complete before continuing
+    setTimeout(() => {
+      statusDetectTextDone = true;
+      updateTextDetectionAll(); // Automatically call again after done
+    }, 5000); // 5 seconds delay
+  } else {
+    getNextImageInFolder();
+    // Wait for the next image to load before continuing
+    setTimeout(() => {
+      statusDetectTextDone = false;
+      updateTextDetectionAll(); // Automatically call again after done
+    }, 5000); // Increased delay to 2 seconds for image loading
   }
 }
 
@@ -444,10 +477,13 @@ function detectTextsTesseract(canvas) {
       }
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
+      // resolve();
     })
     .catch((error) => {
       console.error("Error during OCR:", error);
+      // resolve();
     });
+  // });
 }
 
 // =========================================//
