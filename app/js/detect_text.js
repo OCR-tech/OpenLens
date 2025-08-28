@@ -139,12 +139,15 @@ function updateTextDetection() {
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   if (videoSource.value === "image_folder") {
-    alert("Processing" + imageFolderFiles + " + " + imageFolderIndex);
-
+    // alert("Processing" + imageFolderFiles + " + " + imageFolderIndex);
+    canvas_processed = detectImageProcessing(canvas);
+    detectTextsTesseract(canvas_processed);
+    // call the function at every 10s interval
+    // setTimeout(getNextImageInFolder, 10000);
+    // getNextImageInFolder();
     // Loop for all images in the folder
     // ----------------------------- //
-    // if (imageFolderFiles && imageFolderFiles.length > 0) {
-    // }
+
     // ----------------------------- //
   } else {
     // ----------------------------- //
@@ -474,9 +477,6 @@ async function loadOfflineDictionary() {
     offlineDictionarySet = new Set();
   }
 }
-
-// Call this once at startup
-loadOfflineDictionary();
 
 // =========================================//
 function lookupWordsDict(processedText) {
