@@ -193,11 +193,13 @@ function updateTextDetectionAll() {
     }, 5000); // 5 seconds delay
   } else {
     getNextImageInFolder();
+    statusDetectTextDone = false;
+
     // Wait for the next image to load before continuing
-    setTimeout(() => {
-      statusDetectTextDone = false;
-      updateTextDetectionAll(); // Automatically call again after done
-    }, 5000); // Increased delay to 2 seconds for image loading
+    // setTimeout(() => {
+    //   statusDetectTextDone = false;
+    //   updateTextDetectionAll(); // Automatically call again after done
+    // }, 5000); // Increased delay to 2 seconds for image loading
   }
 }
 
