@@ -470,16 +470,14 @@ function detectTextsTesseract(canvas) {
 // Function to process the text input
 function processTexts(text) {
   processedText = text.replace(/\s+/g, " ").trim();
-  // processedText = text.replace(/\s+/g, "").trim();
   processedText = processedText.replace(/([.,!?])\s+/g, "$1 "); // Ensure space after punctuation
   processedText = processedText.replace(/\s([.,!?])/g, "$1"); // Remove space before punctuation
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
   processedText = processedText.replace(/^\s+|\s+$/g, ""); // Trim leading and trailing spaces
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
-
-  // Remove spaces between single letters/characters in all languages
-  processedText = processedText.replace(/((?:[^\s]\s){2,}[^\s])/gu, (match) =>
-    match.replace(/\s+/g, "")
+  processedText = processedText.replace(
+    /((?:[^\s]\s){2,}[^\s])/gu,
+    (match) => match.replace(/\s+/g, "") // Remove spaces between single letters/characters in all languages
   );
 
   return processedText;
