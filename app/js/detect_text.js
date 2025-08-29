@@ -532,7 +532,7 @@ function detectTextsTesseract(canvas) {
 
         // ----------------------------- //
         // status.innerText = "Detecting text: Done" + " *** " + lang;
-        // status.innerText = "Detecting text: Done";
+        status.innerText = "Detecting text: Done";
 
         textsInput.value = processedText;
         // textsInput.value = text;
