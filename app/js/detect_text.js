@@ -142,10 +142,10 @@ function updateTextDetection() {
   canvas_processed = detectImageProcessing(canvas);
 
   // ----------------------------- //
-  displayProcessedImage(canvas_processed);
+  processLayoutDocument(canvas);
 
   // ----------------------------- //
-  processLayoutDocument(canvas_processed);
+  displayProcessedImage(canvas_processed);
 
   // ----------------------------- //
   // detectLayoutDocument(canvas_processed);
@@ -157,29 +157,29 @@ function updateTextDetection() {
   // extractTextFromBoxes(redBoxes);
 }
 
-let statusDetectTextDone = false;
-// =========================================//
-function updateTextDetectionAll() {
-  // alert("updateTextDetectionAll");
+// let statusDetectTextDone = false;
+// // =========================================//
+// function updateTextDetectionAll() {
+//   // alert("updateTextDetectionAll");
 
-  if (!statusDetectTextDone) {
-    updateTextDetection();
-    setInterval(() => {
-      // alert("Text detection done");
-      statusDetectTextDone = true;
-      updateTextDetectionAll();
-    }, 5000);
-  } else {
-    getNextImageInFolder();
-    // statusDetectTextDone = false;
+//   if (!statusDetectTextDone) {
+//     updateTextDetection();
+//     setInterval(() => {
+//       // alert("Text detection done");
+//       statusDetectTextDone = true;
+//       updateTextDetectionAll();
+//     }, 5000);
+//   } else {
+//     getNextImageInFolder();
+//     // statusDetectTextDone = false;
 
-    setInterval(() => {
-      // alert("Next image loaded");
-      statusDetectTextDone = false;
-      // updateTextDetectionAll();
-    }, 5000);
-  }
-}
+//     setInterval(() => {
+//       // alert("Next image loaded");
+//       statusDetectTextDone = false;
+//       // updateTextDetectionAll();
+//     }, 5000);
+//   }
+// }
 
 // =========================================//
 function displayProcessedImage(processedCanvas) {
@@ -434,6 +434,11 @@ async function processLayoutDocument(canvas) {
   // Draw blocks (columns) in green
   ctx.strokeStyle = "green";
   ctx.lineWidth = 2;
+
+  ctx.strokeRect(40, 20, 30, 50);
+  ctx.fillStyle = "red";
+  ctx.fillRect(50, 50, 10, 10);
+
   if (data.blocks && data.blocks.length > 0) {
     data.blocks.forEach((block) => {
       ctx.strokeRect(
