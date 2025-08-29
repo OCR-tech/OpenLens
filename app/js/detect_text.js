@@ -446,6 +446,7 @@ function detectTextsTesseract(canvas) {
       } else {
         // ----------------------------- //
         processedText = processTexts(text);
+
         processedDictText = lookupWordsDict(processedText);
 
         // ----------------------------- //
@@ -474,6 +475,15 @@ function processTexts(text) {
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
   processedText = processedText.replace(/^\s+|\s+$/g, ""); // Trim leading and trailing spaces
   processedText = processedText.replace(/\s{2,}/g, " "); // Replace multiple spaces with a single space
+
+  // Remove spaces between single letters/characters in all languages
+  // processedText = "ส วั ส ดี ค่ ะ"; // Example Thai text with spaces
+  // processedText = processedText.replace(
+  //   /\b(?:[^\s]\s+){1,}[^\s]\b/gu,
+  //   (match) => match.replace(/\s+/g, "")
+  // );
+  // alert("Processed text1: " + processedText);
+
   return processedText;
 }
 
