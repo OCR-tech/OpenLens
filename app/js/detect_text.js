@@ -174,7 +174,7 @@ function updateTextDetectionAll() {
     setInterval(() => {
       // alert("Next image loaded");
       statusDetectTextDone = false;
-      updateTextDetectionAll();
+      // updateTextDetectionAll();
     }, 5000);
   }
 }
