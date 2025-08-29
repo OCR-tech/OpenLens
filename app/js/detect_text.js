@@ -527,19 +527,17 @@ function detectTextsTesseract(canvas) {
 
         // ----------------------------- //
         // status.innerText = "Detecting text: Done" + " *** " + lang;
-        status.innerText = "Detecting text: Done";
+        // status.innerText = "Detecting text: Done";
+
         textsInput.value = processedText;
         // textsInput.value = text;
       }
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
-      // resolve();
     })
     .catch((error) => {
       console.error("Error during OCR:", error);
-      // resolve();
     });
-  // });
 }
 
 // =========================================//
