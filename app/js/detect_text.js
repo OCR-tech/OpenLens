@@ -109,7 +109,6 @@ function browseFolder() {
 function updateTextDetection() {
   // alert("updateTextDetection");
 
-  const videoSource = document.getElementById("video-source");
   const textSwitch = document.getElementById("text-switch");
   const canvas = document.getElementById("overlay");
   const source =
