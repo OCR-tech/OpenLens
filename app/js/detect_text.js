@@ -432,7 +432,7 @@ function detectTextsTesseract(canvas) {
   // const lang = "tha";
   // const lang = "jpn";
   // const lang = "chi_sim";
-  status.innerText = " +++ " + lang;
+  status.innerText = "lang : " + lang;
 
   Tesseract.recognize(canvas.toDataURL("image/png"), lang)
     .then(({ data: { text } }) => {
