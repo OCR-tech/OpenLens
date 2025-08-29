@@ -162,21 +162,20 @@ function updateTextDetectionAll() {
 
   if (!statusDetectTextDone) {
     updateTextDetection();
-
-    // Wait for the text detection to complete before continuing
-    setTimeout(() => {
+    setInterval(() => {
+      // alert("Text detection done");
       statusDetectTextDone = true;
-      updateTextDetectionAll(); // Automatically call again after done
-    }, 5000); // 5 seconds delay
+      updateTextDetectionAll();
+    }, 5000);
   } else {
     getNextImageInFolder();
-    statusDetectTextDone = false;
+    // statusDetectTextDone = false;
 
-    // Wait for the next image to load before continuing
-    // setTimeout(() => {
-    //   statusDetectTextDone = false;
-    //   updateTextDetectionAll(); // Automatically call again after done
-    // }, 5000); // Increased delay to 2 seconds for image loading
+    setInterval(() => {
+      // alert("Next image loaded");
+      statusDetectTextDone = false;
+      updateTextDetectionAll();
+    }, 5000);
   }
 }
 
@@ -432,7 +431,7 @@ function detectTextsTesseract(canvas) {
   // const lang = "tha";
   // const lang = "jpn";
   // const lang = "chi_sim";
-  status.innerText = "lang : " + lang;
+  // status.innerText = "lang : " + lang;
 
   Tesseract.recognize(canvas.toDataURL("image/png"), lang)
     .then(({ data: { text } }) => {
