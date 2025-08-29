@@ -138,44 +138,21 @@ function updateTextDetection() {
 
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
-  if (videoSource.value === "image_folder") {
-    // alert("Processing" + imageFolderFiles + " + " + imageFolderIndex);
+  // ----------------------------- //
+  // canvas_processed = canvas;
+  canvas_processed = detectImageProcessing(canvas);
 
-    // ----------------------------- //
-    // for loop for all images in the folder
-    // for (let i = 0; i < imageFolderFiles.length; i++) {
-    canvas_processed = detectImageProcessing(canvas);
-    detectTextsTesseract(canvas_processed);
+  // ----------------------------- //
+  displayProcessedImage(canvas_processed);
 
-    // call the function at every 10s interval
-    // setTimeout(getNextImageInFolder, 10000);
-    if (!window.textDetectionEnabled) {
-      alert("Processing " + (i + 1) + " / " + imageFolderFiles.length);
-      getNextImageInFolder();
-      window.textDetectionEnabled = true;
-    }
-    // Loop for all images in the folder
-    // ----------------------------- //
-    // spreadsheetTexts();
-    // ----------------------------- //
-    // }
-  } else {
-    // ----------------------------- //
-    // canvas_processed = canvas;
-    canvas_processed = detectImageProcessing(canvas);
+  // ----------------------------- //
+  // detectLayoutDocument(canvas_processed);
 
-    // ----------------------------- //
-    displayProcessedImage(canvas_processed);
+  // ----------------------------- //
+  detectTextsTesseract(canvas_processed);
 
-    // ----------------------------- //
-    // detectLayoutDocument(canvas_processed);
-
-    // ----------------------------- //
-    detectTextsTesseract(canvas_processed);
-
-    // ----------------------------- //
-    // extractTextFromBoxes(redBoxes);
-  }
+  // ----------------------------- //
+  // extractTextFromBoxes(redBoxes);
 }
 
 let statusDetectTextDone = false;
@@ -455,7 +432,7 @@ function detectTextsTesseract(canvas) {
   // const lang = "tha";
   // const lang = "jpn";
   // const lang = "chi_sim";
-  // status.innerText = " +++ " + lang;
+  status.innerText = " +++ " + lang;
 
   Tesseract.recognize(canvas.toDataURL("image/png"), lang)
     .then(({ data: { text } }) => {

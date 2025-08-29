@@ -48,6 +48,23 @@ document.addEventListener("DOMContentLoaded", function () {
             optionsBox.appendChild(label);
           });
 
+          // --------------------------------------- //
+          // Set all checkboxes as default checked
+          // const checkboxes = document.querySelectorAll(
+          //   "#language-dropdown input[type='checkbox']"
+          // );
+          // checkboxes.forEach((checkbox) => {
+          //   checkbox.checked = true;
+          // });
+
+          // Set English and Spanish as default checked
+          const defaultLanguages = ["eng", "tha"];
+          // const defaultLanguages = ["eng"];
+          defaultLanguages.forEach((lang) => {
+            const checkbox = document.getElementById(`${lang}-checkbox`);
+            if (checkbox) checkbox.checked = true;
+          });
+
           // Only add the document click handler once
           if (!window.languageDropdownClickHandlerAdded) {
             document.addEventListener("click", function (e) {
