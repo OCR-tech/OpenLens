@@ -142,7 +142,7 @@ function updateTextDetection() {
   canvas_processed = detectImageProcessing(canvas);
 
   // ----------------------------- //
-  processLayoutDocument(canvas);
+  processLayoutDocument(canvas_processed);
 
   // ----------------------------- //
   displayProcessedImage(canvas_processed);
@@ -429,7 +429,7 @@ async function processLayoutDocument(canvas) {
     lang
   );
 
-  ctx.save();
+  // ctx.save();
 
   // Draw blocks (columns) in green
   ctx.strokeStyle = "green";
@@ -478,7 +478,7 @@ async function processLayoutDocument(canvas) {
     });
   }
 
-  ctx.restore();
+  // ctx.restore();
 
   status.innerText =
     "Layout analysis done: " +
