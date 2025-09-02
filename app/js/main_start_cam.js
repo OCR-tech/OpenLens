@@ -577,7 +577,7 @@ function showImageInFolder() {
 
 // =========================================//
 function getNextImageInFolder() {
-  alert("Next image");
+  // alert("Next image");
 
   if (imageFolderIndex < imageFolderFiles.length - 1) {
     imageFolderIndex++;
