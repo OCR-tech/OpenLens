@@ -301,6 +301,8 @@ function detectLoop() {
 
     // status.innerText =
     //   video.videoWidth + "x" + video.videoHeight + " - " + video;
+
+    // drawOverlays();
   }
 }
 

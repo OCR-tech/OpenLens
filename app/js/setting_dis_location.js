@@ -1,6 +1,5 @@
-// =========================================//
 let cachedGPS = { latitude: null, longitude: null };
-
+// =========================================//
 if (navigator.geolocation) {
   navigator.geolocation.watchPosition(
     function (position) {
@@ -17,22 +16,6 @@ if (navigator.geolocation) {
 } else {
   alert("Geolocation not supported by this browser.");
 }
-
-// =========================================//
-document.addEventListener("DOMContentLoaded", function () {
-  const gpsSwitch = document.getElementById("gps-switch");
-
-  if (!gpsSwitch) return;
-
-  // Set the switch state from localStorage
-  gpsSwitch.checked = localStorage.getItem("gpsLocationMode") === "true";
-
-  // Set initial GPS location mode
-  window.showGPSLocationOverlay = gpsSwitch.checked;
-
-  // Add event listener
-  gpsSwitch.addEventListener("change", toggleGPS);
-});
 
 // =========================================//
 function toggleGPS() {
@@ -132,4 +115,10 @@ function setGPSLocationMode(mode) {
     gpsSwitch.dispatchEvent(new Event("change"));
     gpsLabel.style.display = gpsSwitch.checked ? "block" : "none";
   }
+
+  // Set the switch state from localStorage
+  gpsSwitch.checked = localStorage.getItem("gpsLocationMode") === "on";
+
+  // Set initial GPS location mode
+  window.showGPSLocationOverlay = gpsSwitch.checked;
 }

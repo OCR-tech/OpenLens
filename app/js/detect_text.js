@@ -135,23 +135,38 @@ function updateTextDetection() {
     return;
   }
 
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+
+  // Draw your test shapes directly on the visible canvas
+  ctx.strokeStyle = "green";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(140, 120, 30, 50);
+  ctx.fillStyle = "red";
+  ctx.fillRect(150, 150, 10, 10);
 
   // ----------------------------- //
   // canvas_processed = canvas;
-  canvas_processed = detectImageProcessing(canvas);
+  // canvas_processed = detectImageProcessing(canvas);
+
+  // const ctxProcessed = canvas_processed.getContext("2d");
+  // ctxProcessed.strokeStyle = "green";
+  // ctxProcessed.lineWidth = 2;
+  // ctxProcessed.strokeRect(40, 20, 30, 50);
+  // ctxProcessed.fillStyle = "red";
+  // ctxProcessed.fillRect(50, 50, 10, 10);
 
   // ----------------------------- //
-  processLayoutDocument(canvas_processed);
+  processLayoutDocument(canvas);
 
   // ----------------------------- //
-  displayProcessedImage(canvas_processed);
+  // displayProcessedImage(canvas_processed);
 
   // ----------------------------- //
   // detectLayoutDocument(canvas_processed);
 
   // ----------------------------- //
-  detectTextsTesseract(canvas_processed);
+  detectTextsTesseract(canvas);
 
   // ----------------------------- //
   // extractTextFromBoxes(redBoxes);
@@ -187,10 +202,10 @@ function displayProcessedImage(processedCanvas) {
   const img = new Image();
   img.src = processedCanvas.toDataURL("image/png");
   img.alt = "Processed Image";
-  img.style.border = "2px solid red";
-  img.style.margin = "3px";
-  img.style.maxWidth = "50%";
-  img.style.maxHeight = "50%";
+  img.style.border = "5px solid red";
+  img.style.margin = "2px";
+  img.style.maxWidth = "100%";
+  img.style.maxHeight = "100%";
 
   if (canvas.nextSibling) {
     canvas.parentNode.insertBefore(img, canvas.nextSibling);
@@ -225,9 +240,9 @@ function drawRedBoxes() {
   ctx.strokeStyle = "green";
   ctx.lineWidth = 5;
 
-  // ctx.strokeRect(405, 20, 300, 50);
-  // ctx.fillStyle = "red";
-  // ctx.fillRect(50, 50, 100, 100);
+  ctx.strokeRect(405, 20, 300, 50);
+  ctx.fillStyle = "red";
+  ctx.fillRect(50, 50, 100, 100);
 
   // ----------------------------- //
   redBoxes = detectRedBoxes(canvas);
@@ -413,6 +428,7 @@ function extractTextFromBoxes(boxes) {
 // =========================================//
 async function processLayoutDocument(canvas) {
   const status = document.getElementById("status");
+  const textsInput1 = document.getElementById("texts-input1");
   const ctx = canvas.getContext("2d");
   const langArray = getSelectedLanguages();
   const lang = Array.isArray(langArray)
@@ -429,24 +445,28 @@ async function processLayoutDocument(canvas) {
     lang
   );
 
+  // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+
   // ctx.save();
+  // ctx.strokeRect(40, 20, 30, 50);
+  // ctx.fillStyle = "red";
+  // ctx.fillRect(50, 50, 10, 10);
 
   // Draw blocks (columns) in green
   ctx.strokeStyle = "green";
   ctx.lineWidth = 2;
-
-  ctx.strokeRect(40, 20, 30, 50);
-  ctx.fillStyle = "red";
-  ctx.fillRect(50, 50, 10, 10);
-
   if (data.blocks && data.blocks.length > 0) {
-    data.blocks.forEach((block) => {
+    data.blocks.forEach((block, i) => {
       ctx.strokeRect(
         block.bbox.x0,
         block.bbox.y0,
         block.bbox.x1 - block.bbox.x0,
         block.bbox.y1 - block.bbox.y0
       );
+      // Optionally, label the block number
+      ctx.font = "20px Arial";
+      ctx.fillStyle = "green";
+      ctx.fillText(`Block ${i + 1}`, block.bbox.x0 + 5, block.bbox.y0 + 25);
     });
   }
 
@@ -480,7 +500,7 @@ async function processLayoutDocument(canvas) {
 
   // ctx.restore();
 
-  status.innerText =
+  textsInput1.innerText =
     "Layout analysis done: " +
     (data.blocks?.length || 0) +
     " blocks, " +

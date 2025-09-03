@@ -1,20 +1,4 @@
 // =========================================//
-document.addEventListener("DOMContentLoaded", function () {
-  const framerateSwitch = document.getElementById("frame-rate-switch");
-
-  if (!framerateSwitch) return;
-
-  // Set the switch state from localStorage
-  framerateSwitch.checked = localStorage.getItem("framerateMode") === "on";
-
-  // Set initial framerate state
-  window.showFramerateOverlay = framerateSwitch.checked;
-
-  // Add event listener
-  framerateSwitch.addEventListener("change", toggleFramerate);
-});
-
-// =========================================//
 function toggleFrameRate() {
   // alert("toggleFrameRate");
 
@@ -145,4 +129,10 @@ function setFramerateMode(mode) {
     framerateSwitch.dispatchEvent(new Event("change"));
     framerateLabel.style.display = framerateSwitch.checked ? "block" : "none";
   }
+
+  // Set the switch state from localStorage
+  framerateSwitch.checked = localStorage.getItem("framerateMode") === "on";
+
+  // Set initial framerate state
+  window.showFramerateOverlay = framerateSwitch.checked;
 }

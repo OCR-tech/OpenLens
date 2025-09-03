@@ -1,19 +1,4 @@
 // =========================================//
-document.addEventListener("DOMContentLoaded", function () {
-  const dateTimeSwitch = document.getElementById("datetime-switch");
-  if (!dateTimeSwitch) return;
-
-  // Set the switch state from localStorage
-  dateTimeSwitch.checked = localStorage.getItem("datetimeMode") === "on";
-
-  // Set initial overlay state
-  window.showDateTimeOverlay = dateTimeSwitch.checked;
-
-  // Add event listener
-  dateTimeSwitch.addEventListener("change", toggleDateTime);
-});
-
-// =========================================//
 function toggleDateTime() {
   // alert("ToggleDateTime");
 
@@ -101,4 +86,10 @@ function setDatetimeMode(mode) {
     dateTimeSwitch.dispatchEvent(new Event("change"));
     dateTimeLabel.style.display = dateTimeSwitch.checked ? "block" : "none";
   }
+
+  // Set the switch state from localStorage
+  dateTimeSwitch.checked = localStorage.getItem("datetimeMode") === "on";
+
+  // Set initial overlay state
+  window.showDateTimeOverlay = dateTimeSwitch.checked;
 }

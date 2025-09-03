@@ -1,20 +1,4 @@
 // =========================================//
-document.addEventListener("DOMContentLoaded", function () {
-  const videoSizeSwitch = document.getElementById("video-size-switch");
-
-  if (!videoSizeSwitch) return;
-
-  // Set the switch state from localStorage
-  videoSizeSwitch.checked = localStorage.getItem("videoSizeMode") === "on";
-
-  // Set initial video size state
-  window.showVideoSizeOverlay = videoSizeSwitch.checked;
-
-  // Add event listener
-  videoSizeSwitch.addEventListener("change", toggleVideoSize);
-});
-
-// =========================================//
 function toggleVideoSize() {
   // alert("ToggleVideoSize");
 
@@ -157,6 +141,12 @@ function setVideoSizeMode(mode) {
     videoSizeSwitch.dispatchEvent(new Event("change"));
     videoSizeLabel.style.display = videoSizeSwitch.checked ? "block" : "none";
   }
+
+  // Set the switch state from localStorage
+  videoSizeSwitch.checked = localStorage.getItem("videoSizeMode") === "on";
+
+  // Set initial video size state
+  window.showVideoSizeOverlay = videoSizeSwitch.checked;
 }
 
 // =========================================//

@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
       restoreAllModesAndValues();
       // Dispatch a custom event for further initialization if needed
       includes.forEach((el) => {
+        // alert(el.getAttribute("include-html"));
         el.dispatchEvent(
           new CustomEvent("html-included", {
             detail: { file: el.getAttribute("include-html") },
