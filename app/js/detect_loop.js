@@ -18,6 +18,7 @@ let timeInterval = 50; // 50ms
 
 // =========================================//
 function detectLoop() {
+  // function detectLoop(canvas, video) {
   // alert("detectLoop");
 
   const status = document.getElementById("status");
@@ -46,6 +47,12 @@ function detectLoop() {
     // const canvas = drawVideoToCanvas(PROCESS_WIDTH, PROCESS_HEIGHT);
 
     drawOverlays();
+
+    // ctx.strokeStyle = "green";
+    // ctx.lineWidth = 5;
+    // ctx.strokeRect(140, 120, 30, 50);
+    // ctx.fillStyle = "red";
+    // ctx.fillRect(150, 150, 10, 10);
 
     //=========================================//
     // Object detection
@@ -156,7 +163,22 @@ function detectLoop() {
     //   //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     // }
 
+    ctx.strokeStyle = "green";
+    ctx.lineWidth = 5;
+    ctx.strokeRect(140, 120, 30, 50);
+    ctx.fillStyle = "red";
+    ctx.fillRect(150, 150, 10, 10);
+
     if (window.textDetectionEnabled && !textIntervalId) {
+      // const canvas = document.getElementById("overlay");
+      // const canvas = document.getElementById("overlay");
+      // const ctx = canvas.getContext("2d");
+      // ctx.strokeStyle = "green";
+      // ctx.lineWidth = 5;
+      // ctx.strokeRect(140, 120, 30, 50);
+      // ctx.fillStyle = "red";
+      // ctx.fillRect(150, 150, 10, 10);
+
       textIntervalId = setInterval(updateTextDetection, timeInterval);
       // textIntervalId = setInterval(updateTextDetectionAll, timeInterval);
     } else if (!window.textDetectionEnabled && textIntervalId) {
