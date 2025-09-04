@@ -139,11 +139,11 @@ function updateTextDetection() {
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // Draw your test shapes directly on the visible canvas
-  // ctx.strokeStyle = "green";
+  // ctx.strokeStyle = "blue";
   // ctx.lineWidth = 2;
-  // ctx.strokeRect(140, 120, 30, 50);
+  // ctx.strokeRect(40, 20, 30, 50);
   // ctx.fillStyle = "red";
-  // ctx.fillRect(150, 150, 10, 10);
+  // ctx.fillRect(50, 50, 10, 10);
 
   // ----------------------------- //
   // canvas_processed = canvas;
@@ -274,7 +274,7 @@ function extractTextFromBoxes(boxes) {
 
   const textsInput1 = document.getElementById("texts-input1");
   if (!canvas || !boxes || boxes.length === 0) {
-    if (textsInput1) textsInput1.innerText = "No boxes detected";
+    if (textsInput1) textsInput1.value = "No boxes detected";
     return [];
   }
 
@@ -326,8 +326,8 @@ function extractTextFromBoxes(boxes) {
     })
   ).then((results) => {
     if (textsInput1) {
-      textsInput1.innerText = results.map((r) => r.text).join("|---|");
-      // textsInput1.innerText = results.map((r) => r.text).join("\n");
+      textsInput1.value = results.map((r) => r.text).join("|---|");
+      // textsInput1.value = results.map((r) => r.text).join("\n");
     }
     // Optionally: do something with results
   });
@@ -500,7 +500,17 @@ async function processLayoutDocument(canvas) {
 
   // ctx.restore();
 
-  textsInput1.innerText =
+  // alert(
+  //   "Layout analysis done: " +
+  //     (data.blocks?.length || 0) +
+  //     " blocks, " +
+  //     (data.lines?.length || 0) +
+  //     " lines, " +
+  //     (data.words?.length || 0) +
+  //     " words"
+  // );
+
+  textsInput1.value =
     "Layout analysis done: " +
     (data.blocks?.length || 0) +
     " blocks, " +
