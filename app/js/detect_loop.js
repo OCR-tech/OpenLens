@@ -163,12 +163,11 @@ function detectLoop() {
     //   //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     // }
 
-    // ctx.strokeStyle = "green";
-    // ctx.lineWidth = 5;
-    // ctx.strokeRect(140, 120, 30, 50);
-    // ctx.fillStyle = "red";
-    // ctx.fillRect(150, 150, 10, 10);
-    // updateTextDetection();
+    ctx.strokeStyle = "green";
+    ctx.lineWidth = 5;
+    ctx.strokeRect(100, 100, 20, 20);
+    ctx.fillStyle = "red";
+    ctx.fillRect(100, 100, 10, 10);
 
     if (window.textDetectionEnabled && !textIntervalId) {
       // const canvas = document.getElementById("overlay");
