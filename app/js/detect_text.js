@@ -109,6 +109,7 @@ function browseFolder() {
 function updateTextDetection() {
   // alert("updateTextDetection");
 
+  const status = document.getElementById("status");
   const textSwitch = document.getElementById("text-switch");
   const canvas = document.getElementById("overlay");
   const source =
@@ -158,6 +159,14 @@ function updateTextDetection() {
 
   // ----------------------------- //
   processLayoutDocument(canvas);
+  // status.innerText =
+  //   "Layout analysis: " +
+  //   (data1.blocks?.length || 0) +
+  //   " blocks, " +
+  //   (data1.lines?.length || 0) +
+  //   " lines, " +
+  //   (data1.words?.length || 0) +
+  //   " words";
 
   // ----------------------------- //
   // displayProcessedImage(canvas_processed);
@@ -518,6 +527,8 @@ async function processLayoutDocument(canvas) {
     " lines, " +
     (data.words?.length || 0) +
     " words";
+
+  return data;
 }
 
 // =========================================//
