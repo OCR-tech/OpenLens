@@ -139,11 +139,11 @@ function updateTextDetection() {
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
   // Draw your test shapes directly on the visible canvas
-  ctx.strokeStyle = "green";
-  ctx.lineWidth = 2;
-  ctx.strokeRect(140, 120, 30, 50);
-  ctx.fillStyle = "red";
-  ctx.fillRect(150, 150, 10, 10);
+  // ctx.strokeStyle = "green";
+  // ctx.lineWidth = 2;
+  // ctx.strokeRect(140, 120, 30, 50);
+  // ctx.fillStyle = "red";
+  // ctx.fillRect(150, 150, 10, 10);
 
   // ----------------------------- //
   // canvas_processed = canvas;
