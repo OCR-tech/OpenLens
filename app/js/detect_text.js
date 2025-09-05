@@ -578,6 +578,7 @@ function detectTextsTesseract(canvas) {
         textsInput.value = processedText;
         // textsInput.value = text;
       }
+
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
     })

@@ -168,7 +168,7 @@ function detectLoop() {
     ctx.lineWidth = 5;
     ctx.strokeRect(50, 50, 20, 20);
     ctx.fillStyle = "red";
-    ctx.fillRect(50, 50, 10, 10);
+    ctx.fillRect(50, 50, 30, 30);
 
     if (window.textDetectionEnabled && !textIntervalId) {
       textIntervalId = setInterval(updateTextDetection, timeInterval);
