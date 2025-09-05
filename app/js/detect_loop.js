@@ -12,6 +12,7 @@ let lightIntervalId = null;
 let rainIntervalId = null;
 let fallingIntervalId = null;
 let breakingIntervalId = null;
+let followerIntervalId = null;
 let timeInterval = 50; // 50ms
 
 // window.classListSelect = ["person", "car", "chair", "tv"]; // Only show these classes
@@ -73,6 +74,15 @@ function detectLoop() {
                 .map((p) => `${p.class} (${Math.round(p.score * 100)}%)`)
                 .join(" , ")
             : "Not Detected";
+
+        //=========================================//
+        // Follower detection - analyze person objects for following behavior
+        if (window.followerDetectionEnabled) {
+          const personPredictions = predictions.filter((p) => p.class === "person");
+          if (personPredictions.length > 0) {
+            detectFollowers(personPredictions, Date.now());
+          }
+        }
 
         //=========================================//
         // Lists of all detected objects
