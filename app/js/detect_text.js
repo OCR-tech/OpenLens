@@ -456,7 +456,6 @@ async function processLayoutDocument(canvas) {
 
   // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
-  // ctx.save();
   // ctx.strokeRect(40, 20, 30, 50);
   // ctx.fillStyle = "red";
   // ctx.fillRect(50, 50, 10, 10);
@@ -507,26 +506,14 @@ async function processLayoutDocument(canvas) {
     });
   }
 
-  // ctx.restore();
-
-  // alert(
+  // textsInput1.value =
   //   "Layout analysis done: " +
-  //     (data.blocks?.length || 0) +
-  //     " blocks, " +
-  //     (data.lines?.length || 0) +
-  //     " lines, " +
-  //     (data.words?.length || 0) +
-  //     " words"
-  // );
-
-  textsInput1.value =
-    "Layout analysis done: " +
-    (data.blocks?.length || 0) +
-    " blocks, " +
-    (data.lines?.length || 0) +
-    " lines, " +
-    (data.words?.length || 0) +
-    " words";
+  //   (data.blocks?.length || 0) +
+  //   " blocks, " +
+  //   (data.lines?.length || 0) +
+  //   " lines, " +
+  //   (data.words?.length || 0) +
+  //   " words";
 
   return data;
 }
@@ -569,6 +556,7 @@ function detectTextsTesseract(canvas) {
         // ----------------------------- //
         processedText = processTexts(text);
 
+        // ----------------------------- //
         processedDictText = lookupWordsDict(processedText);
 
         // ----------------------------- //
