@@ -432,14 +432,14 @@ function drawTextOverlays() {
       });
     }
 
-    textsInput1.value =
-      "Layout analysis: " +
-      (layoutData.blocks?.length || 0) +
-      " blocks, " +
-      (layoutData.lines?.length || 0) +
-      " lines, " +
-      (layoutData.words?.length || 0) +
-      " words";
+    // textsInput1.value =
+    //   "Layout analysis: " +
+    //   (layoutData.blocks?.length || 0) +
+    //   " blocks, " +
+    //   (layoutData.lines?.length || 0) +
+    //   " lines, " +
+    //   (layoutData.words?.length || 0) +
+    //   " words";
   }
 }
 

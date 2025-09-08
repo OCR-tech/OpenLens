@@ -162,17 +162,17 @@ function updateTextDetection() {
   processLayoutDocument(canvas).then((data) => {
     layoutData = data;
 
-    // if (textsInput1) {
-    //   textsInput1.value =
-    //     layoutData.blocks.length +
-    //     " blocks | " +
-    //     layoutData.paragraphs.length +
-    //     " paragraphs | " +
-    //     layoutData.lines.length +
-    //     " lines | " +
-    //     layoutData.words.length +
-    //     " words";
-    // }
+    if (textsInput1) {
+      textsInput1.value =
+        layoutData.blocks.length +
+        " blocks | " +
+        layoutData.paragraphs.length +
+        " paragraphs | " +
+        layoutData.lines.length +
+        " lines | " +
+        layoutData.words.length +
+        " words";
+    }
   });
 
   // ----------------------------- //
