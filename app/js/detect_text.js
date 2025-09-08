@@ -110,7 +110,7 @@ function updateTextDetection() {
   // alert("updateTextDetection");
 
   // const status = document.getElementById("status");
-  // const textsInput1 = document.getElementById("texts-input1");
+  const textsInput1 = document.getElementById("texts-input1");
   const textSwitch = document.getElementById("text-switch");
   const canvas = document.getElementById("overlay");
   const source =
@@ -161,7 +161,18 @@ function updateTextDetection() {
   // ----------------------------- //
   processLayoutDocument(canvas).then((data) => {
     layoutData = data;
-    // textsInput1.value = layoutData;
+
+    // if (textsInput1) {
+    //   textsInput1.value =
+    //     layoutData.blocks.length +
+    //     " blocks | " +
+    //     layoutData.paragraphs.length +
+    //     " paragraphs | " +
+    //     layoutData.lines.length +
+    //     " lines | " +
+    //     layoutData.words.length +
+    //     " words";
+    // }
   });
 
   // ----------------------------- //
