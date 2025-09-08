@@ -176,7 +176,7 @@ function updateTextDetection() {
   });
 
   // ----------------------------- //
-  displayProcessedImage(canvas);
+  // displayProcessedImage(canvas);
 
   // ----------------------------- //
   detectTextsTesseract(canvas);
@@ -394,7 +394,9 @@ function detectTextsTesseract(canvas) {
   // const lang = "chi_sim";
   // status.innerText = "lang : " + lang;
 
-  Tesseract.recognize(canvas.toDataURL("image/png"), lang)
+  Tesseract.recognize(canvas.toDataURL("image/png"), lang, {
+    tessedit_pageseg_mode: 1,
+  })
     .then(({ data: { text } }) => {
       if (!text || text.trim() === "") {
         status.innerText = "Detecting text: No text";
