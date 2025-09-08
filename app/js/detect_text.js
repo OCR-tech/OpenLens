@@ -109,8 +109,8 @@ function browseFolder() {
 function updateTextDetection() {
   // alert("updateTextDetection");
 
-  const status = document.getElementById("status");
-  const textsInput1 = document.getElementById("texts-input1");
+  // const status = document.getElementById("status");
+  // const textsInput1 = document.getElementById("texts-input1");
   const textSwitch = document.getElementById("text-switch");
   const canvas = document.getElementById("overlay");
   const source =
@@ -162,15 +162,6 @@ function updateTextDetection() {
   processLayoutDocument(canvas).then((data) => {
     layoutData = data;
   });
-
-  textsInput1.value =
-    "Layout analysis: " +
-    (layoutData.blocks?.length || 0) +
-    " blocks, " +
-    (layoutData.lines?.length || 0) +
-    " lines, " +
-    (layoutData.words?.length || 0) +
-    " words";
 
   // ----------------------------- //
   // displayProcessedImage(canvas_processed);

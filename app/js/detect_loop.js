@@ -382,6 +382,8 @@ let layoutData = null;
 function drawTextOverlays() {
   // alert("drawTextOverlays");
 
+  const textsInput1 = document.getElementById("texts-input1");
+
   if (!ctx || !canvas) return;
 
   if (window.showTextOverlay && layoutData) {
@@ -405,7 +407,7 @@ function drawTextOverlays() {
     // Draw lines in orange
     if (layoutData.lines && layoutData.lines.length > 0) {
       ctx.strokeStyle = "orange";
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 2;
       layoutData.lines.forEach((line) => {
         ctx.strokeRect(
           line.bbox.x0,
@@ -419,7 +421,7 @@ function drawTextOverlays() {
     // Draw words in blue
     if (layoutData.words && layoutData.words.length > 0) {
       ctx.strokeStyle = "blue";
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 2;
       layoutData.words.forEach((word) => {
         ctx.strokeRect(
           word.bbox.x0,
@@ -429,6 +431,15 @@ function drawTextOverlays() {
         );
       });
     }
+
+    textsInput1.value =
+      "Layout analysis: " +
+      (layoutData.blocks?.length || 0) +
+      " blocks, " +
+      (layoutData.lines?.length || 0) +
+      " lines, " +
+      (layoutData.words?.length || 0) +
+      " words";
   }
 }
 
