@@ -158,14 +158,16 @@ function updateTextDetection() {
   // ctxProcessed.fillRect(50, 50, 10, 10);
 
   // ----------------------------- //
-  processLayoutDocument(canvas);
+  processLayoutDocument(canvas).then((data) => {
+    layoutData = data;
+  });
   // status.innerText =
   //   "Layout analysis: " +
-  //   (data1.blocks?.length || 0) +
+  //   (layoutData.blocks?.length || 0) +
   //   " blocks, " +
-  //   (data1.lines?.length || 0) +
+  //   (layoutData.lines?.length || 0) +
   //   " lines, " +
-  //   (data1.words?.length || 0) +
+  //   (layoutData.words?.length || 0) +
   //   " words";
 
   // ----------------------------- //
@@ -437,8 +439,6 @@ function extractTextFromBoxes(boxes) {
 // =========================================//
 async function processLayoutDocument(canvas) {
   const status = document.getElementById("status");
-  const textsInput1 = document.getElementById("texts-input1");
-  const ctx = canvas.getContext("2d");
   const langArray = getSelectedLanguages();
   const lang = Array.isArray(langArray)
     ? langArray.length > 1
@@ -453,67 +453,6 @@ async function processLayoutDocument(canvas) {
     canvas.toDataURL("image/png"),
     lang
   );
-
-  // ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
-
-  // ctx.strokeRect(40, 20, 30, 50);
-  // ctx.fillStyle = "red";
-  // ctx.fillRect(50, 50, 10, 10);
-
-  // Draw blocks (columns) in green
-  ctx.strokeStyle = "green";
-  ctx.lineWidth = 2;
-  if (data.blocks && data.blocks.length > 0) {
-    data.blocks.forEach((block, i) => {
-      ctx.strokeRect(
-        block.bbox.x0,
-        block.bbox.y0,
-        block.bbox.x1 - block.bbox.x0,
-        block.bbox.y1 - block.bbox.y0
-      );
-      // Optionally, label the block number
-      ctx.font = "20px Arial";
-      ctx.fillStyle = "green";
-      ctx.fillText(`Block ${i + 1}`, block.bbox.x0 + 5, block.bbox.y0 + 25);
-    });
-  }
-
-  // Draw lines (rows) in orange
-  ctx.strokeStyle = "orange";
-  ctx.lineWidth = 1.5;
-  if (data.lines && data.lines.length > 0) {
-    data.lines.forEach((line) => {
-      ctx.strokeRect(
-        line.bbox.x0,
-        line.bbox.y0,
-        line.bbox.x1 - line.bbox.x0,
-        line.bbox.y1 - line.bbox.y0
-      );
-    });
-  }
-
-  // Draw words (layout) in blue
-  ctx.strokeStyle = "blue";
-  ctx.lineWidth = 1;
-  if (data.words && data.words.length > 0) {
-    data.words.forEach((word) => {
-      ctx.strokeRect(
-        word.bbox.x0,
-        word.bbox.y0,
-        word.bbox.x1 - word.bbox.x0,
-        word.bbox.y1 - word.bbox.y0
-      );
-    });
-  }
-
-  // textsInput1.value =
-  //   "Layout analysis done: " +
-  //   (data.blocks?.length || 0) +
-  //   " blocks, " +
-  //   (data.lines?.length || 0) +
-  //   " lines, " +
-  //   (data.words?.length || 0) +
-  //   " words";
 
   return data;
 }

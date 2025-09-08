@@ -47,6 +47,7 @@ function detectLoop() {
     // const canvas = drawVideoToCanvas(PROCESS_WIDTH, PROCESS_HEIGHT);
 
     drawOverlays();
+    drawTextOverlays();
 
     // ctx.strokeStyle = "green";
     // ctx.lineWidth = 5;
@@ -163,12 +164,11 @@ function detectLoop() {
     //   //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     // }
 
-    const ctx = canvas.getContext("2d");
-    ctx.strokeStyle = "green";
-    ctx.lineWidth = 5;
-    ctx.strokeRect(50, 50, 20, 20);
-    ctx.fillStyle = "red";
-    ctx.fillRect(50, 50, 30, 30);
+    // ctx.strokeStyle = "green";
+    // ctx.lineWidth = 5;
+    // ctx.strokeRect(50, 50, 20, 20);
+    // ctx.fillStyle = "red";
+    // ctx.fillRect(50, 50, 30, 30);
 
     if (window.textDetectionEnabled && !textIntervalId) {
       textIntervalId = setInterval(updateTextDetection, timeInterval);
@@ -374,6 +374,61 @@ function drawOverlays() {
   // Draw framerate overlay
   if (window.showFramerateOverlay) {
     displayFramerate();
+  }
+}
+
+let layoutData = null;
+// =========================================//
+function drawTextOverlays() {
+  // alert("drawTextOverlays");
+
+  if (!ctx || !canvas) return;
+
+  if (window.showTextOverlay && layoutData) {
+    // Draw blocks in green
+    if (layoutData.blocks && layoutData.blocks.length > 0) {
+      ctx.strokeStyle = "green";
+      ctx.lineWidth = 2;
+      layoutData.blocks.forEach((block, i) => {
+        ctx.strokeRect(
+          block.bbox.x0,
+          block.bbox.y0,
+          block.bbox.x1 - block.bbox.x0,
+          block.bbox.y1 - block.bbox.y0
+        );
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "green";
+        ctx.fillText(`Block ${i + 1}`, block.bbox.x0 + 5, block.bbox.y0 + 25);
+      });
+    }
+
+    // Draw lines in orange
+    if (layoutData.lines && layoutData.lines.length > 0) {
+      ctx.strokeStyle = "orange";
+      ctx.lineWidth = 1.5;
+      layoutData.lines.forEach((line) => {
+        ctx.strokeRect(
+          line.bbox.x0,
+          line.bbox.y0,
+          line.bbox.x1 - line.bbox.x0,
+          line.bbox.y1 - line.bbox.y0
+        );
+      });
+    }
+
+    // Draw words in blue
+    if (layoutData.words && layoutData.words.length > 0) {
+      ctx.strokeStyle = "blue";
+      ctx.lineWidth = 1;
+      layoutData.words.forEach((word) => {
+        ctx.strokeRect(
+          word.bbox.x0,
+          word.bbox.y0,
+          word.bbox.x1 - word.bbox.x0,
+          word.bbox.y1 - word.bbox.y0
+        );
+      });
+    }
   }
 }
 

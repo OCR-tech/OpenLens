@@ -96,6 +96,7 @@ function initSystem() {
   window.showGPSLocationOverlay = true;
   window.showVideoSizeOverlay = true;
   window.showFramerateOverlay = true;
+  window.showTextOverlay = true;
   //------------//
   window.objectDetectionEnabled = true;
   window.poseDetectionEnabled = true;
