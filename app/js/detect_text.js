@@ -149,7 +149,7 @@ function updateTextDetection() {
 
   // ----------------------------- //
   // canvas_processed = canvas;
-  canvas_processed = detectImageProcessing(canvas);
+  // canvas_processed = detectImageProcessing(canvas);
 
   // const ctxProcessed = canvas_processed.getContext("2d");
   // ctxProcessed.strokeStyle = "green";
@@ -159,7 +159,7 @@ function updateTextDetection() {
   // ctxProcessed.fillRect(50, 50, 10, 10);
 
   // ----------------------------- //
-  processLayoutDocument(canvas_processed).then((data) => {
+  processLayoutDocument(canvas).then((data) => {
     layoutData = data;
 
     if (textsInput1) {
@@ -176,10 +176,10 @@ function updateTextDetection() {
   });
 
   // ----------------------------- //
-  displayProcessedImage(canvas_processed);
+  displayProcessedImage(canvas);
 
   // ----------------------------- //
-  detectTextsTesseract(canvas_processed);
+  detectTextsTesseract(canvas);
 
   // ----------------------------- //
   // extractTextFromBoxes(redBoxes);
