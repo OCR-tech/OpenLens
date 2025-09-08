@@ -361,9 +361,9 @@ async function processLayoutDocument(canvas) {
   // Run Tesseract layout analysis
   const { data } = await Tesseract.recognize(
     canvas.toDataURL("image/png"),
-    lang,
+    lang
     // { tessedit_pageseg_mode: Tesseract.PSM.AUTO }
-    { tessedit_pageseg_mode: 1 }
+    // { tessedit_pageseg_mode: 1 }
   );
 
   return data;
@@ -394,9 +394,7 @@ function detectTextsTesseract(canvas) {
   // const lang = "chi_sim";
   // status.innerText = "lang : " + lang;
 
-  Tesseract.recognize(canvas.toDataURL("image/png"), lang, {
-    tessedit_pageseg_mode: 1,
-  })
+  Tesseract.recognize(canvas.toDataURL("image/png"), lang)
     .then(({ data: { text } }) => {
       if (!text || text.trim() === "") {
         status.innerText = "Detecting text: No text";
