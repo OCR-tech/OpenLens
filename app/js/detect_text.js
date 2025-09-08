@@ -176,10 +176,10 @@ function updateTextDetection() {
   });
 
   // ----------------------------- //
-  // displayProcessedImage(canvas_processed);
+  displayProcessedImage(canvas_processed);
 
   // ----------------------------- //
-  detectTextsTesseract(canvas);
+  detectTextsTesseract(canvas_processed);
 
   // ----------------------------- //
   // extractTextFromBoxes(redBoxes);
