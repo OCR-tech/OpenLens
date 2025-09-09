@@ -383,10 +383,6 @@ function detectTextsTesseract(canvas) {
       if (!text || text.trim() === "") {
         status.innerText = "Detecting text: No text";
         textsInput.value = "";
-        // } else if (text.length > 1000) {
-        // status.innerText = "Detected text";
-        // textsInput.value = text;
-        // textsInput.value = text.substring(0, 1000);
       } else {
         // ----------------------------- //
         processedText = processTexts(text);
@@ -429,7 +425,7 @@ function processTexts(text) {
 
 // =========================================//
 let offlineDictionarySet = null;
-// Load dictionary from local JSON file (e.g., 'pages/dict_eng1.json')
+// Load dictionary from local JSON file (e.g., 'app/json/dict_eng.json')
 async function loadOfflineDictionary() {
   try {
     // alert("loadOfflineDictionary");
