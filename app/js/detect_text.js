@@ -140,23 +140,9 @@ function updateTextDetection() {
   // ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
 
-  // Draw your test shapes directly on the visible canvas
-  // ctx.strokeStyle = "blue";
-  // ctx.lineWidth = 2;
-  // ctx.strokeRect(40, 20, 30, 50);
-  // ctx.fillStyle = "red";
-  // ctx.fillRect(50, 50, 10, 10);
-
   // ----------------------------- //
   // canvas_processed = canvas;
   // canvas_processed = detectImageProcessing(canvas);
-
-  // const ctxProcessed = canvas_processed.getContext("2d");
-  // ctxProcessed.strokeStyle = "green";
-  // ctxProcessed.lineWidth = 2;
-  // ctxProcessed.strokeRect(40, 20, 30, 50);
-  // ctxProcessed.fillStyle = "red";
-  // ctxProcessed.fillRect(50, 50, 10, 10);
 
   // ----------------------------- //
   processLayoutDocument(canvas).then((data) => {
@@ -361,7 +347,7 @@ async function processLayoutDocument(canvas) {
   // Run Tesseract layout analysis
   const { data } = await Tesseract.recognize(
     canvas.toDataURL("image/png"),
-    lang,
+    lang
     // { tessedit_pageseg_mode: Tesseract.PSM.AUTO }
     // { tessedit_pageseg_mode: 1 }
     // {

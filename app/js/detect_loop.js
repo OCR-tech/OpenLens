@@ -382,7 +382,7 @@ let layoutData = null;
 function drawTextOverlays() {
   // alert("drawTextOverlays");
 
-  const textsInput1 = document.getElementById("texts-input1");
+  // const textsInput1 = document.getElementById("texts-input1");
 
   if (!ctx || !canvas) return;
 
