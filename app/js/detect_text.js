@@ -350,9 +350,9 @@ async function processLayoutDocument(canvas) {
     lang,
     {
       // tessedit_pageseg_mode: Tesseract.PSM.AUTO,
-      tessedit_pageseg_mode: 1, // 1 = Automatic page segmentation with OSD (multi-column)
-      tessedit_ocr_engine_mode: 1, // 1 = LSTM only (recommended)
-      preserve_interword_spaces: "1",
+      // tessedit_pageseg_mode: 1, // 1 = Automatic page segmentation with OSD (multi-column)
+      // tessedit_ocr_engine_mode: 1, // 1 = LSTM only (recommended)
+      // preserve_interword_spaces: "1",
     }
   );
 
@@ -390,6 +390,7 @@ function detectTextsTesseract(canvas) {
         status.innerText = "Detecting text: No text";
         textsInput.value = "";
       } else {
+        // status.innerText = "Detecting text: Done" + " *** " + lang;
         // ----------------------------- //
         processedText = processTexts(text);
 
