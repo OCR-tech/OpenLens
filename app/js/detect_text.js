@@ -348,12 +348,6 @@ async function processLayoutDocument(canvas) {
   const { data } = await Tesseract.recognize(
     canvas.toDataURL("image/png"),
     lang
-    // { tessedit_pageseg_mode: Tesseract.PSM.AUTO }
-    // { tessedit_pageseg_mode: 1 }
-    // {
-    //   tessedit_pageseg_mode: 1, // 1 = Automatic page segmentation with OSD (multi-column)
-    //   tessedit_ocr_engine_mode: 1, // 1 = LSTM only (recommended)
-    // }
   );
 
   return data;
