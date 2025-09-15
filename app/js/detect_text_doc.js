@@ -62,8 +62,8 @@ function readXLSXFile() {
 // ======================================= //
 function addTextToXLSX() {
   const status = document.getElementById("status");
-  const textInput1 = document.getElementById("texts-input1");
   const file = window.selectedXLSXFile;
+  const textInput = document.getElementById("texts-input");
   const text = document.getElementById("texts-input").value;
 
   if (!file) {
@@ -92,8 +92,7 @@ function addTextToXLSX() {
 
     // Process key-value pairs in the text input
     const newText = processKeyValuePairs(text, headers);
-
-    textInput1.value += "\n" + newText;
+    textInput.value += "\n" + newText;
 
     // Process the new text input based on headers
     const newRow = processTextInput(newText, headers);
