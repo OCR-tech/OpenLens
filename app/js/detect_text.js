@@ -105,7 +105,6 @@ function browseFolder() {
   fileInput.click();
 }
 
-let statusDetectTextDone = false;
 // =========================================//
 function updateTextDetection() {
   // alert("updateTextDetection");
@@ -159,9 +158,7 @@ function updateTextDetection() {
         layoutData.lines.length +
         " lines | " +
         layoutData.words.length +
-        " words" +
-        " | " +
-        statusDetectTextDone;
+        " words";
     }
   });
 
@@ -174,28 +171,19 @@ function updateTextDetection() {
   // extractTextFromBoxes(redBoxes);
 }
 
-// // =========================================//
-// function updateTextDetectionAll() {
-//   // alert("updateTextDetectionAll");
+let statusDetectTextDone = false;
+// =========================================//
+function updateTextDetectionAll() {
+  // alert("updateTextDetectionAll");
 
-//   if (!statusDetectTextDone) {
-//     updateTextDetection();
-//     setInterval(() => {
-//       // alert("Text detection done");
-//       statusDetectTextDone = true;
-//       updateTextDetectionAll();
-//     }, 5000);
-//   } else {
-//     getNextImageInFolder();
-//     // statusDetectTextDone = false;
-
-//     setInterval(() => {
-//       // alert("Next image loaded");
-//       statusDetectTextDone = false;
-//       // updateTextDetectionAll();
-//     }, 5000);
-//   }
-// }
+  if (!statusDetectTextDone) {
+    updateTextDetection();
+    statusDetectTextDone = true;
+    setTimeout(() => {
+      statusDetectTextDone = false;
+    }, 5000); // 5 seconds
+  }
+}
 
 // =========================================//
 function displayProcessedImage(processedCanvas) {
@@ -409,7 +397,7 @@ function detectTextsTesseract(canvas) {
 
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
-      statusDetectTextDone = true;
+      // statusDetectTextDone = true;
     })
     .catch((error) => {
       console.error("Error during OCR:", error);
