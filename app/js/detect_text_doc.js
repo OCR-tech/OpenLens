@@ -62,6 +62,7 @@ function readXLSXFile() {
 // ======================================= //
 function addTextToXLSX() {
   const status = document.getElementById("status");
+  const textInput1 = document.getElementById("texts-input1");
   const file = window.selectedXLSXFile;
   const text = document.getElementById("texts-input").value;
 
@@ -90,10 +91,12 @@ function addTextToXLSX() {
     const headers = rows[0];
 
     // Process key-value pairs in the text input
-    // newText = processKeyValuePairs(text, headers);
+    const newText = processKeyValuePairs(text, headers);
+
+    textInput1.value += "\n" + newText;
 
     // Process the new text input based on headers
-    const newRow = processTextInput(text, headers);
+    const newRow = processTextInput(newText, headers);
 
     // Add new row
     rows.push(newRow);
@@ -117,6 +120,18 @@ function addTextToXLSX() {
     status.innerText = "Text added and XLSX file downloaded.";
   };
   reader.readAsArrayBuffer(file);
+}
+
+// ======================================= //
+function processKeyValuePairs(text, headers) {
+  // insert a comma based on header names
+  let newText = text;
+  headers.forEach((header) => {
+    const regex = new RegExp(`\\b${header}\\b`, "g");
+    newText = newText.replace(regex, `, ${header}`);
+  });
+
+  return newText.replace(/^, /, ""); // Remove leading comma if any
 }
 
 // ======================================= //
