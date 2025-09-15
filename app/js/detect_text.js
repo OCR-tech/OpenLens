@@ -105,6 +105,7 @@ function browseFolder() {
   fileInput.click();
 }
 
+let statusDetectTextDone = false;
 // =========================================//
 function updateTextDetection() {
   // alert("updateTextDetection");
@@ -147,6 +148,7 @@ function updateTextDetection() {
   // ----------------------------- //
   processLayoutDocument(canvas).then((data) => {
     layoutData = data;
+    statusDetectTextDone = false;
 
     if (textsInput1) {
       textsInput1.value =
@@ -157,7 +159,9 @@ function updateTextDetection() {
         layoutData.lines.length +
         " lines | " +
         layoutData.words.length +
-        " words";
+        " words" +
+        " | " +
+        statusDetectTextDone;
     }
   });
 
@@ -166,12 +170,10 @@ function updateTextDetection() {
 
   // ----------------------------- //
   detectTextsTesseract(canvas);
-
   // ----------------------------- //
   // extractTextFromBoxes(redBoxes);
 }
 
-// let statusDetectTextDone = false;
 // // =========================================//
 // function updateTextDetectionAll() {
 //   // alert("updateTextDetectionAll");
@@ -407,6 +409,7 @@ function detectTextsTesseract(canvas) {
 
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
+      statusDetectTextDone = true;
     })
     .catch((error) => {
       console.error("Error during OCR:", error);
