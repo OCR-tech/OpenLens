@@ -582,6 +582,7 @@ function getNextImageInFolder() {
   if (imageFolderIndex < imageFolderFiles.length - 1) {
     imageFolderIndex++;
     showImageInFolder();
+    // detectTexts();
   }
 }
 
