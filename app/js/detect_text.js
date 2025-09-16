@@ -171,19 +171,19 @@ function updateTextDetection() {
   // extractTextFromBoxes(redBoxes);
 }
 
-let statusDetectTextDone = false;
-// =========================================//
-function updateTextDetectionAll() {
-  // alert("updateTextDetectionAll");
+// let statusDetectTextDone = false;
+// // =========================================//
+// function updateTextDetectionAll() {
+//   // alert("updateTextDetectionAll");
 
-  if (!statusDetectTextDone) {
-    updateTextDetection();
-    statusDetectTextDone = true;
-    setTimeout(() => {
-      statusDetectTextDone = false;
-    }, 5000); // 5 seconds
-  }
-}
+//   if (!statusDetectTextDone) {
+//     updateTextDetection();
+//     statusDetectTextDone = true;
+//     setTimeout(() => {
+//       statusDetectTextDone = false;
+//     }, 5000); // 5 seconds
+//   }
+// }
 
 // =========================================//
 function displayProcessedImage(processedCanvas) {
