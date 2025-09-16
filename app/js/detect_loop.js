@@ -171,9 +171,8 @@ function detectLoop() {
     // ctx.fillRect(50, 50, 30, 30);
 
     if (window.textDetectionEnabled && !textIntervalId) {
-      textIntervalId = setInterval(updateTextDetection, timeInterval);
-      // textIntervalId = setInterval(startImageDetectionSequence, timeInterval);
-      // textIntervalId = setInterval(updateTextDetectionAll, timeInterval);
+      // textIntervalId = setInterval(updateTextDetection, timeInterval);
+      textIntervalId = setInterval(updateTextDetectionAll, timeInterval);
     } else if (!window.textDetectionEnabled && textIntervalId) {
       clearInterval(textIntervalId);
       textIntervalId = null;

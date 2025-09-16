@@ -108,48 +108,20 @@ function setTextDetectionMode(mode) {
 //   fileInput.click();
 // }
 
+statusDetectTextDone = false;
 // =========================================//
-// Call this to start processing images in the folder
-// function startImageDetectionSequence() {
-//   // alert("startImageDetectionSequence");
+function updateTextDetectionAll() {
+  // alert("updateTextDetectionAll");
 
-//   if (statusDetectTextDone) {
-//     statusDetectTextDone = false;
-//     // imageFolderIndex = 0; // Ensure index starts at 0
-//     processNextImage();
-//   }
-// }
+  updateTextDetection();
 
-// // =========================================//
-// function processNextImage() {
-//   // alert("processNextImage");
+  if (statusDetectTextDone) {
+    getNextImageInFolder();
+    statusDetectTextDone = false;
+  }
+}
 
-//   const files = imageFolderFiles;
-//   const idx = imageFolderIndex;
-
-//   if (!files || idx >= files.length) {
-//     document.getElementById("status").innerText = "All images processed!";
-//     return;
-//   }
-
-//   // Optionally show which image is being processed
-//   alert("Processing image: " + files[idx] + " at index " + idx);
-
-//   // Wait for text detection to finish, then move to next image
-//   updateTextDetection();
-//   // Use a MutationObserver, callback, or polling to check when statusDetectTextDone is true
-//   // For simplicity, use a polling approach here:
-//   const checkDone = setInterval(() => {
-//     if (statusDetectTextDone) {
-//       clearInterval(checkDone);
-//       alert("Finished processing image: " + files[idx] + " at index " + idx);
-//       imageFolderIndex++;
-//       processNextImage();
-//     }
-//   }, 5000); // Check every 300ms
-// }
-
-statusDetectTextDone = true;
+// statusDetectTextDone = true;
 // =========================================//
 function updateTextDetection() {
   // alert("updateTextDetection");
@@ -217,20 +189,6 @@ function updateTextDetection() {
   // ----------------------------- //
   // extractTextFromBoxes(redBoxes);
 }
-
-// let statusDetectTextDone = false;
-// // =========================================//
-// function updateTextDetectionAll() {
-//   // alert("updateTextDetectionAll");
-
-//   if (!statusDetectTextDone) {
-//     updateTextDetection();
-//     statusDetectTextDone = true;
-//     setTimeout(() => {
-//       statusDetectTextDone = false;
-//     }, 5000); // 5 seconds
-//   }
-// }
 
 // =========================================//
 function displayProcessedImage(processedCanvas) {
