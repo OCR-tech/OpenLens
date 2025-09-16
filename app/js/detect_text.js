@@ -110,44 +110,44 @@ function setTextDetectionMode(mode) {
 
 // =========================================//
 // Call this to start processing images in the folder
-function startImageDetectionSequence() {
-  // alert("startImageDetectionSequence");
+// function startImageDetectionSequence() {
+//   // alert("startImageDetectionSequence");
 
-  if (statusDetectTextDone) {
-    statusDetectTextDone = false;
-    // imageFolderIndex = 0; // Ensure index starts at 0
-    processNextImage();
-  }
-}
+//   if (statusDetectTextDone) {
+//     statusDetectTextDone = false;
+//     // imageFolderIndex = 0; // Ensure index starts at 0
+//     processNextImage();
+//   }
+// }
 
-// =========================================//
-function processNextImage() {
-  // alert("processNextImage");
+// // =========================================//
+// function processNextImage() {
+//   // alert("processNextImage");
 
-  const files = imageFolderFiles;
-  const idx = imageFolderIndex;
+//   const files = imageFolderFiles;
+//   const idx = imageFolderIndex;
 
-  if (!files || idx >= files.length) {
-    document.getElementById("status").innerText = "All images processed!";
-    return;
-  }
+//   if (!files || idx >= files.length) {
+//     document.getElementById("status").innerText = "All images processed!";
+//     return;
+//   }
 
-  // Optionally show which image is being processed
-  alert("Processing image: " + files[idx] + " at index " + idx);
+//   // Optionally show which image is being processed
+//   alert("Processing image: " + files[idx] + " at index " + idx);
 
-  // Wait for text detection to finish, then move to next image
-  updateTextDetection();
-  // Use a MutationObserver, callback, or polling to check when statusDetectTextDone is true
-  // For simplicity, use a polling approach here:
-  const checkDone = setInterval(() => {
-    if (statusDetectTextDone) {
-      clearInterval(checkDone);
-      alert("Finished processing image: " + files[idx] + " at index " + idx);
-      imageFolderIndex++;
-      processNextImage();
-    }
-  }, 5000); // Check every 300ms
-}
+//   // Wait for text detection to finish, then move to next image
+//   updateTextDetection();
+//   // Use a MutationObserver, callback, or polling to check when statusDetectTextDone is true
+//   // For simplicity, use a polling approach here:
+//   const checkDone = setInterval(() => {
+//     if (statusDetectTextDone) {
+//       clearInterval(checkDone);
+//       alert("Finished processing image: " + files[idx] + " at index " + idx);
+//       imageFolderIndex++;
+//       processNextImage();
+//     }
+//   }, 5000); // Check every 300ms
+// }
 
 statusDetectTextDone = true;
 // =========================================//
