@@ -172,6 +172,7 @@ function detectLoop() {
 
     if (window.textDetectionEnabled && !textIntervalId) {
       textIntervalId = setInterval(updateTextDetection, timeInterval);
+      // textIntervalId = setInterval(startImageDetectionSequence, timeInterval);
       // textIntervalId = setInterval(updateTextDetectionAll, timeInterval);
     } else if (!window.textDetectionEnabled && textIntervalId) {
       clearInterval(textIntervalId);

@@ -54,56 +54,95 @@ function setTextDetectionMode(mode) {
 }
 
 // =========================================//
-function browseFolder() {
-  // alert("browseFolder");
-  const videoSource = document.getElementById("video-source");
-  const btnStart = document.getElementById("btn-start");
-  const btnCommand = document.getElementById("btn-command");
-  const btnVoice = document.getElementById("btn-voice");
-  const btnOk = document.getElementById("btn-ok");
+// function browseFolder() {
+//   alert("browseFolder");
 
-  const fileInput = document.createElement("input");
-  fileInput.type = "file";
-  fileInput.webkitdirectory = true; // Enable folder selection
-  fileInput.multiple = true;
+//   const videoSource = document.getElementById("video-source");
+//   const btnStart = document.getElementById("btn-start");
+//   const btnCommand = document.getElementById("btn-command");
+//   const btnVoice = document.getElementById("btn-voice");
+//   const btnOk = document.getElementById("btn-ok");
 
-  if (videoSource.value === "video") {
-    fileInput.accept = "video/*";
-  } else if (videoSource.value === "image") {
-    fileInput.accept = "image/*";
-  }
+//   const fileInput = document.createElement("input");
+//   fileInput.type = "file";
+//   fileInput.webkitdirectory = true; // Enable folder selection
+//   fileInput.multiple = true;
 
-  fileInput.onchange = function (event) {
-    const files = Array.from(event.target.files);
-    if (files.length > 0) {
-      const fileNames = files.map((f) => f.name).join(", ");
-      document.getElementById("status").innerText =
-        "Selected files: " + fileNames;
-      btnStart.disabled = false;
-      btnCommand.disabled = false;
-      btnVoice.disabled = false;
-      btnOk.disabled = true;
+//   if (videoSource.value === "video") {
+//     fileInput.accept = "video/*";
+//   } else if (videoSource.value === "image") {
+//     fileInput.accept = "image/*";
+//   }
 
-      if (videoSource.value === "video") {
-        window.selectedVideoFiles = files;
-        // Optionally: CheckVideo(files[0]);
-        // Optionally: startVideo(URL.createObjectURL(files[0]));
-      } else if (videoSource.value === "image_file") {
-        window.selectedImageFiles = files;
-      } else if (videoSource.value === "image_folder") {
-        window.selectedImageFiles = files;
-        // Optionally: startImage(URL.createObjectURL(files[0]));
-      }
-      startButton();
-    } else {
-      document.getElementById("status").innerText = "No files selected.";
-      window.selectedVideoFiles = null;
-      window.selectedImageFiles = null;
-    }
-  };
+//   fileInput.onchange = function (event) {
+//     const files = Array.from(event.target.files);
+//     if (files.length > 0) {
+//       const fileNames = files.map((f) => f.name).join(", ");
+//       document.getElementById("status").innerText =
+//         "Selected files: " + fileNames;
+//       btnStart.disabled = false;
+//       btnCommand.disabled = false;
+//       btnVoice.disabled = false;
+//       btnOk.disabled = true;
 
-  fileInput.click();
-}
+//       if (videoSource.value === "video") {
+//         window.selectedVideoFiles = files;
+//         // Optionally: CheckVideo(files[0]);
+//         // Optionally: startVideo(URL.createObjectURL(files[0]));
+//       } else if (videoSource.value === "image_file") {
+//         window.selectedImageFiles = files;
+//       } else if (videoSource.value === "image_folder") {
+//         window.selectedImageFiles = files;
+//         // Start processing images in the folder
+//         startImageDetectionSequence();
+//         // Optionally: startImage(URL.createObjectURL(files[0]));
+//       }
+//       startButton();
+//     } else {
+//       document.getElementById("status").innerText = "No files selected.";
+//       window.selectedVideoFiles = null;
+//       window.selectedImageFiles = null;
+//     }
+//   };
+
+//   fileInput.click();
+// }
+
+// // Add these globals
+// window.selectedImageFiles = window.selectedImageFiles || [];
+// window.currentImageIndex = 0;
+// // =========================================//
+// // Call this to start processing images in the folder
+// function startImageDetectionSequence() {
+//   // alert("startImageDetectionSequence");
+
+//   window.currentImageIndex = 0;
+//   processNextImage();
+// }
+
+// // =========================================//
+// function processNextImage() {
+//   // alert("processNextImage");
+
+//   const files = window.selectedImageFiles;
+//   const idx = window.currentImageIndex;
+
+//   if (!files || idx >= files.length) {
+//     document.getElementById("status").innerText = "All images processed!";
+//     return;
+//   }
+
+//   // Load the image file into the <img id="image"> element
+//   const img = document.getElementById("image");
+//   img.onload = () => {
+//     // Wait for text detection to finish, then move to next image using .then()
+//     updateTextDetection().then(() => {
+//       window.currentImageIndex++;
+//       processNextImage();
+//     });
+//   };
+//   img.src = URL.createObjectURL(files[idx]);
+// }
 
 // =========================================//
 function updateTextDetection() {
