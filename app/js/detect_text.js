@@ -108,42 +108,48 @@ function setTextDetectionMode(mode) {
 //   fileInput.click();
 // }
 
-// // Add these globals
-// window.selectedImageFiles = window.selectedImageFiles || [];
-// window.currentImageIndex = 0;
-// // =========================================//
-// // Call this to start processing images in the folder
-// function startImageDetectionSequence() {
-//   // alert("startImageDetectionSequence");
+// =========================================//
+// Call this to start processing images in the folder
+function startImageDetectionSequence() {
+  // alert("startImageDetectionSequence");
 
-//   window.currentImageIndex = 0;
-//   processNextImage();
-// }
+  if (statusDetectTextDone) {
+    statusDetectTextDone = false;
+    // imageFolderIndex = 0; // Ensure index starts at 0
+    processNextImage();
+  }
+}
 
-// // =========================================//
-// function processNextImage() {
-//   // alert("processNextImage");
+// =========================================//
+function processNextImage() {
+  // alert("processNextImage");
 
-//   const files = window.selectedImageFiles;
-//   const idx = window.currentImageIndex;
+  const files = imageFolderFiles;
+  const idx = imageFolderIndex;
 
-//   if (!files || idx >= files.length) {
-//     document.getElementById("status").innerText = "All images processed!";
-//     return;
-//   }
+  if (!files || idx >= files.length) {
+    document.getElementById("status").innerText = "All images processed!";
+    return;
+  }
 
-//   // Load the image file into the <img id="image"> element
-//   const img = document.getElementById("image");
-//   img.onload = () => {
-//     // Wait for text detection to finish, then move to next image using .then()
-//     updateTextDetection().then(() => {
-//       window.currentImageIndex++;
-//       processNextImage();
-//     });
-//   };
-//   img.src = URL.createObjectURL(files[idx]);
-// }
+  // Optionally show which image is being processed
+  alert("Processing image: " + files[idx] + " at index " + idx);
 
+  // Wait for text detection to finish, then move to next image
+  updateTextDetection();
+  // Use a MutationObserver, callback, or polling to check when statusDetectTextDone is true
+  // For simplicity, use a polling approach here:
+  const checkDone = setInterval(() => {
+    if (statusDetectTextDone) {
+      clearInterval(checkDone);
+      alert("Finished processing image: " + files[idx] + " at index " + idx);
+      imageFolderIndex++;
+      processNextImage();
+    }
+  }, 5000); // Check every 300ms
+}
+
+statusDetectTextDone = true;
 // =========================================//
 function updateTextDetection() {
   // alert("updateTextDetection");
@@ -197,7 +203,9 @@ function updateTextDetection() {
         layoutData.lines.length +
         " lines | " +
         layoutData.words.length +
-        " words";
+        " words" +
+        " | " +
+        statusDetectTextDone;
     }
   });
 
@@ -436,7 +444,7 @@ function detectTextsTesseract(canvas) {
 
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
-      // statusDetectTextDone = true;
+      statusDetectTextDone = true;
     })
     .catch((error) => {
       console.error("Error during OCR:", error);
