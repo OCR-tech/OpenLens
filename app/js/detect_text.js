@@ -110,14 +110,14 @@ function setTextDetectionMode(mode) {
 
 statusDetectTextDone = false;
 // =========================================//
+// In your main loop or after detection, call this:
 function updateTextDetectionAll() {
-  // alert("updateTextDetectionAll");
-
   updateTextDetection();
 
   if (statusDetectTextDone) {
-    getNextImageInFolder();
-    statusDetectTextDone = false;
+    statusDetectTextDone = false; // Reset before calling
+    updateStatusDetectTextDone(); // Call only once per detection
+    getNextImageInFolder(); // (optional) move to next image
   }
 }
 
@@ -186,6 +186,7 @@ function updateTextDetection() {
 
   // ----------------------------- //
   detectTextsTesseract(canvas);
+
   // ----------------------------- //
   // extractTextFromBoxes(redBoxes);
 }
@@ -403,10 +404,24 @@ function detectTextsTesseract(canvas) {
       window.textDetectionEnabled = false;
       detectTextButton.disabled = false;
       statusDetectTextDone = true;
+
+      // if (statusDetectTextDone) {
+      //   statusDetectTextDone = false;
+      //   updateStatusDetectTextDone();
+      // }
     })
     .catch((error) => {
       console.error("Error during OCR:", error);
     });
+}
+
+// =========================================//
+function updateStatusDetectTextDone() {
+  alert("updateStatusDetectTextDone");
+
+  const textsInput = document.getElementById("texts-input");
+  const textsInput2 = document.getElementById("texts-input2");
+  textsInput2.value += textsInput.value + "\n";
 }
 
 // =========================================//
