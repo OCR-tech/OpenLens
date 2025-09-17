@@ -509,6 +509,7 @@ function startImageFolder() {
 
   // Show the first image
   showImageInFolder();
+
   if (status) status.innerText = `Image 1 of ${imageFolderFiles.length}`;
 }
 
@@ -576,8 +577,8 @@ function showImageInFolder() {
 }
 
 // =========================================//
-function getNextImageInFolder() {
-  alert("getNextImageInFolder");
+async function getNextImageInFolder() {
+  // alert("getNextImageInFolder");
 
   if (imageFolderIndex < imageFolderFiles.length - 1) {
     imageFolderIndex++;

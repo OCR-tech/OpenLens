@@ -112,16 +112,26 @@ statusDetectTextDone = false;
 // =========================================//
 // In your main loop or after detection, call this:
 function updateTextDetectionAll() {
-  updateTextDetection();
+  if (imageFolderIndex < imageFolderFiles.length - 1) {
+    updateTextDetection().then(() => {
+      updateStatusDetectTextDone();
 
-  if (statusDetectTextDone) {
-    statusDetectTextDone = false; // Reset before calling
-    updateStatusDetectTextDone(); // Call only once per detection
-    getNextImageInFolder(); // (optional) move to next image
+      document.getElementById("status").innerText =
+        "Image " + (imageFolderIndex + 1) + " of " + imageFolderFiles.length;
+
+      getNextImageInFolder().then(() => {
+        detectTexts();
+      });
+    });
+  } else {
+    updateTextDetection().then(() => {
+      updateStatusDetectTextDone();
+      document.getElementById("status").innerText =
+        "Image folder processing: Done";
+    });
   }
 }
 
-// statusDetectTextDone = true;
 // =========================================//
 function updateTextDetection() {
   // alert("updateTextDetection");
@@ -162,33 +172,33 @@ function updateTextDetection() {
   // canvas_processed = detectImageProcessing(canvas);
 
   // ----------------------------- //
-  processLayoutDocument(canvas).then((data) => {
-    layoutData = data;
-    statusDetectTextDone = false;
+  return new Promise((resolve) => {
+    processLayoutDocument(canvas).then((data) => {
+      layoutData = data;
+      statusDetectTextDone = false;
 
-    if (textsInput1) {
-      textsInput1.value =
-        layoutData.blocks.length +
-        " blocks | " +
-        layoutData.paragraphs.length +
-        " paragraphs | " +
-        layoutData.lines.length +
-        " lines | " +
-        layoutData.words.length +
-        " words" +
-        " | " +
-        statusDetectTextDone;
-    }
+      if (textsInput1) {
+        textsInput1.value =
+          layoutData.blocks.length +
+          " blocks | " +
+          layoutData.paragraphs.length +
+          " paragraphs | " +
+          layoutData.lines.length +
+          " lines | " +
+          layoutData.words.length +
+          " words";
+      }
+    });
+
+    // ----------------------------- //
+    // displayProcessedImage(canvas);
+
+    // ----------------------------- //
+    detectTextsTesseract(canvas).then(resolve);
+
+    // ----------------------------- //
+    // extractTextFromBoxes(redBoxes);
   });
-
-  // ----------------------------- //
-  // displayProcessedImage(canvas);
-
-  // ----------------------------- //
-  detectTextsTesseract(canvas);
-
-  // ----------------------------- //
-  // extractTextFromBoxes(redBoxes);
 }
 
 // =========================================//
@@ -379,49 +389,51 @@ function detectTextsTesseract(canvas) {
   // const lang = "jpn";
   // const lang = "chi_sim";
   // status.innerText = "lang : " + lang;
+  return new Promise((resolve) => {
+    Tesseract.recognize(canvas.toDataURL("image/png"), lang)
+      .then(({ data: { text } }) => {
+        if (!text || text.trim() === "") {
+          status.innerText = "Detecting text: No text";
+          textsInput.value = "";
+        } else {
+          // status.innerText = "Detecting text: Done" + " *** " + lang;
+          // ----------------------------- //
+          processedText = processTexts(text);
 
-  Tesseract.recognize(canvas.toDataURL("image/png"), lang)
-    .then(({ data: { text } }) => {
-      if (!text || text.trim() === "") {
-        status.innerText = "Detecting text: No text";
-        textsInput.value = "";
-      } else {
-        // status.innerText = "Detecting text: Done" + " *** " + lang;
-        // ----------------------------- //
-        processedText = processTexts(text);
+          // ----------------------------- //
+          processedDictText = lookupWordsDict(processedText);
 
-        // ----------------------------- //
-        processedDictText = lookupWordsDict(processedText);
+          // ----------------------------- //
+          // status.innerText = "Detecting text: Done" + " *** " + lang;
+          status.innerText = "Detecting text: Done";
 
-        // ----------------------------- //
-        // status.innerText = "Detecting text: Done" + " *** " + lang;
-        status.innerText = "Detecting text: Done";
+          textsInput.value = processedText;
+          // textsInput.value = text;
+        }
 
-        textsInput.value = processedText;
-        // textsInput.value = text;
-      }
+        window.textDetectionEnabled = false;
+        detectTextButton.disabled = false;
+        statusDetectTextDone = true;
 
-      window.textDetectionEnabled = false;
-      detectTextButton.disabled = false;
-      statusDetectTextDone = true;
-
-      // if (statusDetectTextDone) {
-      //   statusDetectTextDone = false;
-      //   updateStatusDetectTextDone();
-      // }
-    })
-    .catch((error) => {
-      console.error("Error during OCR:", error);
-    });
+        resolve();
+      })
+      .catch((error) => {
+        console.error("Error during OCR:", error);
+        resolve();
+      });
+  });
 }
 
 // =========================================//
 function updateStatusDetectTextDone() {
-  alert("updateStatusDetectTextDone");
+  // alert("updateStatusDetectTextDone");
 
   const textsInput = document.getElementById("texts-input");
   const textsInput2 = document.getElementById("texts-input2");
-  textsInput2.value += textsInput.value + "\n";
+
+  if (textsInput.value !== "") {
+    textsInput2.value += textsInput.value + "\n";
+  }
 }
 
 // =========================================//

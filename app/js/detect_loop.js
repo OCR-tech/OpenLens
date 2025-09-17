@@ -170,13 +170,9 @@ function detectLoop() {
     // ctx.fillStyle = "red";
     // ctx.fillRect(50, 50, 30, 30);
 
-    // const textsInput = document.getElementById("texts-input");
-    // const textsInput2 = document.getElementById("texts-input2");
-
     if (window.textDetectionEnabled && !textIntervalId) {
       // textIntervalId = setInterval(updateTextDetection, timeInterval);
       textIntervalId = setInterval(updateTextDetectionAll, timeInterval);
-      // textsInput2.value += textsInput.value;
     } else if (!window.textDetectionEnabled && textIntervalId) {
       clearInterval(textIntervalId);
       textIntervalId = null;
