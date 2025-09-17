@@ -472,7 +472,7 @@ function lookupWordsDict(processedText) {
 
 // =========================================//
 function detectTexts() {
-  alert("detectTexts");
+  // alert("detectTexts");
 
   const status = document.getElementById("status");
   const detectTextButton = document.getElementById("btn-detect-text");
