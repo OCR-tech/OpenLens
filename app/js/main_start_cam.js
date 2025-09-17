@@ -577,6 +577,7 @@ function showImageInFolder() {
 }
 
 // =========================================//
+// function getNextImageInFolder() {
 async function getNextImageInFolder() {
   // alert("getNextImageInFolder");
 

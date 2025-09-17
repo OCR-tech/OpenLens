@@ -111,46 +111,44 @@ function setTextDetectionMode(mode) {
 statusDetectTextDone = false;
 // =========================================//
 // In your main loop or after detection, call this:
-// function updateTextDetectionAll() {
-//   if (imageFolderIndex < imageFolderFiles.length - 1) {
-//     updateTextDetection().then(() => {
-//       updateStatusDetectTextDone();
-
-//       document.getElementById("status").innerText =
-//         "Image " + (imageFolderIndex + 1) + " of " + imageFolderFiles.length;
-
-//       getNextImageInFolder().then(() => {
-//         detectTexts();
-//       });
-//     });
-//   } else {
-//     updateTextDetection().then(() => {
-//       updateStatusDetectTextDone();
-//       document.getElementById("status").innerText =
-//         "Image folder processing: Done";
-//     });
-//   }
-// }
-
 function updateTextDetectionAll() {
   if (imageFolderIndex < imageFolderFiles.length - 1) {
     updateTextDetection().then(() => {
-      updateStatusDetectTextDone(); // <-- Only once per image, after detection
+      updateStatusDetectTextDone();
+
       document.getElementById("status").innerText =
         "Image " + (imageFolderIndex + 1) + " of " + imageFolderFiles.length;
+
       getNextImageInFolder().then(() => {
         detectTexts();
-        // updateTextDetectionAll();
       });
     });
   } else {
     updateTextDetection().then(() => {
-      updateStatusDetectTextDone(); // <-- Only once for last image
+      updateStatusDetectTextDone();
       document.getElementById("status").innerText =
         "Image folder processing: Done";
     });
   }
 }
+// function updateTextDetectionAll() {
+//   if (imageFolderIndex < imageFolderFiles.length - 1) {
+//     updateTextDetection().then(() => {
+//       updateStatusDetectTextDone(); // <-- Only once per image
+//       document.getElementById("status").innerText =
+//         "Image " + (imageFolderIndex + 1) + " of " + imageFolderFiles.length;
+//       getNextImageInFolder();
+//       setTimeout(updateTextDetectionAll, 300); // Small delay to allow image to load
+//     });
+//   } else {
+//     updateTextDetection().then(() => {
+//       updateStatusDetectTextDone(); // <-- Only once for last image
+//       document.getElementById("status").innerText =
+//         "Image folder processing: Done";
+//       textIntervalId = null; // Reset so you can run again if needed
+//     });
+//   }
+// }
 
 // =========================================//
 function updateTextDetection() {
@@ -434,7 +432,7 @@ function detectTextsTesseract(canvas) {
         window.textDetectionEnabled = false;
         detectTextButton.disabled = false;
         statusDetectTextDone = true;
-
+        // alert("done");
         resolve();
       })
       .catch((error) => {

@@ -171,8 +171,10 @@ function detectLoop() {
     // ctx.fillRect(50, 50, 30, 30);
 
     if (window.textDetectionEnabled && !textIntervalId) {
-      // textIntervalId = setInterval(updateTextDetection, timeInterval);
+      textIntervalId = setInterval(updateTextDetection, timeInterval);
       textIntervalId = setInterval(updateTextDetectionAll, timeInterval);
+      // updateTextDetectionAll(); // Call ONCE to start the chain
+      // textIntervalId = 1; // Dummy value to mark as started
     } else if (!window.textDetectionEnabled && textIntervalId) {
       clearInterval(textIntervalId);
       textIntervalId = null;
