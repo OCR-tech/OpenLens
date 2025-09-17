@@ -111,21 +111,41 @@ function setTextDetectionMode(mode) {
 statusDetectTextDone = false;
 // =========================================//
 // In your main loop or after detection, call this:
+// function updateTextDetectionAll() {
+//   if (imageFolderIndex < imageFolderFiles.length - 1) {
+//     updateTextDetection().then(() => {
+//       updateStatusDetectTextDone();
+
+//       document.getElementById("status").innerText =
+//         "Image " + (imageFolderIndex + 1) + " of " + imageFolderFiles.length;
+
+//       getNextImageInFolder().then(() => {
+//         detectTexts();
+//       });
+//     });
+//   } else {
+//     updateTextDetection().then(() => {
+//       updateStatusDetectTextDone();
+//       document.getElementById("status").innerText =
+//         "Image folder processing: Done";
+//     });
+//   }
+// }
+
 function updateTextDetectionAll() {
   if (imageFolderIndex < imageFolderFiles.length - 1) {
     updateTextDetection().then(() => {
-      updateStatusDetectTextDone();
-
+      updateStatusDetectTextDone(); // <-- Only once per image, after detection
       document.getElementById("status").innerText =
         "Image " + (imageFolderIndex + 1) + " of " + imageFolderFiles.length;
-
       getNextImageInFolder().then(() => {
         detectTexts();
+        // updateTextDetectionAll();
       });
     });
   } else {
     updateTextDetection().then(() => {
-      updateStatusDetectTextDone();
+      updateStatusDetectTextDone(); // <-- Only once for last image
       document.getElementById("status").innerText =
         "Image folder processing: Done";
     });
