@@ -66,7 +66,6 @@ function updateTextDetectionAll() {
     });
   } else {
     status.innerText = "All images processed.";
-    window.textDetectionEnabled = false;
   }
 }
 
