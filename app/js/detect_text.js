@@ -63,9 +63,19 @@ function updateTextDetectionAll() {
   if (imageFolderIndex < imageFolderFiles.length - 1) {
     updateTextDetection().then(() => {
       updateStatusDetectTextDone();
+      status.innerText =
+        "Processing image " +
+        (imageFolderIndex + 1) +
+        " of " +
+        imageFolderFiles.length;
+      window.textDetectionEnabled = false;
     });
   } else {
-    status.innerText = "All images processed.";
+    updateTextDetection().then(() => {
+      updateStatusDetectTextDone();
+      status.innerText = "All images processed.";
+      window.textDetectionEnabled = false;
+    });
   }
 }
 
@@ -375,7 +385,7 @@ function updateStatusDetectTextDone() {
     if (textsInput.value !== "") {
       statusDetectTextDoneUpdate = true;
       textsInput2.value += textsInput.value + "\n";
-      getNextImageInFolder();
+      // getNextImageInFolder();
       // detectTexts();
       // statusDetectTextDone = false;
       // statusDetectTextDoneUpdate = false;
