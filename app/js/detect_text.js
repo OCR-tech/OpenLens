@@ -54,13 +54,20 @@ function setTextDetectionMode(mode) {
 }
 
 statusDetectTextDone = false;
+// statusDetectTextDoneUpdate = false;
 // =========================================//
 // In your main loop or after detection, call this:
 function updateTextDetectionAll() {
+  const status = document.getElementById("status");
   // Run detection and update status
-  updateTextDetection().then(() => {
-    updateStatusDetectTextDone();
-  });
+  if (imageFolderIndex < imageFolderFiles.length - 1) {
+    updateTextDetection().then(() => {
+      updateStatusDetectTextDone();
+    });
+  } else {
+    status.innerText = "All images processed.";
+    window.textDetectionEnabled = false;
+  }
 }
 
 // =========================================//
@@ -369,6 +376,11 @@ function updateStatusDetectTextDone() {
     if (textsInput.value !== "") {
       statusDetectTextDoneUpdate = true;
       textsInput2.value += textsInput.value + "\n";
+      getNextImageInFolder();
+      // detectTexts();
+      // statusDetectTextDone = false;
+      // statusDetectTextDoneUpdate = false;
+      return;
     }
   }
 }
@@ -445,6 +457,7 @@ function detectTexts() {
   status.innerText = "Detecting text...";
   window.textDetectionEnabled = true;
   detectTextButton.disabled = true;
+  // statusDetectTextDoneUpdate = false;
 }
 
 // =========================================//

@@ -577,14 +577,12 @@ function showImageInFolder() {
 }
 
 // =========================================//
-// function getNextImageInFolder() {
-async function getNextImageInFolder() {
+function getNextImageInFolder() {
   // alert("getNextImageInFolder");
 
   if (imageFolderIndex < imageFolderFiles.length - 1) {
     imageFolderIndex++;
     showImageInFolder();
-    // detectTexts();
   }
 }
 
