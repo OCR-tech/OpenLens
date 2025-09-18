@@ -57,24 +57,10 @@ statusDetectTextDone = false;
 // =========================================//
 // In your main loop or after detection, call this:
 function updateTextDetectionAll() {
-  if (imageFolderIndex < imageFolderFiles.length - 1) {
-    updateTextDetection().then(() => {
-      updateStatusDetectTextDone();
-
-      document.getElementById("status").innerText =
-        "Image " + (imageFolderIndex + 1) + " of " + imageFolderFiles.length;
-
-      getNextImageInFolder().then(() => {
-        detectTexts();
-      });
-    });
-  } else {
-    updateTextDetection().then(() => {
-      updateStatusDetectTextDone();
-      document.getElementById("status").innerText =
-        "Image folder processing: Done";
-    });
-  }
+  // Run detection and update status
+  updateTextDetection().then(() => {
+    updateStatusDetectTextDone();
+  });
 }
 
 // =========================================//
@@ -359,6 +345,7 @@ function detectTextsTesseract(canvas) {
         window.textDetectionEnabled = false;
         detectTextButton.disabled = false;
         statusDetectTextDone = true;
+
         // alert("done");
         resolve();
       })
@@ -379,8 +366,8 @@ function updateStatusDetectTextDone() {
 
   if (statusDetectTextDoneUpdate) return;
   else {
-    statusDetectTextDoneUpdate = true;
     if (textsInput.value !== "") {
+      statusDetectTextDoneUpdate = true;
       textsInput2.value += textsInput.value + "\n";
     }
   }
