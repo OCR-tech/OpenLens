@@ -53,61 +53,6 @@ function setTextDetectionMode(mode) {
   localStorage.setItem("textDetectionMode", mode);
 }
 
-// =========================================//
-// function browseFolder() {
-//   alert("browseFolder");
-
-//   const videoSource = document.getElementById("video-source");
-//   const btnStart = document.getElementById("btn-start");
-//   const btnCommand = document.getElementById("btn-command");
-//   const btnVoice = document.getElementById("btn-voice");
-//   const btnOk = document.getElementById("btn-ok");
-
-//   const fileInput = document.createElement("input");
-//   fileInput.type = "file";
-//   fileInput.webkitdirectory = true; // Enable folder selection
-//   fileInput.multiple = true;
-
-//   if (videoSource.value === "video") {
-//     fileInput.accept = "video/*";
-//   } else if (videoSource.value === "image") {
-//     fileInput.accept = "image/*";
-//   }
-
-//   fileInput.onchange = function (event) {
-//     const files = Array.from(event.target.files);
-//     if (files.length > 0) {
-//       const fileNames = files.map((f) => f.name).join(", ");
-//       document.getElementById("status").innerText =
-//         "Selected files: " + fileNames;
-//       btnStart.disabled = false;
-//       btnCommand.disabled = false;
-//       btnVoice.disabled = false;
-//       btnOk.disabled = true;
-
-//       if (videoSource.value === "video") {
-//         window.selectedVideoFiles = files;
-//         // Optionally: CheckVideo(files[0]);
-//         // Optionally: startVideo(URL.createObjectURL(files[0]));
-//       } else if (videoSource.value === "image_file") {
-//         window.selectedImageFiles = files;
-//       } else if (videoSource.value === "image_folder") {
-//         window.selectedImageFiles = files;
-//         // Start processing images in the folder
-//         startImageDetectionSequence();
-//         // Optionally: startImage(URL.createObjectURL(files[0]));
-//       }
-//       startButton();
-//     } else {
-//       document.getElementById("status").innerText = "No files selected.";
-//       window.selectedVideoFiles = null;
-//       window.selectedImageFiles = null;
-//     }
-//   };
-
-//   fileInput.click();
-// }
-
 statusDetectTextDone = false;
 // =========================================//
 // In your main loop or after detection, call this:
@@ -131,24 +76,6 @@ function updateTextDetectionAll() {
     });
   }
 }
-// function updateTextDetectionAll() {
-//   if (imageFolderIndex < imageFolderFiles.length - 1) {
-//     updateTextDetection().then(() => {
-//       updateStatusDetectTextDone(); // <-- Only once per image
-//       document.getElementById("status").innerText =
-//         "Image " + (imageFolderIndex + 1) + " of " + imageFolderFiles.length;
-//       getNextImageInFolder();
-//       setTimeout(updateTextDetectionAll, 300); // Small delay to allow image to load
-//     });
-//   } else {
-//     updateTextDetection().then(() => {
-//       updateStatusDetectTextDone(); // <-- Only once for last image
-//       document.getElementById("status").innerText =
-//         "Image folder processing: Done";
-//       textIntervalId = null; // Reset so you can run again if needed
-//     });
-//   }
-// }
 
 // =========================================//
 function updateTextDetection() {
@@ -442,6 +369,7 @@ function detectTextsTesseract(canvas) {
   });
 }
 
+statusDetectTextDoneUpdate = false;
 // =========================================//
 function updateStatusDetectTextDone() {
   // alert("updateStatusDetectTextDone");
@@ -449,8 +377,12 @@ function updateStatusDetectTextDone() {
   const textsInput = document.getElementById("texts-input");
   const textsInput2 = document.getElementById("texts-input2");
 
-  if (textsInput.value !== "") {
-    textsInput2.value += textsInput.value + "\n";
+  if (statusDetectTextDoneUpdate) return;
+  else {
+    statusDetectTextDoneUpdate = true;
+    if (textsInput.value !== "") {
+      textsInput2.value += textsInput.value + "\n";
+    }
   }
 }
 
