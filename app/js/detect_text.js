@@ -385,10 +385,6 @@ function updateStatusDetectTextDone() {
     if (textsInput.value !== "") {
       statusDetectTextDoneUpdate = true;
       textsInput2.value += textsInput.value + "\n";
-      // getNextImageInFolder();
-      // detectTexts();
-      // statusDetectTextDone = false;
-      // statusDetectTextDoneUpdate = false;
       return;
     }
   }
@@ -466,7 +462,7 @@ function detectTexts() {
   status.innerText = "Detecting text...";
   window.textDetectionEnabled = true;
   detectTextButton.disabled = true;
-  // statusDetectTextDoneUpdate = false;
+  statusDetectTextDoneUpdate = false;
 }
 
 // =========================================//
