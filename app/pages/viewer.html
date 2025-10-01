@@ -213,6 +213,15 @@
       };
       document.getElementById("btn-delete").onclick = async () => {
         if (items.length > 1) {
+          // Add confirmation dialog before deleting
+          const confirmDelete = confirm(
+            "Are you sure you want to delete this item?"
+          );
+          if (!confirmDelete) {
+            document.getElementById("status-bar").textContent =
+              "Delete cancelled.";
+            return;
+          }
           const id = items[currentIndex].id;
           await fetch(`${API}/${id}`, { method: "DELETE" });
           await fetchItems();
@@ -221,7 +230,7 @@
           document.getElementById("status-bar").textContent = "Item deleted.";
         } else {
           document.getElementById("status-bar").textContent =
-            "Cannot delete last item.";
+            "Cannot delete the last item. At least one item must remain.";
         }
       };
 
