@@ -415,6 +415,51 @@
           ></div>
         </div>
 
+        <!-- Follower Detection Settings -->
+        <div class="settings-row">
+          <label for="follower-switch" title="Detects people following behavior."
+            >Follower Detection</label
+          >
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="follower-switch"
+              title="Toggle follower detection"
+              placeholder="Toggle follower detection"
+              onclick="toggleFollowerDetection()"
+            />
+            <span class="slider"></span>
+          </label>
+          <input
+            type="range"
+            id="follower-sensitivity-slider"
+            min="0"
+            max="10"
+            value="5"
+            disabled="true"
+            title="Adjust follower detection sensitivity"
+            placeholder="Adjust follower detection sensitivity"
+            oninput="updateValueFollower(this.value)"
+          />
+          <span id="follower-sensitivity-value">5</span>
+
+          <div
+            class="status-color normal"
+            id="follower-status-normal"
+            title="Normal"
+          ></div>
+          <div
+            class="status-color warn"
+            id="follower-status-warn"
+            title="Warning"
+          ></div>
+          <div
+            class="status-color alert"
+            id="follower-status-alert"
+            title="Alert"
+          ></div>
+        </div>
+
         <!-- <Additional Settings> -->
       </div>
     </div>
